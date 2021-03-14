@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax 简单测试1</title>
+    <script>
+        window.onload = function (){
+            var btn = document.getElementById("button01");
+            btn.onclick = function (){
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", "/test01/profile");
+                xmlhttp.responseType = "json";
+                xmlhttp.send();
+
+                xmlhttp.onload = function (){
+                    var profile = xmlhttp.response;
+                    alert(profile["name"]);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>ajax 简单测试1</h1>
+<hr />
+<p>
+    <span>this is a simple ajax demo</span>
+</p>
+<input type="button" id="button01" value="按我看看"/>
+</body>
+</html>
