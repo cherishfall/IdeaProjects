@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>人员管理</title>
+</head>
+<body>
+
+<h1>peradmin.html</h1>
+<h2>人员管理</h2></body>
+<hr />
+
+<a href="/person/add">add</a><br />
+<a href="/person/find">find</a><br />
+<hr />
+
+<table id="table_one" border="1px">
+    <thead>
+    <tr>
+        <th>编号</th><th>姓名</th><th>年龄</th><th>性别</th><th>更改</th><th>删除</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="per:${people}" >
+        <td th:text="${per.getId()}"></td>
+        <td th:text="${per.getName()}"></td>
+        <td th:text="${per.getAge()}"></td>
+        <td th:text="${per.getSex()}"></td>
+        <td><button >更改</button></td>
+        <td><button>删除</button></td>
+
+    </tr>
+    </tbody>
+</table>
+
+</html>

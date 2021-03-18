@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+update
+<hr />
+<form method="post" action="/person/update">
+
+    <input type="number" name="flag" th:value="${p.getFlag}" hidden>
+    <input type="number" name="id" th:value="${p.getId()}" hidden>
+    姓名<input type="text" name="name" th:value="${p.getName()}" disabled><br />
+    年龄<input type="number" name="age" th:value="${p.getAge()}"><br />
+    性别<input type="text" name="sex" th:value="${p.getSex()}"><br />
+    <input type="submit">
+</form>
+<a href="/person"> 返回首页</a>
+</body>
+</html>
