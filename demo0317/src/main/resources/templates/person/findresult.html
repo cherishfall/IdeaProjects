@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查询结果</title>
+</head>
+<body>
+/person/findresult.html
+查询结果
+<hr />
+<table border="1px">
+    <thead>
+    <tr>
+        <th>编号</th><th>姓名</th><th>年龄</th><th>性别</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="per:${people}" >
+        <td th:text="${per.getId()}"></td>
+        <td th:text="${per.getName()}"></td>
+        <td th:text="${per.getAge()}"></td>
+        <td th:text="${per.getSex()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/peradmin"> 返回首页</a>
+</body>
+</html>

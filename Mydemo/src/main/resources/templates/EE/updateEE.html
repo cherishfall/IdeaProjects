@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改员工信息</title>
+</head>
+<body>
+<h1>/EE/updateEE.html</h1>
+<h2 th:text="'修改'+${dept_name}+ ' 部门员工'"></h2>
+<hr />
+
+<form method="post" action="/EE/updateEE">
+    <label>编号：</label><input type="text" name="id" th:value="${EE.getId()}" readonly> <br />
+    <label>姓名：</label><input type="text" name="name" th:value="${EE.getName()}" readonly><br />
+    <label>电话：</label><input type="tel" name="phone" th:value="${EE.getPhone()}"><br />
+    <label>性别：</label><input type="text" name="sex" th:value="${EE.getSex()}"><br />
+    <label>年龄：</label><input type="number" name="age" th:value="${EE.getAge()}"><br />
+    <label>账户：</label><input type="text" name="acount" th:value="${EE.getAcount()}" readonly><br />
+<!--    弄一个密码校验还是比较好的。-->
+    <label>密码：</label><input type="password" name="pwd" th:value="${EE.getPwd()}"><br />
+    <label>部门编号：</label><input type="number" name="dept_id" th:value="${EE.getDept_id()}" readonly><br />
+    <input type="number" name="flag" th:value="${EE.getFlag()}" hidden>
+    <input hidden type="number" name="dept_id" th:value="${dept_id}">
+    <input hidden type="text" name="dept_name" th:value="${dept_name}">
+    <input type="reset"> &nbsp;&nbsp; <input type="submit">
+</form>
+
+<br />
+<hr />
+<a href="/dept">返回部门管理页面</a>
+</body>
+</html>

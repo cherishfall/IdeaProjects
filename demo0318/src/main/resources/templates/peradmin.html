@@ -26,18 +26,8 @@
         <td th:text="${per.getName()}"></td>
         <td th:text="${per.getAge()}"></td>
         <td th:text="${per.getSex()}"></td>
-        <td>
-            <form method="get" action="/person/update">
-                <input type="number" name="id" th:value="${per.getId()}" hidden>
-                <button type="submit">修改</button>
-            </form>
-        </td>
-        <td>
-            <form method="post" action="/person/delete">
-                <input type="number" name="id" th:value="${per.getId()}" hidden>
-                <button type="submit">删除</button>
-            </form>
-        </td>
+        <td><button >更改</button></td>
+        <td><button>删除</button></td>
 
     </tr>
     </tbody>

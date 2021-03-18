@@ -8,59 +8,71 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/person")
+//@RequestMapping("/person")
 public class PersonController {
 
     @Autowired
     Serv serv;
 
-    @GetMapping("/add")
+    @GetMapping("/person/add")
     String add(){
-        return "person/add";
+        return "/person/add";
     }
 
-    @PostMapping("/add")
-    @ResponseBody
-    List<Person> responAdd(Person p){
+    @PostMapping("/person/add")
+//    @ResponseBody
+    String responAdd(Person p){
         serv.addPenson(p);
-        return serv.findByName(p.name);
+        return "redirect:/peradmin";
     }
 
-    @GetMapping("/delete")
-    String delete(){
-        return "person/delete";
-    }
-
-    @PostMapping("/delete")
-    @ResponseBody
-    Person responDelete(Integer id){
-        serv.deletePerson(id);
-        return serv.findById(id);
-    }
-
-    @GetMapping("/update")
-    String update(Model model, @RequestParam(value = "id", defaultValue = "1") Integer id){
+    @GetMapping("/person/update")
+    String update(Model model, @RequestParam(value = "id") Integer id){
         Person p = serv.findById(id);
         model.addAttribute("p", p);
-        return "person/update";
+        return "/person/update";
     }
 
-    @PostMapping("/update")
-    @ResponseBody
-    Person responUpdate(Person p){
+    @PostMapping("/person/update")
+//    @ResponseBody
+    String responUpdate(Person p){
         serv.updatePerson(p);
-        return serv.findById(p.id);
+        return "redirect:/peradmin";
     }
 
-    @GetMapping("/find")
+
+    @GetMapping("/person/delete")
+    String delete(){
+        return "/person/delete";
+    }
+
+    @PostMapping("/person/delete")
+//    @ResponseBody
+    String responDelete(Integer id){
+        serv.deletePerson(id);
+        return "redirect:/peradmin";
+    }
+
+
+
+    @GetMapping("/person/find")
     String find(){
-        return "person/find";
+        return "/person/find";
     }
 
-    @PostMapping("/find")
-    @ResponseBody
-    List<Person> responFind(String name){
-        return serv.findByName(name);
+    @PostMapping("/person/find")
+//    @ResponseBody
+    String responFind(Model model, String name){
+        List<Person> people = serv.findByName(name);
+        model.addAttribute("people", people);
+        return "forward:/person/findresult";
+    }
+
+//    @GetMapping ("/person/findresult") 不行
+//    @RequestMapping("/person/findresult") 可以
+    @PostMapping("/person/findresult")
+    String findResult(){
+        return "/person/findresult";
     }
 
 

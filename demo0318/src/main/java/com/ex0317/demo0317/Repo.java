@@ -30,7 +30,7 @@ public class Repo {
     }
 
     Person findById(Integer id){
-        String sql = "SELECT * FROM person WHERE id=? ";
+        String sql = "SELECT * FROM person WHERE id=?";
         RowMapper<Person> rowMapper = new BeanPropertyRowMapper<>(Person.class);
         return jdbc.queryForObject(sql, rowMapper, id);
     }
