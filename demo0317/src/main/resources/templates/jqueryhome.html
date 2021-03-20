@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{js/jquery.js}"></script>
+
+    <script>
+        $(document).ready(function (){
+            $("#test_jquery").text("jquery-3.6.0已经启用");
+            // alert("jquery-3.6.0已经启用");
+        })
+    </script>
+</head>
+<body>
+<h1>jquerthome.html</h1>
+<hr />
+<h3 th:text="${str}"></h3>
+<hr>
+<h3 id="test_jquery"></h3>
+
+<hr/>
+<a href="/jquery/jq01">jq01</a><br />
+<a href="/jquery/jq02">jq02</a><br />
+
+</body>
+</html>

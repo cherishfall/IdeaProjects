@@ -68,6 +68,13 @@ public class PersonController {
         return "forward:/person/findresult";
     }
 
+    @PostMapping("/person/find_json")
+    @ResponseBody
+    List<Person> respondFindJson(String name){
+        List<Person> people = serv.findByName(name);
+        return people;
+    }
+
 //    @GetMapping ("/person/findresult") 不行
 //    @RequestMapping("/person/findresult") 可以
     @PostMapping("/person/findresult")

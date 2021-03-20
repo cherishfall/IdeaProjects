@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script>
+        $(document).ready(function (){
+            // alert("jquery就绪");
+            $("#jq_test").text("jquery就绪");
+            $("#btn01").click(function () {
+                $("#myname").load("test01.html");
+            });
+        })
+    </script>
+</head>
+<body>
+<hr/>
+<p th:text="${str}"></p>
+<p id="jq_test"></p>
+<hr />
+<button type="button" id="btn01">点击显示我的名字</button>
+<div id="myname"></div>
+</body>
+</html>

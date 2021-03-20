@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function (){
+                $.post(
+                    "/person/find_json",
+                    {name: $("#name").val()},
+                    // {name:"李凡"},
+                    function (data) {//获取到的data是个js对象
+
+
+                        // console.log(typeof data
+                        console.log(jQuery.isPlainObject(data));
+                        console.log()
+
+                        // var str = JSON.stringify(data); 可以
+                        let str = data.toString();
+                        $("#find_result").html(str);
+
+                        $("#td0").text(data[0].id);
+                        $("#td1").text(data[0].name);
+                        $("#td2").text(data[0].age);
+                        $("#td3").text(data[0].sex);
+                    }
+                    // "json"
+                )
+            })
+        })
+    </script>
+</head>
+<body>
+<form>
+    <input type="text" id="name" name="name">
+    <button type="button" id="btn" name="btn">提交</button>
+</form>
+<hr />
+<div id="find_result"></div>
+<hr />
+<table border="1px">
+    <thead>
+    <tr>
+        <th>员工编号</th> <th>姓名</th> <th>年龄</th><th>性别</th>
+    </tr>
+    </thead>
+    <tbody>
+        <td id="td0"></td>
+        <td id="td1"></td>
+        <td id="td2"></td>
+        <td id="td3"></td>
+    </tbody>
+</table>
+
+</body>
+</html>

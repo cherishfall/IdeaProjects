@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>/dept.html</h1>
+<h2>部门管理</h2>
+<hr />
+
+<br />
+<a href="/Dept/addDept">新增部门</a><br/>
+<a href="/Dept/findDept">查找部门</a><br />
+<a href="/EE/findEE">查找员工</a>
+<br />
+<hr />
+
+<table border="1px">
+    <thead>
+    <tr>
+        <th>部门编号</th> <th>部门名称</th> <th>部门代码</th> <th>部门员工</th> <th>修改</th> <th>删除</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dept:${depts}">
+        <td th:text="${dept.getId()}"></td>
+        <td th:text="${dept.getName()}"></td>
+        <td th:text="${dept.getCode()}"></td>
+        <td>
+            <form method="get" action="/ee">
+                <input hidden type="number" name="dept_id" th:value="${dept.getId()}">
+                <input hidden type="text" name="dept_name" th:value="${dept.getName()}">
+                <button type="submit">部门员工</button>
+            </form>
+        </td>
+        <td>
+            <form method="get" action="/Dept/updateDept">
+                <input hidden type="number" name="id" th:value="${dept.getId()}">
+                <button type="submit">修改</button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="/Dept/deleteDept">
+                <input hidden type="number" name="id" th:value="${dept.getId()}">
+                <button type="submit">删除</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

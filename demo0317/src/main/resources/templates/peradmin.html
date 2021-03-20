@@ -3,6 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>人员管理</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#find_person").click(function (){
+                $.post(
+                    "/person/find_json",
+                    {name: $("#name").val()},
+                    function (data){
+                        if(data.length == 0){
+                            $("#no_find_result").show();
+                            $("#yes_find_result").hide();
+                        }else {
+                            let $ttbody = $("#ttbody");
+                            let row;
+                            for(let i=0; i< data.length; ++i){
+                                //<tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                                if(i==0) $("#ttbody tr").remove();
+                                row = data[i];
+                                $ttbody.append(
+                                    "<tr><td>"+row.id+"</td><td>"+row.name+"</td><td>"
+                                    +row.age+"</td><td>"+row.sex+"</td></tr>"
+                                );
+                            $("#yes_find_result").show();
+                            $("#no_find_result").hide();
+                            }
+                        }
+                    }
+                )
+            })
+        })
+    </script>
 </head>
 <body>
 
@@ -12,6 +43,26 @@
 
 <a href="/person/add">add</a><br />
 <a href="/person/find">find</a><br />
+
+<hr />
+<form>
+    <label for="name">查找人员：</label>
+    <input type="text" id="name" name="name" placeholder="请输入查找的人员姓名"/> &nbsp; &nbsp;
+    <button type="button" id="find_person">查找</button>
+</form>
+<div id="no_find_result" style="display: none"><p>未查找到该成员</p></div>
+<div id="yes_find_result" style="display: none">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>员工编号</th> <th>姓名</th> <th>年龄</th> <th>性别</th>
+        </tr>
+        </thead>
+        <tbody id="ttbody">
+
+        </tbody>
+    </table>
+</div>
 <hr />
 
 <table id="table_one" border="1px">

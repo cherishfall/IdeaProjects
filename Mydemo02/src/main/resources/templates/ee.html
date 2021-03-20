@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>/ee.html</h1>
+<h2 th:text="${dept_id} + ${dept_name} + ' 部门员工管理'"></h2>
+<hr />
+<br />
+<form method="get" action="/EE/addEE">
+    <input hidden type="number" name="dept_id" th:value="${dept_id}">
+    <input hidden type="text" name="dept_name" th:value="${dept_name}">
+    <button type="submit" th:text="'新增'+${dept_name}+ ' 部门员工'"></button>
+</form>
+<hr />
+<table border="1px">
+    <thead>
+    <tr>
+        <th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th> <th>密码</th>
+        <th>修改</th> <th>删除</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="ee:${ees}">
+        <td th:text="${ee.id}"></td>
+        <td th:text="${ee.name}"></td>
+        <td th:text="${ee.phone}"></td>
+        <td th:text="${ee.sex}"></td>
+        <td th:text="${ee.age}"></td>
+        <td th:text="${ee.acount}"></td>
+        <td>******</td>
+        <td>
+            <form method="get" action="/EE/updateEE">
+                <input hidden type="number" name="dept_id" th:value="${dept_id}">
+                <input hidden type="text" name="dept_name" th:value="${dept_name}">
+                <input type="number" name="id" th:value="${ee.id}" hidden>
+                <button type="submit">修改</button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="/EE/deleteEE">
+                <input type="number" name="id" th:value="${ee.id}" hidden>
+                <input hidden type="number" name="dept_id" th:value="${dept_id}">
+                <input hidden type="text" name="dept_name" th:value="${dept_name}">
+                <button type="submit">删除</button>
+            </form>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+<br />
+<hr />
+<a href="/dept">返回部门管理页面</a>
+</body>
+</html>

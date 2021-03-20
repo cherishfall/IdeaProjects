@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加部门</title>
+</head>
+<body>
+<h1>/Dept/addDept.html</h1>
+<h2>新增部门</h2>
+<hr />
+<form method="post" action="/Dept/addDept">
+    <span><input type="number" name="id" value="-1" hidden><br /></span>
+    <span><label>部门名称：</label><input type="text" name="name" required><br /></span>
+    <span><label>部门代码：</label><input type="text" name="code" required><br /></span>
+    <span><input type="number" name="flag" value="1" hidden></span>
+    <span><input type="reset"> &nbsp; &nbsp; <input type="submit"></span>
+</form>
+<br />
+<hr />
+<a href="/dept">返回部门管理页面</a>
+</body>
+</html>
