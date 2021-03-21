@@ -44,6 +44,15 @@ public class DeptController {
         return "/Dept/findDeptResult";
     }
 
+    @PostMapping("/findDeptJson")
+//    @GetMapping("/findDeptJson")
+    @ResponseBody
+    Department responseFindDeptJson(String name){
+        Department dept = null;
+        dept = departmentService.findByName(name);
+        return dept;
+    }
+
 
     @GetMapping("/deleteDept")
     String deleteDept(){

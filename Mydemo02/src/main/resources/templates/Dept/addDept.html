@@ -1,22 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>增加部门</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/dept_validate.js}"></script>
+    <script th:src="@{/js/ee_validate.js}"></script>
+    <script>
+        $(document).ready(function (){
+            // alert("jquery已启用");
+        })
+    </script>
+    <script>
+        function check_add_dept() {
+            let flag = 0;
+            let $dept_name=$("#dept_name").val();
+            let $dept_code=$("#dept_code").val();
+
+            if(valid_dept_name($dept_name)==false || valid_dept_code($dept_code)==false){
+                $("#error_dept_code").show();
+                $("#error_dept_name").show();
+                $("#dept_reset").click();
+                flag = 1;
+            }
+            return flag;
+        }
+    </script>
+
+    <script>
+        //给添加部门表单提交按钮注册事件
+        $(document).ready(function () {
+            $("#dept_submit").click(function () {
+                //清除上一次点击的提示信息
+                    $("#add_dept_result").hide();
+                    $("#success_info").text("");
+                    $("#save_dept_name").text("");
+
+                //表单检查
+                let flag = check_add_dept();
+
+                //通过
+                if(flag == 0){
+                    //保留部门名称
+                    let dept_name = $("#dept_name").val();
+
+                   // 新增部门，ajax方式
+                   $.post(
+                       "/Dept/addDept",
+                       $("#add_dept_form").serialize(),
+                       function () { //绑定成功函数
+                           //先把错误信息清楚，填写的表单信息清除
+                           $("#error_dept_name").hide();
+                           $("#error_dept_code").hide();
+                           $("#dept_reset").click();
+
+                           $("#success_info").text("添加成功");//添加成功提示信息
+                           $("#save_dept_name").text(dept_name);//把提交成功的部门名称保留在隐藏域里
+                           $("#add_dept_result").show()
+                       }
+                   )
+                }
+            }
+
+            )
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#yes_add_ee_btn").click(function (){
+                let dept_name = $("#save_dept_name").text();
+                $.post(
+                    "/Dept/findDeptJson",
+                    {name: dept_name},
+                    function (data) {
+                        if(typeof data == "string"){
+                            ;//没有返回值
+                        }else {
+                            let url = "/EE/addEE?dept_id="+data.id+"&dept_name="+data.name;
+                            window.location.href=url;
+                        }
+                    }
+                )
+            })
+        })
+    </script>
+
+
+
 </head>
 <body>
 <h1>/Dept/addDept.html</h1>
 <h2>新增部门</h2>
 <hr />
-<form method="post" action="/Dept/addDept">
-    <span><input type="number" name="id" value="-1" hidden><br /></span>
-    <span><label>部门名称：</label><input type="text" name="name" required><br /></span>
-    <span><label>部门代码：</label><input type="text" name="code" required><br /></span>
-    <span><input type="number" name="flag" value="1" hidden></span>
-    <span><input type="reset"> &nbsp; &nbsp; <input type="submit"></span>
+
+<form id="add_dept_form"> <!--    method="post" action="/Dept/addDept"-->
+    <input type="number" id="dept_id" name="id" value="-1" hidden> <!--    部门编号-->
+    <input type="number" id="dept_flag" name="flag" value="1" hidden> <!--    部门启用状态-->
+    部门名称：<input type="text" id="dept_name" name="name">&nbsp;<span id="error_dept_name" style="color: #8b0000; display: none">部门名称非空不能超过16个字符</span><br />
+    部门代码：<input type="text" id="dept_code" name="code">&nbsp;<span id="error_dept_code" style="color: #8b0000; display: none">部门代码非空不能超过16个字符</span><br />
+    <button type="reset" id="dept_reset">重置</button> &nbsp;
+    <button type="button" id="dept_submit">提交</button>
 </form>
-<br />
+<hr/>
+
+<div id="add_dept_result" style="display: none">
+    <p id="success_info"></p>
+    <p id="save_dept_name"></p>
+    <form method="get" action="/EE/addEE" id="form_add_ee">
+        是否向该部门添加员工：
+        <a href="/dept"><button type="button">否</button></a>
+        <button type="button" id="yes_add_ee_btn">是</button>
+    </form>
+</div>
+
+
 <hr />
+
+
+
 <a href="/dept">返回部门管理页面</a>
 </body>
 </html>

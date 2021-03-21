@@ -3,6 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            //获取表格的条目总数
+            let $trs = $("#table_ee_tbody").children();
+            let trs_number = $trs.length;
+
+            //每页显示的条目数
+            let per_page_item_number = 4;
+
+            //控制分页
+            if(trs_number <= per_page_item_number) {//总条目够一页显示的，不用分页
+                $("#page_controller").hide();
+            }else {//总条目多的时候，需要分页
+                page_program();
+
+                $("#page_prev_btn").click(function () {
+                    let page_number = parseInt($("#page_number").text());
+                    page_number -= 1;
+                    $("#page_number").text(page_number);
+                    page_program();
+                })
+
+                $("#page_next_btn").click(function (){
+                    let page_number = parseInt($("#page_number").text());
+                    page_number += 1;
+                    $("#page_number").text(page_number);
+                    page_program();
+                })
+            }
+        })
+    </script>
+
+    <script>
+        function page_program($page_perv_btn, $page_next_btn) {
+            //获取表格的条目总数
+            let $trs = $("#table_ee_tbody").children();
+            let trs_number = $trs.length;
+
+            //每页显示的条目数
+            let per_page_item_number = 4;
+
+            //算一下总页数, js 的除法可以算出小数来。
+            let total_page = Math.round(trs_number / per_page_item_number);
+
+            let page_number = parseInt($("#page_number").text());
+
+            //获取上一页、下一页的按钮
+            $page_perv_btn =  $("#page_prev_btn");
+            $page_next_btn = $("#page_next_btn");
+            //如果是第一页，隐藏上一页按钮,最后一页，隐藏下一页按钮
+            if(page_number == 0){
+                // $("#page_prev_btn").hide();
+                $page_perv_btn.hide();
+                $page_next_btn.show();
+            }else if(page_number == (total_page - 1)){
+                // $("#page_next_btn").hide();
+                $page_perv_btn.show();
+                $page_next_btn.hide();
+            }else {
+                $page_perv_btn.show();
+                $page_next_btn.show();
+            }
+
+            $trs.hide();//先把所有的条目给隐藏了
+            //获取当前显示的页数
+
+            //显示数据
+            for(let i=0; i < per_page_item_number; ++i){
+                $trs.eq(page_number * per_page_item_number + i).show();
+            }
+        }
+
+    </script>
 </head>
 <body>
 <h1>/ee.html</h1>
@@ -23,7 +103,7 @@
     </tr>
     </thead>
 
-    <tbody>
+    <tbody id="table_ee_tbody">
     <tr th:each="ee:${ees}">
         <td th:text="${ee.id}"></td>
         <td th:text="${ee.name}"></td>
@@ -52,6 +132,13 @@
     </tr>
     </tbody>
 </table>
+
+<div id="page_controller">
+    <!--    <input hidden type="number" id="page_number" name="page_number" value="0" >-->
+    <p>页数：<span id="page_number">0</span></p>
+    <button type="button" id="page_prev_btn">上一页</button> &nbsp; &nbsp;
+    <button type="button" id="page_next_btn">下一页</button>
+</div>
 
 <br />
 <hr />

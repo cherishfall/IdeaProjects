@@ -3,6 +3,7 @@ package com.innotek.demo.Repositories;
 import com.innotek.demo.Department;
 import com.innotek.demo.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -43,8 +44,15 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 
     public Department findByName(String name){
         String sql = "select * from department where flag<>0 and name=?";
+        Department dept = null;
         RowMapper<Department> rowMapper = new BeanPropertyRowMapper<>(Department.class);
-        return jdbcTemplate.queryForObject(sql, rowMapper, name);
+        try {
+            dept = jdbcTemplate.queryForObject(sql, rowMapper, name);
+        }catch (IncorrectResultSizeDataAccessException e){
+            dept = null;
+        }
+
+        return dept;
 
     }
 

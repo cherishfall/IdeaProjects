@@ -60,6 +60,13 @@ public class EEController {
         return "/EE/findEEResult";
     }
 
+    @PostMapping("/findEEJson")
+    @ResponseBody
+    List<Employee> responseFindEEJson(String name){
+        List<Employee> ees = employeeService.findByName(name);
+        return ees;
+    }
+
 
 
     @GetMapping("/deleteEE")
