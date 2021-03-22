@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增员工</title>
+    <style>
+        .error {color: darkred; display: none}
+    </style>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/ee_validate.js}"></script>
+<!--    检查jquery是否启用-->
+    <script>
+        $(function () {
+            // alert("jquery 已经启用");
+        })
+    </script>
+
+<!--    提交时调用的表单验证函数-->
+    <script>
+        function check_ee(){
+            // return false;
+            $(".error").hide();
+
+            let flag = 0;
+            if(valid_ee_name($("#name").val()))
+                ;
+            else {
+                flag = 1;
+                $("#error_name").show();
+            }
+
+            if(valid_ee_phone($("#phone").val()))
+                ;
+            else {
+                flag = 1;
+                $("#error_phone").show();
+            }
+
+            if(valida_ee_sex($("#sex").val()))
+                ;
+            else {
+                flag = 1;
+                $("#error_sex").show();
+            }
+
+            if(valida_ee_age($("#age").val()))
+                ;
+            else {
+                flag = 1;
+                $("#error_age").show();
+            }
+
+            if(valid_ee_acount($("#acount").val()))
+                ;
+            else {
+                flag = 1;
+                $("#error_acount").show();
+            }
+
+
+            if(valid_ee_pwd($("#pwd").val()))
+                ;
+            else {
+                flag = 1;
+                $("#error_pwd").show();
+            }
+
+            // return false;
+
+            if(flag === 1){
+                // let hah = "str";
+                // alert("lifanfan");
+                // alert("lijiaojiao");
+                return false;
+            } else
+                // alert("lifanfantrue");
+                // alert("lijiaojiaotrue");
+                return true;
+        }
+    </script>
+
+<!--提交时表单验证-->
+    <script>
+        $(function () {
+            $("#add_ee_form").submit(function (event) {
+                let flag = check_ee();
+                if(flag == false){
+                    event.preventDefault();
+                    // return false;
+                } else {
+                    return true;
+                }
+            })
+        })
+    </script>
+
+<!-- 聚焦时隐藏，失去焦点时验证，错误显示，正确隐藏-->
+<!--    先绑定表单的聚焦事件-->
+    <script>
+        $(document).ready(function () {
+            $("#name").focus(function () {
+                $("#error_name").hide();
+            })
+
+            $("#phone").focus(function () {
+                $("#error_phone").hide();
+            })
+
+            $("#sex").focus(function () {
+                $("#error_sex").hide();
+            })
+
+            $("#age").focus(function () {
+                $("#error_age").hide();
+            })
+
+            $("#acount").focus(function () {
+                $("#error_acount").hide();
+            })
+
+            $("#pwd").focus(function () {
+                $("error_pwd").hide();
+            })
+        })
+
+    </script>
+
+<!--    绑定表单的blur事件-->
+    <script>
+        $(function () {
+            $("#name").blur(function () {
+                if(valid_ee_name($("#name").val())){
+                    $("#error_name").hide();
+                }else {
+                    $("#error_name").show();
+                }
+            })
+
+            $("#phone").blur(function () {
+                if(valid_ee_phone($("#phone").val())){
+                    $("#error_phone").hide();
+                }else {
+                    $("#error_phone").show();
+                }
+            })
+
+            $("#sex").blur(function () {
+                if(valida_ee_sex($("#sex").val())){
+                    $("#error_sex").hide();
+                }else {
+                    $("#error_sex").show();
+                }
+            })
+
+            $("#age").blur(function () {
+                if(valida_ee_age($("#age").val())){
+                    $("#error_age").hide();
+                }else {
+                    $("#error_age").show();
+                }
+            })
+
+            $("#acount").blur(function () {
+                if(valid_ee_acount($("#acount").val())){
+                    $("#error_acount").hide();
+                }else {
+                    $("#error_acount").show();
+                }
+            })
+
+            $("#pwd").blur(function () {
+                if(valid_ee_pwd($("#pwd").val())){
+                    $("#error_pwd").hide();
+                }else {
+                    $("#error_pwd").show();
+                }
+            })
+
+
+        })
+    </script>
+
+
+</head>
+<body>
+<h1>/EE/addEE.html</h1>
+<h2 th:text="'新增'+${dept_name}+ ' 部门员工'"></h2>
+
+<hr />
+<form method="post" action="/EE/addEE" id="add_ee_form">
+    <input hidden type="text" name="dept_name" th:value="${dept_name}">
+
+
+    姓名: <input type="text" id="name" name="name" required><span class="error" id="error_name" >* 姓名长度不超过16个字符 *</span><br />
+    手机号码: <input type="tel" id="phone" name="phone"><span class="error" id="error_phone" >* 请输入正确的11位电话号码 *</span><br />
+    性别: <input type="text" id="sex" name="sex"><span class="error" id="error_sex" >* 性别请输入男或女 *</span><br />
+    年龄: <input type="number" id="age" name="age"><span class="error" id="error_age" >* 年龄必须在18-65岁 *</span><br />
+    账户：<input type="text" id="acount" name="acount" required><span class="error" id="error_acount" >* 账户长度不超过16个字符 *</span><br />
+    密码：<input type="password" id="pwd" name="pwd" required><span class="error" id="error_pwd" >* 密码长度不超过16个字符 *</span><br />
+    部门编号：<input type="number" id="dept_id" name="dept_id" th:value="${dept_id}" readonly><br />
+    <input type="number" name="id" value="-1" hidden>
+    <input type="number" name="flag" value="1" hidden>
+    <input type="reset"> &nbsp;&nbsp; <input type="submit">
+</form>
+<br />
+
+<hr />
+<a href="/dept">返回部门管理页面</a>
+</body>
+</html>

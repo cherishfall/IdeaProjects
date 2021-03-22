@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="m-register-box-free">
+    <div class="item"><label class="input-placeholder">邮箱地址</label> <input class="username" placeholder="邮箱地址"
+                                                                           id="username" autocomplete="off">
+        <div class="select">
+            <div class="domain" data-value="163.com" style="display: block;">@163.com</div>
+            <ul class="domain-select" style="display: none;">
+                <li class="active" data-value="163.com">@163.com</li>
+                <li data-value="126.com">@126.com</li>
+                <li data-value="yeah.net">@yeah.net</li>
+            </ul>
+        </div>
+        <div class="tip f-dn">6～18个字符，可使用字母、数字、下划线，需要以字母开头</div>
+        <div class="username-tip f-dn" style="display: none;">
+            <div class="username-tip-icon"></div>
+            <div class="username-tip-title">该邮箱地址不可注册</div>
+            <div class="other-select other-suffix-select"><p class="other-select-title">您可以选择其他域名的邮箱：</p>
+                <div class="other-select-ul other-suffix-ul"></div>
+            </div>
+            <div class="other-select same-suffix-select"><p class="other-select-title">您也可以选择相近的邮箱：</p>
+                <div class="other-select-ul same-suffix-ul"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item"><label class="input-placeholder">密码</label> <input class="password" type="password"
+                                                                         placeholder="密码" id="password"
+                                                                         autocomplete="new-password"> <i
+            class="icon-password hide" style="background-color: transparent;"></i>
+        <div class="tip f-dn">长度应为6～18个字符</div>
+    </div>
+    <div class="item item-phone"><label class="input-placeholder">手机号码</label> <input class="phone" placeholder="手机号码"
+                                                                                      id="phone" autocomplete="off">
+        <div class="phone-desc f-dn">
+            <div class="phone-desc-qrcode">
+                <div class="phone-desc-title">手机扫描二维码，快速发送短信进行验证<i>?</i></div>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYAQMAAAC9QHvPAAAABlBMVEUAAAD///+l2Z/dAAACX0lEQVRo3u2aMY4kIRAEA2Fg8gSewtPgaTyFJ2BiIHKNomfntCfd2cyO2RPtILKqMqvRv3/cymwAKHhpAGV7TciSW/bXxYyXpFbcApIktwgDSnUrSFK9mZmQWgHCSC1Xt4JGkqQVBuQPYLT8jD2rOk2iWqmfxQBZbhHUKfpl8h/a8VInVydJPVf+pq/LmFMznd2fVtwKM/Zcy8+6ehvzNEQnOw7hJ8b86Kf3MaYLpwWQ6ybM2LO0Iarb+dzJbD9jJ+v0C8BL6hR9n8+1DGGkTnFaREnaQOyAFpAan81IkyRVLa9BbshmiVfN1L3MUUjZ/rQHCDN2K5fEnuvFjJe6jYxAbmyvGdWK8DMOsu5lJI3UwS2vkdTKxuQAEMfRxb0M5Lr9Cuq5YeYxV5w0oj6d2YR3X9nAa75qZuxZdzM9SdsvYs/NXuoUWWO9mdGZkjd+RqkhTRsqtF7auZWRRuq5OmlGuyTHO+Cly5kVhmUpXuoA3s7Hiqf1i0uZp1c66cxIegWJMz4z9ucyRzsnVjVvJanxJA3czISRjmUA4MlXZWKS7mU2YbxlKZI751TOO+VmhtiT6tkpZEGw+dlpxpHazYyfpA46l6TuZz7UestSPpmJPUnHRarKXHZlewvhr2ZIauXUzlxP3eBdO5cyrzANiFKDs2So5pveM9jbmCdX3349y9YZJNXibMLiYubsUzZnl2QPVMubX76WOTtWvzCBPHvG9wztl3mVC2me4rnCOHnC9Yx5q/KEK9qWMdabmaMdb+NyfTw1J1m6meHbNxmjGdSB7eczI13KfPL3Y//BfAEMfmtySNnL5wAAAABJRU5ErkJggg=="
+                     width="90">
+                <div class="phone-desc-qrcode-footer">扫码不成功？试试<a href="javascript:;" class="j-manual">手动发送</a></div>
+                <div class="phone-desc-title-img"><img
+                        src="//mimg.127.net/p/freemail/index/register/static/2021/img/code_info.176d51b8.png"
+                        width="301"></div>
+            </div>
+            <div class="phone-desc-manual f-dn">
+                <div class="phone-desc-title">请发送短信进行身份验证</div>
+                <div class="phone-desc-manual-body"><p>编辑短信：<span>222</span></p>
+                    <p>发送至：<span>106981630163222</span></p></div>
+                <div class="phone-desc-manual-footer">打字麻烦？试试<a href="javascript:;" class="j-qrcode">扫描二维码</a>发送</div>
+            </div>
+            <div class="phone-desc-info">短信费用由运营商收取</div>
+        </div>
+        <div class="tip f-dn">可通过该手机号找回密码</div>
+    </div>
+    <div class="custom-checkbox service"><span><i></i></span> <input type="checkbox" id="service"> <label>同意<a
+            data-href="https://reg.163.com/agreement.shtml" href="javascript:;">《服务条款》</a>、<a
+            data-href="https://reg.163.com/agreement_game.shtml" href="javascript:;">《隐私政策》</a>和<a
+            data-href="https://hc.reg.163.com/iTerm/doc.html?id=347" href="javascript:;">《儿童隐私政策》</a></label>
+        <div class="tip f-dn">请先同意服务条款</div>
+    </div>
+    <div class="register-option"><a class="j-register" href="javascript:;" data-tj-key="b_register_click">立即注册</a> <a
+            class="j-processing disabled" href="javascript:;">处理中...</a>
+        <div class="tip f-dn"></div>
+    </div>
+</div>
+</body>
+</html>

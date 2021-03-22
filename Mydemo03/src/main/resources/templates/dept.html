@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/jquery.js}"></script>
+
+<!--    测试jquery是否正常使用-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery已经启用")
+        })
+    </script>
+
+<!-- 单纯实现 查询部门-->
+    <script>
+        $(document).ready(function () {
+            $("#find_dept_bth").click(function (){
+                $.post(
+                    "/Dept/findDeptJson",
+                    {name: $("#find_dept_name").val()},
+                    function (data) {
+                        if(typeof data == "string"){
+                            $("#no_find_dept").show();
+                            $("#yes_find_dept").hide();
+                        }else {
+                            $("#find_dept_tbody tr").remove();
+                            let $find_dept_tbody = $("#find_dept_tbody");
+                            let tr = "<tr><td>"+data.id+"</td><td>"+data.name+"</td><td>"+data.code+"</td></tr>";
+                            $find_dept_tbody.append(tr);
+                            $("#no_find_dept").hide();
+                            $("#yes_find_dept").show();
+                        }
+                    }
+                )
+            })
+        })
+    </script>
+
+<!-- 单纯实现 查询员工-->
+    <script>
+        $(document).ready(function (){
+            $("#find_ee_btn").click(function () {
+                $.post(
+                    "/EE/findEEJson",
+                    {name: $("#find_ee_name").val()},
+                    function (data){
+                        if(data.length==0){
+                            $("#yes_find_ee").hide();
+                            $("#no_find_ee").show();
+                        }else {
+                            $("#find_ee_tbody tr").remove();
+                            let $find_ee_tbody = $("#find_ee_tbody"), row;
+                            for (let i=0; i< data.length; ++i){
+                                row=data[i];
+                                //<th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th>
+                                let tr = "<tr>"+
+                                    "<td>"+ row.id +"</td>" +
+                                    "<td>"+ row.name +"</td>"+
+                                    "<td>"+ row.phone +"</td>"+
+                                    "<td>"+ row.sex +"</td>"+
+                                    "<td>"+ row.age +"</td>"+
+                                    "<td>"+ row.acount +"</td>"+
+                                    "</tr>";
+                                $find_ee_tbody.append(tr);
+                                $("#no_find_ee").hide();
+                                $("#yes_find_ee").show();
+                            }
+                        }
+                    }
+
+
+                )
+            });
+        })
+    </script>
+
+<!--    调用分页函数实现，分页功能-->
+    <script>
+        $(document).ready(function () {
+            page_program();
+
+            $("#page_prev_btn").click(function () {
+                let page_number = parseInt($("#page_number").text());
+                page_number -= 1;
+                $("#page_number").text(page_number);
+                page_program();
+            })
+
+            $("#page_next_btn").click(function (){
+                let page_number = parseInt($("#page_number").text());
+                page_number += 1;
+                $("#page_number").text(page_number);
+                page_program();
+            })
+
+        })
+    </script>
+
+<!--    分页函数-->
+    <script>
+        function page_program() {
+            //获取表格的条目总数
+            let $trs = $("#table_dept_tbody").children();
+            let trs_number = $trs.length;
+
+            //每页显示的条目数
+            let per_page_item_number = 4;
+
+            if(trs_number <= per_page_item_number) {//总条目够一页显示的，不用分页
+                $("#page_controller").hide();
+            }else{
+                //算一下总页数, js 的除法可以算出小数来。
+                let total_page = Math.round(trs_number / per_page_item_number);
+
+                //获取当前的页码
+                let page_number = parseInt($("#page_number").text());
+
+                //获取上一页、下一页的按钮
+                $page_perv_btn =  $("#page_prev_btn");
+                $page_next_btn = $("#page_next_btn");
+                //如果是第一页，隐藏上一页按钮,最后一页，隐藏下一页按钮
+                if(page_number == 0){
+                    // $("#page_prev_btn").hide();
+                    $page_perv_btn.hide();
+                    $page_next_btn.show();
+                }else if(page_number == (total_page - 1)){
+                    // $("#page_next_btn").hide();
+                    $page_perv_btn.show();
+                    $page_next_btn.hide();
+                }else {
+                    $page_perv_btn.show();
+                    $page_next_btn.show();
+                }
+
+                $trs.hide();//先把所有的条目给隐藏了
+
+                //显示数据
+                for(let i=0; i < per_page_item_number; ++i){
+                    $trs.eq(page_number * per_page_item_number + i).show();
+                }
+            }
+
+
+        }
+
+    </script>
+
+<!--    综合实现查询部门和员工-->
+    <script>
+
+    </script>
+
+    <script>
+        function append_tr(){
+            if(data.length == 0){ //返回空数组，就是找不到
+                $(".find_info_yes").hide();
+                $(".find_info_no").show();
+            }else {
+                $("#find_info_ee_tbody tr").remove(); //先清空上一次操作的数据
+                let $find_info_ee_tbody = $("#find_info_ee_tbody");
+                for(let i = 0; i < data.length; ++i){
+                    let row = data[i];
+                    let tr = "<tr>" +
+                        "<td>"+ row.id + "</td>"+
+                        "<td>"+ row.name + "</td>"+
+                        "<td>"+ row.phone + "</td>"+
+                        "<td>"+ row.sex + "</td>"+
+                        "<td>"+ row.age + "</td>"+
+                        "<td>"+ row.acount + "</td>"+
+                        "<td>"+ row.dept_id + "</td>"+
+                        "<td>"+ row.dept_name + "</td>"+
+                        "<td>"+ row.dept_code + "</td>"+
+                        "</tr>";
+                    $find_info_ee_tbody.append(tr);
+                }
+
+                $(".find_info_no").hide();
+                $("#find_info_dept").hide();
+                $("#find_info_ee").show();
+            }
+        }
+    </script>
+
+<!--绑定综合查询按钮-->
+    <script>
+        $(function () {
+            $("#com_find_btn").click(function () {
+                //获取查询的员工名和部门名
+                let ee_name = $("#com_ee_name").val().trim();
+                let dept_name = $("#com_dept_name").val().trim();
+
+                //查险，新增节点
+                if(ee_name.length === 0 && dept_name.length === 0){ //没输入，直接显示查不到的提示
+                    $(".find_info_yes").hide();
+                    $(".find_info_no").show();
+                }
+                else if(ee_name.length === 0 && dept_name.length !== 0){ //查部门，一个查询条件
+                    $.post(
+                        "/Dept/findDeptJson",
+                        {name: dept_name},
+                        function (data) {
+                            if(typeof data == "string"){
+                                $(".find_info_yes").hide();
+                                $(".find_info_no").show();
+                            }else {
+                                $("#find_info_dept_tbody tr").remove();
+                                let $find_info_dept_tbody = $("#find_info_dept_tbody");
+                                let tr = "<tr><td>"+data.id+"</td><td>"+data.name+"</td><td>"+data.code+"</td></tr>";
+                                $find_info_dept_tbody.append(tr);
+                                $(".find_info_no").hide();
+                                $("#find_info_ee").hide();
+                                $("#find_info_dept").show();
+                            }
+                        }
+                    )
+                }
+                else if(ee_name.length !== 0 && dept_name.length === 0){//查员工，一个查询条件
+                    $.post(
+                        "/findEEByEEName",
+                        {name: ee_name},
+                        function (data) {
+                            if(data.length == 0){ //返回空数组，就是找不到
+                                $(".find_info_yes").hide();
+                                $(".find_info_no").show();
+                            }else {
+                                $("#find_info_ee_tbody tr").remove(); //先清空上一次操作的数据
+                                let $find_info_ee_tbody = $("#find_info_ee_tbody");
+                                for(let i = 0; i < data.length; ++i){
+                                    let row = data[i];
+                                    let tr = "<tr>" +
+                                        "<td>"+ row.id + "</td>"+
+                                        "<td>"+ row.name + "</td>"+
+                                        "<td>"+ row.phone + "</td>"+
+                                        "<td>"+ row.sex + "</td>"+
+                                        "<td>"+ row.age + "</td>"+
+                                        "<td>"+ row.acount + "</td>"+
+                                        "<td>"+ row.dept_id + "</td>"+
+                                        "<td>"+ row.dept_name + "</td>"+
+                                        "<td>"+ row.dept_code + "</td>"+
+                                        "</tr>";
+                                    $find_info_ee_tbody.append(tr);
+                                }
+
+                                $(".find_info_no").hide();
+                                $("#find_info_dept").hide();
+                                $("#find_info_ee").show();
+                            }
+                        }
+                    )
+                }
+                else {//都不为空，两个查询条件
+                    $.post(
+                        "/findEEByEENameAndDeptName",
+                        {name: ee_name, dept_name: dept_name},
+                        function (data) {
+                            if(data.length == 0){ //返回空数组，就是找不到
+                                $(".find_info_yes").hide();
+                                $(".find_info_no").show();
+                            }else {
+                                $("#find_info_ee_tbody tr").remove(); //先清空上一次操作的数据
+                                let $find_info_ee_tbody = $("#find_info_ee_tbody");
+                                for(let i = 0; i < data.length; ++i){
+                                    let row = data[i];
+                                    let tr = "<tr>" +
+                                        "<td>"+ row.id + "</td>"+
+                                        "<td>"+ row.name + "</td>"+
+                                        "<td>"+ row.phone + "</td>"+
+                                        "<td>"+ row.sex + "</td>"+
+                                        "<td>"+ row.age + "</td>"+
+                                        "<td>"+ row.acount + "</td>"+
+                                        "<td>"+ row.dept_id + "</td>"+
+                                        "<td>"+ row.dept_name + "</td>"+
+                                        "<td>"+ row.dept_code + "</td>"+
+                                        "</tr>";
+                                    $find_info_ee_tbody.append(tr);
+                                }
+
+                                $(".find_info_no").hide();
+                                $("#find_info_dept").hide();
+                                $("#find_info_ee").show();
+                            }
+                        }
+                    )
+                }
+
+                //显示
+                $("#dept_info_paged").hide();
+                $("#find_info").show();
+
+            })
+        })
+    </script>
+
+
+<!--绑定查询信息的返回按钮-->
+    <script>
+        $(function () {
+            $("#find_info_return_btn").click(function () {
+                $("#com_find_reset_btn").click();
+
+                $("#dept_info_paged").show();
+                $("#find_info").hide();
+            })
+        })
+    </script>
+
+
+</head>
+<body>
+<h1>/dept.html</h1>
+<h2>部门管理</h2>
+
+<!-- 页面转跳实现新增和查找-->
+<div>
+    <hr />
+    <a href="/Dept/addDept">新增部门</a><br/>
+    <!--<a href="/Dept/findDept">查找部门</a><br />-->
+    <!--<a href="/EE/findEE">查找员工</a>-->
+</div>
+
+<!-- 单纯实现查找部门-->
+<div style="display: none">
+    <hr />
+    <form id="find_dept">
+        <label for="find_dept_name">查找部门</label>
+        <input type="text" id="find_dept_name" name="find_dept_name" placeholder="请输入要查找的部门名称"> &nbsp;&nbsp;
+        <button type="button" id="find_dept_bth">查找</button>
+    </form>
+    <div id="no_find_dept" style="display: none">未找到该部门信息</div>
+    <div id="yes_find_dept" style="display: none">
+        <table border="1px">
+            <thead>
+            <tr>
+                <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
+            </tr>
+            </thead>
+            <tbody id="find_dept_tbody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 单纯实现查找员工-->
+<div style="display: none">
+    <hr />
+    <form id="find_ee">
+        <label>查找员工</label>
+        <input type="text" id="find_ee_name" name="find_ee_name" placeholder="请输入要查找的员工姓名"> &nbsp;&nbsp;
+        <button type="button" id="find_ee_btn">查找</button>
+    </form>
+    <div id="no_find_ee" style="display: none">未找到该员工信息</div>
+    <div id="yes_find_ee" style="display: none">
+        <table border="1px">
+            <thead>
+            <tr>
+                <th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th>
+            </tr>
+            </thead>
+            <tbody id="find_ee_tbody">
+
+            </tbody>
+        </table>
+    </div>
+</div >
+
+<!--综合实现查找部门和员工表单-->
+<div>
+<hr />
+    <p><strong>请输入查找的员工姓名或部门名称</strong></p>
+<form id="com_find_form">
+    <label>员工姓名</label><input type="text" id="com_ee_name" name="ee_name" placeholder="请输入员工姓名"> &nbsp;
+    <label>部门名称</label><input type="text" id="com_dept_name" name="dept_name" placeholder="请输入部门名称"><br/><br/>
+    <button type="reset" id="com_find_reset_btn">重置</button> &nbsp;
+    <button type="button" id="com_find_btn">查询</button>
+</form>
+</div>
+
+<!--显示综合查询的信息-->
+<div id="find_info" style="display: none">
+<hr >
+    <!--    显示查询的部门信息-->
+    <div id="find_info_dept" class="find_info_yes">
+        <table border="1px">
+            <thead>
+            <tr>
+                <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
+            </tr>
+            </thead>
+            <tbody id="find_info_dept_tbody">
+    
+            </tbody>
+        </table>
+    
+    </div>
+    
+    <!--    显示查询的员工信息-->
+    <div id="find_info_ee" class="find_info_yes">
+        <table border="1px">
+            <thead>
+            <tr>
+                <th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th> <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
+            </tr>
+            </thead>
+            <tbody id="find_info_ee_tbody">
+    
+            </tbody>
+        </table>
+    </div>
+    
+    <!--    显示未查询到后的信息-->
+    <div class="find_info_no">
+        <p>未查到信息</p>
+    </div>
+    
+    <!--    返回部门表-->
+    <div>
+        <br > <button type="button" id="find_info_return_btn">返回</button>
+    </div>
+</div>
+
+<!-- 分页显示部门表-->
+<div id="dept_info_paged">
+    <hr />
+    <table id="table_dept" border="1px">
+        <thead>
+        <tr>
+            <th>部门编号</th> <th>部门名称</th> <th>部门代码</th> <th>部门员工</th> <th>修改</th> <th>删除</th>
+        </tr>
+        </thead>
+        <tbody id="table_dept_tbody">
+        <tr th:each="dept:${depts}">
+            <td th:text="${dept.getId()}"></td>
+            <td th:text="${dept.getName()}"></td>
+            <td th:text="${dept.getCode()}"></td>
+            <td>
+                <form method="get" action="/ee">
+                    <input hidden type="number" name="dept_id" th:value="${dept.getId()}">
+                    <input hidden type="text" name="dept_name" th:value="${dept.getName()}">
+                    <button type="submit">部门员工</button>
+                </form>
+            </td>
+            <td>
+                <form method="get" action="/Dept/updateDept">
+                    <input hidden type="number" name="id" th:value="${dept.getId()}">
+                    <button type="submit">修改</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="/Dept/deleteDept">
+                    <input hidden type="number" name="id" th:value="${dept.getId()}">
+                    <button type="submit">删除</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div id="page_controller">
+        <!--    <input hidden type="number" id="page_number" name="page_number" value="0" >-->
+        <p>页数：<span id="page_number">0</span></p>
+        <button type="button" id="page_prev_btn">上一页</button> &nbsp; &nbsp;
+        <button type="button" id="page_next_btn">下一页</button>
+    </div>
+</div>
+
+</body>
+</html>

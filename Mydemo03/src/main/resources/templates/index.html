@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<h1>首页</h1>
+<hr />
+<p>
+    <span>这是项目的首页<br /></span>
+    <span>Thymeleaf:</span>
+    <span th:utext="${thymeleaf} + '<br />'">Thymeleaf 未启用<br /></span>
+    <img th:src="@{images/tiger.png}" alt="一个老虎的图片" height="205"><br />
+    <a th:href="@{http://www.baidu.com}">thymeleaf启用，去百度</a><br />
+
+    <hr />
+    <a href="/dept">部门管理</a><br />
+
+    <hr />
+    <a href="/EE/findEE">员工搜索</a><br />
+    <a href="/EE/addEE">新增员工</a><br />
+    <a href="/EE/deleteEE">删除员工</a><br />
+    <a href="/EE/updateEE">修改员工</a><br />
+
+    <hr />
+    <a href="/Dept/findDept">搜索部门</a><br />
+    <a href="/Dept/addDept">新增部门</a><br />
+    <a href="/Dept/deleteDept">删除部门</a><br />
+    <a href="/Dept/updateDept">修改部门</a><br />
+    <hr />
+</p>
+</body>
+</html>
