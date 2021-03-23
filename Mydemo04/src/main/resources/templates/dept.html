@@ -12,6 +12,8 @@
         })
     </script>
 
+
+
 <!-- 单纯实现 查询部门-->
     <script>
         $(document).ready(function () {
@@ -75,11 +77,37 @@
         })
     </script>
 
+<!-- 查看备份页码并开始分页-->
+    <script>
+        $(document).ready(function () {
+            let backup_page_flag = parseInt($("#backup_page_flag").text());
+            if(backup_page_flag === 1){
+                // 获取之前保存的页码和每页多少
+                let backup_page_page_number = parseInt($("#backup_page_page_number").text())
+                let backup_page_per_page_number = parseInt($("#backup_page_per_page_number").text());
+
+                //设置页码和每页
+                $("#page_number").text(backup_page_page_number); //<span>
+                $("#per_page_item_number").val(backup_page_per_page_number);// select
+
+                //重置
+                $("#backup_page_flag").text(0);
+                $("#backup_page_page_number").empty();
+                $("#backup_page_per_page_number").empty();
+
+            }else {
+                $("#backup_page_flag").text(0);
+                $("#backup_page_page_number").empty();
+                $("#backup_page_per_page_number").empty();
+            }
+
+            page_program();//分页
+
+        })
+    </script>
 <!--    调用分页函数实现，分页功能-->
     <script>
         $(document).ready(function () {
-            page_program();
-
             $("#page_prev_btn").click(function () {
                 let page_number = parseInt($("#page_number").text());
 
@@ -105,6 +133,14 @@
                 page_program();
             })
 
+
+            $("#per_page_item_number").change(function () {
+                //每次更改，都重置到第一页，可以做一个页码转换的。
+                $("#page_number").text("0");
+                $("#page_number_v2").text("1");
+                page_program();
+            })
+
         })
     </script>
 
@@ -116,13 +152,16 @@
             let trs_number = $trs.length;
 
             //每页显示的条目数
-            let per_page_item_number = 4;
+            let per_page_item_number = parseInt($("#per_page_item_number").val());
 
             if(trs_number <= per_page_item_number) {//总条目够一页显示的，不用分页
                 $("#page_controller").hide();
+                $trs.show();
             }else{
+                $("#page_controller").show();
+
                 //算一下总页数, js 的除法可以算出小数来。
-                let total_page = Math.round(trs_number / per_page_item_number);
+                let total_page = Math.ceil(trs_number / per_page_item_number);
                 $("#total_page").text(total_page);
 
                 //获取当前的页码
@@ -157,6 +196,7 @@
         }
 
     </script>
+
 
 
     <script>
@@ -316,165 +356,237 @@
         })
     </script>
 
+<!-- 绑定删除部门按钮-->
+    <script>
+        $(document).ready(function () {
+
+            // $(".delete_dept").submit(function (event) {
+            //    let delete_comfirm = window.confirm("确定要删除该部门吗？")
+            //     if (delete_comfirm == false){
+            //         event.preventDefault();
+            //     }
+            // })
+
+            $(".delete_dept button").click(function () {
+                let delete_comfirm = window.confirm("确定要删除该部门吗？")
+                if(delete_comfirm){
+                    let id = $(this).prev().val();
+                    // let id = parseInt($(this).prev().val());
+                    console.log(id);
+                    $.post(
+                        "/Dept/deleteDeptJson",
+                        {id: id},
+                        function (data) {
+                            // console.log("删除成功");
+                            alert("删除部门成功");
+                            $("#"+id).remove();
+                        }
+                    )
+                }
+
+            })
+
+
+        })
+    </script>
+
+<!--绑定修改部门按钮-->
+    <script>
+        $(document).ready(function () {
+            $(".update_dept button").click(function () {
+                let $update_dept_input = $("#update_dept input");
+                let page_number = parseInt($("#page_number").text());
+                let per_page_number = parseInt($("#per_page_item_number").val);
+                $update_dept_input.eq(1).val(page_number);
+                $update_dept_input.eq(2).val(per_page_number);
+                $(this).parent().submit();
+            })
+        })
+    </script>
 
 </head>
 <body>
 <h1>/dept.html</h1>
 <h2>部门管理</h2>
-
-<!-- 页面转跳实现新增和查找-->
-<div>
-    <hr />
-    <a href="/Dept/addDept">新增部门</a><br/>
-    <!--<a href="/Dept/findDept">查找部门</a><br />-->
-    <!--<a href="/EE/findEE">查找员工</a>-->
-</div>
-
-<!-- 单纯实现查找部门-->
-<div style="display: none">
-    <hr />
-    <form id="find_dept">
-        <label for="find_dept_name">查找部门</label>
-        <input type="text" id="find_dept_name" name="find_dept_name" placeholder="请输入要查找的部门名称"> &nbsp;&nbsp;
-        <button type="button" id="find_dept_bth">查找</button>
-    </form>
-    <div id="no_find_dept" style="display: none">未找到该部门信息</div>
-    <div id="yes_find_dept" style="display: none">
-        <table border="1px">
-            <thead>
-            <tr>
-                <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
-            </tr>
-            </thead>
-            <tbody id="find_dept_tbody">
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- 单纯实现查找员工-->
-<div style="display: none">
-    <hr />
-    <form id="find_ee">
-        <label>查找员工</label>
-        <input type="text" id="find_ee_name" name="find_ee_name" placeholder="请输入要查找的员工姓名"> &nbsp;&nbsp;
-        <button type="button" id="find_ee_btn">查找</button>
-    </form>
-    <div id="no_find_ee" style="display: none">未找到该员工信息</div>
-    <div id="yes_find_ee" style="display: none">
-        <table border="1px">
-            <thead>
-            <tr>
-                <th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th>
-            </tr>
-            </thead>
-            <tbody id="find_ee_tbody">
-
-            </tbody>
-        </table>
-    </div>
-</div >
-
-<!--综合实现查找部门和员工表单-->
-<div>
-<hr />
-    <p><strong>请输入查找的员工姓名或部门名称</strong></p>
-<form id="com_find_form">
-    <label>员工姓名</label><input type="text" id="com_ee_name" name="ee_name" placeholder="请输入员工姓名"> &nbsp;
-    <label>部门名称</label><input type="text" id="com_dept_name" name="dept_name" placeholder="请输入部门名称"><br/><br/>
-    <button type="reset" id="com_find_reset_btn">重置</button> &nbsp;
-    <button type="button" id="com_find_btn">查询</button>
-</form>
-</div>
-
-<!--显示综合查询的信息-->
-<div id="find_info" style="display: none">
-<hr >
-    <!--    显示查询的部门信息-->
-    <div id="find_info_dept" class="find_info_yes">
-        <table border="1px">
-            <thead>
-            <tr>
-                <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
-            </tr>
-            </thead>
-            <tbody id="find_info_dept_tbody">
-    
-            </tbody>
-        </table>
-    
-    </div>
-    
-    <!--    显示查询的员工信息-->
-    <div id="find_info_ee" class="find_info_yes">
-        <table border="1px">
-            <thead>
-            <tr>
-                <th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th> <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
-            </tr>
-            </thead>
-            <tbody id="find_info_ee_tbody">
-    
-            </tbody>
-        </table>
-    </div>
-    
-    <!--    显示未查询到后的信息-->
-    <div class="find_info_no">
-        <p>未查到信息</p>
-    </div>
-    
-    <!--    返回部门表-->
+<div id="div_find_show_dept">
+    <!-- 页面转跳实现新增和查找-->
     <div>
-        <br > <button type="button" id="find_info_return_btn">返回</button>
+        <hr />
+        <a href="/Dept/addDept">新增部门</a><br/>
+        <!--<a href="/Dept/findDept">查找部门</a><br />-->
+        <!--<a href="/EE/findEE">查找员工</a>-->
     </div>
-</div>
 
-<!-- 分页显示部门表-->
-<div id="dept_info_paged">
+    <!-- 单纯实现查找部门-->
+    <div style="display: none">
+        <hr />
+        <form id="find_dept">
+            <label for="find_dept_name">查找部门</label>
+            <input type="text" id="find_dept_name" name="find_dept_name" placeholder="请输入要查找的部门名称"> &nbsp;&nbsp;
+            <button type="button" id="find_dept_bth">查找</button>
+        </form>
+        <div id="no_find_dept" style="display: none">未找到该部门信息</div>
+        <div id="yes_find_dept" style="display: none">
+            <table border="1px">
+                <thead>
+                <tr>
+                    <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
+                </tr>
+                </thead>
+                <tbody id="find_dept_tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 单纯实现查找员工-->
+    <div style="display: none">
+        <hr />
+        <form id="find_ee">
+            <label>查找员工</label>
+            <input type="text" id="find_ee_name" name="find_ee_name" placeholder="请输入要查找的员工姓名"> &nbsp;&nbsp;
+            <button type="button" id="find_ee_btn">查找</button>
+        </form>
+        <div id="no_find_ee" style="display: none">未找到该员工信息</div>
+        <div id="yes_find_ee" style="display: none">
+            <table border="1px">
+                <thead>
+                <tr>
+                    <th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th>
+                </tr>
+                </thead>
+                <tbody id="find_ee_tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </div >
+
+    <!--综合实现查找部门和员工表单-->
+    <div>
     <hr />
-    <table id="table_dept" border="1px">
-        <thead>
-        <tr>
-            <th>部门编号</th> <th>部门名称</th> <th>部门代码</th> <th>部门员工</th> <th>修改</th> <th>删除</th>
-        </tr>
-        </thead>
-        <tbody id="table_dept_tbody">
-        <tr th:each="dept:${depts}">
-            <td th:text="${dept.getId()}"></td>
-            <td th:text="${dept.getName()}"></td>
-            <td th:text="${dept.getCode()}"></td>
-            <td>
-                <form method="get" action="/ee">
-                    <input hidden type="number" name="dept_id" th:value="${dept.getId()}">
-                    <input hidden type="text" name="dept_name" th:value="${dept.getName()}">
-                    <button type="submit">部门员工</button>
-                </form>
-            </td>
-            <td>
-                <form method="get" action="/Dept/updateDept">
-                    <input hidden type="number" name="id" th:value="${dept.getId()}">
-                    <button type="submit">修改</button>
-                </form>
-            </td>
-            <td>
-                <form method="post" action="/Dept/deleteDept">
-                    <input hidden type="number" name="id" th:value="${dept.getId()}">
-                    <button type="submit">删除</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div id="page_controller">
-        <!--    <input hidden type="number" id="page_number" name="page_number" value="0" >-->
-        <p style="display: none">页数：<span id="page_number">0</span></p>
-        <p>第<span id="page_number_v2">1</span>页，共<span id="total_page"></span>页</p>
-        <button type="button" id="page_prev_btn">上一页</button> &nbsp; &nbsp;
-        <button type="button" id="page_next_btn">下一页</button>
+        <p><strong>请输入查找的员工姓名或部门名称</strong></p>
+    <form id="com_find_form">
+        <label>员工姓名</label><input type="text" id="com_ee_name" name="ee_name" placeholder="请输入员工姓名"> &nbsp;
+        <label>部门名称</label><input type="text" id="com_dept_name" name="dept_name" placeholder="请输入部门名称"><br/><br/>
+        <button type="reset" id="com_find_reset_btn">重置</button> &nbsp;
+        <button type="button" id="com_find_btn">查询</button>
+    </form>
+    </div>
+
+    <!--显示综合查询的信息-->
+    <div id="find_info" style="display: none">
+    <hr >
+        <!--    显示查询的部门信息-->
+        <div id="find_info_dept" class="find_info_yes">
+            <table border="1px">
+                <thead>
+                <tr>
+                    <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
+                </tr>
+                </thead>
+                <tbody id="find_info_dept_tbody">
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <!--    显示查询的员工信息-->
+        <div id="find_info_ee" class="find_info_yes">
+            <table border="1px">
+                <thead>
+                <tr>
+                    <th>员工编号</th> <th>姓名</th> <th>手机电话</th> <th>性别</th> <th>年龄</th> <th>账号</th> <th>部门编号</th> <th>部门名称</th> <th>部门代码</th>
+                </tr>
+                </thead>
+                <tbody id="find_info_ee_tbody">
+
+                </tbody>
+            </table>
+        </div>
+
+        <!--    显示未查询到后的信息-->
+        <div class="find_info_no">
+            <p>未查到信息</p>
+        </div>
+
+        <!--    返回部门表-->
+        <div>
+            <br > <button type="button" id="find_info_return_btn">返回</button>
+        </div>
+    </div>
+
+    <!-- 分页显示部门表-->
+    <div id="dept_info_paged">
+        <hr />
+        <div id="choose_per_page_item_number">
+            <label for="per_page_item_number">请选择每页显示的记录数: </label>
+            <select id="per_page_item_number" name="per_page_item_number">
+                <option value="3" selected>3</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <table id="table_dept" border="1px">
+            <thead>
+            <tr>
+                <th>部门编号</th> <th>部门名称</th> <th>部门代码</th> <th>部门员工</th> <th>修改</th> <th>删除</th>
+            </tr>
+            </thead>
+            <tbody id="table_dept_tbody">
+            <tr th:each="dept:${depts}" th:id="${dept.getId()}">
+                <td th:text="${dept.getId()}" ></td>
+                <td th:text="${dept.getName()}"></td>
+                <td th:text="${dept.getCode()}"></td>
+                <td>
+                    <form method="get" action="/ee">
+                        <input hidden type="number" name="dept_id" th:value="${dept.getId()}">
+                        <input hidden type="text" name="dept_name" th:value="${dept.getName()}">
+                        <button type="submit">部门员工</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="get" action="/Dept/updateDept" class="update_dept">
+                        <input hidden type="number" name="id" th:value="${dept.getId()}">
+                        <input hidden type="number" name="page_number">
+                        <input hidden type="number" name="per_page_number">
+                        <button type="button">修改</button>
+                    </form>
+                </td>
+                <td>
+    <!--                <form method="post" action="/Dept/deleteDept" class="delete_dept">-->
+                    <form class="delete_dept">
+                        <input hidden type="number" name="id" th:value="${dept.getId()}">
+                        <button type="button">删除</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="page_controller">
+            <!--    <input hidden type="number" id="page_number" name="page_number" value="0" >-->
+<!--            初始0页-->
+            <p style="display: none">页数：<span id="page_number">0</span></p>
+            <p>第<span id="page_number_v2">1</span>页，共<span id="total_page"></span>页</p>
+            <button type="button" id="page_prev_btn">上一页</button> &nbsp; &nbsp;
+            <button type="button" id="page_next_btn">下一页</button>
+        </div>
+        <div id="backup_page_info">
+            <p id="backup_page_flag" style="display: none" th:text="${page_flag}">0</p>
+            <p id="backup_page_page_number" style="display: none" th:text="${page_number}"></p>
+            <p id="backup_page_per_page_number" style="display: none" th:text="${per_page_number}"></p>
+        </div>
     </div>
 </div>
 
+
+
+
+<div id="div_add_dept">
+
+</div>
 </body>
 </html>

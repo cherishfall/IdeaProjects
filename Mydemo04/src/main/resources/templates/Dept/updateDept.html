@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改部门信息</title>
+</head>
+<body>
+<h1>/Dept/updateDept.html</h1>
+<h2>修改部门信息</h2>
+<hr />
+<form method="post" action="/Dept/updateDept">
+    <span><label>部门编号：</label><input type="number" name="id" th:value="${dept.getId()}" readonly><br /></span>
+    <span><label>部门名称：</label><input type="text" name="name" th:value="${dept.getName()}" readonly><br /></span>
+    <span><label>部门代码：</label><input type="text" name="code" th:value="${dept.getCode()}"><br /></label></span>
+    <span><input type="number" name="flag" th:value="${dept.getFlag()}" hidden><br /></span>
+
+<!--    <input hidden type="number" name="page_number" th:value="${page_number}">-->
+<!--    <input hidden type="number" name="per_page_number" th:value="${per_page_number}">-->
+    page_number:<input  type="number" name="page_number" th:value="${page_number}" readonly><br>
+    per_page_number:<input  type="number" name="per_page_number" th:value="${per_page_number}" readonly><br />
+
+    <span><input type="reset"> &nbsp; &nbsp;<input type="submit"></span>
+</form>
+
+<br />
+<hr />
+<a href="/dept">返回部门管理页面</a>
+</body>
+</html>
