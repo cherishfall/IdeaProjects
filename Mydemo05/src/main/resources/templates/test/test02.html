@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/jquery.js"></script>
+</head>
+<body>
+<p id="p1">12</p>
+<p id="p2">13</p>
+<form>
+    <input type="number" id="num1" value="11">
+    <input type="number" id="num2" value="22">
+    <input type="submit">
+</form>
+<script>
+    $(document).ready(function () {
+        let p1 = $("#p1").text();
+        let p2 = $("#p2").text();
+        let pp = p1+p2;
+        // alert(pp);//1213
+
+        let pp1 = parseInt(p1) + parseInt(p2);
+        // alert(pp1);//25
+
+        let n1 = $("#num1").val();
+        let n2 = $("#num2").val();
+
+        let nn = n1+n2;
+        // alert(nn);//1122
+
+        let nn1 = parseInt(n1) + parseInt(n2);
+        alert(nn1);//33
+
+
+    })
+</script>
+</body>
+</html>
