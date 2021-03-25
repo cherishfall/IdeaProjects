@@ -6,11 +6,15 @@
     <script th:src="@{/js/jquery.js}"></script>
     <script th:src="@{/js/dept_validate.js}"></script>
     <script th:src="@{/js/ee_validate.js}"></script>
+
+<!--    检查jquery的启用-->
     <script>
         $(document).ready(function (){
             // alert("jquery已启用");
         })
     </script>
+
+<!--表单验证函数-->
     <script>
         function check_add_dept() {
             let flag = 0;
@@ -94,7 +98,7 @@
 <h2>新增部门</h2>
 <hr />
 
-<form id="add_dept_form"> <!--    method="post" action="/Dept/addDept"-->
+<form id="add_dept_form">
     <input type="number" id="dept_id" name="id" value="-1" hidden> <!--    部门编号-->
     <input type="number" id="dept_flag" name="flag" value="1" hidden> <!--    部门启用状态-->
     部门名称：<input type="text" id="dept_name" name="name">&nbsp;<span id="error_dept_name" style="color: #8b0000; display: none">部门名称非空不能超过16个字符</span><br />

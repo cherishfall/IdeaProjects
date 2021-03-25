@@ -58,7 +58,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 
     @Override
     public List<Department> findAll() {
-        String sql = "select * from department where flag<>0";
+        String sql = "select * from department where flag<>0 order by id desc";
         RowMapper<Department> rowMapper = new BeanPropertyRowMapper<>(Department.class);
         return jdbcTemplate.query(sql, rowMapper);
     }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.layuidemo.dao.IStudentDao">
+    <select id="findAllStudent" resultType="Student">
+        select * from stu_info;
+    </select>
+
+</mapper>

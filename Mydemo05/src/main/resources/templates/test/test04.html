@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>弹窗新增部门</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/dept_validate.js}"></script>
+    <script th:src="@{/js/ee_validate.js}"></script>
+    <script th:src="@{/layer/layer.js}"></script>
+
+
+<!--    新增部门-输入时表单验证-->
+    <script>
+        $(document).ready(function () {
+            // 绑定聚焦事件
+            $("#add_dept_name").focus(function () {
+                $("#error_add_dept_name").hide();
+            })
+
+            $("#add_dept_code").focus(function () {
+                $("#error_add_dept_code").hide();
+            })
+
+        //    绑定失去焦点事件
+            $("#add_dept_name").blur(function () {
+                let dept_name = $("#add_dept_name").val();
+                if(valid_dept_name(dept_name)){
+                    $("#error_add_dept_name").hide();
+                }else {
+                    $("#error_add_dept_name").show();
+                }
+            })
+
+            $("#add_dept_code").blur(function () {
+                let dept_code = $("#add_dept_code").val();
+                if(valid_dept_code(dept_code)){
+                    $("#error_add_dept_code").hide();
+                }else {
+                    $("#error_add_dept_code").show();
+                }
+            })
+        })
+    </script>
+
+<!--    新增部门-绑定提交按钮-->
+    <script>
+        $(document).ready(function () {
+            $("#add_dept_submit_btn").click(function () {
+                //提交时表单验证
+                let dept_name = $("#add_dept_name").val();
+                let dept_code = $("#add_dept_code").val();
+                if(valid_dept_name(dept_name) && valid_dept_code(dept_code)){
+                    //表单验证成功，提交post请求
+                    $.post(
+                        "/Dept/addDept",
+                        $("#add_dept_form").serialize(),
+                        function () { //绑定成功函数
+                            alert("添加部门成功！");
+                        }
+                    )
+
+                }else {//任意一个为假,显示提示信息，并重置输入
+                    $("#add_dept_reset_btn").click();
+                    $("#error_add_dept_name").show();
+                    $("#error_add_dept_code").show();
+                    alert("请输入正确的部门名称和部门代码");
+                }
+            })
+        })
+    </script>
+
+
+</head>
+<body>
+
+<div id="add_dept_div">
+    <form id="add_dept_form">
+        <input type="number" id="add_dept_id" name="id" value="-1" hidden> <!--    部门编号-->
+        <input type="number" id="add_dept_flag" name="flag" value="1" hidden> <!--    部门启用状态-->
+
+        <label for="add_dept_name">部门名称：</label>
+        <input type="text" id="add_dept_name" name="name" placeholder="请输入部门名称" required>&nbsp;
+        <span id="error_add_dept_name" style="color: #8b0000; display: none">部门名称非空且不能超过16个字符</span><br />
+
+        <label for="add_dept_code">部门代码：</label>
+        <input type="text" id="add_dept_code" name="code" placeholder="请输入部门代码" required>&nbsp;
+        <span id="error_add_dept_code" style="color: #8b0000; display: none">部门代码不且不能超过16个字符</span><br />
+
+        <button type="reset" id="add_dept_reset_btn">重置</button> &nbsp;
+        <button type="button" id="add_dept_submit_btn">提交</button>
+    </form>
+</div>
+
+</body>
+</html>

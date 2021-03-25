@@ -1,61 +1,163 @@
-
-<!DOCTYPE>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>jquery点击弹出登陆窗口</title>
-    <link rel="stylesheet" href="../../static/css/css.css" media="all">
-    <script src="../../static/js/jquery.js"></script>
+    <meta charset="UTF-8">
+    <title>增加部门</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/dept_validate.js}"></script>
+    <script th:src="@{/js/ee_validate.js}"></script>
+
+    <!--    检查jquery的启用-->
     <script>
-
-        jQuery(document).ready(function($) {
-
-            $('.theme-login').click(function(){
-
-                $('.theme-popover-mask').fadeIn(100);
-
-                $('.theme-popover').slideDown(200);
-
-            })
-
-            $('.theme-poptit .close').click(function(){
-
-                $('.theme-popover-mask').fadeOut(100);
-
-                $('.theme-popover').slideUp(200);
-
-            })
-
-
-
+        $(document).ready(function (){
+            // alert("jquery已启用");
         })
-
     </script>
+
+
+
+    <!--    新增部门-输入时表单验证-->
+    <script>
+        $(document).ready(function () {
+            // 绑定聚焦事件
+            $("#dept_name").focus(function () {
+                $("#error_dept_name").hide();
+            })
+
+            $("#dept_code").focus(function () {
+                $("#error_dept_code").hide();
+            })
+
+            //    绑定失去焦点事件
+            $("#dept_name").blur(function () {
+                let dept_name = $("#dept_name").val();
+                if(valid_dept_name(dept_name)){
+                    $("#error_dept_name").hide();
+                }else {
+                    $("#error_dept_name").show();
+                }
+            })
+
+            $("#dept_code").blur(function () {
+                let dept_code = $("#dept_code").val();
+                if(valid_dept_code(dept_code)){
+                    $("#error_dept_code").hide();
+                }else {
+                    $("#error_dept_code").show();
+                }
+            })
+        })
+    </script>
+
+    <!--表单验证函数-->
+    <script>
+        function check_add_dept() {
+            let flag = 0;
+            let $dept_name=$("#dept_name").val();
+            let $dept_code=$("#dept_code").val();
+
+            if(valid_dept_name($dept_name)==false || valid_dept_code($dept_code)==false){
+                $("#error_dept_code").show();
+                $("#error_dept_name").show();
+                $("#dept_reset").click();
+                flag = 1;
+            }
+            return flag;
+        }
+    </script>
+
+    <script>
+        //给添加部门表单提交按钮注册事件
+        $(document).ready(function () {
+            $("#dept_submit").click(function () {
+                    //清除上一次点击的提示信息
+                    $("#add_dept_result").hide();
+                    $("#success_info").text("");
+                    $("#save_dept_name").text("");
+
+                    //表单检查
+                    let flag = check_add_dept();
+
+                    //通过
+                    if(flag == 0){
+                        //保留部门名称
+                        let dept_name = $("#dept_name").val();
+
+                        // 新增部门，ajax方式
+                        $.post(
+                            "/Dept/addDept",
+                            $("#add_dept_form").serialize(),
+                            function () { //绑定成功函数
+                                //先把错误信息清楚，填写的表单信息清除
+                                $("#error_dept_name").hide();
+                                $("#error_dept_code").hide();
+                                $("#dept_reset").click();
+
+                                $("#success_info").text("部门添加成功，关闭此窗口后，刷新查看");//添加成功提示信息
+                                $("#save_dept_name").text(dept_name);//把提交成功的部门名称保留在隐藏域里
+                                $("#add_dept_result").show()
+                            }
+                        )
+                    }
+                }
+
+            )
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#yes_add_ee_btn").click(function (){
+                let dept_name = $("#save_dept_name").text();
+                $.post(
+                    "/Dept/findDeptJson",
+                    {name: dept_name},
+                    function (data) {
+                        if(typeof data == "string"){
+                            ;//没有返回值
+                        }else {
+                            let url = "/EE/addEE?dept_id="+data.id+"&dept_name="+data.name;
+                            window.location.href=url;
+                        }
+                    }
+                )
+            })
+        })
+    </script>
+
+
+
 </head>
-
-
 <body>
+<h1>/Dept/addDept.html</h1>
+<h2>新增部门</h2>
+<hr />
 
-<div class="theme-buy">
-    <a class="btn btn-primary btn-large theme-login" href="javascript:;">点击查看效果</a>
-</div>
-<div class="theme-popover">
-    <div class="theme-poptit">
-        <a href="javascript:;" title="关闭" class="close">×</a>
-        <h3>登录 是一种态度</h3>
-    </div>
-    <div class="theme-popbod dform">
-        <form class="theme-signin" name="loginform" action="" method="post">
-            <ol>
-                <li><h4>你必须先登录！</h4></li>
-                <li><strong>用户名：</strong><input class="ipt" type="text" name="log" value="jq22" size="20" /></li>
-                <li><strong>密码：</strong><input class="ipt" type="password" name="pwd" value="***" size="20" /></li>
-                <li><input class="btn btn-primary" type="submit" name="submit" value=" 登 录 " /></li>
-            </ol>
-        </form>
-    </div>
-</div>
-<div class="theme-popover-mask"></div>
+<form id="add_dept_form">
+    <input type="number" id="dept_id" name="id" value="-1" hidden> <!--    部门编号-->
+    <input type="number" id="dept_flag" name="flag" value="1" hidden> <!--    部门启用状态-->
+    部门名称：<input type="text" id="dept_name" name="name">&nbsp;<span id="error_dept_name" style="color: #8b0000; display: none">部门名称非空不能超过16个字符</span><br />
+    部门代码：<input type="text" id="dept_code" name="code">&nbsp;<span id="error_dept_code" style="color: #8b0000; display: none">部门代码非空不能超过16个字符</span><br />
+    <button type="reset" id="dept_reset">重置</button> &nbsp;
+    <button type="button" id="dept_submit">提交</button>
+</form>
+<hr/>
 
+
+
+<div id="add_dept_result" style="display: none">
+    <p id="success_info"></p>
+    <p id="save_dept_name"></p>
+    <form method="get" action="/EE/addEE" id="form_add_ee">
+<!--        向该部门添加员工：-->
+<!--        <a href="/dept"><button type="button">否</button></a>-->
+<!--        <a href="javascript:window.opener=null;window.open('','_self');window.close();"><button type="button">否</button></a>-->
+        <button type="button" id="yes_add_ee_btn">向该部门添加员工</button>
+    </form>
+</div>
+
+
+<!--<hr />-->
+<!--<a href="/dept">返回部门管理页面</a>-->
 </body>
 </html>
