@@ -12,7 +12,7 @@ import java.util.List;
 public interface IEmployeeDao {
 
     Employee selectEmployeeById(Integer id);
-    EmployeeExt selctEmployeeExtById(Integer id);
+    EmployeeExt selectEmployeeExtById(Integer id);
 
     List<Employee> selectEmployeeByDeptId(Integer deptId);
     List<EmployeeExt> selectEmployeeExtByDeptId(Integer deptId);
@@ -20,7 +20,7 @@ public interface IEmployeeDao {
     List<Employee> selectAllEmployee();
     List<EmployeeExt> selectAllEmployeeExt();
 
-    List<String> selectEmployeeAllAccount();
+    List<String> selectAllAccount();
 
     int insertEmployee(Employee ee);
 
@@ -28,7 +28,7 @@ public interface IEmployeeDao {
 
     int deleteEmployeeById(Integer id);
 
-    int deleteEmployeeByDeptid(Integer dept_id);
+    int deleteEmployeeByDeptId(Integer dept_id);
 
 
 

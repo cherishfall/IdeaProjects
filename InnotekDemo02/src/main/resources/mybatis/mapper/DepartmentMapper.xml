@@ -4,9 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.innotek.innotekdemo02.dao.IDepartmentDao">
-    <sql id="departmentColumns">
-        d.id dept_id, d.name dept_name, d.code dept_code
-    </sql>
 
 <!--    连接表查询，一般不这样干，用懒加载的方式-->
 <!--    <resultMap id="DepartmentExtMap" type="DepartmentExt">-->
@@ -74,9 +71,14 @@
         delete from department where id = #{id};
     </delete>
 
-    <select id="selectDepartmentAllCode" resultType="string">
+    <select id="selectAllCode" resultType="string">
         select code from department;
     </select>
+
+    <select id="selectAllId" resultType="integer">
+        select id from department;
+    </select>
+
 
 
 

@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 @Mapper
 public interface IDepartmentDao {
+
     Department selectDepartmentById(Integer id);
     DepartmentExt selectDepartmentExtById(Integer id);
     List<Department> selectAllDepartment();
@@ -20,7 +21,9 @@ public interface IDepartmentDao {
 
     int deleteDepartmentById(Integer id);
 
-    List<String> selectDepartmentAllCode();
+    List<String> selectAllCode();
+
+    List<Integer> selectAllId();
 
 
 }

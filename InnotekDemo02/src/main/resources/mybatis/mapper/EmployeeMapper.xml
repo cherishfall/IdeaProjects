@@ -11,52 +11,77 @@
     </select>
 
     <resultMap id="EmployeeExtMap" type="EmployeeExt">
-        <id property="id" column="id"/>
-        <result property="name" column="name"/>
-        <result property="age" column="age"/>
-        <result property="sex"
+        <id property="id" column="ee_id"/>
+        <result property="name" column="ee_name"/>
+        <result property="age" column="ee_age"/>
+        <result property="sex" column="ee_sex"/>
+        <result property="tel" column="ee_tel"/>
+        <result property="account" column="ee_account"/>
+        <result property="pwd" column="ee_pwd"/>
+        <result property="deptId" column="ee_dept_id"/>
+        <association property="dept" javaType="Department">
+            <id property="id" column="dept_id" />
+            <result property="name" column="dept_name"/>
+            <result property="code" column="dept_code"/>
+        </association>
     </resultMap>
 
-    <select id="selctEmployeeExtById" >
-
+    <select id="selectEmployeeExtById" resultMap="EmployeeExtMap">
+        select e.id ee_id, e.name ee_name, e.age ee_age, e.sex ee_sex, e.tel ee_tel,
+               e.account ee_account, e.pwd ee_pwd, e.dept_id ee_dept_id,
+               d.id dept_id, d.name dept_name, d.code dept_code
+        from employee e
+            left join department d on e.dept_id = d.id
+        where e.id = #{id};
     </select>
 
-    <select id="selectEmployeeByDeptId">
-
+    <select id="selectEmployeeByDeptId" resultType="Employee">
+        select id, name, age, sex, tel, account, pwd, dept_id deptId
+        from employee where dept_id = #{deptId};
     </select>
 
-    <select id="selectEmployeeExtByDeptId">
-
+    <select id="selectEmployeeExtByDeptId" resultMap="EmployeeExtMap">
+        select e.id ee_id, e.name ee_name, e.age ee_age, e.sex ee_sex, e.tel ee_tel,
+               e.account ee_account, e.pwd ee_pwd, e.dept_id ee_dept_id,
+               d.id dept_id, d.name dept_name, d.code dept_code
+        from employee e
+                 left join department d on e.dept_id = d.id
+        where e.dept_id = #{deptId};
     </select>
 
-    <select id="selectAllEmployee">
-
+    <select id="selectAllEmployee" resultType="Employee">
+        select id, name, age, sex, tel, account, pwd, dept_id deptId
+        from employee;
     </select>
 
-    <select id="selectAllEmployeeExt">
-
+    <select id="selectAllEmployeeExt" resultMap="EmployeeExtMap">
+        select e.id ee_id, e.name ee_name, e.age ee_age, e.sex ee_sex, e.tel ee_tel,
+               e.account ee_account, e.pwd ee_pwd, e.dept_id ee_dept_id,
+               d.id dept_id, d.name dept_name, d.code dept_code
+        from employee e
+                 left join department d on e.dept_id = d.id
     </select>
 
-    <select id="selectEmployeeAllAccount">
-
+    <select id="selectAllAccount" resultType="string">
+        select account from employee;
     </select>
 
-    <insert id="insertEmployee">
-
+    <insert id="insertEmployee" parameterType="Employee"
+    useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into employee (name, sex, age, tel, account, pwd, dept_id)
+        values (#{name}, #{sex}, #{age}, #{tel}, #{account}, #{pwd}, #{deptId});
     </insert>
 
-    <update id="updateEmployee">
-
+    <update id="updateEmployee" parameterType="Employee">
+        update employee  set sex = #{sex}, age = #{age}, tel = #{tel}, pwd = #{pwd}, dept_id = #{deptId} WHERE id = #{id};
     </update>
 
-    <delete id="deleteEmployeeById">
-
+    <delete id="deleteEmployeeById" >
+        delete from employee where id = #{id};
     </delete>
 
-    <delete id="deleteEmployeeByDeptid">
-
+    <delete id="deleteEmployeeByDeptId">
+        delete from employee where dept_id = #{deptId};
     </delete>
-
-
 
 </mapper>
