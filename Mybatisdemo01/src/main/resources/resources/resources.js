@@ -1,0 +1,3 @@
+function resources() {
+    return 'resources';
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.innotekdemo02.dao.IEmployeeDao">
+
+    <select id="selectEmployeeById" resultType="Employee">
+        select id, name, age, sex, tel, account, pwd, dept_id deptId
+            from employee where id = #{id};
+    </select>
+
+    <resultMap id="EmployeeExtMap" type="EmployeeExt">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="sex"
+    </resultMap>
+
+    <select id="selctEmployeeExtById" >
+
+    </select>
+
+    <select id="selectEmployeeByDeptId">
+
+    </select>
+
+    <select id="selectEmployeeExtByDeptId">
+
+    </select>
+
+    <select id="selectAllEmployee">
+
+    </select>
+
+    <select id="selectAllEmployeeExt">
+
+    </select>
+
+    <select id="selectEmployeeAllAccount">
+
+    </select>
+
+    <insert id="insertEmployee">
+
+    </insert>
+
+    <update id="updateEmployee">
+
+    </update>
+
+    <delete id="deleteEmployeeById">
+
+    </delete>
+
+    <delete id="deleteEmployeeByDeptid">
+
+    </delete>
+
+
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.mybatisdemo03.dao.IUserDao">
+
+    <resultMap type="User" id="userResultMap">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="loginname" column="loginname" />
+        <result property="pwd" column="pwd" />
+        <result property="phone" column="phone" />
+        <result property="address" column="address" />
+        <!-- 一对多关联映射:collection -->
+
+        <collection property="orders" javaType="ArrayList"
+                    column="id" ofType="Order"
+                    select="com.innotek.mybatisdemo03.dao.IOrderDao.selectOrderByUserId"
+                    fetchType="eager">
+            <id property="id" column="id" />
+            <result property="code" column="code" />
+            <result property="total" column="total" />
+        </collection>
+    </resultMap>
+
+    <select id="selectUserById" parameterType="int"
+            resultMap="userResultMap">
+        SELECT * FROM tb_user WHERE id = #{id}
+    </select>
+
+</mapper>

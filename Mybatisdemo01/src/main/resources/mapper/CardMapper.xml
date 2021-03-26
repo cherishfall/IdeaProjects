@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.mybatisdemo01.dao.ICardDao">
+
+    <select id="selectCardById" resultType="Card">
+        select * from tb_card where id = #{id};
+    </select>
+
+</mapper>

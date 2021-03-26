@@ -1,0 +1,3 @@
+function static() {
+    return "static";
+}
