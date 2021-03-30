@@ -65,17 +65,40 @@
         </div>
     </div>
 
-<!--    卡片中有照片, 注意在-->
+<!--    卡片中有照片, 注意在bootstrap里覆盖它的样式设置，要写行内的样式
+        也就是在标签写 style=""
+-->
+<!--    照片再上方-->
     <div class="card">
         <img src="../../static/image/myphoto.jpg" class="card-img-top" style="width: 400px">
         <div class="card-body">
             <div class="card-title">简历</div>
             <div class="card-text">简历内容</div>
-            <button type="button" class="btn btn-outline-info">查看此人</button>
+<!--            bootstrap的 按钮样式，可以用在 a button 和input 标签，具体的标签有个别的样式不能用-->
+            <a href="https://www.baidu.com" class="btn btn-outline-info">查看此人</a>
         </div>
     </div>
 
-
+<!--    照片在下方-->
+    <div class="card">
+<!--        html 是流式加载，class 样式不能更改位置，只是结构化描述，是位置和逻辑位置在前，这些类只是在描述-->
+<!--        <img src="../../static/image/myphoto.jpg" class="card-img-bottom" style="width: 400px">-->
+        <div class="card-body">
+            <div class="card-title">简历</div>
+            <div class="card-body">简历内容</div>
+            <a href="#" class="btn btn-info">查看此人</a>
+        </div>
+        <img src="../../static/image/myphoto.jpg" class="card-img-bottom" style="width: 400px">
+    </div>
+    
+<!--    照片作为背景图-->
+    <div class="card" style="width: 500px">
+        <img src="../../static/image/myphoto.jpg" class="card-img" style="width: 100%">
+        <div class="card-img-overlay">
+            <div class="card-title">简历</div>
+            <div class="card-text">个人简历</div>
+        </div>
+    </div>
 
 </div>
 </body>

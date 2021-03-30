@@ -2,9 +2,74 @@
 <html lang=zh-CN">
 <head>
     <meta charset="UTF-8">
+
+    <!--添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    本地引入依赖文件-->
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <script src="../../static/js/jquery-3.6.0.js"></script>
+    <script src="../../static/js/bootstrap.bundle.js"></script>
+    <!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
     <title>模态框</title>
 </head>
 <body>
+<div class="container">
+<!--    第一个模态框-->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal01">点击我打开模态框</button>
 
+    <div class="modal fade" id="modal01">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">第一个模态框</h5>
+                <button type="button" class="btn btn-danger" data-dismiss="moral">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                    <p class="text-success">第一个模态框</p>
+                    <div class="alert alert-success">终于弹出来！</div>
+
+            </div>
+            <div class="modal-footer">
+                <span>关系窗口</span>
+                <button type="button" class="btn btn-info" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <br />
+
+<!--    第二个模态框，表单-->
+<!--    data-target 其实是个选择器-->
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal02">点击我打开一个表单填写模态框</button>
+    <div class="modal fade" id="modal02">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-title">
+                    <span class="badge-primary">新增员工</span>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="https://www.baidu.com">
+                        <input type="text" name="username" required placeholder="username"><br />
+                        <input type="password" name="pwd" required placeholder="password"><br />
+                        <button type="reset" class="btn btn-danger">重置</button>
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 </body>
 </html>
