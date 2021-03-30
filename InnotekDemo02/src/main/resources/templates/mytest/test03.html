@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang=zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <!--添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    本地引入依赖文件-->
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <script src="../../static/js/jquery-3.6.0.js"></script>
+    <script src="../../static/js/bootstrap.bundle.js"></script>
+    <!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+    <title>bootstrap文字排版</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style="background-color: #7abaff">1</div>
+        <div class="col" style="background-color: #721c24">2</div>
+    </div>
+    <br />
+
+    <blockquote class="blockquote">
+        <p>门前有两棵树，一棵是枣树，另一棵还是枣树</p>
+        <footer class="blockquote-footer">鲁迅</footer>
+    </blockquote>
+    <br />
+
+    <div>
+        <p>请按下<kbd>enter</kbd>键</p>
+    </div>
+    <br />
+
+    <div>
+        <h2>一些常见的文字颜色</h2>
+        <p class="text-success">text-success</p>
+        <p class="text-danger">text-danger</p>
+        <p class="text-warning">text-warning</p>
+        <p class="text-info">text-info</p>
+        <p class="text-primary">text-primary</p>
+        <p class="text-white">text-white</p>
+        <p class="text-dark">text-dark</p>
+    </div>
+
+</div>
+</body>
+</html>

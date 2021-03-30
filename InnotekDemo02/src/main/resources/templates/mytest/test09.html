@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang=zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <!--添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    本地引入依赖文件-->
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <script src="../../static/js/jquery-3.6.0.js"></script>
+    <script src="../../static/js/bootstrap.bundle.js"></script>
+    <!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+    <title>面板或卡片</title>
+</head>
+<body>
+<div class="container">
+    <!--    简单的card-->
+    <div class="card">
+        <div class="card-body">card-body</div>
+    </div>
+    <br />
+
+<!--    不用颜色的card -->
+    <div class="card bg-primary text-white">
+        <div class="card-body">Primary card</div>
+    </div>
+    <br>
+
+    <div class="card bg-success text-white">
+        <div class="card-body">Success card</div>
+    </div>
+    <br />
+
+    <div class="card bg-dark text-white">
+        <div class="card-body">Dark card</div>
+    </div>
+    <br>
+
+    <div class="card bg-light text-dark">
+        <div class="card-body">Light card</div>
+    </div>
+    <br />
+
+<!--    完整结构的card-->
+    <div class="card">
+        <div class="card-header bg-success">card-header bg-success</div>
+        <div class="card-body bg-info" >card-body bg-info</div>
+        <div class="card-footer bg-secondary">card-footer bg-secondary</div>
+    </div>
+    <br />
+
+<!--    更完整的一点结构的card-->
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">card-title bg-success text-white</div>
+            <div class="card-text">card-text bg-white text-dark</div>
+            <a href="https://www.baidu.com" class="card-link">百度</a>
+            <a href="#" class="card-link">card-link</a>
+        </div>
+    </div>
+
+<!--    卡片中有照片, 注意在-->
+    <div class="card">
+        <img src="../../static/image/myphoto.jpg" class="card-img-top" style="width: 400px">
+        <div class="card-body">
+            <div class="card-title">简历</div>
+            <div class="card-text">简历内容</div>
+            <button type="button" class="btn btn-outline-info">查看此人</button>
+        </div>
+    </div>
+
+
+
+</div>
+</body>
+</html>
