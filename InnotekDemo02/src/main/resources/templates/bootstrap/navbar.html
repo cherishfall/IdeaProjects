@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang=zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <!--添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    本地引入依赖文件-->
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <script src="../../static/js/jquery-3.6.0.js"></script>
+    <script src="../../static/js/bootstrap.bundle.js"></script>
+    <!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+    <title>导航栏</title>
+</head>
+<body>
+<div class="container-fluid">
+
+<!--    简单的导航栏, 默认是垂直的-->
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="#" class="nav-link">nav-link 1</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">nav-link 2</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">nav-link 3</a>
+            </li>
+        </ul>
+    </nav>
+
+<!-- 横向的导航栏, 有颜色-->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+           <li class="nav-item">
+               <a href="#" class="nav-link">link 1</a>
+           </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">link 2</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">link 3</a>
+            </li>
+        </ul>
+    </nav>
+    <br />
+
+<!--    带logo的导航栏-->
+    <nav class="navbar navbar-expand bg-info">
+        <a href="#" class="navbar-brand">
+            <img src="../../static/image/git.png" style="width: 40px">
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="#" class="nav-link">link 1</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">link 2</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">link 3</a>
+            </li>
+        </ul>
+    </nav>
+    <br />
+
+<!--   折叠的导航栏 -->
+<!--    在显示器上是展开的，在小屏幕上是折叠的-->
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark ">
+<!--        brand-->
+        <a href="#" class="navbar-brand">navbar-brand</a>
+
+<!--        toggle/collapse button-->
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#clp01">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+<!--        navbar link-->
+        <div class="collapse navbar-collapse" id="clp01">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">link1</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">link2</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">link3</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br />
+
+<!--    带下拉菜单和的导航栏-->
+    <nav class="navbar navbar-expand-md bg-danger">
+<!--        brand-->
+        <a href="#" class="navbar-brand">navbar-brand</a>
+
+<!--        toggle/collapse 按钮-->
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#clp02">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <ul class="navbar-nav" id="clp02">
+            <li class="nav-item">
+                <a href="#" class="nav-link">link 1</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">link 2</a>
+            </li>
+
+<!--            这种导航栏下拉菜单方法好-->
+            <li class="nav-item dropdown">
+<!--                <a href="#" class="nav-link">link2</a>-->
+                <a href="#dpd01" class="nav-link dropdown-toggle" data-toggle="dropdown">link3</a>
+
+                <div class="dropdown-menu" id="dpd01">
+                    <a href="#" class="dropdown-item">#1</a>
+                    <a href="#" class="dropdown-item">#2</a>
+                </div>
+            </li>
+
+<!--            这个方式不好，按钮组这种方法好-->
+            <li class="nav-item">
+                <a href="https://www.baidu.com" class="nav-link">百度</a>
+                <a href="#" class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></a>
+                <div class="dropdown-menu">
+                    <a href="https://www.sina.com.cn" class="dropdown-item">新浪</a>
+                    <a href="https://www.qq.com" class="dropdown-item">腾讯</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <br />
+
+<!-- 导航栏中的表单，其实就是内联表单和导航栏文本 -->
+    <nav class="navbar navbar-expand bg-warning">
+        <a href="#" class="navbar-brand">#</a>
+        <ol class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">link1</a>
+            </li>
+        </ol>
+        <form class="form-inline">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+        </form>
+        <span class="navbar-text">navbar-text</span>
+
+    </nav>
+
+</div>
+</body>
+</html>
