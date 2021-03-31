@@ -2,7 +2,7 @@
 <html lang=zh-CN">
 <head>
     <meta charset="UTF-8">
-    
+
     <!--添加让 viewport（视口）支持响应式布局的 标签-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--    本地引入依赖文件-->
@@ -19,6 +19,174 @@
     <title>导航</title>
 </head>
 <body>
+<div class="container-fluid">
+<!--    简单的导航栏 -->
+    <ol class="nav">
+        <li class="nav-item">
+            <a href="https://www.baidu.com" class="nav-link">百度</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.sina.com.cn" class="nav-link">新浪</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.360.com" class="nav-link disabled">360 disabled</a>
+        </li>
+    </ol>
+    <br />
 
+<!--    居中对齐-->
+    <ol class="nav justify-content-center">
+        <li class="nav-item">
+            <a href="https://www.baidu.com" class="nav-link">百度</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.sina.com.cn" class="nav-link">新浪</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.360.com" class="nav-link disabled">360 disabled</a>
+        </li>
+    </ol>
+    <br />
+
+<!--    右对齐-->
+    <ol class="nav justify-content-end">
+        <li class="nav-item">
+            <a href="https://www.baidu.com" class="nav-link">百度</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.sina.com.cn" class="nav-link">新浪</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.360.com" class="nav-link disabled">360 disabled</a>
+        </li>
+    </ol>
+    <br />
+
+<!--    垂直导航-->
+    <ol class="nav flex-column">
+        <li class="nav-item">
+            <a href="https://www.baidu.com" class="nav-link">百度</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.sina.com.cn" class="nav-link">新浪</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.360.com" class="nav-link disabled">360 disabled</a>
+        </li>
+    </ol>
+    <br />
+
+<!--    选项卡导航-->
+    <ol class="nav nav-tabs">
+        <li class="nav-item">
+            <a href="https://www.baidu.com" class="nav-link active">百度</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.sina.com.cn" class="nav-link">新浪</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.360.com" class="nav-link disabled">360 disabled</a>
+        </li>
+    </ol>
+    <br />
+
+<!--    等宽胶囊导航-->
+    <ol class="nav nav-pills nav-justified">
+        <li class="nav-item active">
+            <a href="https://www.baidu.com" class="nav-link active">百度</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.sina.com.cn" class="nav-link">新浪</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.360.com" class="nav-link disabled">360 disabled</a>
+        </li>
+    </ol>
+    <br />
+
+<!--    选项卡下拉菜单-->
+    <ol class="nav nav-tabs">
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">网站1</a>
+            <div class="dropdown-menu">
+                <a href="https://www.baidu.com" class="dropdown-item">百度</a>
+                <a href="https://www.sina.com.cn" class="dropdown-item">新浪</a>
+                <a href="https://www.360.com" class="dropdown-item">360</a>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown">网站2</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">dropdown-item1</a>
+                <a class="dropdown-item" href="#">dropdown-item2</a>
+                <a class="dropdown-item" href="#">dropdown-item2</a>
+            </div>
+        </li>
+    </ol>
+
+<!--    胶囊选项卡下拉菜单-->
+    <ol class="nav nav-pills">
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">网站1</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">#1</a>
+                <a class="dropdown-item" href="#">#2</a>
+                <a class="dropdown-item" href="#">#3</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">网站2</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">#1</a>
+                <a class="dropdown-item" href="#">#2</a>
+                <a class="dropdown-item" href="#">#3</a>
+            </div>
+        </li>
+    </ol>
+    <br />
+
+<!--    动态选项卡-->
+    <ol class="nav nav-tabs">
+        <li class="nav-item ">
+            <a href="#one" class="nav-link active" data-toggle="tab">one</a>
+        </li>
+        <li class="nav-item">
+            <a href="#two" class="nav-link" data-toggle="tab">two</a>
+        </li>
+        <li class="nav-item">
+            <a href="#three" class="nav-link" data-toggle="tab">three</a>
+        </li>
+    </ol>
+
+    <div class="tab-content">
+        <div class="tab-pane container active" id="one">one</div>
+        <div class="tab-pane container" id="two">two</div>
+        <div class="tab-pane container" id="three">three</div>
+    </div>
+
+<!--    动态胶囊选项卡-->
+    <ol class="nav nav-pills">
+        <li class="nav-item">
+            <a href="#lifan" class="nav-link active" data-toggle="pill">lifan</a>
+        </li>
+        <li class="nav-item">
+            <a href="#lifanfan" class="nav-link" data-toggle="pill">lifanfan</a>
+        </li>
+        <li class="nav-item">
+            <a href="#lilifan" class="nav-link" data-toggle="pill">lilifan</a>
+        </li>
+    </ol>
+
+    <div class="tab-content">
+        <div class="container tab-pane active" id="lifan">lifan</div>
+        <div class="container tab-pane" id="lifanfan">lifanfan</div>
+        <div class="container tab-pane" id="lilifan">lilifan</div>
+    </div>
+
+
+
+
+</div>
 </body>
 </html>
