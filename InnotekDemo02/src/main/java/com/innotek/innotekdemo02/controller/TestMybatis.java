@@ -9,6 +9,8 @@ import com.innotek.innotekdemo02.service.EmploymentServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,60 +23,75 @@ public class TestMybatis {
     DepartmentServ deptServ;
 
     //ok
-    @GetMapping("selectDepartmentById")
+    @GetMapping("/selectDepartmentById")
     Department selectDepartmentById(Integer id){
         return deptServ.selectDepartmentById(id);
     }
 
     //ok
-    @GetMapping("selectDepartmentExtById")
+    @GetMapping("/selectDepartmentExtById")
     DepartmentExt selectDepartmentExtById(Integer id){
         return deptServ.selectDepartmentExtById(id);
     }
 
     //ok
-    @GetMapping("selectAllDepartment")
+    @GetMapping("/selectAllDepartment")
     List<Department> selectAllDepartment(){
         return deptServ.selectAllDepartment();
     }
 
     //ok
-    @GetMapping("selectAllCode")
+    @GetMapping("/selectAllCode")
     List<String> selectAllCode(){
         return deptServ.selectAllCode();
     }
 
     //ok
-    @GetMapping("selectAllId")
+    @GetMapping("/selectAllId")
     List<Integer> selectAllId(){
         return deptServ.selectAllId();
     }
 
     //ok
-    @GetMapping("deleteDepartmentById")
+    //有级联删除
+    @GetMapping("/deleteDepartmentById")
     int deleteDepartmentById(Integer id){
         return deptServ.deleteDepartmentById(id);
     }
 
-    //ok,同时也设置成功了id这个服务可以稍微改一下，可以把返回值设置成返回的id，这个比较好。
-    //改好了，插入、删除，和更新都只是暂时可以，细致的null值和级联操作还没有做。
-    @GetMapping("insertDepartment")
-    Department insertDepartment(Department dept){
-        dept = new Department();
-        dept.setName("xindewe");
-        dept.setCode("12345678");
+
+    //ok
+    //返回部门id，返回0表示插入失败
+    @GetMapping("/insertDepartment")
+    int insertDepartment(Department dept){
         deptServ.insertDepartment(dept);
-        return dept;
+        return dept.getId();
     }
 
-    //ok，
-    @GetMapping("updateDepartment")
-    int updateDepartment(Department dept){
-        dept = new Department();
-        dept.setId(1);
-        dept.setName("xinde");
-        return deptServ.updateDepartment(dept);
+    //ok
+    //有级联插入
+    //返回部门id，返回0表示插入失败
+    @GetMapping("/insertDeptAndEE")
+    int insertDeptAndEE(Department dept, List<Employee> ees){
+        return deptServ.insertDeptAndEE(dept, ees);
     }
+
+    //ok
+    @PostMapping ("/insertDeptAndEEV2")
+    int insertDeptAndEEV2(@RequestBody DepartmentExt deptExt){
+        return deptServ.insertDeptAndEEV2(deptExt);
+    }
+
+    //ok
+    @GetMapping("/updateDepartment")
+    int updateDepartment(Department dept){
+        int tmp = deptServ.updateDepartment(dept);
+        System.out.println('1');
+        return tmp;
+//        return deptServ.updateDepartment(dept);
+    }
+
+
 
 
     //以下测试ee
@@ -82,89 +99,72 @@ public class TestMybatis {
     EmploymentServ eeServ;
 
     //ok
-    @GetMapping("selectEmployeeById")
+    @GetMapping("/selectEmployeeById")
     Employee selectEmployeeById(Integer id){
-        return eeServ.selectEmployeeById(id);
+        Employee ee = eeServ.selectEmployeeById(id);
+        return ee;
+
+//        return eeServ.selectEmployeeById(id);
     }
 
     //ok
-    @GetMapping("selectEmployeeExtById")
+    @GetMapping("/selectEmployeeExtById")
     EmployeeExt selectEmployeeExtById(Integer id){
         return eeServ.selectEmployeeExtById(id);
     }
     //ok
-    @GetMapping("selectEmployeeByDeptId")
+    @GetMapping("/selectEmployeeByDeptId")
     List<Employee> selectEmployeeByDeptId(Integer deptId){
         return eeServ.selectEmployeeByDeptId(deptId);
     }
 
     //ok
-    @GetMapping("selectEmployeeExtByDeptId")
+    @GetMapping("/selectEmployeeExtByDeptId")
     List<EmployeeExt> selectEmployeeExtByDeptId(Integer deptId){
         return eeServ.selectEmployeeExtByDeptId(deptId);
     }
 
     //ok
-    @GetMapping("selectAllEmployee")
+    @GetMapping("/selectAllEmployee")
     List<Employee> selectAllEmployee(){
         return eeServ.selectAllEmployee();
     }
 
     //ok
-    @GetMapping("selectAllEmployeeExt")
+    @GetMapping("/selectAllEmployeeExt")
     List<EmployeeExt> selectAllEmployeeExt(){
         return eeServ.selectAllEmployeeExt();
     }
 
     //ok
-    @GetMapping("selectAllAccount")
+    @GetMapping("/selectAllAccount")
     List<String> selectAllAccount(){
         return eeServ.selectAllAccount();
     }
 
     //ok
-    @GetMapping("deleteEmployeeById")
+    @GetMapping("/deleteEmployeeById")
     int deleteEmployeeById(Integer id){
         return eeServ.deleteEmployeeById(id);
     }
 
     //0k
-    @GetMapping("deleteEmployeeByDeptId")
+    @GetMapping("/deleteEmployeeByDeptId")
     int deleteEmployeeByDeptId(Integer deptId){
         return eeServ.deleteEmployeeByDeptId(deptId);
     }
 
     //ok
-    @GetMapping("updateEmployee")
+    @GetMapping("/updateEmployee")
     int updateEmployee(Employee ee){
-        ee = new Employee();
-
-        ee.setId(10);
-//        ee.setName("lll");
-        ee.setAge(45);
-        ee.setSex("男");
-        ee.setTel("17772413437");
-//        ee.setAccount("tyuiokjhj");
-        ee.setPwd("tykjhu");
-        ee.setDeptId(1);
-
         return eeServ.updateEmployee(ee);
     }
 
 
     //ok
-    @GetMapping("insertEmployee")
+    //返回员工id，返回0插入失败
+    @GetMapping("/insertEmployee")
     int insertEmployee(Employee ee){
-
-//        ee.setId(1);
-        ee.setName("lll");
-        ee.setAge(45);
-        ee.setSex("男");
-        ee.setTel("17772413437");
-        ee.setAccount("tyuiokjhj");
-        ee.setPwd("tykjhu");
-        ee.setDeptId(1);
-
         return eeServ.insertEmployee(ee);
     }
 

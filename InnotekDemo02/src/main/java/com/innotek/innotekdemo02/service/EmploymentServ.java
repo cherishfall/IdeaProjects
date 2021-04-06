@@ -17,8 +17,11 @@ public class EmploymentServ {
     @Autowired
     IEmployeeDao iEmployeeDao;
 
+//    @Autowired
+//    IDepartmentDao iDepartmentDao;
+
     @Autowired
-    IDepartmentDao iDepartmentDao;
+    DepartmentServ deptServ;
 
     public Employee selectEmployeeById(Integer id){
         return iEmployeeDao.selectEmployeeById(id);
@@ -47,14 +50,19 @@ public class EmploymentServ {
         return iEmployeeDao.selectAllAccount();
     }
 
-    //这个返回的是插入的id值
-    public int insertEmployee(Employee ee){
-        List<String> accountList = iEmployeeDao.selectAllAccount();
-        List<Integer> deptIdList = iDepartmentDao.selectAllId();
 
-        //ee的部门id存在，且账号不存在时
+//    插入员工
+//    这个返回的是插入的id值, 返回0表示插入失败（受影响行数为0）
+//    name，account，pwd，dept_id字段不可为空
+    public int insertEmployee(Employee ee){
+//        List<String> accountList = iEmployeeDao.selectAllAccount();
+//        List<Integer> deptIdList = iDepartmentDao.selectAllId();
+        List<String> accountList = selectAllAccount();
+        List<Integer> deptIdList = deptServ.selectAllId();
+
+//        ee的部门id存在，且账号不存在时,插入员工
         if(deptIdList.contains(ee.getDeptId()) && !accountList.contains(ee.getAccount()) ){
-            if(iEmployeeDao.insertEmployee(ee) == 1){
+            if(iEmployeeDao.insertEmployee(ee) == 1){//插入成功
                 return ee.getId();
             }else {
                 return 0;
@@ -64,8 +72,16 @@ public class EmploymentServ {
         }
     }
 
+
+//    更新员工
+//    年龄，性别，电话，密码和部门id 可以改，也就是 id，name和账号不可以改
+//    返回受影响的行数
     public int updateEmployee(Employee ee){
-        List<Integer> deptIdList = iDepartmentDao.selectAllId();
+//        List<Integer> deptIdList = iDepartmentDao.selectAllId();
+        List<Integer> deptIdList = deptServ.selectAllId();
+
+
+//        当修改的部门id存在时，才可以改
         if(deptIdList.contains(ee.getDeptId())){
             return iEmployeeDao.updateEmployee(ee);
         }else {
@@ -73,10 +89,13 @@ public class EmploymentServ {
         }
     }
 
+//    删除
     public int deleteEmployeeById(Integer id){
         return iEmployeeDao.deleteEmployeeById(id);
     }
 
+
+//    删除
     public int deleteEmployeeByDeptId(Integer dept_id){
         return iEmployeeDao.deleteEmployeeByDeptId(dept_id);
     }

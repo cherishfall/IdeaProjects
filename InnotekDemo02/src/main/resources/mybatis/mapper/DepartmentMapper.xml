@@ -79,6 +79,21 @@
         select id from department;
     </select>
 
+<!--    2021.4.1 新增懒加载查询方式-->
+
+    <select id="selectDepartmentExtByIdLazy" resultMap="DepartmentExtMapLazy">
+        select * from department where id = #{id};
+    </select>
+
+    <resultMap id="DepartmentExtMapLazy" type="DepartmentExt">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="code" column="code" />
+        <collection property="ees" javaType="ArrayList" ofType="Employee" column="id"
+                    select="com.innotek.innotekdemo02.dao.IEmployeeDao.selectEmployeeByDeptId"
+                    fetchType="lazy"/>
+    </resultMap>
+
 
 
 

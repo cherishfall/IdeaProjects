@@ -25,5 +25,8 @@ public interface IDepartmentDao {
 
     List<Integer> selectAllId();
 
+//    2021.4.1 新增懒加载查询方式
+    DepartmentExt selectDepartmentExtByIdLazy(Integer id);
+
 
 }

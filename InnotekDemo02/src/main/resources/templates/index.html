@@ -1,11 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+
+<!-- 添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- 使用thymeleaf引入依赖-->
+    <link rel="stylesheet" th:href="@{css/bootstrap.css}">
+    <script th:src="@{js/jquery-3.6.0.js}"></script>
+    <script th:src="@{js/bootstrap.bundle.js}"></script>
+
+<!--    本地引入依赖文件-->
+<!--    <link rel="stylesheet" href="../static/css/bootstrap.css">-->
+<!--    <script src="../static/js/jquery-3.6.0.js"></script>-->
+<!--    <script src="../static/js/bootstrap.bundle.js"></script>-->
+
+<!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+<!--    ======================分界线======================-->
+
+<!--页面标题-->
+    <title>/index.html</title>
+
 
 </head>
 <body>
+<div class="container">
+    <p class="display-1">/index.html</p>
+    <p class="display-1">测试 BootStrap</p>
 
+    <hr />
+    <p class="h1">thymeleaf 入口</p>
+    <a href="/deptadmin" class="btn btn-lg btn-outline-info">部门管理</a><br />
+    <a href="/eeadmin" class="btn btn-lg btn-outline-info">员工管理</a>
+
+    <hr />
+    <p class="h1">本地入口</p>
+    <a href="deptadmin.html" class="btn btn-lg btn-outline-info">部门管理</a><br />
+    <a href="eeadmin.html" class="btn btn-lg btn-outline-info">员工管理</a>
+
+</div>
 </body>
 </html>

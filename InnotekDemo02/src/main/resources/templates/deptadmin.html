@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- 添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- 使用thymeleaf引入依赖-->
+<!--    <link rel="stylesheet" th:href="@{css/bootstrap.css}">-->
+<!--    <script th:src="@{js/jquery-3.6.0.js}"></script>-->
+<!--    <script th:src="@{js/bootstrap.bundle.js}"></script>-->
+
+<!--    需要启tomcat，本地引入依赖文件-->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/bootstrap.bundle.js"></script>
+
+    <!--    不用启tomcat，本地引入依赖文件-->
+<!--        <link rel="stylesheet" href="../static/css/bootstrap.css">-->
+<!--        <script src="../static/js/jquery-3.6.0.js"></script>-->
+<!--        <script src="../static/js/bootstrap.bundle.js"></script>-->
+
+    <!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+<!--    ======================分界线======================-->
+
+    <!--页面标题-->
+    <title>/deptadmin.html</title>
+
+
+<!--    分页函数-->
+    <script>
+        function page_program() {
+            // 获取表格的条目总数
+            let $trs = $("#table_dept_tbody").children();
+            // let $trs = $("#table_dept_tbody>tr:visible");
+            let trs_num = $trs.length;
+
+            //每页显示的条目数
+            let pager_per_page_num = parseInt($("#pager_per_page_num").val());
+
+            //获取上一页、下一页的按钮
+            let $pager_perv_page_btn =  $("#pager_perv_page_btn");
+            let $pager_next_page_btn = $("#pager_next_page_btn");
+
+            if(trs_num <= pager_per_page_num) {//总条目够一页显示的，不用分页
+                $pager_perv_page_btn.parent().addClass("disabled");
+                $pager_next_page_btn.parent().addClass("disabled");
+
+                $("#pager_page_num").text(1);
+                $("#pager_total_page").text(1);
+
+                $trs.show();
+            }else{
+
+                //设置总页数, js 的除法可以算出小数来
+                let pager_total_page = Math.ceil(trs_num / pager_per_page_num);
+                $("#pager_total_page").text(pager_total_page);
+
+                //获取当前的页码，减1是因为实际页码是从1开始的，但是索引是从0开始的
+                let pager_page_num = parseInt($("#pager_page_num").text()) -1;
+
+                //如果是第一页，隐藏上一页按钮,最后一页，隐藏下一页按钮
+                //不用隐藏，可以使用bootstrap的class属性
+                if(pager_page_num === 0){
+                    $pager_perv_page_btn.parent().addClass("disabled");
+                    $pager_next_page_btn.parent().removeClass("disabled")
+                }else if(pager_page_num === (pager_total_page - 1)){
+                    $pager_perv_page_btn.parent().removeClass("disabled");
+                    $pager_next_page_btn.parent().addClass("disabled")
+                }else {
+                    $pager_perv_page_btn.parent().removeClass("disabled");
+                    $pager_next_page_btn.parent().removeClass("disabled")
+                }
+
+                $trs.hide();//先把所有的条目给隐藏了
+
+                //显示数据
+                for(let i=0; i < pager_per_page_num; ++i){
+                    $trs.eq(pager_page_num * pager_per_page_num + i).show();
+                }
+            }
+        }
+    </script>
+<!--  绑定上一页、下一页和选择每页条数的按钮，并且启动分页-->
+    <script>
+        $(document).ready(function () {
+            $("#pager_perv_page_btn").click(function () {
+                let pager_page_num = parseInt($("#pager_page_num").text());
+
+                //pager_page_num是从 1 开始的
+                pager_page_num -= 1;
+                $("#pager_page_num").text(pager_page_num);
+
+                page_program();
+            })
+
+            $("#pager_next_page_btn").click(function (){
+                let pager_page_num = parseInt($("#pager_page_num").text());
+                pager_page_num += 1;
+                $("#pager_page_num").text(pager_page_num);
+
+                page_program();
+            })
+
+            $("#pager_per_page_num").change(function () {
+                //每次更改，都重置到第一页，可以做一个页码转换的。
+                $("#pager_page_num").text("1");
+                page_program();
+            })
+
+        })
+    </script>
+<!--    启动分页-->
+    <script>
+        $(function () {
+            page_program();
+        })
+    </script>
+
+
+
+<!--    绑定删除按钮-->
+    <script>
+        $(function () {
+            $("#table_dept_delete_btn").click(function () {
+                let confirm_result = confirm("删除部门会同时删除该部门下的所有员工，确认删除？");
+                if(confirm_result){
+                    // alert("确认");
+                    let $table_dept_checked_checkbox = $(".table_dept_checkbox:checked");
+                    if($table_dept_checked_checkbox.length === 0){
+                        alert("您未选择要删除的部门");
+                    }else if($table_dept_checked_checkbox.length > 1){
+                        alert("您选择了多个要删除的部门，为防止误操作，请您逐个删除")
+                    }else {
+                        let dept_id = $table_dept_checked_checkbox.eq(0).val();
+                        $.ajax({
+                            url:"/deleteDepartmentById",
+                            type:"get",
+                            data:{id: dept_id},
+                            success: function (data) {
+                                data = +data;
+                                if(data === 1){
+                                    alert("删除成功");
+                                    $table_dept_checked_checkbox.first().parent().parent().parent().remove();
+                                }else {
+                                    alert("删除失败");
+                                }
+                            },
+                            error: function () {
+                                alert("error 删除失败");
+                            }
+                        })
+                    }
+
+
+                }else {
+                    ;
+                }
+            })
+        })
+    </script>
+
+
+
+<!--    新增部门表单验证,聚焦时不验证，失去焦点时验证-->
+    <script src="js/valid_dept.js"></script>
+<!--    聚焦时-->
+    <script>
+        $(function () {
+            $("#form_add_dept_name").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+
+            $("#form_add_dept_code").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+        })
+    </script>
+<!--    失去焦点时-->
+    <script>
+        $(function () {
+            $("#form_add_dept_name").blur(function () {
+                let dept_name = $(this).val();
+                if(valid_dept_name(dept_name) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+
+            $("#form_add_dept_code").blur(function () {
+                let dept_code = $(this).val();
+                if(valid_dept_code(dept_code) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+        })
+    </script>
+<!--    绑定新增表单的提交按钮-->
+    <script>
+        $(function () {
+            $("#form_add_dept_submit_btn").click(function () {
+                let id = 0;
+                let name = $("#form_add_dept_name").val();
+                let code = $("#form_add_dept_code").val();
+
+                if(valid_dept_name(name) && valid_dept_code(code)){
+                    $.ajax({
+                        url:"/insertDepartment",
+                        type: "get",
+                        data: {id:id, name:name, code:code},
+                        success: function (data) {
+                            data = +data;
+                            if(data !== 0){
+                                // $("#form_add_dept_reset_btn").click();
+
+                                let str = "添加"+ name +" 部门成功，部门编号为：" + data + ", 部门代码为：" + code;
+                                alert(str);
+                                $("#dept_add_modal").modal("hide");
+                                location.reload();
+                            }else {
+                                alert("添加部门失败，请检查部门代码是否正确");
+                            }
+                        },
+                        error: function () {
+                            alert("添加部门失败，稍后再试");
+                        }
+                    })
+                }else {
+                    $("#form_add_dept_reset_btn").click();
+                    alert("请填写正确的部门信息")
+                }
+            })
+        })
+    </script>
+
+
+
+<!--    修改部门表单验证-->
+    <script>
+        $(function () {
+            $("#form_update_dept_name").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+
+            $("#form_update_dept_name").blur(function () {
+                let dept_name = $(this).val();
+                if(valid_dept_name(dept_name) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+
+
+        })
+    </script>
+<!--    绑定修改部门按钮-->
+    <script>
+        $(function () {
+            $("#table_dept_update_btn").click(function () {
+
+                let $table_dept_checked_checkbox = $(".table_dept_checkbox:checked");
+                if($table_dept_checked_checkbox.length === 0){
+                    alert("您未选中一个部门");
+                }else if($table_dept_checked_checkbox.length > 1){
+                    alert("您选中了一个以上的部门，一次只能修改一个部门");
+                }else {
+                    let $tr = $table_dept_checked_checkbox.first().parent().parent().parent();
+                    let id = $tr.children().eq(1).text();
+                    let name = $tr.children().eq(2).text();
+                    let code = $tr.children().eq(3).text();
+
+                    $("#form_update_dept_id").val(id);
+                    $("#form_update_dept_name").val(name);
+                    $("#form_update_dept_code").val(code);
+
+                    $("#dept_update_modal").modal("show");
+                }
+            })
+        })
+    </script>
+<!-- 绑定修改部门表单的提交按钮-->
+    <script>
+        $(function () {
+            $("#form_update_dept_submit_btn").click(function () {
+                let id = $("#form_update_dept_id").val();
+                let name = $("#form_update_dept_name").val();
+                let code = $("#form_update_dept_code").val();
+
+                $.ajax({
+                    url: "/updateDepartment",
+                    type: "get",
+                    data:{id:id, name:name, code:code},
+                    success:function (data) {
+                        data = +data;
+                        if(data !== 0){
+                            //修改成功，使用jquery把那一行数据也给改了，把模态框关闭
+                            let $table_dept_checked_checkbox = $(".table_dept_checkbox:checked");
+                            let $tr = $table_dept_checked_checkbox.first().parent().parent().parent();
+                            $tr.children().eq(2).text(name);
+                            $("#dept_update_modal").modal("hide");
+
+                            let str = "更新成功，更新后的部门名称为：" + name +"，部门编号为："+ id + ", 部门代码为："+ code;
+                            alert(str);
+                        }else {
+                            alert("更新失败");
+                        }
+                    },
+                    error: function () {
+                        alert("更新失败，请稍后再试");
+                    }
+                })
+            })
+        })
+    </script>
+
+
+<!--    绑定搜索按钮-->
+    <script>
+        $(document).ready(function () {
+            $("#form_search_dept_btn").click(function () {
+                let dept_name = $(this).prev().val().trim();
+                if(dept_name.length === 0){
+                    alert("请输入部门名称进行搜索");
+                }else {
+                    let $tds_dept_name = $("#table_dept_tbody>tr :nth-child(3):contains("+dept_name+")");
+                    let $trs_dept_name = $tds_dept_name.parent();
+
+                    $("#table_dept_tbody>tr").hide();
+                    $("#pager").hide();
+
+                    $trs_dept_name.show();
+                    $("#form_search_dept_return_btn").show();
+
+                }
+            })
+        })
+    </script>
+<!-- 绑定搜索返回按钮-->
+    <script>
+        $(function () {
+            $("#form_search_dept_return_btn").click(function () {
+                location.reload();
+            })
+        })
+    </script>
+
+
+
+</head>
+<body>
+
+<div class="container">
+<!--    导航栏-->
+    <nav class="navbar navbar-expand bg-dark navbar-dark">
+        <a class="navbar-brand text-info disabled" href="#">InnotekDemo</a>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/deptadmin">部门管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/eeadmin/0">员工管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/addDeptAndEE">级联新增</a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/search">搜索部门或员工</a>-->
+<!--            </li>-->
+        </ul>
+        <form class="form-inline">
+            <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="输入部门名称">
+            <button id="form_search_dept_btn" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button">搜索部门</button> &nbsp;&nbsp;
+            <button id="form_search_dept_return_btn" class="btn btn-sm btn-outline-primary my-2 my-sm-0" type="button" style="display: none">返回部门管理</button>
+        </form>
+    </nav>
+
+
+<!--    展示部门信息-->
+    <div id="table_dept">
+        <hr />
+        <h5>部门信息表</h5>
+        <hr />
+        <div class="row">
+            <div class="col-1">
+                <button type="button" class="btn btn-sm btn-primary" id="table_dept_update_btn">修改</button>
+            </div>
+            <div class="col-1">
+                <button type="button" class="btn btn-sm btn-danger" id="table_dept_delete_btn">删除</button>
+            </div>
+            <div class="offset-9 col-1">
+                <button type="button" class="btn btn-sm btn-success" id="table_dept_add_btn"
+                        data-toggle="modal" data-target="#dept_add_modal">新增</button>
+            </div>
+        </div>
+        <table class="table table-sm table-light table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th><th>部门编号</th><th>部门名称</th><th>部门代码</th>
+                </tr>
+            </thead>
+            <tbody id="table_dept_tbody">
+            <tr th:each="dept:${deptList}">
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox" class="table_dept_checkbox form-check-input m-auto" th:value="${dept.getId()}">
+                    </div>
+                </td>
+                <td th:text="${dept.getId()}"></td> <td th:text="${dept.getName()}"></td> <td th:text="${dept.getCode()}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr />
+    </div>
+
+
+<!--    分页组件-->
+    <div id="pager" class="row">
+        <div class="col-2">
+            <form class="form-inline">
+                <label for="pager_per_page_num">每页条目数&nbsp;&nbsp;</label>
+                <select id="pager_per_page_num" class="form-control form-control-sm">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+            </form>
+        </div>
+        <nav class="col-2">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a href="#" class="page-link btn-sm" id="pager_perv_page_btn">上一页</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link btn-sm" id="pager_next_page_btn">下一页</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="col-2 text-center">
+            <span>第</span>
+            <span id="pager_page_num">1</span>
+            <span>页，共</span>
+            <span id="pager_total_page">1</span>
+            <span>页</span>
+        </div>
+    </div>
+
+<!--    新增部门模态框-->
+    <div id="dept_add_modal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增部门</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_add_dept" method="get" action="/insertDepartment">
+<!--                        隐藏域-->
+                        <input type="number" name="id" value="0" hidden>
+                        <div class="form-group">
+                            <label for="form_add_dept_name">部门名称</label>
+                            <input type="text" id="form_add_dept_name" name="name" class="form-control"
+                                   required minlength="3" maxlength="16" />
+                            <small id="form_add_dept_name_help" class="form-text text-muted">部门名称不能为空，最少3字符，最多16字符</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="form_add_dept_code">部门代码</label>
+                            <input type="text" id="form_add_dept_code" name="code" class="form-control"
+                                    required minlength="4" maxlength="16">
+                            <small id="form_add_dept_code_help" class="form-text text-muted">部门代码不能为空，最少4字符，最多16字符</small>
+                        </div>
+                        <div>
+                            <button type="reset" id="form_add_dept_reset_btn" class="btn btn-sm btn-secondary">清空输入</button>
+<!--                            <button type="submit" class="btn btn-success">提交</button>-->
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="form_add_dept_cancel_btn">关闭</button>
+                    <button type="button" class="btn btn-success" id="form_add_dept_submit_btn">提交</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+<!--    修改部门模态框-->
+    <div id="dept_update_modal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">修改部门</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_update_dept" method="get" action="/insertDepartment">
+                        <div class="form-group">
+                            <label for="form_update_dept_id">部门编号</label>
+                            <input type="text" id="form_update_dept_id" name="id" class="form-control form-control-plaintext" readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label for="form_update_dept_name">部门名称</label>
+                            <input type="text" id="form_update_dept_name" name="name" class="form-control"
+                                   required minlength="3" maxlength="16" />
+                            <small id="form_update_dept_name_help" class="form-text text-muted">部门名称不能为空，最少3字符，最多16字符</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="form_add_dept_code">部门代码</label>
+                            <input type="text" id="form_update_dept_code" name="code" class="form-control form-control-plaintext" readonly>
+                        </div>
+                        <div>
+<!--                            <button type="reset" id="form_update_dept_reset_btn" class="btn btn-sm btn-secondary">清空输入</button>-->
+<!--                            <button type="submit" class="btn btn-success">提交</button>-->
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="form_update_dept_cancel_btn">关闭</button>
+                    <button type="button" class="btn btn-success" id="form_update_dept_submit_btn">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+</body>
+</html>
