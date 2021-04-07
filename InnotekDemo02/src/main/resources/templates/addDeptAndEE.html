@@ -73,7 +73,7 @@
             })
         })
     </script>
-<!--    新增部门提交时验证函数-->
+    <!--    新增部门提交时验证函数-->
     <script>
         function valid_add_dept(){
             let dept_name = $("#form_add_dept_name").val();
@@ -192,12 +192,7 @@
     </script>
 
 
-
-
-
-
-
-<!--    绑定增加员工toggle-->
+    <!--    绑定增加员工toggle-->
     <script>
         $(function () {
             $("#ee_add_modal_toggle").click(function () {
@@ -208,40 +203,6 @@
     </script>
 
     <!--    绑定模态框新增员工表单的提交按钮-->
-    <script>
-        /*
-        $(function () {
-            $("#form_add_ee_submit_btn").click(function () {
-
-                if(valid_add_ee()){
-                    $.ajax({
-                        url:"/insertEmployee",
-                        type: "get",
-                        data: $("#form_add_ee").serialize(),
-                        success: function (data) {
-                            data = +data;
-                            if(data !== 0){
-                                let str = "添加员工成功，员工编号为：" + data;
-                                alert(str);
-                                $("#ee_add_modal").modal("hide");
-                                location.reload();
-                            }else {
-                                alert("添加员工失败");
-                            }
-                        },
-                        error: function () {
-                            alert("添加员工失败，稍后再试");
-                        }
-                    })
-                }else {
-                    alert("请填写正确的员工信息");
-                }
-            })
-        })
-
-         */
-    </script>
-
     <script>
         $(function () {
             $("#form_add_ee_submit_btn").click(function () {
@@ -298,45 +259,6 @@
 
     <!--    绑定新增部门表单的提交按钮-->
     <script>
-        /*
-        $(function () {
-            $("#form_add_dept_submit_btn").click(function () {
-                let id = 0;
-                let name = $("#form_add_dept_name").val();
-                let code = $("#form_add_dept_code").val();
-
-                if(valid_dept_name(name) && valid_dept_code(code)){
-                    $.ajax({
-                        url:"/insertDepartment",
-                        type: "get",
-                        data: {id:id, name:name, code:code},
-                        success: function (data) {
-                            data = +data;
-                            if(data !== 0){
-                                // $("#form_add_dept_reset_btn").click();
-
-                                let str = "添加"+ name +" 部门成功，部门编号为：" + data + ", 部门代码为：" + code;
-                                alert(str);
-                                $("#dept_add_modal").modal("hide");
-                                location.reload();
-                            }else {
-                                alert("添加部门失败，请检查部门代码是否正确");
-                            }
-                        },
-                        error: function () {
-                            alert("添加部门失败，稍后再试");
-                        }
-                    })
-                }else {
-                    $("#form_add_dept_reset_btn").click();
-                    alert("请填写正确的部门信息")
-                }
-            })
-        })
-
-         */
-    </script>
-    <script>
         $(function () {
             $("#form_add_dept_submit_btn").click(function () {
                 if(valid_add_dept()){
@@ -368,8 +290,10 @@
                             let deptId = +data;
                             if(data !== 0){
                                 alert("添加成功，部门编号为："+deptId);
+                                //清理
                                 $("#ees p").remove();
                                 $("#form_add_dept_reset_btn").click();
+                                //转跳
                                 let url = "/eeadmin/"+ deptId;
                                 location.assign(url);
                             }else {
@@ -418,7 +342,7 @@
 
     <!--    存ees数组-->
     <div id="ees"></div>
-    
+
     <!--    新增部门表单-->
     <div>
         <form id="form_add_dept" method="get" action="/insertDepartment">
