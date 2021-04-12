@@ -1,4 +1,4 @@
-package com.innotek.cookieandsessiondemo01.entity;
+package com.innotek.cookieandsessiondemo02.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

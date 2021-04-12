@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        $(function () {
+            $("#logout").click(function () {
+                $.post({
+                    url: "/logout",
+                    data:{},
+                    success: function (data) {
+                        if(data === "success"){
+                            alert("您已退出成功");
+                            location.assign("/logout");
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<p th:text="${user.getAccount()}"></p>
+<p th:text="${user.getPwd()}"></p>
+<button type="button" id="logout">logout</button>
+
+</body>
+</html>
