@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.business.dao.FancOrderNomalDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.business.entity.FancOrderNomal" >
+	<result column="id" property="id"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="city_name" property="cityName"/>
+		<result column="area_name" property="areaName"/>
+		<result column="pay_type" property="payType"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="subject" property="subject"/>
+		<result column="order_body" property="orderBody"/>
+		<result column="order_status" property="orderStatus"/>
+		<result column="order_time" property="orderTime"/>
+		<result column="pay_time" property="payTime"/>
+		<result column="buyer_account" property="buyerAccount"/>
+		<result column="notify_status" property="notifyStatus"/>
+		<result column="order_fee" property="orderFee"/>
+		<result column="order_fee_rate" property="orderFeeRate"/>
+		<result column="service_fee" property="serviceFee"/>
+		<result column="create_time" property="createTime"/>
+		<result column="statdate" property="statdate"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.order_no,
+		 t.city_code,
+		 t.area_code,
+		 t.pay_type,
+		 t.user_account,
+		 t.parkrecord_id,
+		 t.subject,
+		 t.order_body,
+		 t.order_status,
+		 t.order_time,
+		 t.pay_time,
+		 t.buyer_account,
+		 t.notify_status,
+		 t.order_fee,
+		 t.order_fee_rate,
+		 t.service_fee,
+		 t.create_time,
+		 t.statdate,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="payType != null and payType != '' " >
+    	and t.pay_type =  #{payType}
+	</if>
+	<if test="userAccount != null and userAccount != '' " >
+    	and t.user_account =  #{userAccount}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="subject != null and subject != '' " >
+    	and t.subject =  #{subject}
+	</if>
+	<if test="orderBody != null and orderBody != '' " >
+    	and t.order_body =  #{orderBody}
+	</if>
+	<if test="orderStatus != null and orderStatus != '' " >
+    	and t.order_status =  #{orderStatus}
+	</if>
+	<if test="orderTime != null " >
+    	and t.order_time =  #{orderTime}
+	</if>
+	<if test="payTime != null " >
+    	and t.pay_time =  #{payTime}
+	</if>
+	<if test="buyerAccount != null and buyerAccount != '' " >
+    	and t.buyer_account =  #{buyerAccount}
+	</if>
+	<if test="notifyStatus != null " >
+    	and t.notify_status =  #{notifyStatus}
+	</if>
+	<if test="orderFee != null and orderFee != '' " >
+    	and t.order_fee =  #{orderFee}
+	</if>
+	<if test="orderFeeRate != null and orderFeeRate != '' " >
+    	and t.order_fee_rate =  #{orderFeeRate}
+	</if>
+	<if test="serviceFee != null and serviceFee != '' " >
+    	and t.service_fee =  #{serviceFee}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="statdate != null " >
+    	and t.statdate =  #{statdate}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into fanc_order_nomal 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="payType != null and payType != '' " >
+		 pay_type,
+		</if>
+    	<if test="userAccount != null and userAccount != '' " >
+		 user_account,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="subject != null and subject != '' " >
+		 subject,
+		</if>
+    	<if test="orderBody != null and orderBody != '' " >
+		 order_body,
+		</if>
+    	<if test="orderStatus != null and orderStatus != '' " >
+		 order_status,
+		</if>
+    	<if test="orderTime != null " >
+		order_time,
+		</if>
+    	<if test="payTime != null " >
+		pay_time,
+		</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+		 buyer_account,
+		</if>
+    	<if test="notifyStatus != null " >
+		notify_status,
+		</if>
+    	<if test="orderFee != null and orderFee != '' " >
+		 order_fee,
+		</if>
+    	<if test="orderFeeRate != null and orderFeeRate != '' " >
+		 order_fee_rate,
+		</if>
+    	<if test="serviceFee != null and serviceFee != '' " >
+		 service_fee,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+		<if test="statdate != null " >
+    	statdate,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="payType != null and payType != '' " >
+  		<![CDATA[  #{payType}, ]]>
+    	</if>
+    	<if test="userAccount != null and userAccount != '' " >
+  		<![CDATA[  #{userAccount}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="subject != null and subject != '' " >
+  		<![CDATA[  #{subject}, ]]>
+    	</if>
+    	<if test="orderBody != null and orderBody != '' " >
+  		<![CDATA[  #{orderBody}, ]]>
+    	</if>
+    	<if test="orderStatus != null and orderStatus != '' " >
+  		<![CDATA[  #{orderStatus}, ]]>
+    	</if>
+    	<if test="orderTime != null " >
+  		<![CDATA[  #{orderTime}, ]]>
+    	</if>
+    	<if test="payTime != null " >
+  		<![CDATA[  #{payTime}, ]]>
+    	</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+  		<![CDATA[  #{buyerAccount}, ]]>
+    	</if>
+    	<if test="notifyStatus != null " >
+  		<![CDATA[  #{notifyStatus}, ]]>
+    	</if>
+    	<if test="orderFee != null and orderFee != '' " >
+  		<![CDATA[  #{orderFee}, ]]>
+    	</if>
+    	<if test="orderFeeRate != null and orderFeeRate != '' " >
+  		<![CDATA[  #{orderFeeRate}, ]]>
+    	</if>
+    	<if test="serviceFee != null and serviceFee != '' " >
+  		<![CDATA[  #{serviceFee}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="statdate != null " >
+    	<![CDATA[  #{statdate}, ]]>
+		</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update fanc_order_nomal t set 
+   <trim suffixOverrides="," >
+	<if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="payType != null and payType != '' " >
+  	<![CDATA[  t.pay_type = #{payType}, ]]>
+    </if>
+    <if test="userAccount != null and userAccount != '' " >
+  	<![CDATA[  t.user_account = #{userAccount}, ]]>
+    </if>
+    <if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="subject != null and subject != '' " >
+  	<![CDATA[  t.subject = #{subject}, ]]>
+    </if>
+    <if test="orderBody != null and orderBody != '' " >
+  	<![CDATA[  t.order_body = #{orderBody}, ]]>
+    </if>
+    <if test="orderStatus != null and orderStatus != '' " >
+  	<![CDATA[  t.order_status = #{orderStatus}, ]]>
+    </if>
+    <if test="orderTime != null " >
+  	<![CDATA[  t.order_time = #{orderTime}, ]]>
+    </if>
+    <if test="payTime != null " >
+  	<![CDATA[  t.pay_time = #{payTime}, ]]>
+    </if>
+    <if test="buyerAccount != null and buyerAccount != '' " >
+  	<![CDATA[  t.buyer_account = #{buyerAccount}, ]]>
+    </if>
+    <if test="notifyStatus != null " >
+  	<![CDATA[  t.notify_status = #{notifyStatus}, ]]>
+    </if>
+    <if test="orderFee != null and orderFee != '' " >
+  	<![CDATA[  t.order_fee = #{orderFee}, ]]>
+    </if>
+    <if test="orderFeeRate != null and orderFeeRate != '' " >
+  	<![CDATA[  t.order_fee_rate = #{orderFeeRate}, ]]>
+    </if>
+    <if test="serviceFee != null and serviceFee != '' " >
+  	<![CDATA[  t.service_fee = #{serviceFee}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="statdate != null " >
+  	<![CDATA[  t.statdate = #{statdate}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from fanc_order_nomal where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from fanc_order_nomal t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) 
+	from fanc_order_nomal t 
+	left join base_area ba1 on t.city_code = ba1.area_code
+	left join base_area ba2 on t.area_code = ba2.area_code
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,ba1.area_name city_name,ba2.area_name 
+	from fanc_order_nomal t 
+	left join base_area ba1 on t.city_code = ba1.area_code
+	left join base_area ba2 on t.area_code = ba2.area_code
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.statdate desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 删除指定日期订单 -->
+<delete id="deleteByStatdate" parameterType="Object">
+	delete from fanc_order_nomal where statdate = #{statdate}
+</delete>
+<!-- 批量保存 -->
+<insert id="batchSave" parameterType="java.util.List">
+	insert into fanc_order_nomal 
+		 (id,order_no,city_code,area_code,pay_type,user_account,parkrecord_id,subject,order_body,
+		 order_status,order_time,pay_time,buyer_account,notify_status,order_fee,
+		 order_fee_rate,service_fee,create_time,statdate)
+	values
+	<foreach collection="list" index="index" item="item" separator=",">
+		(#{item.id},#{item.orderNo},#{item.cityCode},#{item.areaCode},#{item.payType},#{item.userAccount},#{item.parkrecordId},#{item.subject},#{item.orderBody},
+		#{item.orderStatus},#{item.orderTime},#{item.payTime},#{item.buyerAccount},#{item.notifyStatus},#{item.orderFee},
+  		#{item.orderFeeRate},#{item.serviceFee},#{item.createTime},#{item.statdate})
+	</foreach>
+</insert>
+
+<!-- 根据账单编码获取账单 -->
+<select id="queryFancOrderNomalByOrderNo" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<if test="orderType == null or orderType == '' or orderType == '1'.toString()">
+		<include refid="Base_Column_List"/> 
+	</if>
+	<if test="orderType != null and orderType != '' and orderType == '2'.toString()">
+		t.order_no,t.city_code,t.area_code, t.pay_type,t.user_account, t.parkrecord_id, t.subject,
+		t.order_body, t.order_status, t.order_time, t.pay_time, t.buyer_account,t.notify_status,
+		o.refund_fee order_fee, t.order_fee_rate, t.create_time, t.statdate, t.id
+	</if>
+	from fanc_order_nomal t
+	<if test="orderType != null and orderType != '' and orderType == '2'.toString()">
+		join app_order_refund o on o.order_no=t.order_no
+	</if>
+	where t.order_no = #{orderNo}
+</select>
+<!-- 根据账单日期编码获取账单 -->
+<select id="queryFancOrderNomalByStatDate" resultMap="BaseResultMap"  parameterType="Object">
+	select <include refid="Base_Column_List"/> from fanc_order_nomal t
+	where t.statdate = #{statdate}
+</select>
+<!-- 获取账单列表 -->
+<select id="queryFancOrderNomalListByStateDate" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	select 
+	<include refid="Base_Column_List"/>
+	,ba1.area_name city_name,ba2.area_name 
+	from fanc_order_nomal t 
+	left join base_area ba1 on t.city_code = ba1.area_code
+	left join base_area ba2 on t.area_code = ba2.area_code
+	WHERE t.statdate &gt;= #{startDate} AND t.statdate &lt;= #{endDate} 
+	<if test="cityId != null and cityId != '' ">
+		and ba1.id = #{cityId}
+	</if>
+	order by t.statdate desc
+</select>
+</mapper>   

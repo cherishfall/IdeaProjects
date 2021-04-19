@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.rent.ParkSpaceInfoDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.rent.ParkSpaceInfo" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="area_name" property="areaName"/>
+		<result column="name" property="name"/>
+		<result column="address" property="address"/>
+		<result column="map_address" property="mapAddress"/>
+		<result column="longitude_gaode" property="longitudeGaode"/>
+		<result column="latitude_gaode" property="latitudeGaode"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="count" property="count"/>
+		<result column="phone" property="phone"/>
+		<result column="start_date" property="startDate"/>
+		<result column="type" property="type"/>
+		<result column="status" property="status"/>
+		<result column="is_park_cart" property="isParkCart"/>
+		<result column="is_rele_cert" property="isReleCert"/>
+		<result column="eval_num" property="evalNum"/>
+		<result column="remark" property="remark"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="reviewer" property="reviewer"/>
+		<result column="review_result" property="reviewResult"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.area_code,
+		 t.area_name,
+		 t.name,
+		 t.address,
+		 t.map_address,
+		 t.longitude_gaode,
+		 t.latitude_gaode,
+		 t.img_url,
+		 t.count,
+		 t.phone,
+		 t.start_date,
+		 t.type,
+		 t.status,
+		 t.is_park_cart,
+		 t.is_rele_cert,
+		 t.eval_num,
+		 t.remark,
+		 t.flag,
+		 t.created_by,
+		 t.create_time,
+		 t.updated_by,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="areaName != null and areaName != '' " >
+    	and t.area_name =  #{areaName}
+	</if>
+	<if test="name != null and name != '' " >
+    	and t.name =  #{name}
+	</if>
+	<if test="address != null and address != '' " >
+    	and t.address =  #{address}
+	</if>
+	<if test="mapAddress != null and mapAddress != '' " >
+    	and t.map_address =  #{mapAddress}
+	</if>
+	<if test="longitudeGaode != null " >
+    	and t.longitude_gaode =  #{longitudeGaode}
+	</if>
+	<if test="latitudeGaode != null " >
+    	and t.latitude_gaode =  #{latitudeGaode}
+	</if>
+	<if test="imgUrl != null and imgUrl != '' " >
+    	and t.img_url =  #{imgUrl}
+	</if>
+	<if test="count != null " >
+    	and t.count =  #{count}
+	</if>
+	<if test="phone != null and phone != '' " >
+    	and t.phone =  #{phone}
+	</if>
+	<if test="startDate != null " >
+    	and t.start_date =  #{startDate}
+	</if>
+	<if test="type != null " >
+    	and t.type =  #{type}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="isParkCart != null " >
+    	and t.is_park_cart =  #{isParkCart}
+	</if>
+	<if test="isReleCert != null " >
+    	and t.is_rele_cert =  #{isReleCert}
+	</if>
+	<if test="evalNum != null " >
+    	and t.eval_num =  #{evalNum}
+	</if>
+	<if test="remark != null and remark != '' " >
+    	and t.remark = #{remark}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into rent_park_space_info 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="areaName != null and areaName != '' " >
+		 area_name,
+		</if>
+    	<if test="name != null and name != '' " >
+		 name,
+		</if>
+    	<if test="address != null and address != '' " >
+		 address,
+		</if>
+    	<if test="mapAddress != null and mapAddress != '' " >
+		 map_address,
+		</if>
+    	<if test="longitudeGaode != null " >
+		longitude_gaode,
+		</if>
+    	<if test="latitudeGaode != null " >
+		latitude_gaode,
+		</if>
+    	<if test="imgUrl != null and imgUrl != '' " >
+		 img_url,
+		</if>
+    	<if test="count != null " >
+		count,
+		</if>
+    	<if test="phone != null and phone != '' " >
+		 phone,
+		</if>
+    	<if test="startDate != null " >
+		start_date,
+		</if>
+    	<if test="type != null " >
+		type,
+		</if>
+    	<if test="status != null " >
+		status,
+		</if>
+    	<if test="isParkCart != null " >
+		is_park_cart,
+		</if>
+    	<if test="isReleCert != null " >
+		is_rele_cert,
+		</if>
+    	<if test="evalNum != null " >
+		eval_num,
+		</if>
+    	<if test="remark != null and remark != '' " >
+		 remark,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="areaName != null and areaName != '' " >
+  		<![CDATA[  #{areaName}, ]]>
+    	</if>
+    	<if test="name != null and name != '' " >
+  		<![CDATA[  #{name}, ]]>
+    	</if>
+    	<if test="address != null and address != '' " >
+  		<![CDATA[  #{address}, ]]>
+    	</if>
+    	<if test="mapAddress != null and mapAddress != '' " >
+  		<![CDATA[  #{mapAddress}, ]]>
+    	</if>
+    	<if test="longitudeGaode != null " >
+  		<![CDATA[  #{longitudeGaode}, ]]>
+    	</if>
+    	<if test="latitudeGaode != null " >
+  		<![CDATA[  #{latitudeGaode}, ]]>
+    	</if>
+    	<if test="imgUrl != null and imgUrl != '' " >
+  		<![CDATA[  #{imgUrl}, ]]>
+    	</if>
+    	<if test="count != null " >
+  		<![CDATA[  #{count}, ]]>
+    	</if>
+    	<if test="phone != null and phone != '' " >
+  		<![CDATA[  #{phone}, ]]>
+    	</if>
+    	<if test="startDate != null " >
+  		<![CDATA[  #{startDate}, ]]>
+    	</if>
+    	<if test="type != null " >
+  		<![CDATA[  #{type}, ]]>
+    	</if>
+    	<if test="status != null " >
+  		<![CDATA[  #{status}, ]]>
+    	</if>
+    	<if test="isParkCart != null " >
+  		<![CDATA[  #{isParkCart}, ]]>
+    	</if>
+    	<if test="isReleCert != null " >
+  		<![CDATA[  #{isReleCert}, ]]>
+    	</if>
+    	<if test="evalNum != null " >
+  		<![CDATA[  #{evalNum}, ]]>
+    	</if>
+    	<if test="remark != null and remark != '' " >
+  		<![CDATA[  #{remark}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update rent_park_space_info t set 
+   <trim suffixOverrides="," >
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="areaName != null and areaName != '' " >
+  	<![CDATA[  t.area_name = #{areaName}, ]]>
+    </if>
+    <if test="name != null and name != '' " >
+  	<![CDATA[  t.name = #{name}, ]]>
+    </if>
+    <if test="address != null and address != '' " >
+  	<![CDATA[  t.address = #{address}, ]]>
+    </if>
+    <if test="mapAddress != null and mapAddress != '' " >
+  	<![CDATA[  t.map_address = #{mapAddress}, ]]>
+    </if>
+    <if test="longitudeGaode != null " >
+  	<![CDATA[  t.longitude_gaode = #{longitudeGaode}, ]]>
+    </if>
+    <if test="latitudeGaode != null " >
+  	<![CDATA[  t.latitude_gaode = #{latitudeGaode}, ]]>
+    </if>
+    <if test="imgUrl != null and imgUrl != '' " >
+  	<![CDATA[  t.img_url = #{imgUrl}, ]]>
+    </if>
+    <if test="count != null " >
+  	<![CDATA[  t.count = #{count}, ]]>
+    </if>
+    <if test="phone != null and phone != '' " >
+  	<![CDATA[  t.phone = #{phone}, ]]>
+    </if>
+    <if test="startDate != null " >
+  	<![CDATA[  t.start_date = #{startDate}, ]]>
+    </if>
+    <if test="type != null " >
+  	<![CDATA[  t.type = #{type}, ]]>
+    </if>
+    <if test="status != null " >
+  	<![CDATA[  t.status = #{status}, ]]>
+    </if>
+    <if test="isParkCart != null " >
+  	<![CDATA[  t.is_park_cart = #{isParkCart}, ]]>
+    </if>
+    <if test="isReleCert != null " >
+  	<![CDATA[  t.is_rele_cert = #{isReleCert}, ]]>
+    </if>
+    <if test="evalNum != null " >
+  	<![CDATA[  t.eval_num = #{evalNum}, ]]>
+    </if>
+    <if test="remark != null and remark != '' " >
+  	<![CDATA[  t.remark = #{remark}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from rent_park_space_info where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from rent_park_space_info t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from rent_park_space_info t 
+	where 1=1
+	<if test="isLimit == 1 " >
+    	and t.status = 1
+	</if>
+	<if test="type != null " >
+    	and t.type =  #{type}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by like '${createdBy}%'
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,r.reviewer,r.review_result
+	from rent_park_space_info t 
+	left join rent_park_space_review r on t.id = r.berth_id
+	where 1=1
+	<if test="isLimit == 1 " >
+    	and t.status = 1
+	</if>
+	<if test="type != null " >
+    	and t.type =  #{type}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by like '${createdBy}%'
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.status asc,t.create_time asc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<resultMap id="MapRecordMap" type="com.innotek.fragrans.bean.item.shareparkspace.ShareParkSpaceMapItem" >
+	<result column="id" property="berthId"/>
+	<result column="type" property="type"/>
+	<result column="longitude_gaode" property="longitudeGD"/>
+	<result column="latitude_gaode" property="latitudeGD"/>
+	<result column="address" property="address"/>
+</resultMap>
+
+<!--根据经纬度查询发布车位 -->
+<select id="getMapShareParkSpaceRecord" resultMap="MapRecordMap"  parameterType="Object">
+	SELECT id,type,longitude_gaode,latitude_gaode,address
+	FROM rent_park_space_info
+	WHERE STATUS = 2 AND FLAG != 'DELETE'
+	  AND LONGITUDE_GAODE &gt;= #{minLongitude} AND LONGITUDE_GAODE &lt;= #{maxLongitude}
+	  AND LATITUDE_GAODE &gt;= #{minLatitude} AND LATITUDE_GAODE &lt;= #{maxLatitude}
+</select>
+
+
+<!--根据泊位ID更新评价数 -->
+<update id="updateEvalCountByBerthId" parameterType="java.lang.String">
+	UPDATE rent_park_space_info
+	SET EVAL_NUM = EVAL_NUM + 1
+	WHERE ID = #{_parameter}
+</update>
+
+<resultMap id="ParkSpaceRecordMap" type="com.innotek.fragrans.bean.item.shareparkspace.ShareParkSpaceRecordItem" >
+	<result column="id" property="berthId"/>
+	<result column="longitude_gaode" property="longitudeGD"/>
+	<result column="latitude_gaode" property="latitudeGD"/>
+	<result column="name" property="parkName"/>
+	<result column="address" property="address"/>
+	<result column="status" property="status"/>
+	<result column="img_url" property="imgUrl"/>
+	<result column="map_address" property="mapAddress"/>
+</resultMap>
+<!--根据状态查询车位发布信息-->
+<select id="queryParkSpaceInfoByStatus" resultMap="ParkSpaceRecordMap"  parameterType="Object">
+	SELECT id,longitude_gaode,latitude_gaode,name,address,status,img_url,map_address,
+	round(6378.138*2*asin(sqrt(pow(sin((#{latitude}*pi()/180-latitude_gaode*pi()/180)/2),2)+cos(#{latitude}*pi()/180)*cos(latitude_gaode*pi()/180)* pow(sin((#{longitude}*pi()/180-longitude_gaode*pi()/180)/2),2))),2)
+	as distance
+	FROM rent_park_space_info
+	WHERE STATUS = #{status} AND FLAG != 'DELETE'
+	order by distance asc
+	limit #{pageIndex},#{pageLength}
+</select>
+
+<!-- 根据用户查询车位发布信息 -->
+<select id="queryParkSpaceInfoByUserId" resultMap="ParkSpaceRecordMap"  parameterType="Object">
+	SELECT id,longitude_gaode,latitude_gaode,name,address,status,img_url,map_address
+	FROM rent_park_space_info
+	WHERE user_id = #{userId} AND FLAG != 'DELETE'
+	order by create_time desc
+	limit #{pageIndex},#{pageLength}
+</select>
+</mapper>   

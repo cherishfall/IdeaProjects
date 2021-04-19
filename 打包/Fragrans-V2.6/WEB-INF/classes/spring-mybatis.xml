@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-autowire="byType">
+	<!--配置数据源属性文件 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		  <property name="ignoreResourceNotFound" value="true" />
+		  <property name="locations">
+			   <list>
+			    	<value>classpath:config.properties</value>
+			    	<value>classpath:config/redis.properties</value>
+			    	<value>classpath:activity.properties</value>
+			    	<value>classpath:jdbc.properties</value>
+				    <value>classpath:alipay.properties</value>
+			   </list>
+		  </property>
+    </bean>
+	<!-- Annotation Config -->
+	<context:annotation-config />
+	<!-- 扫描Service -->
+	<context:component-scan base-package="com.innotek.system.service.*" />
+	<context:component-scan base-package="com.innotek.business.service.*" />
+	<context:component-scan base-package="com.innotek.fragrans.service.*" />
+	<context:component-scan base-package="com.innotek.invoice.service.*" />
+	<!-- 	扫描后台spms接口请求的服务 -->
+	<context:component-scan base-package="com.innotek.fragrans.remote.process.to.*" />
+	
+	<!-- 	扫描中间件Fragrans接口请求的服务 -->
+	<context:component-scan base-package="com.innotek.fragrans.process.*" />
+	<context:component-scan base-package="com.innotek.activity.service.*" />
+
+	<!-- 扫描收费系统spms接口请求的服务-->
+	<context:component-scan base-package="com.innotek.spms.gatewayproc.spms.*" />
+	<context:component-scan base-package="com.innotek.spms.remote.process" />
+	<context:component-scan base-package="com.innotek.pos.process.*" />
+	<!-- 扫描javaBean -->
+	<context:component-scan base-package="com.innotek.common.entity" />
+
+	<context:component-scan base-package="com.innotek.mq.api"/>
+	 <!-- Druid配置数据连接池 -->  
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+<!--          <property name="driverClassName"><value>com.mysql.jdbc.ReplicationDriver</value></property> -->
+<!--          <property name="url" value="jdbc:mysql:replication://192.168.10.212:3306,192.168.10.212:3306/fragrans2.0?useUnicode=true&amp;charaterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true" />   -->
+         <property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property>
+<!--           <property name="url" value="jdbc:mysql://rm-bp1113bah8a1r0y5d.mysql.rds.aliyuncs.com:3306/fragrans?useUnicode=true&amp;charaterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true" />   -->
+<!--          <property name="username" value="fragrans"/> -->
+<!--          <property name="password" value="fragrans" />  -->
+         <property name="url" value="jdbc:mysql://192.168.10.206:3308/fragrans1?useUnicode=true&amp;charaterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true" />
+         <property name="username" value="fragrans3308"/>
+         <property name="password" value="fragrans3308" />
+         <property name="maxActive" value="200" />
+         <property name="initialSize" value="10" />
+         <property name="minIdle" value="10" />
+         <property name="maxWait" value="60000" />
+         <property name="validationQuery" value="select 1" />  
+         <!-- ******重要的配置：监控统计拦截的filters,日志记录 *start* ******-->
+         <!-- 并在filters属性中配置了log4j，ref中的bean是下面拦截器的配置 -->
+         <!-- proxyFilters和filters是组合关系,前者是根据bean配置,后者根据别名配置的-->
+         <!-- stat是statfilter的别名,log4j是logFilter的别名-->
+         <!-- 监控统计拦截的filters,日志记录,这里开启了stat,wall（sql翻过墙过滤监控）,log4j（log4j的监控）配置 -->
+         <property name="proxyFilters">
+            <list>
+                <ref bean="statfilter" />
+                <ref bean="logFilter" />
+                <ref bean="wall-filter" />
+            </list>
+         </property>
+         <property name="filters" value="wall" />   
+    </bean>
+    <!-- druid监控统计bean 对应上文dataSource中的proxyFilters -->  
+     <!-- 慢SQL记录 *start* -->
+    <bean id="statfilter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <!-- 开启合并sql -->
+        <property name="mergeSql" value="true" />
+        <!-- 开启慢查询语句,1秒 -->
+        <property name="slowSqlMillis" value="1000" />
+        <property name="logSlowSql" value="true" />
+    </bean>
+  	<bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">  
+        <property name="config" ref="wall-config" />  
+    </bean>                                  
+    <bean id="wall-config" class="com.alibaba.druid.wall.WallConfig">  
+        <property name="multiStatementAllow" value="true" />  
+    </bean>  
+    <bean id="logFilter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+        <property name="resultSetLogEnabled" value="false" />
+        <property name="statementExecutableSqlLogEnable" value="true" />
+    </bean>
+    <!-- 慢SQL记录  *end* -->
+       
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/innotek/system/mapper/*Mapper.xml</value>
+ 			  	<value>classpath:com/innotek/fragrans/mapper/*Mapper.xml</value>
+ 			  	<value>classpath:com/innotek/fragrans/mapper/*/*Mapper.xml</value>
+ 			  	<value>classpath:com/innotek/business/mapper/*Mapper.xml</value>
+ 			  	<value>classpath:com/innotek/business/mapper/*/*Mapper.xml</value>
+ 			  	<value>classpath:com/innotek/invoice/mapper/*Mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 扫描mapper.java -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		autowire="byName">
+		<property name="basePackage"
+			value="com.innotek.system.dao,com.innotek.conver.dao.*,com.innotek.fragrans.dao,com.innotek.business.dao,com.innotek.invoice.dao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<!-- ***************事务配置************** -->
+	<!-- 声明式-->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<aop:config>
+		<!-- 配置切面 -->
+		<aop:advisor pointcut="execution(* com.innotek.system.service.*.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* com.innotek.fragrans.service.*.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+	<!-- advice（建议）的命名：由于每个模块都会有自己的Advice，所以在命名上需要作出规范，初步的构想就是模块名+Advice（只是一种命名规范）。 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="select*" read-only="true" />
+			<!-- 其中*为通配符，即代表以tran为开头的所有方法，即表示符合此命名规则的方法作为一个事务。 -->
+<!-- 			propagation="REQUIRED"代表支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。 -->
+			<tx:method name="tran*" propagation="REQUIRED" rollback-for="Exception" isolation="READ_COMMITTED"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- Spring 工具类 -->
+	<bean id="springContextUtil" class="com.innotek.common.util.SpringContextUtil" />
+	<bean id="quartzController" class="com.innotek.system.controller.QuartzController" />
+	<import resource="spring/spring-config.xml"/>
+</beans>
+

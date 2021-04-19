@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.pay.PayOrderDao" > 
+
+  <!-- Result Map-->
+  <resultMap id="PayOrderConfResultMap" type="com.innotek.fragrans.entity.pay.PayOrderConfEntity" >
+	    <result column="provider_no" property="providerNo"/>
+		<result column="park_id" property="parkId"/>
+		<result column="app_id" property="appId"/>
+		<result column="pay_ment" property="payMent"/>
+		<result column="is_default" property="isDefault"/>
+		<result column="seller_account" property="sellerAccount"/>
+		<result column="provider_key" property="providerKey"/>
+		<result column="alipay_public" property="alipayPublic"/>
+		<result column="alipay_private" property="alipayPrivate"/>
+		<result column="notify_url" property="notifyUrl"/>
+	</resultMap>
+
+<!-- 根据停车场ID和支付方式  查询用户所属商户的支付秘钥信息（条件：IS_USED=1 启用有效的秘钥； is_default=0不是默认的秘钥；   VALIDITY_DATE>sysdate有效期正常；  -->
+<select id="getProviderPayInfoByParkId" parameterType="java.util.Map" resultMap="PayOrderConfResultMap">
+	 SELECT con.provider_no,rel.park_id,con.appid,con.payment,con.seller_account,con.provider_key,con.alipay_public,con.is_default,con.alipay_private,con.notify_url
+		 FROM app_provider_park_rel  rel
+		 LEFT JOIN  app_provider_connect  con ON rel.provider_no = con.provider_no 
+		 WHERE 1=1  AND con.IS_USED=1  AND con.VALIDITY_DATE>sysdate
+    <trim suffixOverrides=",">
+		<if test="payMent != null">
+			and con.payMent = #{payMent}
+		</if>
+		<if test="isDefault != null">
+			and con.is_default = #{isDefault}
+		</if>
+		<if test="parkId != null and parkId != '' ">
+			and rel.park_id = #{parkId}
+		</if>
+	</trim>
+	AND ROWNUM = 1 
+</select>
+
+<!-- 根据停车点ID查询 商户的全部支付方式 -->
+<select id="getParkProviderPayMentList" parameterType="java.lang.String" resultMap="PayOrderConfResultMap">
+ SELECT  DISTINCT con.payment  FROM app_provider_park_rel  rel
+		 LEFT JOIN  app_provider_connect  con ON rel.provider_no = con.provider_no 
+		 WHERE 1=1  AND con.IS_USED=1  AND con.VALIDITY_DATE > sysdate AND  con.is_default=0 AND con.flag != 'DELETE' AND rel.DELETED=1 
+		 AND rel.park_id = #{parkId}
+		 
+</select>
+
+
+<!--  查询系统默认的收款方账号   条件：IS_USED=1 启用有效的秘钥； is_default=0不是默认的秘钥；   VALIDITY_DATE>sysdate有效期正常；  -->
+<select id="getDefaultPayInfo" parameterType="java.util.Map" resultMap="PayOrderConfResultMap">
+	 SELECT con.provider_no,con.appid,con.payment,con.seller_account,con.provider_key,con.alipay_public,con.is_default,con.alipay_private,con.notify_url
+		 FROM app_provider_connect  con 
+		 WHERE 1=1  AND con.IS_USED=1  AND con.VALIDITY_DATE > sysdate AND con.is_default = 1 
+    <trim suffixOverrides=",">
+		<if test="payMent != null"> 
+			and con.payMent = #{payMent}
+		</if>
+	</trim>
+	AND ROWNUM = 1 
+</select>
+
+<!-- *************************************获取默认商户的全部支付方式***************************************************** -->
+<select id="getDefaultProviderPayMentList"  resultMap="PayOrderConfResultMap">
+ SELECT con.provider_no,con.appid,con.payment,con.seller_account,con.provider_key,con.alipay_public,con.is_default,con.alipay_private,con.notify_url
+		 FROM app_provider_connect  con
+		 WHERE 1=1 AND con.is_default=1  AND con.IS_USED=1 AND con.flag != 'DELETE' AND con.VALIDITY_DATE &gt; sysdate  
+</select>
+
+<!-- *************************************根据支付方式获取默认商户的支付信息****************************************************** -->
+<select id="getDefaultProviderPayInfo" parameterType="java.util.Map" resultMap="PayOrderConfResultMap">
+ SELECT con.provider_no,con.appid,con.payment,con.seller_account,con.provider_key,con.alipay_public,con.is_default,con.alipay_private,con.notify_url
+		 FROM app_provider_connect  con
+		 WHERE 1=1 AND con.is_default=1  AND con.IS_USED=1 AND con.flag != 'DELETE' AND con.VALIDITY_DATE &gt; sysdate AND payment = #{payment} AND ROWNUM = 1 
+</select>
+
+<!-- 根据停车点ID和支付方式查询 所属商户的支付信息 -->
+<select id="getParkProviderPayInfoByParkId" parameterType="java.util.Map" resultMap="PayOrderConfResultMap">
+ SELECT con.provider_no,rel.park_id,con.appid,con.payment,con.seller_account,con.provider_key,con.alipay_public,con.is_default,con.alipay_private,con.notify_url
+		 FROM app_provider_park_rel  rel
+		 LEFT JOIN  app_provider_connect  con ON rel.provider_no = con.provider_no 
+		 WHERE 1=1  AND con.IS_USED=1  AND con.VALIDITY_DATE &gt; sysdate AND rel.park_id = #{parkId} 
+		 AND con.payment = #{payment} AND con.is_default=0 AND con.flag != 'DELETE' AND rel.DELETED=1 AND ROWNUM = 1 
+</select>
+
+</mapper>   

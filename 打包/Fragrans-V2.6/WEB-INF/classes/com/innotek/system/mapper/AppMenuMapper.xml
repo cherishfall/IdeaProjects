@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.system.dao.AppMenuDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="com.innotek.system.entity.AppMenu">
+		<result column="id" property="id" />
+		<result column="handle_id" property="handleId" />
+		<result column="handle_name" property="handleName" />
+		<result column="created_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+	<select id="queryMaxIdLength" resultType="Integer">
+		SELECT
+		Max(length(handle_id)) from app_user_use_path_conf
+	</select>
+
+	<select id="queryAllAppMenu" resultMap="BaseResultMap">
+		SELECT * FROM
+		app_user_use_path_conf
+	</select>
+	<select id="queryByParentId" parameterType="Object" resultType="Integer">
+		SELECT COUNT(1) FROM
+		app_user_use_path_conf WHERE handle_id LIKE
+		CONCAT(#{handleId},'%') AND
+		LENGTH(handle_id)=LENGTH(#{handleId})+1
+	</select>
+
+	<delete id="delete" parameterType="Object">
+		delete from
+		app_user_use_path_conf where handle_id=#{id}
+	</delete>
+
+	<insert id="addAppMenu" parameterType="map">
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+		insert into app_user_use_path_conf
+		(id,handle_id,handle_name,created_by,create_time)
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				 <![CDATA[  #{id}, ]]>
+			</if>
+			<if test="handleId != null">
+				#{handleId},
+			</if>
+			<if test="handleName != null">
+				#{handleName},
+			</if>
+			<if test="createBy != null">
+				#{createBy},
+			</if>
+			now(),
+		</trim>
+	</insert>
+	<!-- 根据id，修改记录 -->
+	<update id="updateAppMenu" parameterType="Object">
+		update app_user_use_path_conf set
+		<trim suffixOverrides=",">
+
+			<if test="handleId!= null ">
+				handle_id = #{handleId},
+			</if>
+			<if test="handleName != null ">
+				handle_name = #{handleName},
+			</if>
+
+		</trim>
+		where id = #{ID}
+	</update>
+
+</mapper>   

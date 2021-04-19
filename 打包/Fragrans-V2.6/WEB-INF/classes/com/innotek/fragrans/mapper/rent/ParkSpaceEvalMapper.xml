@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.rent.ParkSpaceEvalDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.rent.ParkSpaceEval" >
+	<result column="id" property="id"/>
+		<result column="berth_id" property="berthId"/>
+		<result column="type" property="type"/>
+		<result column="eval_user_id" property="evalUserId"/>
+		<result column="eval_user_acount" property="evalUserAcount"/>
+		<result column="eval_content" property="evalContent"/>
+		<result column="eval_time" property="evalTime"/>
+		<result column="flag" property="flag"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.berth_id,
+		 t.type,
+		 t.eval_user_id,
+		 t.eval_user_acount,
+		 t.eval_content,
+		 t.eval_time,
+		 t.flag,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="berthId != null and berthId != '' " >
+    	and t.berth_id =  #{berthId}
+	</if>
+	<if test="type != null " >
+    	and t.type =  #{type}
+	</if>
+	<if test="evalUserId != null and evalUserId != '' " >
+    	and t.eval_user_id =  #{evalUserId}
+	</if>
+	<if test="evalUserAcount != null and evalUserAcount != '' " >
+    	and t.eval_user_acount =  #{evalUserAcount}
+	</if>
+	<if test="evalContent != null and evalContent != '' " >
+    	and t.eval_content =  #{evalContent}
+	</if>
+	<if test="evalTime != null " >
+    	and t.eval_time =  #{evalTime}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into rent_park_space_eval 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="berthId != null and berthId != '' " >
+		 berth_id,
+		</if>
+    	<if test="type != null " >
+		type,
+		</if>
+    	<if test="evalUserId != null and evalUserId != '' " >
+		 eval_user_id,
+		</if>
+    	<if test="evalUserAcount != null and evalUserAcount != '' " >
+		 eval_user_acount,
+		</if>
+    	<if test="evalContent != null and evalContent != '' " >
+		 eval_content,
+		</if>
+    	<if test="evalTime != null " >
+		eval_time,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="berthId != null and berthId != '' " >
+  		<![CDATA[  #{berthId}, ]]>
+    	</if>
+    	<if test="type != null " >
+  		<![CDATA[  #{type}, ]]>
+    	</if>
+    	<if test="evalUserId != null and evalUserId != '' " >
+  		<![CDATA[  #{evalUserId}, ]]>
+    	</if>
+    	<if test="evalUserAcount != null and evalUserAcount != '' " >
+  		<![CDATA[  #{evalUserAcount}, ]]>
+    	</if>
+    	<if test="evalContent != null and evalContent != '' " >
+  		<![CDATA[  #{evalContent}, ]]>
+    	</if>
+    	<if test="evalTime != null " >
+  		<![CDATA[  #{evalTime}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update rent_park_space_eval t set 
+   <trim suffixOverrides="," >
+	<if test="berthId != null and berthId != '' " >
+  	<![CDATA[  t.berth_id = #{berthId}, ]]>
+    </if>
+    <if test="type != null " >
+  	<![CDATA[  t.type = #{type}, ]]>
+    </if>
+    <if test="evalUserId != null and evalUserId != '' " >
+  	<![CDATA[  t.eval_user_id = #{evalUserId}, ]]>
+    </if>
+    <if test="evalUserAcount != null and evalUserAcount != '' " >
+  	<![CDATA[  t.eval_user_acount = #{evalUserAcount}, ]]>
+    </if>
+    <if test="evalContent != null and evalContent != '' " >
+  	<![CDATA[  t.eval_content = #{evalContent}, ]]>
+    </if>
+    <if test="evalTime != null " >
+  	<![CDATA[  t.eval_time = #{evalTime}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from rent_park_space_eval where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from rent_park_space_eval t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from rent_park_space_eval t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from rent_park_space_eval t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<resultMap id="EvalRecordMap" type="com.innotek.fragrans.bean.item.shareparkspace.ShareParkSpaceEvalItem" >
+	<result column="EVAL_USER_ACOUNT" property="fromUserAccount"/>
+	<result column="EVAL_CONTENT" property="content"/>
+	<result column="PHOTO_URL" property="photoUrl"/>
+	<result column="EVAL_TIME" property="evalTime"/>
+</resultMap>
+
+<!--根据泊位ID查询评价记录 -->
+<select id="queryByBerthId" resultMap="EvalRecordMap"  parameterType="java.lang.String">
+	SELECT CASE WHEN  t1.nick_name IS NULL THEN  t.EVAL_USER_ACOUNT ELSE t1.nick_name END EVAL_USER_ACOUNT,
+		   t.EVAL_CONTENT,t.EVAL_TIME,t1.PHOTO_URL FROM rent_park_space_eval t
+	LEFT JOIN app_user_ext t1 ON t.EVAL_USER_ID = t1.user_id
+	WHERE t.flag != 'DELETE' AND t.type = 1
+	  AND t.berth_id = #{_parameter}
+	ORDER BY t.EVAL_TIME DESC
+</select>
+</mapper>   

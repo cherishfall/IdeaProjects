@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.MessageDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.MessageEntity" >
+	    <result column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="message_name" property="messageName"/>
+		<result column="content" property="content"/>
+		<result column="message_type" property="messageType"/>
+		<result column="push_range" property="pushRange"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="expire_date" property="expireDate"/>
+		<result column="MESSAGE_ID" property="messageId"/>
+		<result column="scale" property="scale"/>
+		<result column="area_name" property="areaName"/>
+		<result column="user_id" property="userId"/>
+	</resultMap>
+	
+<resultMap id="DetailResultMap" type="com.innotek.fragrans.message.response.stat.GetMessageDetailV2Item" >
+	    <result column="id" property="messageId"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="message_name" property="messageName"/>
+		<result column="content" property="content"/>
+		<result column="message_type" property="messageType"/>
+		<result column="expire_date" property="expireDate"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.city_code,
+		 t.message_name,
+		 t.content,
+		 t.message_type,
+		 t.push_range,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+		 t.expire_date,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="messageName != null and messageName != '' " >
+    	and t.message_name like '%${messageName}%'
+	</if>
+	<if test="content != null and content != '' " >
+    	and t.content =  #{content}
+	</if>
+	<if test="messageType != null " >
+    	and t.message_type =  #{messageType}
+	</if>
+	<if test="pushRange != null " >
+    	and t.push_range =  #{pushRange}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="expireDate != null " >
+    	and t.expire_date =  #{expireDate}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+	<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT sys_guid() from dual
+		</selectKey>
+  
+	insert into app_message 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	            create_time,
+				update_time,flag,
+		<if test="id != null">
+		  id,
+		</if>
+	 	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="messageName != null and messageName != '' " >
+		 message_name,
+		</if>
+    	<if test="content != null and content != '' " >
+		 content,
+		</if>
+    	<if test="messageType != null " >
+		message_type,
+		</if>
+    	<if test="pushRange != null " >
+		push_range,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="expireDate != null " >
+		expire_date,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	        sysdate,
+				sysdate,
+				'ADD',
+	    <if test="id != null">
+  		<![CDATA[  #{id}, ]]>
+		</if>
+	 	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="messageName != null and messageName != '' " >
+  		<![CDATA[  #{messageName}, ]]>
+    	</if>
+    	<if test="content != null and content != '' " >
+  		<![CDATA[  #{content}, ]]>
+    	</if>
+    	<if test="messageType != null " >
+  		<![CDATA[  #{messageType}, ]]>
+    	</if>
+    	<if test="pushRange != null " >
+  		<![CDATA[  #{pushRange}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="expireDate != null " >
+  		<![CDATA[  #{expireDate}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_message t set 
+   <trim suffixOverrides="," >
+	<if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="messageName != null and messageName != '' " >
+  	<![CDATA[  t.message_name = #{messageName}, ]]>
+    </if>
+    <if test="content != null and content != '' " >
+  	<![CDATA[  t.content = #{content}, ]]>
+    </if>
+    <if test="messageType != null " >
+  	<![CDATA[  t.message_type = #{messageType}, ]]>
+    </if>
+    <if test="pushRange != null " >
+  	<![CDATA[  t.push_range = #{pushRange}, ]]>
+    </if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+    <if test="expireDate != null " >
+  	<![CDATA[  t.expire_date = #{expireDate}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_message  where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	SELECT t.*,ba.area_name area_name FROM app_message t
+	 LEFT JOIN BASE_AREA ba 
+	 ON t.city_code=ba.area_code where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from (
+	SELECT C.id, ba.area_name AS area_name,C.city_code, C.message_name, C.message_type, C.push_range, C.created_by, C.updated_by, C.CREATE_TIME, C.UPDATE_TIME,C.scale 
+ 	FROM (SELECT t.id, t.city_code, t.message_name, t.message_type, t.push_range, t.created_by, t.updated_by, t.CREATE_TIME, t.UPDATE_TIME, 
+ 	CASE WHEN B.scale != '' THEN B.scale ELSE 0 END scale FROM app_message t LEFT JOIN (SELECT A.message_id, FLOOR(ROUND(A.times / A.totalTimes, 2) * 100) AS scale
+ 	FROM (SELECT * FROM (SELECT message_id, COUNT(1) times FROM app_user_message GROUP BY message_id ORDER BY create_time DESC) mc, 
+  	(SELECT COUNT(1) totalTimes FROM app_user_message) aumc) A) B ON t.id = B.message_id) C, BASE_AREA ba
+        where 1=1
+	<if test="messageName != null and messageName != '' " >
+    	and C.message_name like '%${messageName}%'
+	</if>
+	<if test="cityCode != null and cityCode != ''">
+		and C.city_code = #{cityCode}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and C.city_code LIKE '${userCityCode}%'
+	</if>
+		AND ba.flag!='DELETE'
+	    and C.city_code = ba.area_code
+	    ) a
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+    <if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+ SELECT C.id, ba.area_name AS area_name,C.city_code, C.message_name, C.message_type, C.push_range, C.created_by, C.updated_by, C.CREATE_TIME, C.UPDATE_TIME,C.scale 
+ FROM (SELECT t.id, t.city_code, t.message_name, t.message_type, t.push_range, t.created_by, t.updated_by, t.CREATE_TIME, t.UPDATE_TIME, 
+ CASE WHEN B.scale != '' THEN B.scale ELSE 0 END scale FROM app_message t LEFT JOIN (SELECT A.message_id, FLOOR(ROUND(A.times / A.totalTimes, 2) * 100) AS scale
+  FROM (SELECT * FROM (SELECT message_id, COUNT(1) times FROM app_user_message GROUP BY message_id ORDER BY create_time DESC) mc, 
+  (SELECT COUNT(1) totalTimes FROM app_user_message) aumc) A) B ON t.id = B.message_id) C, BASE_AREA ba
+        where 1=1
+	<if test="messageName != null and messageName != '' " >
+    	and C.message_name like '%${messageName}%'
+	</if>
+	<if test="cityCode != null and cityCode != ''">
+		and C.city_code = #{cityCode}
+	</if>
+	<if test="messageType == null ">
+		and C.message_type != 4
+	</if>
+	<if test="messageType != null and messageType != ''">
+		and C.message_type = #{messageType}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and C.city_code LIKE '${userCityCode}%'
+	</if>
+		AND ba.flag!='DELETE'
+	    and C.city_code = ba.area_code
+	<if test="pager.orderCondition == ''">
+		order by C.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询用户未读的消息数量 -->
+<select id="queryUserUnreadMessageCount" resultType="java.lang.Integer"   parameterType="Object">
+	select 
+	count(t.ID)
+	from app_message t 
+	where t.FLAG!='DELETE' 
+	and ((t.CITY_CODE=#{cityCode} and t.PUSH_RANGE=#{userType}) or (t.user_id = #{userId} and t.PUSH_RANGE = 100))  
+	and not EXISTS
+	(select id from app_user_message um where um.MESSAGE_ID=t.id and um.IS_READ=1 
+		and (um.DEVICE_NO= #{deviceNo}
+	    <if test="userId != null and userId != ''" >
+	    	 and um.user_id=#{userId}    
+		</if>
+	    )
+	)
+</select>
+
+
+<!-- 分页查询用户消息-->
+<select id="queryMessageList" resultMap="BaseResultMap"  parameterType="Object">
+		 <if test="pageSize != null and pageSize != '' " >
+	    	 SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
+		 </if>
+   select 
+         m.id,
+         m.city_code,
+		 m.message_name,
+		 m.content,
+		 m.message_type,
+		 m.expire_date,
+		 um.MESSAGE_ID,
+		 m.create_time
+		 from app_message m left join app_user_message um on um.MESSAGE_ID=m.id
+		 and (um.DEVICE_NO= #{deviceNo}
+	     <if test="userId != null and userId != ''" >
+	    	 and um.user_id=#{userId}    
+		 </if>
+	     )
+		 and um.IS_READ=1
+         where 1=1
+         and ((m.PUSH_RANGE=#{userType} and m.CITY_CODE=#{cityCode}) or (m.user_id = #{userId} and m.PUSH_RANGE = 100)) 
+         and m.FLAG!='DELETE' 
+         order by m.create_time desc
+         <if test="pageSize != null and pageSize != '' " >
+	    	 ) A WHERE ROWNUM &lt;=(#{startNum}+#{pageSize})) where RN &gt; #{startNum}
+		 </if>
+</select>
+
+
+
+<!-- 查询用户消息总条数-->
+<select id="queryMessageCount" resultType="java.lang.Integer"   parameterType="Object">
+   select count(m.id) 
+   from app_message m
+   where m.FLAG!='DELETE' 
+     and ((m.PUSH_RANGE=#{userType} and m.CITY_CODE=#{cityCode}) or (m.user_id = #{userId} and m.PUSH_RANGE = 100))
+</select>
+
+<!-- ***************************自定义接口**************************************** -->
+<!-- 根据用户ID和消息ID查询消息详细 -->
+<select id="queryDetailItemByMessageId" resultMap="DetailResultMap"  parameterType="java.util.Map">
+   SELECT t.id,t.city_code,t.message_name,t.content,t.message_type,
+          t.expire_date,t.create_time 
+   FROM app_message t 
+   WHERE t.flag != 'DELETE' 
+   AND t.id = #{messageId}  AND ROWNUM = 1
+</select>
+
+</mapper>   

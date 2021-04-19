@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.innotekdemo02.dao.IDepartmentDao">
+
+<!--    连接表查询，一般不这样干，用懒加载的方式-->
+<!--    <resultMap id="DepartmentExtMap" type="DepartmentExt">-->
+<!--        <id property="id" column="dept_id" />-->
+<!--        <result property="name" column="dept_name"/>-->
+<!--        <result property="code" column="dept_code"/>-->
+<!--        <collection property="ees" javaType="ArrayList" ofType="Employee">-->
+<!--            <id property="id" column="ee_id"/>-->
+<!--            <result property="name" column="ee_name"/>-->
+<!--            <result property="age" column="ee_age"/>-->
+<!--            <result property="sex" column="ee_sex"/>-->
+<!--            <result property="tel" column="ee_tel"/>-->
+<!--            <result property="account" column="ee_count"/>-->
+<!--            <result property="pwd" column="ee_pwd"/>-->
+<!--            <result property="deptID" column="ee_dept_id"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+<!--    <select id="selectDepartmentExtById" resultMap="DepartmentExtMap">-->
+<!--        select d.id dept_id, d.name dept_name, d.code dept_code,-->
+<!--               e.id ee_id, e.name ee_name, e.age ee_age, e.sex ee_sex, e.tel ee_tel,-->
+<!--               e.account ee_account, e.pwd ee_pwd, e.dept_id ee_dept_id-->
+<!--        from department d-->
+<!--                 left join employee e on d.id = e.dept_id-->
+<!--        where d.id = #{id};-->
+<!--    </select>-->
+
+<!--    关联查询方式-->
+
+    <select id="selectDepartmentExtById" parameterType="integer" resultMap="DepartmentExtMap">
+        select * from department where id = #{id};
+    </select>
+
+    <resultMap id="DepartmentExtMap" type="DepartmentExt">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <collection property="ees" javaType="ArrayList" ofType="Employee"
+                    column="id" select="com.innotek.innotekdemo02.dao.IEmployeeDao.selectEmployeeByDeptId"
+        fetchType="eager"/>
+    </resultMap>
+
+
+
+    <select id="selectDepartmentById" parameterType="integer" resultType="Department">
+        select * from department where id = #{id};
+    </select>
+
+
+
+    <select id="selectAllDepartment" resultType="Department">
+        select * from department;
+    </select>
+
+    <insert id="insertDepartment" parameterType="Department"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into department (name, code) values (#{name}, #{code});
+    </insert>
+
+  <update id="updateDepartment" parameterType="Department">
+      update department  set name = #{name} WHERE id = #{id};
+  </update>
+
+    <delete id="deleteDepartmentById">
+        delete from department where id = #{id};
+    </delete>
+
+    <select id="selectAllCode" resultType="string">
+        select code from department;
+    </select>
+
+    <select id="selectAllId" resultType="integer">
+        select id from department;
+    </select>
+
+<!--    2021.4.1 新增懒加载查询方式-->
+
+    <select id="selectDepartmentExtByIdLazy" resultMap="DepartmentExtMapLazy">
+        select * from department where id = #{id};
+    </select>
+
+    <resultMap id="DepartmentExtMapLazy" type="DepartmentExt">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="code" column="code" />
+        <collection property="ees" javaType="ArrayList" ofType="Employee" column="id"
+                    select="com.innotek.innotekdemo02.dao.IEmployeeDao.selectEmployeeByDeptId"
+                    fetchType="lazy"/>
+    </resultMap>
+
+
+
+
+</mapper>

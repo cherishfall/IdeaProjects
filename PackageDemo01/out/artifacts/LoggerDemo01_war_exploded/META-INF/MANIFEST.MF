@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: cherishfall
+Build-Jdk: 1.8.0_201
+Implementation-Title: loggerdemo01
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.innotek
+Main-Class: ${start-class}
+

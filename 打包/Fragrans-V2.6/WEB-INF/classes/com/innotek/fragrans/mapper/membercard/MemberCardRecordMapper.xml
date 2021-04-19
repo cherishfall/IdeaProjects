@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.membercard.MemberCardRecordDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.membercard.MemberCardRecord" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="handle_type" property="handleType"/>
+		<result column="obj_id" property="objId"/>
+		<result column="price" property="price"/>
+		<result column="balance_before" property="balanceBefore"/>
+		<result column="balance_after" property="balanceAfter"/>
+		<result column="change_status" property="changeStatus"/>
+		<result column="subject" property="subject"/>
+		<result column="handle_body" property="handleBody"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="give_amount" property="giveAmount"/>
+		<result column="user_account" property="userAccount"/>
+		<!--<result column="notify_status" property="notifyStatus"/>
+		<result column="remark" property="remark"/>-->
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.handle_type,
+		 t.obj_id,
+		 t.price,
+		 t.balance_before,
+		 t.balance_after,
+		 t.change_status,
+		 t.subject,
+		 t.handle_body,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id,
+	     t.give_amount
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="handleType != null " >
+    	and t.handle_type =  #{handleType}
+	</if>
+	<if test="objId != null and objId != '' " >
+    	and t.obj_id =  #{objId}
+	</if>
+	<if test="price != null " >
+    	and t.price =  #{price}
+	</if>
+	<if test="balanceBefore != null " >
+    	and t.balance_before =  #{balanceBefore}
+	</if>
+	<if test="balanceAfter != null " >
+    	and t.balance_after =  #{balanceAfter}
+	</if>
+	<if test="changeStatus != null and changeStatus != '' " >
+    	and t.change_status =  #{changeStatus}
+	</if>
+	<if test="subject != null and subject != '' " >
+    	and t.subject =  #{subject}
+	</if>
+	<if test="handleBody != null and handleBody != '' " >
+    	and t.handle_body =  #{handleBody}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_member_card_record 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="handleType != null " >
+		handle_type,
+		</if>
+    	<if test="objId != null and objId != '' " >
+		 obj_id,
+		</if>
+    	<if test="price != null " >
+		price,
+		</if>
+    	<if test="balanceBefore != null " >
+		balance_before,
+		</if>
+    	<if test="balanceAfter != null " >
+		balance_after,
+		</if>
+    	<if test="changeStatus != null and changeStatus != '' " >
+		 change_status,
+		</if>
+    	<if test="subject != null and subject != '' " >
+		 subject,
+		</if>
+    	<if test="handleBody != null and handleBody != '' " >
+		 handle_body,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	<if test="giveAmount != null " >
+		give_amount,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="handleType != null " >
+  		<![CDATA[  #{handleType}, ]]>
+    	</if>
+    	<if test="objId != null and objId != '' " >
+  		<![CDATA[  #{objId}, ]]>
+    	</if>
+    	<if test="price != null " >
+  		<![CDATA[  #{price}, ]]>
+    	</if>
+    	<if test="balanceBefore != null " >
+  		<![CDATA[  #{balanceBefore}, ]]>
+    	</if>
+    	<if test="balanceAfter != null " >
+  		<![CDATA[  #{balanceAfter}, ]]>
+    	</if>
+    	<if test="changeStatus != null and changeStatus != '' " >
+  		<![CDATA[  #{changeStatus}, ]]>
+    	</if>
+    	<if test="subject != null and subject != '' " >
+  		<![CDATA[  #{subject}, ]]>
+    	</if>
+    	<if test="handleBody != null and handleBody != '' " >
+  		<![CDATA[  #{handleBody}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	<if test="giveAmount != null " >
+  		<![CDATA[  #{giveAmount}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_member_card_record t set 
+   <trim suffixOverrides="," >
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="handleType != null " >
+  	<![CDATA[  t.handle_type = #{handleType}, ]]>
+    </if>
+    <if test="objId != null and objId != '' " >
+  	<![CDATA[  t.obj_id = #{objId}, ]]>
+    </if>
+    <if test="price != null " >
+  	<![CDATA[  t.price = #{price}, ]]>
+    </if>
+    <if test="balanceBefore != null " >
+  	<![CDATA[  t.balance_before = #{balanceBefore}, ]]>
+    </if>
+    <if test="balanceAfter != null " >
+  	<![CDATA[  t.balance_after = #{balanceAfter}, ]]>
+    </if>
+    <if test="changeStatus != null and changeStatus != '' " >
+  	<![CDATA[  t.change_status = #{changeStatus}, ]]>
+    </if>
+    <if test="subject != null and subject != '' " >
+  	<![CDATA[  t.subject = #{subject}, ]]>
+    </if>
+    <if test="handleBody != null and handleBody != '' " >
+  	<![CDATA[  t.handle_body = #{handleBody}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_member_card_record where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_member_card_record t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_member_card_record t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>,t1.user_account
+	from app_member_card_record t
+	left join app_user t1 on t.user_id = t1.id 
+	<include refid="Example_Where_Clause"/>
+		and t.flag != 'DELETE'
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>	
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询会员卡余额变动明细 -->
+<select id="queryHandleRecordByUserId" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT CREATE_TIME,HANDLE_TYPE,HANDLE_BODY,PRICE,OBJ_ID,give_amount
+ 	FROM app_member_card_record
+ 	WHERE FLAG != 'DELETE' AND CHANGE_STATUS = 200
+ 	  AND USER_ID = #{userId}
+ 	<if test="busiType != null and busiType == 2">
+ 		AND HANDLE_TYPE IN (1,2,11,12)
+ 	</if>
+    ORDER BY CREATE_TIME DESC
+    limit #{startIndex},#{pageLength}
+</select>
+
+<!-- 根据对象ID更新 -->
+<update id="updateByObjId" parameterType="Object">
+	UPDATE app_member_card_record 
+	SET CHANGE_STATUS = #{changeStatus},
+	    FLAG = #{flag},
+	    UPDATED_BY = #{updatedBy},
+	    UPDATE_TIME = #{updateTime} 
+	WHERE CHANGE_STATUS = 100 
+	  AND OBJ_ID = #{objId}
+</update>
+
+<!-- 根据用户ID更新 -->
+<update id="updateByUserId" parameterType="Object">
+	UPDATE app_member_card_record 
+	SET CHANGE_STATUS = #{changeStatus},
+	    FLAG = #{flag},
+	    UPDATED_BY = #{updatedBy},
+	    UPDATE_TIME = #{updateTime} 
+	WHERE CHANGE_STATUS = 100 
+	  AND USER_ID = #{userId}
+</update>
+
+<!-- 根据对象ID查询 -->
+<select id="findByObjId" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT * FROM app_member_card_record 
+	WHERE obj_id = #{objId};
+</select>
+
+<!-- 查询app充值记录 -->
+<select id="queryAppRechargeRecord" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	 SELECT * FROM app_member_card_record 
+	 WHERE FLAG != 'DELETE' AND CHANGE_STATUS = 200 
+	   AND USER_ID = #{_parameter}
+	   AND HANDLE_TYPE in (1,2,11)
+	 ORDER BY create_time DESC
+</select>
+
+	<!-- 根据objId，修改通知状态-->
+	<update id="updateNotifyStatusByObjId" parameterType="Object" >
+		update app_member_card_record t set
+		<trim suffixOverrides="," >
+			<if test="notifyStatus != null " >
+				<![CDATA[  t.notify_status = #{notifyStatus}, ]]>
+			</if>
+			<if test="flag != null and flag != '' " >
+				<![CDATA[  t.flag = #{flag}, ]]>
+			</if>
+			<if test="updatedBy != null and updatedBy != '' " >
+				<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+			</if>
+			<if test="updateTime != null " >
+				<![CDATA[  t.update_time = #{updateTime}, ]]>
+			</if>
+		</trim> where t.obj_id = #{objId}
+	</update>
+</mapper>   

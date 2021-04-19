@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.rca.OrderSpmsDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.rca.OrderSpms" >
+	<result column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="city_name" property="cityName"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="park_id" property="parkId"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="pay_type" property="payType"/>
+		<result column="order_type" property="orderType"/>
+		<result column="price" property="price"/>
+		<result column="refund_no" property="refundNo"/>
+		<result column="refund_fee" property="refundFee"/>
+		<result column="berth_code" property="berthCode"/>
+		<result column="park_name" property="parkName"/>
+		<result column="park_durations" property="parkDurations"/>
+		<result column="arrive_time" property="arriveTime"/>
+		<result column="departure_time" property="departureTime"/>
+		<result column="stat_date" property="statdate"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.city_code,
+		 t.order_no,
+		 t.park_id,
+		 t.parkrecord_id,
+		 t.plate_no,
+		 t.pay_type,
+		 t.order_type,
+		 t.price,
+		 t.refund_no,
+		 t.refund_fee,
+		 t.berth_code,
+		 t.park_name,
+		 t.park_durations,
+		 t.arrive_time,
+		 t.departure_time,
+		 t.stat_date,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="cityCode != null and cityCode != ''" >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="parkId != null and parkId != '' " >
+    	and t.park_id =  #{parkId}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="plateNo != null and plateNo != '' " >
+    	and t.plate_no =  #{plateNo}
+	</if>
+	<if test="payType != null and payType != '' " >
+    	and t.pay_type =  #{payType}
+	</if>
+	<if test="orderType != null and orderType != '' " >
+    	and t.order_type =  #{orderType}
+	</if>
+	<if test="price != null " >
+    	and t.price =  #{price}
+	</if>
+	<if test="refundNo != null and refundNo != '' " >
+    	and t.refund_no =  #{refundNo}
+	</if>
+	<if test="refundFee != null " >
+    	and t.refund_fee =  #{refundFee}
+	</if>
+	<if test="berthCode != null and berthCode != '' " >
+    	and t.berth_code =  #{berthCode}
+	</if>
+	<if test="parkName != null and parkName != '' " >
+    	and t.park_name =  #{parkName}
+	</if>
+	<if test="parkDurations != null and parkDurations != '' " >
+    	and t.park_durations =  #{parkDurations}
+	</if>
+	<if test="arriveTime != null " >
+    	and t.arrive_time =  #{arriveTime}
+	</if>
+	<if test="departureTime != null " >
+    	and t.departure_time =  #{departureTime}
+	</if>
+	<if test="statdate != null and statdate != ''" >
+    	and t.stat_date =  to_date(#{statdate},'yyyy-MM-dd HH24:mi:ss')
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and t.city_code LIKE '${userCityCode}%'
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT sys_guid() from dual 
+	</selectKey>
+  
+	insert into rca_order_spms 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	<if test="id != null and id != ''">
+		 id,
+		</if>
+	 	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="parkId != null and parkId != '' " >
+		 park_id,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="plateNo != null and plateNo != '' " >
+		 plate_no,
+		</if>
+    	<if test="payType != null and payType != '' " >
+		 pay_type,
+		</if>
+    	<if test="orderType != null and orderType != '' " >
+		 order_type,
+		</if>
+    	<if test="price != null " >
+		price,
+		</if>
+    	<if test="refundNo != null and refundNo != '' " >
+		 refund_no,
+		</if>
+    	<if test="refundFee != null " >
+		refund_fee,
+		</if>
+    	<if test="berthCode != null and berthCode != '' " >
+		 berth_code,
+		</if>
+    	<if test="parkName != null and parkName != '' " >
+		 park_name,
+		</if>
+    	<if test="parkDurations != null and parkDurations != '' " >
+		 park_durations,
+		</if>
+    	<if test="arriveTime != null " >
+		arrive_time,
+		</if>
+    	<if test="departureTime != null " >
+		departure_time,
+		</if>
+    	<if test="statdate != null and statdate != ''" >
+		stat_date,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="id != null and id != ''">
+  		<![CDATA[  #{id}, ]]>
+		</if>
+	 	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="parkId != null and parkId != '' " >
+  		<![CDATA[  #{parkId}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="plateNo != null and plateNo != '' " >
+  		<![CDATA[  #{plateNo}, ]]>
+    	</if>
+    	<if test="payType != null and payType != '' " >
+  		<![CDATA[  #{payType}, ]]>
+    	</if>
+    	<if test="orderType != null and orderType != '' " >
+  		<![CDATA[  #{orderType}, ]]>
+    	</if>
+    	<if test="price != null " >
+  		<![CDATA[  #{price}, ]]>
+    	</if>
+    	<if test="refundNo != null and refundNo != '' " >
+  		<![CDATA[  #{refundNo}, ]]>
+    	</if>
+    	<if test="refundFee != null " >
+  		<![CDATA[  #{refundFee}, ]]>
+    	</if>
+    	<if test="berthCode != null and berthCode != '' " >
+  		<![CDATA[  #{berthCode}, ]]>
+    	</if>
+    	<if test="parkName != null and parkName != '' " >
+  		<![CDATA[  #{parkName}, ]]>
+    	</if>
+    	<if test="parkDurations != null and parkDurations != '' " >
+  		<![CDATA[  #{parkDurations}, ]]>
+    	</if>
+    	<if test="arriveTime != null " >
+  		<![CDATA[  #{arriveTime}, ]]>
+    	</if>
+    	<if test="departureTime != null " >
+  		<![CDATA[  #{departureTime}, ]]>
+    	</if>
+    	<if test="statdate != null and statdate != ''" >
+  		<![CDATA[  #{statdate}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update rca_order_spms t set 
+   <trim suffixOverrides="," >
+	<if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="parkId != null and parkId != '' " >
+  	<![CDATA[  t.park_id = #{parkId}, ]]>
+    </if>
+    <if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="plateNo != null and plateNo != '' " >
+  	<![CDATA[  t.plate_no = #{plateNo}, ]]>
+    </if>
+    <if test="payType != null and payType != '' " >
+  	<![CDATA[  t.pay_type = #{payType}, ]]>
+    </if>
+    <if test="orderType != null and orderType != '' " >
+  	<![CDATA[  t.order_type = #{orderType}, ]]>
+    </if>
+    <if test="price != null " >
+  	<![CDATA[  t.price = #{price}, ]]>
+    </if>
+    <if test="refundNo != null and refundNo != '' " >
+  	<![CDATA[  t.refund_no = #{refundNo}, ]]>
+    </if>
+    <if test="refundFee != null " >
+  	<![CDATA[  t.refund_fee = #{refundFee}, ]]>
+    </if>
+    <if test="berthCode != null and berthCode != '' " >
+  	<![CDATA[  t.berth_code = #{berthCode}, ]]>
+    </if>
+    <if test="parkName != null and parkName != '' " >
+  	<![CDATA[  t.park_name = #{parkName}, ]]>
+    </if>
+    <if test="parkDurations != null and parkDurations != '' " >
+  	<![CDATA[  t.park_durations = #{parkDurations}, ]]>
+    </if>
+    <if test="arriveTime != null " >
+  	<![CDATA[  t.arrive_time = #{arriveTime}, ]]>
+    </if>
+    <if test="departureTime != null " >
+  	<![CDATA[  t.departure_time = #{departureTime}, ]]>
+    </if>
+    <if test="statdate != null and statdate != ''" >
+  	<![CDATA[  t.stat_date = #{statdate}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from rca_order_spms where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from rca_order_spms t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from rca_order_spms t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+    <if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	,ba.area_name city_name
+	from rca_order_spms t 
+	left join base_area ba on t.city_code = ba.area_code
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.stat_date desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 根据id查询 -->
+<select id="queryByStatdateAndCityCode"  resultMap="BaseResultMap" parameterType="Object">
+	select *
+	from rca_order_spms t 
+	where t.stat_date = to_date(#{statdate},'yyyy-MM-dd')
+	<if test="cityCode != null and cityCode != ''">
+		and t.city_Code = #{cityCode}
+	</if>
+</select>
+
+<delete id="deleteByStatdateAndCityCode" parameterType="Object">
+	delete from rca_order_spms 
+	where stat_date = #{statdate}
+	and city_Code = #{cityCode}
+</delete>
+
+<select id="queryOrderSpms" resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from rca_order_spms t 
+	 <include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 获取时间段内账单 -->
+<select id="queryOrderSpmsListByStateDate" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT <include refid="Base_Column_List"/>,ba.area_name city_name
+	from rca_order_spms t 
+	left join base_area ba on t.city_code = ba.area_code
+	WHERE t.stat_date &gt;= to_date('${startDate}','yyyy-MM-dd') AND t.statdate &lt;= to_date('${endDate}','yyyy-MM-dd')
+	<if test="cityId != null and cityId != '' ">
+		and ba.id = #{cityId}
+	</if>
+	ORDER BY t.stat_date desc
+</select>
+</mapper>   

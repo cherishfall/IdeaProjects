@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.OrderBatchpayRelDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.OrderBatchpayRel" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="batchpay_no" property="batchpayNo"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="park_id" property="parkId"/>
+		<result column="is_paid" property="isPaid"/>
+		<result column="create_time" property="createTime"/>
+		<result column="area_name" property="areaName"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="batchpay_count" property="batchpayCount"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.city_code,
+		 t.batchpay_no,
+		 t.order_no,
+		 t.parkrecord_id,
+		 t.park_id,
+		 t.is_paid,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="batchpayNo != null and batchpayNo != '' " >
+    	and t.batchpay_no =  #{batchpayNo}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="parkId != null and parkId != '' " >
+    	and t.park_id =  #{parkId}
+	</if>
+	<if test="isPaid != null " >
+    	and t.is_paid =  #{isPaid}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_order_batchpay_rel 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="batchpayNo != null and batchpayNo != '' " >
+		 batchpay_no,
+		</if>
+    	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="parkId != null and parkId != '' " >
+		 park_id,
+		</if>
+    	<if test="isPaid != null " >
+		is_paid,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="batchpayNo != null and batchpayNo != '' " >
+  		<![CDATA[  #{batchpayNo}, ]]>
+    	</if>
+    	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="parkId != null and parkId != '' " >
+  		<![CDATA[  #{parkId}, ]]>
+    	</if>
+    	<if test="isPaid != null " >
+  		<![CDATA[  #{isPaid}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_order_batchpay_rel t set 
+   <trim suffixOverrides="," >
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="batchpayNo != null and batchpayNo != '' " >
+  	<![CDATA[  t.batchpay_no = #{batchpayNo}, ]]>
+    </if>
+    <if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="parkId != null and parkId != '' " >
+  	<![CDATA[  t.park_id = #{parkId}, ]]>
+    </if>
+    <if test="isPaid != null " >
+  	<![CDATA[  t.is_paid = #{isPaid}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_order_batchpay_rel where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_order_batchpay_rel t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_order_batchpay_rel t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 列表总数-->
+<select id="queryBatchpayOrderCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from (
+		select t1.user_account,t.city_code,t.batchpay_no,t.is_paid
+		from app_order_batchpay_rel t
+		LEFT JOIN app_user t1 ON t.user_id = t1.id
+		where 1=1
+		<if test="userAccount != null and userAccount != '' " >
+	    	and t1.user_account =  #{userAccount}
+		</if>
+		<if test="userCityCode != null " >
+	    	and t.city_code like  '%${userCityCode}'
+		</if>
+		<if test="cityCode != null " >
+	    	and t.city_code like  '%${cityCode}'
+		</if>
+		<if test="batchpayNo != null and batchpayNo != '' " >
+	    	and t.batchpay_no =  #{batchpayNo}
+		</if>
+		<if test="isPaid != null " >
+	    	and t.is_paid =  #{isPaid}
+		</if>
+		<if test="startTime != null and endTime != null">
+			and t.create_time between #{startTime} and #{endTime}
+		</if>
+		GROUP BY t.BATCHPAY_NO )A
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_order_batchpay_rel t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询列表 -->
+<select id="queryBatchpayOrder" resultMap="BaseResultMap"  parameterType="Object">
+	select t2.area_name,t1.user_account,count(t.order_no) batchpay_count,<include refid="Base_Column_List"/>
+	from app_order_batchpay_rel t
+	LEFT JOIN app_user t1 ON t.user_id = t1.id
+	left join base_area t2 on t.city_code = t2.area_code
+	WHERE 1=1
+	<if test="userAccount != null and userAccount != '' " >
+    	and t1.user_account =  #{userAccount}
+	</if>
+	<if test="userCityCode != null " >
+    	and t.city_code like  '%${userCityCode}'
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code like  '%${cityCode}'
+	</if>
+	<if test="batchpayNo != null and batchpayNo != '' " >
+    	and t.batchpay_no =  #{batchpayNo}
+	</if>
+	<if test="isPaid != null " >
+    	and t.is_paid =  #{isPaid}
+	</if>
+	<if test="startTime != null and endTime != null">
+		and t.create_time between #{startTime} and #{endTime}
+	</if>
+	GROUP BY t.BATCHPAY_NO
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询批量缴费关联订单 -->
+<select id="queryByBatchNo" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT * FROM app_order_batchpay_rel 
+	WHERE BATCHPAY_NO = #{batchpayNo}
+</select>
+
+<!-- 更新批量缴费订单成功 -->
+<update id="updateBatchOrderSuccess" parameterType="Object">
+	UPDATE app_order_batchpay_rel 
+	SET IS_PAID = 200 
+	WHERE BATCHPAY_NO = #{batchpayNo}
+</update>
+
+<!-- 批量写入关联信息 -->
+<insert id="batchAddOrderBatchpayRel" parameterType="java.util.ArrayList">
+	insert into app_order_batchpay_rel
+	(ID,USER_ID,CITY_CODE,BATCHPAY_NO,ORDER_NO,PARKRECORD_ID,PARK_ID,
+	IS_PAID,CREATE_TIME) 
+	values
+	<foreach collection="list" index="inden" separator="," item="item">
+	 (#{item.id},#{item.userId},#{item.cityCode},#{item.batchpayNo},
+	  #{item.orderNo},#{item.parkrecordId},#{item.parkId},#{item.isPaid},
+  	  #{item.createTime})
+	</foreach>
+</insert>
+
+<!-- 作废批量订单关联记录 -->
+<update id="deleteOrderBatchPayRelByRecord" parameterType="Object">
+	UPDATE app_order_batchpay_rel SET IS_PAID = 400 
+	WHERE IS_PAID = 100 and PARKRECORD_ID = #{parkrecordId}
+</update>
+
+<!-- 根据订单编号查询批量缴费订单 -->
+<select id="findByOrderNo" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT * FROM app_order_batchpay_rel 
+	WHERE order_no = #{orderNo}
+	LIMIT 1
+</select>
+
+<resultMap id="GetMyBillDetailMap" type="com.innotek.fragrans.entity.user.GetMyBillDetailItem">
+	<result column="BATCHPAY_NO" property="orderNo" />
+	<result column="plate_no" property="plateNo" />
+	<result column="is_paid" property="orderStatus" />
+	<result column="price" property="orderPrice" />
+	<result column="pay_fee" property="payFee" />
+	<result column="ticket_fee" property="preferentialFee" />
+	<result column="payment" property="payType" />
+	<result column="order_point" property="orderPoints" />
+	<result column="order_type" property="orderType" />
+	<result column="batch_pay_count" property="batchPayCount" />
+	<result column="create_time" property="createTime" />
+	<result column="discount_fee" property="discountFee" />
+</resultMap>
+	
+<!-- 查询批量缴费账单详情 -->
+<select id="findBillDetailByBatchpayNo" resultMap="GetMyBillDetailMap"  parameterType="java.util.Map">
+	SELECT t.BATCHPAY_NO,t1.plate_no,t.is_paid,SUM(t1.park_fee) price,SUM(t1.pay_fee) pay_fee,
+	       CASE WHEN SUM(t1.TICKET_FEE) IS NULL THEN 0 ELSE SUM(t1.TICKET_FEE) END ticket_fee,
+	       CASE WHEN SUM(t1.DISCOUNT_FEE) IS NULL THEN 0 ELSE SUM(t1.DISCOUNT_FEE) END discount_fee,
+	       CASE WHEN (t.order_no NOT REGEXP  '^S' AND t2.CHANGE_POINT IS NULL) 
+	            THEN FLOOR(SUM(t1.pay_fee)/100) ELSE t2.CHANGE_POINT END order_point,
+	       2 order_type,COUNT(1) batch_pay_count,t.create_time,t1.payment
+	FROM app_order_batchpay_rel t 
+	LEFT JOIN (SELECT plate_no,park_fee,pay_fee,TICKET_FEE,DISCOUNT_FEE,order_no,payment FROM app_order_paylog ORDER BY payment ASC) t1 ON t.order_no = t1.order_no
+	LEFT JOIN app_user_point_record t2 ON t.order_no = t2.order_no 
+	WHERE 1=1
+	  AND t.user_id = #{userId} 
+	  AND t.batchpay_no = #{orderNo}
+	  AND t.is_paid = 200 
+	  AND t.city_code = #{cityCode} 
+	LIMIT 1
+</select>
+
+	<select id="queryUnpaidBatchpayNo" resultType="java.lang.String"  parameterType="Object">
+		SELECT DISTINCT(batchpay_no) FROM app_order_batchpay_rel
+		WHERE parkrecord_id = #{parkrecordId} and city_code = #{cityCode} and is_paid = 100
+	</select>
+
+	<select id="queryOrderNoByBatchpayNo" resultType="java.lang.String"  parameterType="Object">
+		SELECT order_no FROM app_order_batchpay_rel
+		WHERE batchpay_no = #{batchpayNo}
+	</select>
+</mapper>   

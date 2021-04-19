@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.PushTaskDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.PushTask" >
+	<result column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="templet_type" property="templetType"/>
+		<result column="push_range" property="pushRange"/>
+		<result column="push_client_type" property="pushClientType"/>
+		<result column="obj_id" property="objId"/>
+		<result column="push_type" property="pushType"/>
+		<result column="push_time" property="pushTime"/>
+		<result column="is_voice" property="isVoice"/>
+		<result column="is_shock" property="isShock"/>
+		<result column="is_display" property="isDisplay"/>
+		<result column="is_clear" property="isClear"/>
+		<result column="is_open" property="isOpen"/>
+		<result column="link_url" property="linkUrl"/>
+		<result column="exe_status" property="exeStatus"/>
+		<result column="exe_result" property="exeResult"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="message_type" property="messageType"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.title,
+		 t.content,
+		 t.templet_type,
+		 t.push_range,
+		 t.push_client_type,
+		 t.obj_id,
+		 t.push_type,
+		 t.push_time,
+		 t.is_voice,
+		 t.is_shock,
+		 t.is_display,
+		 t.is_clear,
+		 t.is_open,
+		 t.link_url,
+		 t.exe_status,
+		 t.exe_result,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+		 t.message_type,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="title != null and title != '' " >
+    	and t.title =  #{title}
+	</if>
+	<if test="content != null and content != '' " >
+    	and t.content =  #{content}
+	</if>
+	<if test="templetType != null " >
+    	and t.templet_type =  #{templetType}
+	</if>
+	<if test="pushRange != null " >
+    	and t.push_range =  #{pushRange}
+	</if>
+	<if test="pushClientType != null " >
+    	and t.push_client_type =  #{pushClientType}
+	</if>
+	<if test="objId != null and objId != '' " >
+    	and t.obj_id =  #{objId}
+	</if>
+	<if test="pushType != null " >
+    	and t.push_type =  #{pushType}
+	</if>
+	<if test="pushTime != null " >
+    	and t.push_time =  #{pushTime}
+	</if>
+	<if test="isVoice != null " >
+    	and t.is_voice =  #{isVoice}
+	</if>
+	<if test="isShock != null " >
+    	and t.is_shock =  #{isShock}
+	</if>
+	<if test="isDisplay != null " >
+    	and t.is_display =  #{isDisplay}
+	</if>
+	<if test="isClear != null " >
+    	and t.is_clear =  #{isClear}
+	</if>
+	<if test="isOpen != null " >
+    	and t.is_open =  #{isOpen}
+	</if>
+	<if test="linkUrl != null and linkUrl != '' " >
+    	and t.link_url =  #{linkUrl}
+	</if>
+	<if test="exeStatus != null " >
+    	and t.exe_status =  #{exeStatus}
+	</if>
+	<if test="exeResult != null and exeResult != '' " >
+    	and t.exe_result =  #{exeResult}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT sys_guid() from dual 
+	</selectKey>
+  
+	insert into app_push_task 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	  	<if test="messageType != null" >
+		 message_type,
+		</if>
+	 	<if test="title != null and title != '' " >
+		 title,
+		</if>
+    	<if test="content != null and content != '' " >
+		 content,
+		</if>
+    	<if test="templetType != null " >
+		templet_type,
+		</if>
+    	<if test="pushRange != null " >
+		push_range,
+		</if>
+    	<if test="pushClientType != null " >
+		push_client_type,
+		</if>
+    	<if test="objId != null and objId != '' " >
+		 obj_id,
+		</if>
+    	<if test="pushType != null " >
+		push_type,
+		</if>
+    	<if test="pushTime != null " >
+		push_time,
+		</if>
+    	<if test="isVoice != null " >
+		is_voice,
+		</if>
+    	<if test="isShock != null " >
+		is_shock,
+		</if>
+    	<if test="isDisplay != null " >
+		is_display,
+		</if>
+    	<if test="isClear != null " >
+		is_clear,
+		</if>
+    	<if test="isOpen != null " >
+		is_open,
+		</if>
+    	<if test="linkUrl != null and linkUrl != '' " >
+		 link_url,
+		</if>
+    	<if test="exeStatus != null " >
+		exe_status,
+		</if>
+    	<if test="exeResult != null and exeResult != '' " >
+		 exe_result,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	sysdate,
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="messageType != null" >
+  		<![CDATA[  #{messageType}, ]]>
+    	</if>
+	 	<if test="title != null and title != '' " >
+  		<![CDATA[  #{title}, ]]>
+    	</if>
+    	<if test="content != null and content != '' " >
+  		<![CDATA[  #{content}, ]]>
+    	</if>
+    	<if test="templetType != null " >
+  		<![CDATA[  #{templetType}, ]]>
+    	</if>
+    	<if test="pushRange != null " >
+  		<![CDATA[  #{pushRange}, ]]>
+    	</if>
+    	<if test="pushClientType != null " >
+  		<![CDATA[  #{pushClientType}, ]]>
+    	</if>
+    	<if test="objId != null and objId != '' " >
+  		<![CDATA[  #{objId}, ]]>
+    	</if>
+    	<if test="pushType != null " >
+  		<![CDATA[  #{pushType}, ]]>
+    	</if>
+    	<if test="pushTime != null " >
+  		<![CDATA[  #{pushTime}, ]]>
+    	</if>
+    	<if test="isVoice != null " >
+  		<![CDATA[  #{isVoice}, ]]>
+    	</if>
+    	<if test="isShock != null " >
+  		<![CDATA[  #{isShock}, ]]>
+    	</if>
+    	<if test="isDisplay != null " >
+  		<![CDATA[  #{isDisplay}, ]]>
+    	</if>
+    	<if test="isClear != null " >
+  		<![CDATA[  #{isClear}, ]]>
+    	</if>
+    	<if test="isOpen != null " >
+  		<![CDATA[  #{isOpen}, ]]>
+    	</if>
+    	<if test="linkUrl != null and linkUrl != '' " >
+  		<![CDATA[  #{linkUrl}, ]]>
+    	</if>
+    	<if test="exeStatus != null " >
+  		<![CDATA[  #{exeStatus}, ]]>
+    	</if>
+    	<if test="exeResult != null and exeResult != '' " >
+  		<![CDATA[  #{exeResult}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_push_task t set 
+   <trim suffixOverrides="," >
+	<if test="title != null and title != '' " >
+  	<![CDATA[  t.title = #{title}, ]]>
+    </if>
+    <if test="content != null and content != '' " >
+  	<![CDATA[  t.content = #{content}, ]]>
+    </if>
+    <if test="templetType != null " >
+  	<![CDATA[  t.templet_type = #{templetType}, ]]>
+    </if>
+    <if test="pushRange != null " >
+  	<![CDATA[  t.push_range = #{pushRange}, ]]>
+    </if>
+    <if test="pushClientType != null " >
+  	<![CDATA[  t.push_client_type = #{pushClientType}, ]]>
+    </if>
+    <if test="objId != null and objId != '' " >
+  	<![CDATA[  t.obj_id = #{objId}, ]]>
+    </if>
+    <if test="pushType != null " >
+  	<![CDATA[  t.push_type = #{pushType}, ]]>
+    </if>
+    <if test="pushTime != null " >
+  	<![CDATA[  t.push_time = #{pushTime}, ]]>
+    </if>
+    <if test="isVoice != null " >
+  	<![CDATA[  t.is_voice = #{isVoice}, ]]>
+    </if>
+    <if test="isShock != null " >
+  	<![CDATA[  t.is_shock = #{isShock}, ]]>
+    </if>
+    <if test="isDisplay != null " >
+  	<![CDATA[  t.is_display = #{isDisplay}, ]]>
+    </if>
+    <if test="isClear != null " >
+  	<![CDATA[  t.is_clear = #{isClear}, ]]>
+    </if>
+    <if test="isOpen != null " >
+  	<![CDATA[  t.is_open = #{isOpen}, ]]>
+    </if>
+    <if test="linkUrl != null and linkUrl != '' " >
+  	<![CDATA[  t.link_url = #{linkUrl}, ]]>
+    </if>
+    <if test="exeStatus != null " >
+  	<![CDATA[  t.exe_status = #{exeStatus}, ]]>
+    </if>
+    <if test="exeResult != null and exeResult != '' " >
+  	<![CDATA[  t.exe_result = #{exeResult}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+  	<![CDATA[  t.update_time = sysdate, ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_push_task where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_push_task t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_push_task t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	from app_push_task t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 获取所有未推送任务 -->
+<select id="findAllUnPushTask" resultMap="BaseResultMap">
+	SELECT * FROM app_push_task WHERE exe_status = 0 
+</select>
+
+<!-- 获取下发给全部用户的任务 -->
+<select id="findPushAllUsersTask" resultMap="BaseResultMap" >
+	SELECT * FROM app_push_task WHERE exe_status = 0 AND push_range = 4
+</select>
+</mapper>   

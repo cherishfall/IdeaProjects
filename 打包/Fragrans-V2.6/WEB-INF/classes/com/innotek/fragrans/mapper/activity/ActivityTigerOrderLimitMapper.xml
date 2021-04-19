@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.activity.ActivityTigerOrderLimitDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.activity.ActivityTigerOrderLimit" >
+	<result column="id" property="id"/>
+		<result column="tiger_conf_id" property="tigerConfId"/>
+		<result column="limit_type" property="limitType"/>
+		<result column="ticket_count" property="ticketCount"/>
+		<result column="limit_pay_fee_min" property="limitPayFeeMin"/>
+		<result column="limit_pay_fee_max" property="limitPayFeeMax"/>
+		<result column="limit_onepay_fee_min" property="limitOnepayFeeMin"/>
+		<result column="limit_onepay_fee_max" property="limitOnepayFeeMax"/>
+		<result column="limit_pay_count_min" property="limitPayCountMin"/>
+		<result column="limit_pay_count_max" property="limitPayCountMax"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.tiger_conf_id,
+		 t.limit_type,
+		 t.ticket_count,
+		 t.limit_pay_fee_min,
+		 t.limit_pay_fee_max,
+		 t.limit_onepay_fee_min,
+		 t.limit_onepay_fee_max,
+		 t.limit_pay_count_min,
+		 t.limit_pay_count_max,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="tigerConfId != null and tigerConfId != '' " >
+    	and t.tiger_conf_id =  #{tigerConfId}
+	</if>
+	<if test="limitType != null and limitType != '' " >
+    	and t.limit_type =  #{limitType}
+	</if>
+	<if test="ticketCount != null " >
+    	and t.ticket_count =  #{ticketCount}
+	</if>
+	<if test="limitPayFeeMin != null " >
+    	and t.limit_pay_fee_min =  #{limitPayFeeMin}
+	</if>
+	<if test="limitPayFeeMax != null " >
+    	and t.limit_pay_fee_max =  #{limitPayFeeMax}
+	</if>
+	<if test="limitOnepayFeeMin != null " >
+    	and t.limit_onepay_fee_min =  #{limitOnepayFeeMin}
+	</if>
+	<if test="limitOnepayFeeMax != null " >
+    	and t.limit_onepay_fee_max =  #{limitOnepayFeeMax}
+	</if>
+	<if test="limitPayCountMin != null " >
+    	and t.limit_pay_count_min =  #{limitPayCountMin}
+	</if>
+	<if test="limitPayCountMax != null " >
+    	and t.limit_pay_count_max =  #{limitPayCountMax}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_activity_tiger_order_limit 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	flag,
+		create_time,
+	 	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="tigerConfId != null and tigerConfId != '' " >
+		 tiger_conf_id,
+		</if>
+    	<if test="limitType != null and limitType != '' " >
+		 limit_type,
+		</if>
+    	<if test="ticketCount != null " >
+		ticket_count,
+		</if>
+    	<if test="limitPayFeeMin != null " >
+		limit_pay_fee_min,
+		</if>
+    	<if test="limitPayFeeMax != null " >
+		limit_pay_fee_max,
+		</if>
+    	<if test="limitOnepayFeeMin != null " >
+		limit_onepay_fee_min,
+		</if>
+    	<if test="limitOnepayFeeMax != null " >
+		limit_onepay_fee_max,
+		</if>
+    	<if test="limitPayCountMin != null " >
+		limit_pay_count_min,
+		</if>
+    	<if test="limitPayCountMax != null " >
+		limit_pay_count_max,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	'ADD',now(),
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="tigerConfId != null and tigerConfId != '' " >
+  		<![CDATA[  #{tigerConfId}, ]]>
+    	</if>
+    	<if test="limitType != null and limitType != '' " >
+  		<![CDATA[  #{limitType}, ]]>
+    	</if>
+    	<if test="ticketCount != null " >
+  		<![CDATA[  #{ticketCount}, ]]>
+    	</if>
+    	<if test="limitPayFeeMin != null " >
+  		<![CDATA[  #{limitPayFeeMin}, ]]>
+    	</if>
+    	<if test="limitPayFeeMax != null " >
+  		<![CDATA[  #{limitPayFeeMax}, ]]>
+    	</if>
+    	<if test="limitOnepayFeeMin != null " >
+  		<![CDATA[  #{limitOnepayFeeMin}, ]]>
+    	</if>
+    	<if test="limitOnepayFeeMax != null " >
+  		<![CDATA[  #{limitOnepayFeeMax}, ]]>
+    	</if>
+    	<if test="limitPayCountMin != null " >
+  		<![CDATA[  #{limitPayCountMin}, ]]>
+    	</if>
+    	<if test="limitPayCountMax != null " >
+  		<![CDATA[  #{limitPayCountMax}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_activity_tiger_order_limit t set 
+   <trim suffixOverrides="," >
+	<if test="tigerConfId != null and tigerConfId != '' " >
+  	<![CDATA[  t.tiger_conf_id = #{tigerConfId}, ]]>
+    </if>
+    <if test="limitType != null and limitType != '' " >
+  	<![CDATA[  t.limit_type = #{limitType}, ]]>
+    </if>
+    <if test="ticketCount != null " >
+  	<![CDATA[  t.ticket_count = #{ticketCount}, ]]>
+    </if>
+    <if test="limitPayFeeMin != null " >
+  	<![CDATA[  t.limit_pay_fee_min = #{limitPayFeeMin}, ]]>
+    </if>
+    <if test="limitPayFeeMax != null " >
+  	<![CDATA[  t.limit_pay_fee_max = #{limitPayFeeMax}, ]]>
+    </if>
+    <if test="limitOnepayFeeMin != null " >
+  	<![CDATA[  t.limit_onepay_fee_min = #{limitOnepayFeeMin}, ]]>
+    </if>
+    <if test="limitOnepayFeeMax != null " >
+  	<![CDATA[  t.limit_onepay_fee_max = #{limitOnepayFeeMax}, ]]>
+    </if>
+    <if test="limitPayCountMin != null " >
+  	<![CDATA[  t.limit_pay_count_min = #{limitPayCountMin}, ]]>
+    </if>
+    <if test="limitPayCountMax != null " >
+  	<![CDATA[  t.limit_pay_count_max = #{limitPayCountMax}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <![CDATA[  t.flag = 'UPDATE', ]]>
+  	<![CDATA[  t.update_time = now(), ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_activity_tiger_order_limit where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_activity_tiger_order_limit t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_activity_tiger_order_limit t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_activity_tiger_order_limit t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+<select id="getOrderLimit"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_activity_tiger_order_limit t where t.tiger_conf_id = #{tigerConfId}
+	 order by t.create_time desc
+</select>
+
+<delete id="deleteByOrderLimitId" parameterType="Object">
+	delete from app_activity_tiger_order_limit where TIGER_CONF_ID = #{tigerConfId}
+</delete>
+</mapper>   

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.invoice.dao.InvoiceOrderDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.invoice.entity.InvoiceOrder" >
+	<result column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="city_name" property="cityName"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="area_name" property="areaName"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="plate_color" property="plateColor"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="buyer_account" property="buyerAccount"/>
+		<result column="mobile" property="mobile"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="pay_type" property="payType"/>
+		<result column="pay_fee" property="payFee"/>
+		<result column="subject" property="subject"/>
+		<result column="order_body" property="orderBody"/>
+		<result column="order_time" property="orderTime"/>
+		<result column="pay_time" property="payTime"/>
+		<result column="create_time" property="createTime"/>
+		<result column="sync_time" property="syncTime"/>
+		<result column="invoice_time" property="invoiceTime"/>
+		<result column="invoice_state" property="invoiceState"/>
+		<result column="order_type" property="orderType"/>
+		<result column="order_source" property="orderSource"/>
+		<result column="month_start" property="monthStart"/>
+		<result column="month_end" property="monthEnd"/>
+		<result column="reserve1" property="reserve1"/>
+		<result column="reserve2" property="reserve2"/>
+		<result column="reserve3" property="reserve3"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.city_code,
+		 t.city_name,
+		 t.area_code,
+		 t.area_name,
+		 t.plate_no,
+		 t.plate_color,
+		 t.user_id,
+		 t.user_account,
+		 t.buyer_account,
+		 t.mobile,
+		 t.order_no,
+		 t.parkrecord_id,
+		 t.pay_type,
+		 t.pay_fee,
+		 t.subject,
+		 t.order_body,
+		 t.order_time,
+		 t.pay_time,
+		 t.create_time,
+		 t.sync_time,
+		 t.invoice_time,
+		 t.invoice_state,
+		 t.order_type,
+		 t.order_source,
+		 t.month_start,
+		 t.month_end,
+		 t.reserve1,
+		 t.reserve2,
+		 t.reserve3,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="cityName != null and cityName != '' " >
+    	and t.city_name =  #{cityName}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="areaName != null and areaName != '' " >
+    	and t.area_name =  #{areaName}
+	</if>
+	<if test="plateNo != null and plateNo != '' " >
+    	and t.plate_no =  #{plateNo}
+	</if>
+	<if test="plateColor != null " >
+    	and t.plate_color =  #{plateColor}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="userAccount != null and userAccount != '' " >
+    	and t.user_account =  #{userAccount}
+	</if>
+	<if test="buyerAccount != null and buyerAccount != '' " >
+    	and t.buyer_account =  #{buyerAccount}
+	</if>
+	<if test="mobile != null and mobile != '' " >
+    	and t.mobile =  #{mobile}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="payType != null and payType != '' " >
+    	and t.pay_type =  #{payType}
+	</if>
+	<if test="payFee != null " >
+    	and t.pay_fee =  #{payFee}
+	</if>
+	<if test="subject != null and subject != '' " >
+    	and t.subject =  #{subject}
+	</if>
+	<if test="orderBody != null and orderBody != '' " >
+    	and t.order_body =  #{orderBody}
+	</if>
+	<if test="orderTime != null " >
+    	and t.order_time =  #{orderTime}
+	</if>
+	<if test="payTime != null " >
+    	and t.pay_time =  #{payTime}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="syncTime != null " >
+    	and t.sync_time =  #{syncTime}
+	</if>
+	<if test="invoiceTime != null " >
+    	and t.invoice_time =  #{invoiceTime}
+	</if>
+	<if test="invoiceState != null " >
+    	and t.invoice_state =  #{invoiceState}
+	</if>
+	<if test="orderType != null " >
+    	and t.order_type =  #{orderType}
+	</if>
+	<if test="orderSource != null " >
+    	and t.order_source =  #{orderSource}
+	</if>
+	<if test="monthStart != null " >
+    	and t.month_start =  #{monthStart}
+	</if>
+	<if test="monthEnd != null " >
+    	and t.month_end =  #{monthEnd}
+	</if>
+	<if test="reserve1 != null and reserve1 != '' " >
+    	and t.reserve1 =  #{reserve1}
+	</if>
+	<if test="reserve2 != null and reserve2 != '' " >
+    	and t.reserve2 =  #{reserve2}
+	</if>
+	<if test="reserve3 != null and reserve3 != '' " >
+    	and t.reserve3 =  #{reserve3}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and t.area_code = #{userCityCode}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_invoice_order 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="cityName != null and cityName != '' " >
+		 city_name,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="areaName != null and areaName != '' " >
+		 area_name,
+		</if>
+    	<if test="plateNo != null and plateNo != '' " >
+		 plate_no,
+		</if>
+    	<if test="plateColor != null " >
+		plate_color,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="userAccount != null and userAccount != '' " >
+		 user_account,
+		</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+		 buyer_account,
+		</if>
+    	<if test="mobile != null and mobile != '' " >
+		 mobile,
+		</if>
+    	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="payType != null and payType != '' " >
+		 pay_type,
+		</if>
+    	<if test="payFee != null " >
+		pay_fee,
+		</if>
+    	<if test="subject != null and subject != '' " >
+		 subject,
+		</if>
+    	<if test="orderBody != null and orderBody != '' " >
+		 order_body,
+		</if>
+    	<if test="orderTime != null " >
+		order_time,
+		</if>
+    	<if test="payTime != null " >
+		pay_time,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="syncTime != null " >
+		sync_time,
+		</if>
+    	<if test="invoiceTime != null " >
+		invoice_time,
+		</if>
+    	<if test="invoiceState != null " >
+		invoice_state,
+		</if>
+    	<if test="orderType != null " >
+		order_type,
+		</if>
+    	<if test="orderSource != null " >
+		order_source,
+		</if>
+    	<if test="monthStart != null " >
+		month_start,
+		</if>
+    	<if test="monthEnd != null " >
+		month_end,
+		</if>
+    	<if test="reserve1 != null and reserve1 != '' " >
+		 reserve1,
+		</if>
+    	<if test="reserve2 != null and reserve2 != '' " >
+		 reserve2,
+		</if>
+    	<if test="reserve3 != null and reserve3 != '' " >
+		 reserve3,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="cityName != null and cityName != '' " >
+  		<![CDATA[  #{cityName}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="areaName != null and areaName != '' " >
+  		<![CDATA[  #{areaName}, ]]>
+    	</if>
+    	<if test="plateNo != null and plateNo != '' " >
+  		<![CDATA[  #{plateNo}, ]]>
+    	</if>
+    	<if test="plateColor != null " >
+  		<![CDATA[  #{plateColor}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="userAccount != null and userAccount != '' " >
+  		<![CDATA[  #{userAccount}, ]]>
+    	</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+  		<![CDATA[  #{buyerAccount}, ]]>
+    	</if>
+    	<if test="mobile != null and mobile != '' " >
+  		<![CDATA[  #{mobile}, ]]>
+    	</if>
+    	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="payType != null and payType != '' " >
+  		<![CDATA[  #{payType}, ]]>
+    	</if>
+    	<if test="payFee != null " >
+  		<![CDATA[  #{payFee}, ]]>
+    	</if>
+    	<if test="subject != null and subject != '' " >
+  		<![CDATA[  #{subject}, ]]>
+    	</if>
+    	<if test="orderBody != null and orderBody != '' " >
+  		<![CDATA[  #{orderBody}, ]]>
+    	</if>
+    	<if test="orderTime != null " >
+  		<![CDATA[  #{orderTime}, ]]>
+    	</if>
+    	<if test="payTime != null " >
+  		<![CDATA[  #{payTime}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="syncTime != null " >
+  		<![CDATA[  #{syncTime}, ]]>
+    	</if>
+    	<if test="invoiceTime != null " >
+  		<![CDATA[  #{invoiceTime}, ]]>
+    	</if>
+    	<if test="invoiceState != null " >
+  		<![CDATA[  #{invoiceState}, ]]>
+    	</if>
+    	<if test="orderType != null " >
+  		<![CDATA[  #{orderType}, ]]>
+    	</if>
+    	<if test="orderSource != null " >
+  		<![CDATA[  #{orderSource}, ]]>
+    	</if>
+    	<if test="monthStart != null " >
+  		<![CDATA[  #{monthStart}, ]]>
+    	</if>
+    	<if test="monthEnd != null " >
+  		<![CDATA[  #{monthEnd}, ]]>
+    	</if>
+    	<if test="reserve1 != null and reserve1 != '' " >
+  		<![CDATA[  #{reserve1}, ]]>
+    	</if>
+    	<if test="reserve2 != null and reserve2 != '' " >
+  		<![CDATA[  #{reserve2}, ]]>
+    	</if>
+    	<if test="reserve3 != null and reserve3 != '' " >
+  		<![CDATA[  #{reserve3}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_invoice_order t set 
+   <trim suffixOverrides="," >
+	<if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="cityName != null and cityName != '' " >
+  	<![CDATA[  t.city_name = #{cityName}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="areaName != null and areaName != '' " >
+  	<![CDATA[  t.area_name = #{areaName}, ]]>
+    </if>
+    <if test="plateNo != null and plateNo != '' " >
+  	<![CDATA[  t.plate_no = #{plateNo}, ]]>
+    </if>
+    <if test="plateColor != null " >
+  	<![CDATA[  t.plate_color = #{plateColor}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="userAccount != null and userAccount != '' " >
+  	<![CDATA[  t.user_account = #{userAccount}, ]]>
+    </if>
+    <if test="buyerAccount != null and buyerAccount != '' " >
+  	<![CDATA[  t.buyer_account = #{buyerAccount}, ]]>
+    </if>
+    <if test="mobile != null and mobile != '' " >
+  	<![CDATA[  t.mobile = #{mobile}, ]]>
+    </if>
+    <if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="payType != null and payType != '' " >
+  	<![CDATA[  t.pay_type = #{payType}, ]]>
+    </if>
+    <if test="payFee != null " >
+  	<![CDATA[  t.pay_fee = #{payFee}, ]]>
+    </if>
+    <if test="subject != null and subject != '' " >
+  	<![CDATA[  t.subject = #{subject}, ]]>
+    </if>
+    <if test="orderBody != null and orderBody != '' " >
+  	<![CDATA[  t.order_body = #{orderBody}, ]]>
+    </if>
+    <if test="orderTime != null " >
+  	<![CDATA[  t.order_time = #{orderTime}, ]]>
+    </if>
+    <if test="payTime != null " >
+  	<![CDATA[  t.pay_time = #{payTime}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="syncTime != null " >
+  	<![CDATA[  t.sync_time = #{syncTime}, ]]>
+    </if>
+    <if test="invoiceTime != null " >
+  	<![CDATA[  t.invoice_time = #{invoiceTime}, ]]>
+    </if>
+    <if test="invoiceState != null " >
+  	<![CDATA[  t.invoice_state = #{invoiceState}, ]]>
+    </if>
+    <if test="orderType != null " >
+  	<![CDATA[  t.order_type = #{orderType}, ]]>
+    </if>
+    <if test="orderSource != null " >
+  	<![CDATA[  t.order_source = #{orderSource}, ]]>
+    </if>
+    <if test="monthStart != null " >
+  	<![CDATA[  t.month_start = #{monthStart}, ]]>
+    </if>
+    <if test="monthEnd != null " >
+  	<![CDATA[  t.month_end = #{monthEnd}, ]]>
+    </if>
+    <if test="reserve1 != null and reserve1 != '' " >
+  	<![CDATA[  t.reserve1 = #{reserve1}, ]]>
+    </if>
+    <if test="reserve2 != null and reserve2 != '' " >
+  	<![CDATA[  t.reserve2 = #{reserve2}, ]]>
+    </if>
+    <if test="reserve3 != null and reserve3 != '' " >
+  	<![CDATA[  t.reserve3 = #{reserve3}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_invoice_order where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_invoice_order t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_invoice_order t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_invoice_order t 
+	<include refid="Example_Where_Clause"/>
+	<if test="startTime != null and endTime != null">
+		and t.create_Time between #{startTime} and #{endTime}
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+</mapper>   

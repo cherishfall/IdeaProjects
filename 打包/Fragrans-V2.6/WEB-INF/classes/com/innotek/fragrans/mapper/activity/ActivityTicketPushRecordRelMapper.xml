@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.activity.ActivityTicketPushRecordRelDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.activity.ActivityTicketPushRecordRel" >
+	<result column="id" property="id"/>
+		<result column="putlog_id" property="putlogId"/>
+		<result column="ticket_no" property="ticketNo"/>
+		<result column="user_id" property="userId"/>
+		<result column="client_id" property="clientId"/>
+		<result column="content" property="content"/>
+		<result column="status" property="status"/>
+		<result column="push_time" property="pushTime"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.putlog_id,
+		 t.ticket_no,
+		 t.user_id,
+		 t.client_id,
+		 t.content,
+		 t.status,
+		 t.push_time,
+		 t.flag,
+		 t.created_by,
+		 t.create_time,
+		 t.updated_by,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="putlogId != null and putlogId != '' " >
+    	and t.putlog_id =  #{putlogId}
+	</if>
+	<if test="ticketNo != null and ticketNo != '' " >
+    	and t.ticket_no =  #{ticketNo}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="clientId != null and clientId != '' " >
+    	and t.client_id =  #{clientId}
+	</if>
+	<if test="content != null and content != '' " >
+    	and t.content =  #{content}
+	</if>
+	<if test="status != null and status != '' " >
+    	and t.status =  #{status}
+	</if>
+	<if test="pushTime != null " >
+    	and t.push_time =  #{pushTime}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_activity_ticket_push_record_rel 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="putlogId != null and putlogId != '' " >
+		 putlog_id,
+		</if>
+    	<if test="ticketNo != null and ticketNo != '' " >
+		 ticket_no,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="clientId != null and clientId != '' " >
+		 client_id,
+		</if>
+    	<if test="content != null and content != '' " >
+		 content,
+		</if>
+    	<if test="status != null and status != '' " >
+		 status,
+		</if>
+    	<if test="pushTime != null " >
+		push_time,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="putlogId != null and putlogId != '' " >
+  		<![CDATA[  #{putlogId}, ]]>
+    	</if>
+    	<if test="ticketNo != null and ticketNo != '' " >
+  		<![CDATA[  #{ticketNo}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="clientId != null and clientId != '' " >
+  		<![CDATA[  #{clientId}, ]]>
+    	</if>
+    	<if test="content != null and content != '' " >
+  		<![CDATA[  #{content}, ]]>
+    	</if>
+    	<if test="status != null and status != '' " >
+  		<![CDATA[  #{status}, ]]>
+    	</if>
+    	<if test="pushTime != null " >
+  		<![CDATA[  #{pushTime}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_activity_ticket_push_record_rel t set 
+   <trim suffixOverrides="," >
+	<if test="putlogId != null and putlogId != '' " >
+  	<![CDATA[  t.putlog_id = #{putlogId}, ]]>
+    </if>
+    <if test="ticketNo != null and ticketNo != '' " >
+  	<![CDATA[  t.ticket_no = #{ticketNo}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="clientId != null and clientId != '' " >
+  	<![CDATA[  t.client_id = #{clientId}, ]]>
+    </if>
+    <if test="content != null and content != '' " >
+  	<![CDATA[  t.content = #{content}, ]]>
+    </if>
+    <if test="status != null and status != '' " >
+  	<![CDATA[  t.status = #{status}, ]]>
+    </if>
+    <if test="pushTime != null " >
+  	<![CDATA[  t.push_time = #{pushTime}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_activity_ticket_push_record_rel where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_activity_ticket_push_record_rel t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_activity_ticket_push_record_rel t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_activity_ticket_push_record_rel t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 批量插入 -->
+<insert id="savePushRecordRel" parameterType="java.util.List">
+	insert into app_activity_ticket_push_record_rel (
+		 putlog_id,
+		 ticket_no,
+		 user_id,
+		 client_id,
+		 content,
+		 status,
+		 push_time,
+		 flag,
+		 created_by,
+		 create_time,
+	     id)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+	 (
+	 	#{item.putlogId},
+  		#{item.ticketNo},
+  		#{item.userId},
+  		#{item.clientId},
+  		#{item.content},
+  		#{item.status},
+  		#{item.pushTime},
+  		#{item.flag},
+  		#{item.createdBy},
+  		#{item.createTime},
+  		#{item.id}
+    )
+    </foreach>
+</insert>
+
+<!-- 根据优惠券ID查询该优惠券是否已推送 -->
+<select id="findByTicketPutlogId" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT * FROM app_activity_ticket_push_record_rel 
+	WHERE putlog_id = #{_parameter}
+	limit 1
+</select>
+</mapper>   

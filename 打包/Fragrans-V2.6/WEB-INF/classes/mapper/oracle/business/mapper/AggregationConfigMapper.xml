@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.business.dao.AggregationConfigDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.business.entity.AggregationConfig" >
+	<result column="id" property="id"/>
+	<result column="zoom_level" property="zoomLevel"/>
+	<result column="distance" property="distance"/>
+	<result column="max_zoom_value" property="maxZoomValue"/>
+	<result column="min_zoom_value" property="minZoomValue"/>
+	<result column="icon" property="icon"/>
+</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.zoom_level,
+		 t.distance,
+		 t.max_zoom_value,
+		 t.min_zoom_value,
+		 t.icon,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="zoomLevel != null " >
+    	and t.zoom_level =  #{zoomLevel}
+	</if>
+	<if test="distance != null " >
+    	and t.distance =  #{distance}
+	</if>
+	<if test="maxZoomValue != null " >
+    	and t.max_zoom_value =  #{maxZoomValue}
+	</if>
+	<if test="minZoomValue != null " >
+    	and t.min_zoom_value =  #{minZoomValue}
+	</if>
+	<if test="icon != null and icon != '' " >
+    	and t.icon =  #{icon}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into app_aggregation_config 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    id,
+		zoom_level,
+		distance,
+		max_zoom_value,
+		min_zoom_value,
+    	<if test="icon != null and icon != '' " >
+		 icon,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<![CDATA[  uuid(), ]]>
+	 	<if test="zoomLevel != null " >
+  		<![CDATA[  #{zoomLevel}, ]]>
+    	</if>
+    	<if test="distance != null " >
+  		<![CDATA[  #{distance}, ]]>
+    	</if>
+    	<if test="maxZoomValue != null " >
+  		<![CDATA[  #{maxZoomValue}, ]]>
+    	</if>
+    	<if test="minZoomValue != null " >
+  		<![CDATA[  #{minZoomValue}, ]]>
+    	</if>
+    	<if test="icon != null and icon != '' " >
+  		<![CDATA[  #{icon}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_aggregation_config t set 
+   <trim suffixOverrides="," >
+	<if test="zoomLevel != null " >
+  	<![CDATA[  t.zoom_level = #{zoomLevel}, ]]>
+    </if>
+    <if test="distance != null " >
+  	<![CDATA[  t.distance = #{distance}, ]]>
+    </if>
+    <if test="maxZoomValue != null " >
+  	<![CDATA[  t.max_zoom_value = #{maxZoomValue}, ]]>
+    </if>
+    <if test="minZoomValue != null " >
+  	<![CDATA[  t.min_zoom_value = #{minZoomValue}, ]]>
+    </if>
+    <if test="icon != null and icon != '' " >
+  	<![CDATA[  t.icon = #{icon}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_aggregation_config t where t.id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_aggregation_config t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_aggregation_config t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	from app_aggregation_config t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.zoom_level
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+
+  	
+<!-- 查询列表 -->
+<select id="queryByZoomValue" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_aggregation_config t 
+	where t.max_zoom_value &gt; #{zoomValue}  and  t.min_zoom_value &lt;=#{zoomValue}
+</select>
+
+
+<!-- 查询列表 -->
+<select id="queryAllConfig" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_aggregation_config t
+</select>
+</mapper>   

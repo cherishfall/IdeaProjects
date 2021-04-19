@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.business.dao.WeixpnpaylistOriginalDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.business.entity.WeixpnpaylistOriginal" >
+	<result column="id" property="id"/>
+		<result column="statdate" property="statdate"/>
+		<result column="body" property="body"/>
+		<result column="pay_time" property="payTime"/>
+		<result column="subscribe_id" property="subscribeId"/>
+		<result column="mch_id" property="mchId"/>
+		<result column="mch_id_child" property="mchIdChild"/>
+		<result column="device_info" property="deviceInfo"/>
+		<result column="transaction_id" property="transactionId"/>
+		<result column="out_trade_no" property="outTradeNo"/>
+		<result column="openid" property="openid"/>
+		<result column="trade_type" property="tradeType"/>
+		<result column="trade_state" property="tradeState"/>
+		<result column="bank_type" property="bankType"/>
+		<result column="fee_type" property="feeType"/>
+		<result column="total_fee" property="totalFee"/>
+		<result column="trade_bm_amount" property="tradeBmAmount"/>
+		<result column="refund_id" property="refundId"/>
+		<result column="out_refund_no" property="outRefundNo"/>
+		<result column="refund_amount" property="refundAmount"/>
+		<result column="trade_refund_bm_amount" property="tradeRefundBmAmount"/>
+		<result column="refund_type" property="refundType"/>
+		<result column="refund_status" property="refundStatus"/>
+		<result column="attach" property="attach"/>
+		<result column="service_fee" property="serviceFee"/>
+		<result column="rate" property="rate"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.statdate,
+		 t.body,
+		 t.pay_time,
+		 t.subscribe_id,
+		 t.mch_id,
+		 t.mch_id_child,
+		 t.device_info,
+		 t.transaction_id,
+		 t.out_trade_no,
+		 t.openid,
+		 t.trade_type,
+		 t.trade_state,
+		 t.bank_type,
+		 t.fee_type,
+		 t.total_fee,
+		 t.trade_bm_amount,
+		 t.refund_id,
+		 t.out_refund_no,
+		 t.refund_amount,
+		 t.trade_refund_bm_amount,
+		 t.refund_type,
+		 t.refund_status,
+		 t.attach,
+		 t.service_fee,
+		 t.rate,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="statdate != null " >
+    	and t.statdate =  #{statdate}
+	</if>
+	<if test="body != null and body != '' " >
+    	and t.body =  #{body}
+	</if>
+	<if test="payTime != null and payTime != '' " >
+    	and t.pay_time =  #{payTime}
+	</if>
+	<if test="subscribeId != null and subscribeId != '' " >
+    	and t.subscribe_id =  #{subscribeId}
+	</if>
+	<if test="mchId != null and mchId != '' " >
+    	and t.mch_id =  #{mchId}
+	</if>
+	<if test="mchIdChild != null and mchIdChild != '' " >
+    	and t.mch_id_child =  #{mchIdChild}
+	</if>
+	<if test="deviceInfo != null and deviceInfo != '' " >
+    	and t.device_info =  #{deviceInfo}
+	</if>
+	<if test="transactionId != null and transactionId != '' " >
+    	and t.transaction_id =  #{transactionId}
+	</if>
+	<if test="outTradeNo != null and outTradeNo != '' " >
+    	and t.out_trade_no =  #{outTradeNo}
+	</if>
+	<if test="openid != null and openid != '' " >
+    	and t.openid =  #{openid}
+	</if>
+	<if test="tradeType != null and tradeType != '' " >
+    	and t.trade_type =  #{tradeType}
+	</if>
+	<if test="tradeState != null and tradeState != '' " >
+    	and t.trade_state =  #{tradeState}
+	</if>
+	<if test="bankType != null and bankType != '' " >
+    	and t.bank_type =  #{bankType}
+	</if>
+	<if test="feeType != null and feeType != '' " >
+    	and t.fee_type =  #{feeType}
+	</if>
+	<if test="totalFee != null and totalFee != '' " >
+    	and t.total_fee =  #{totalFee}
+	</if>
+	<if test="tradeBmAmount != null and tradeBmAmount != '' " >
+    	and t.trade_bm_amount =  #{tradeBmAmount}
+	</if>
+	<if test="refundId != null and refundId != '' " >
+    	and t.refund_id =  #{refundId}
+	</if>
+	<if test="outRefundNo != null and outRefundNo != '' " >
+    	and t.out_refund_no =  #{outRefundNo}
+	</if>
+	<if test="refundAmount != null and refundAmount != '' " >
+    	and t.refund_amount =  #{refundAmount}
+	</if>
+	<if test="tradeRefundBmAmount != null and tradeRefundBmAmount != '' " >
+    	and t.trade_refund_bm_amount =  #{tradeRefundBmAmount}
+	</if>
+	<if test="refundType != null and refundType != '' " >
+    	and t.refund_type =  #{refundType}
+	</if>
+	<if test="refundStatus != null and refundStatus != '' " >
+    	and t.refund_status =  #{refundStatus}
+	</if>
+	<if test="attach != null and attach != '' " >
+    	and t.attach =  #{attach}
+	</if>
+	<if test="serviceFee != null and serviceFee != '' " >
+    	and t.service_fee =  #{serviceFee}
+	</if>
+	<if test="rate != null and rate != '' " >
+    	and t.rate =  #{rate}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="endDate != null and endDate != '' ">
+	  	and t.statdate between #{startDate} and #{endDate}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into rca_weixpnpaylist_original 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="statdate != null " >
+		statdate,
+		</if>
+    	<if test="body != null and body != '' " >
+		 body,
+		</if>
+    	<if test="payTime != null and payTime != '' " >
+		 pay_time,
+		</if>
+    	<if test="subscribeId != null and subscribeId != '' " >
+		 subscribe_id,
+		</if>
+    	<if test="mchId != null and mchId != '' " >
+		 mch_id,
+		</if>
+    	<if test="mchIdChild != null and mchIdChild != '' " >
+		 mch_id_child,
+		</if>
+    	<if test="deviceInfo != null and deviceInfo != '' " >
+		 device_info,
+		</if>
+    	<if test="transactionId != null and transactionId != '' " >
+		 transaction_id,
+		</if>
+    	<if test="outTradeNo != null and outTradeNo != '' " >
+		 out_trade_no,
+		</if>
+    	<if test="openid != null and openid != '' " >
+		 openid,
+		</if>
+    	<if test="tradeType != null and tradeType != '' " >
+		 trade_type,
+		</if>
+    	<if test="tradeState != null and tradeState != '' " >
+		 trade_state,
+		</if>
+    	<if test="bankType != null and bankType != '' " >
+		 bank_type,
+		</if>
+    	<if test="feeType != null and feeType != '' " >
+		 fee_type,
+		</if>
+    	<if test="totalFee != null and totalFee != '' " >
+		 total_fee,
+		</if>
+    	<if test="tradeBmAmount != null and tradeBmAmount != '' " >
+		 trade_bm_amount,
+		</if>
+    	<if test="refundId != null and refundId != '' " >
+		 refund_id,
+		</if>
+    	<if test="outRefundNo != null and outRefundNo != '' " >
+		 out_refund_no,
+		</if>
+    	<if test="refundAmount != null and refundAmount != '' " >
+		 refund_amount,
+		</if>
+    	<if test="tradeRefundBmAmount != null and tradeRefundBmAmount != '' " >
+		 trade_refund_bm_amount,
+		</if>
+    	<if test="refundType != null and refundType != '' " >
+		 refund_type,
+		</if>
+    	<if test="refundStatus != null and refundStatus != '' " >
+		 refund_status,
+		</if>
+    	<if test="attach != null and attach != '' " >
+		 attach,
+		</if>
+    	<if test="serviceFee != null and serviceFee != '' " >
+		 service_fee,
+		</if>
+    	<if test="rate != null and rate != '' " >
+		 rate,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="statdate != null " >
+  		<![CDATA[  #{statdate}, ]]>
+    	</if>
+    	<if test="body != null and body != '' " >
+  		<![CDATA[  #{body}, ]]>
+    	</if>
+    	<if test="payTime != null and payTime != '' " >
+  		<![CDATA[  #{payTime}, ]]>
+    	</if>
+    	<if test="subscribeId != null and subscribeId != '' " >
+  		<![CDATA[  #{subscribeId}, ]]>
+    	</if>
+    	<if test="mchId != null and mchId != '' " >
+  		<![CDATA[  #{mchId}, ]]>
+    	</if>
+    	<if test="mchIdChild != null and mchIdChild != '' " >
+  		<![CDATA[  #{mchIdChild}, ]]>
+    	</if>
+    	<if test="deviceInfo != null and deviceInfo != '' " >
+  		<![CDATA[  #{deviceInfo}, ]]>
+    	</if>
+    	<if test="transactionId != null and transactionId != '' " >
+  		<![CDATA[  #{transactionId}, ]]>
+    	</if>
+    	<if test="outTradeNo != null and outTradeNo != '' " >
+  		<![CDATA[  #{outTradeNo}, ]]>
+    	</if>
+    	<if test="openid != null and openid != '' " >
+  		<![CDATA[  #{openid}, ]]>
+    	</if>
+    	<if test="tradeType != null and tradeType != '' " >
+  		<![CDATA[  #{tradeType}, ]]>
+    	</if>
+    	<if test="tradeState != null and tradeState != '' " >
+  		<![CDATA[  #{tradeState}, ]]>
+    	</if>
+    	<if test="bankType != null and bankType != '' " >
+  		<![CDATA[  #{bankType}, ]]>
+    	</if>
+    	<if test="feeType != null and feeType != '' " >
+  		<![CDATA[  #{feeType}, ]]>
+    	</if>
+    	<if test="totalFee != null and totalFee != '' " >
+  		<![CDATA[  #{totalFee}, ]]>
+    	</if>
+    	<if test="tradeBmAmount != null and tradeBmAmount != '' " >
+  		<![CDATA[  #{tradeBmAmount}, ]]>
+    	</if>
+    	<if test="refundId != null and refundId != '' " >
+  		<![CDATA[  #{refundId}, ]]>
+    	</if>
+    	<if test="outRefundNo != null and outRefundNo != '' " >
+  		<![CDATA[  #{outRefundNo}, ]]>
+    	</if>
+    	<if test="refundAmount != null and refundAmount != '' " >
+  		<![CDATA[  #{refundAmount}, ]]>
+    	</if>
+    	<if test="tradeRefundBmAmount != null and tradeRefundBmAmount != '' " >
+  		<![CDATA[  #{tradeRefundBmAmount}, ]]>
+    	</if>
+    	<if test="refundType != null and refundType != '' " >
+  		<![CDATA[  #{refundType}, ]]>
+    	</if>
+    	<if test="refundStatus != null and refundStatus != '' " >
+  		<![CDATA[  #{refundStatus}, ]]>
+    	</if>
+    	<if test="attach != null and attach != '' " >
+  		<![CDATA[  #{attach}, ]]>
+    	</if>
+    	<if test="serviceFee != null and serviceFee != '' " >
+  		<![CDATA[  #{serviceFee}, ]]>
+    	</if>
+    	<if test="rate != null and rate != '' " >
+  		<![CDATA[  #{rate}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update rca_weixpnpaylist_original t set 
+   <trim suffixOverrides="," >
+	<if test="statdate != null " >
+  	<![CDATA[  t.statdate = #{statdate}, ]]>
+    </if>
+    <if test="body != null and body != '' " >
+  	<![CDATA[  t.body = #{body}, ]]>
+    </if>
+    <if test="payTime != null and payTime != '' " >
+  	<![CDATA[  t.pay_time = #{payTime}, ]]>
+    </if>
+    <if test="subscribeId != null and subscribeId != '' " >
+  	<![CDATA[  t.subscribe_id = #{subscribeId}, ]]>
+    </if>
+    <if test="mchId != null and mchId != '' " >
+  	<![CDATA[  t.mch_id = #{mchId}, ]]>
+    </if>
+    <if test="mchIdChild != null and mchIdChild != '' " >
+  	<![CDATA[  t.mch_id_child = #{mchIdChild}, ]]>
+    </if>
+    <if test="deviceInfo != null and deviceInfo != '' " >
+  	<![CDATA[  t.device_info = #{deviceInfo}, ]]>
+    </if>
+    <if test="transactionId != null and transactionId != '' " >
+  	<![CDATA[  t.transaction_id = #{transactionId}, ]]>
+    </if>
+    <if test="outTradeNo != null and outTradeNo != '' " >
+  	<![CDATA[  t.out_trade_no = #{outTradeNo}, ]]>
+    </if>
+    <if test="openid != null and openid != '' " >
+  	<![CDATA[  t.openid = #{openid}, ]]>
+    </if>
+    <if test="tradeType != null and tradeType != '' " >
+  	<![CDATA[  t.trade_type = #{tradeType}, ]]>
+    </if>
+    <if test="tradeState != null and tradeState != '' " >
+  	<![CDATA[  t.trade_state = #{tradeState}, ]]>
+    </if>
+    <if test="bankType != null and bankType != '' " >
+  	<![CDATA[  t.bank_type = #{bankType}, ]]>
+    </if>
+    <if test="feeType != null and feeType != '' " >
+  	<![CDATA[  t.fee_type = #{feeType}, ]]>
+    </if>
+    <if test="totalFee != null and totalFee != '' " >
+  	<![CDATA[  t.total_fee = #{totalFee}, ]]>
+    </if>
+    <if test="tradeBmAmount != null and tradeBmAmount != '' " >
+  	<![CDATA[  t.trade_bm_amount = #{tradeBmAmount}, ]]>
+    </if>
+    <if test="refundId != null and refundId != '' " >
+  	<![CDATA[  t.refund_id = #{refundId}, ]]>
+    </if>
+    <if test="outRefundNo != null and outRefundNo != '' " >
+  	<![CDATA[  t.out_refund_no = #{outRefundNo}, ]]>
+    </if>
+    <if test="refundAmount != null and refundAmount != '' " >
+  	<![CDATA[  t.refund_amount = #{refundAmount}, ]]>
+    </if>
+    <if test="tradeRefundBmAmount != null and tradeRefundBmAmount != '' " >
+  	<![CDATA[  t.trade_refund_bm_amount = #{tradeRefundBmAmount}, ]]>
+    </if>
+    <if test="refundType != null and refundType != '' " >
+  	<![CDATA[  t.refund_type = #{refundType}, ]]>
+    </if>
+    <if test="refundStatus != null and refundStatus != '' " >
+  	<![CDATA[  t.refund_status = #{refundStatus}, ]]>
+    </if>
+    <if test="attach != null and attach != '' " >
+  	<![CDATA[  t.attach = #{attach}, ]]>
+    </if>
+    <if test="serviceFee != null and serviceFee != '' " >
+  	<![CDATA[  t.service_fee = #{serviceFee}, ]]>
+    </if>
+    <if test="rate != null and rate != '' " >
+  	<![CDATA[  t.rate = #{rate}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from rca_weixpnpaylist_original t where t.id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from rca_weixpnpaylist_original t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from rca_weixpnpaylist_original t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from rca_weixpnpaylist_original t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询导出记录参数值-->
+<select id="cvsWeixpnpayList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT *
+ 	from rca_weixpnpaylist_original t
+	WHERE 1=1 
+	<trim>
+	 <if test="startDate != null and startDate != '' and endDate != null
+	 	and endDate != '' ">
+	 	and t.statdate BETWEEN #{startDate} AND #{endDate}
+	 </if>
+	 <if test="refundType != null and refundType != ''">
+	 	and t.refund_type = #{refundType}
+	 </if>
+	</trim>
+	ORDER BY t.statdate desc
+</select>
+<!-- 根据商户订单号获取账单 -->
+<select id="getWeixpnpaylistOriginalByOutTradeNo" resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List"/>
+		from rca_weixpnpaylist_original t where 1=1
+		<if test="refundType != null and refundType != '' ">
+			and  t.refund_type =  #{refundType}
+		</if>
+		 and t.out_trade_no =  #{outTradeNo} 
+</select>
+
+<!-- 批量删除记录 -->
+<delete id="batchDeleteData" parameterType="Object">
+	DELETE FROM rca_weixpnpaylist_original WHERE statdate = #{statdate}
+</delete>
+
+<!-- 批量插入记录 -->
+<insert id="batchAddData" parameterType="java.util.Map">
+	insert into rca_weixpnpaylist_original (
+		 id,
+		 statdate,
+		 body,
+		 pay_time,
+		 subscribe_id,
+		 mch_id,
+		 mch_id_child,
+		 device_info,
+		 transaction_id,
+		 out_trade_no,
+		 openid,
+		 trade_type,
+		 trade_state,
+		 bank_type,
+		 fee_type,
+		 total_fee,
+		 trade_bm_amount,
+		 refund_id,
+		 out_refund_no,
+		 refund_amount,
+		 trade_refund_bm_amount,
+		 refund_type,
+		 refund_status,
+		 attach,
+		 service_fee,
+		 rate,
+		 create_time 
+		 ) values
+	  <foreach collection="list" item="item" index="index" separator="," >  
+        (	 
+        	 #{item.id},
+	         #{item.statdate},
+			 #{item.body},
+			 #{item.payTime},
+			 #{item.subscribeId},
+			 #{item.mchId},
+			 #{item.mchIdChild},
+			 #{item.deviceInfo},
+			 #{item.transactionId},
+			 #{item.outTradeNo},
+			 #{item.openid},
+			 #{item.tradeType},
+			 #{item.tradeState},
+			 #{item.bankType},
+			 #{item.feeType},
+			 #{item.totalFee},
+			 #{item.tradeBmAmount},
+			 #{item.refundId},
+			 #{item.outRefundNo},
+			 #{item.refundAmount},
+			 #{item.tradeRefundBmAmount},
+			 #{item.refundType},
+			 #{item.refundStatus},
+			 #{item.attach},
+			 #{item.serviceFee},
+			 #{item.rate},
+			 #{item.createTime} 
+		 )  
+      </foreach> 
+</insert>
+
+</mapper>   

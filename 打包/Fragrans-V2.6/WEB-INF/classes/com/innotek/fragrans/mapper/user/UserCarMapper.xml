@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserCarDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.AppUserCarEntity" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="plate_color" property="plateColor"/>
+		<result column="is_default" property="isDefault"/>
+		<result column="note" property="note"/>
+		<result column="flag" property="flag"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="is_identify" property="isIdentify"/>
+		<result column="is_card_autopay" property="isCardAutopay"/>
+		<result column="elect_tag_no" property="electTagNo"/>
+		<result column="is_elect_tag" property="isElectTag"/>
+		<result column="user_account" property="userAccount"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.plate_no,
+		 t.plate_color,
+		 t.is_default,
+		 t.note,
+		 t.flag,
+		 t.create_time,
+		 t.update_time,
+	     t.id,
+	     t.is_identify,
+	     t.is_card_autopay,
+	     t.is_elect_tag,
+	     t.elect_tag_no
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="plateNo != null and plateNo != '' " >
+    	and t.plate_no =  #{plateNo}
+	</if>
+	<if test="plateColor != null" >
+    	and t.plate_color =  #{plateColor}
+	</if>
+	<if test="isDefault != null " >
+    	and t.is_default =  #{isDefault}
+	</if>
+	<if test="note != null and note != '' " >
+    	and t.note =  #{note}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object" >
+
+		<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+
+		insert into app_user_car
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null and id != '' " >
+				id,
+			</if>
+			<if test="userId != null and userId != '' " >
+				user_id,
+			</if>
+			<if test="plateNo != null and plateNo != '' " >
+				plate_no,
+			</if>
+			<if test="plateColor != null " >
+				plate_color,
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' " >
+				plate_security_code,
+			</if>
+			<if test="isDefault != null " >
+				is_default,
+			</if>
+			<if test="note != null and note != '' " >
+				note,
+			</if>
+			<if test="flag != null and flag != '' " >
+				flag,
+			</if>
+			<if test="createTime != null " >
+				create_time,
+			</if>
+			<if test="updateTime != null " >
+				update_time,
+			</if>
+			<if test="isIdentify != null " >
+				is_identify,
+			</if>
+			<if test="isCardAutopay != null " >
+				is_card_autopay,
+			</if>
+			<if test="isElectTag != null " >
+				is_elect_tag,
+			</if>
+			<if test="electTagNo != null and electTagNo != '' " >
+				elect_tag_no,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null and id != '' " >
+				<![CDATA[  #{id}, ]]>
+			</if>
+			<if test="userId != null and userId != '' " >
+				<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="plateNo != null and plateNo != '' " >
+				<![CDATA[  #{plateNo}, ]]>
+			</if>
+			<if test="plateColor != null " >
+				<![CDATA[  #{plateColor}, ]]>
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' " >
+				<![CDATA[  #{plateSecurityCode}, ]]>
+			</if>
+			<if test="isDefault != null " >
+				<![CDATA[  #{isDefault}, ]]>
+			</if>
+			<if test="note != null and note != '' " >
+				<![CDATA[  #{note}, ]]>
+			</if>
+			<if test="flag != null and flag != '' " >
+				<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createTime != null " >
+				<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null " >
+				<![CDATA[  #{updateTime}, ]]>
+			</if>
+			<if test="isIdentify != null " >
+				<![CDATA[  #{isIdentify}, ]]>
+			</if>
+			<if test="isCardAutopay != null " >
+				<![CDATA[  #{isCardAutopay}, ]]>
+			</if>
+			<if test="isElectTag != null " >
+				<![CDATA[  #{isElectTag}, ]]>
+			</if>
+			<if test="electTagNo != null and electTagNo != '' " >
+				<![CDATA[  #{electTagNo}, ]]>
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据id，修改记录-->
+	<update id="update" parameterType="Object" >
+		update app_user_car t set
+		<trim suffixOverrides="," >
+			<if test="userId != null and userId != '' " >
+				<![CDATA[  t.user_id = #{userId}, ]]>
+			</if>
+			<if test="plateNo != null and plateNo != '' " >
+				<![CDATA[  t.plate_no = #{plateNo}, ]]>
+			</if>
+			<if test="plateColor != null " >
+				<![CDATA[  t.plate_color = #{plateColor}, ]]>
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' " >
+				<![CDATA[  t.plate_security_code = #{plateSecurityCode}, ]]>
+			</if>
+			<if test="isDefault != null " >
+				<![CDATA[  t.is_default = #{isDefault}, ]]>
+			</if>
+			<if test="note != null and note != '' " >
+				<![CDATA[  t.note = #{note}, ]]>
+			</if>
+			<if test="flag != null and flag != '' " >
+				<![CDATA[  t.flag = #{flag}, ]]>
+			</if>
+			<if test="createTime != null " >
+				<![CDATA[  t.create_time = #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null " >
+				<![CDATA[  t.update_time = #{updateTime}, ]]>
+			</if>
+			<if test="isIdentify != null " >
+				<![CDATA[  t.is_identify = #{isIdentify}, ]]>
+			</if>
+			<if test="isCardAutopay != null " >
+				<![CDATA[  t.is_card_autopay = #{isCardAutopay}, ]]>
+			</if>
+			<if test="isElectTag != null " >
+				<![CDATA[  t.is_elect_tag = #{isElectTag}, ]]>
+			</if>
+			<if test="electTagNo != null and electTagNo != '' " >
+				<![CDATA[  t.elect_tag_no = #{electTagNo}, ]]>
+			</if>
+		</trim> where t.id= #{id}
+	</update>
+
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from APP_USER_CAR where id = #{id}
+</delete>
+
+<!-- 假删除记录 -->
+	<update id="deleted" parameterType="Object" >
+		update APP_USER_CAR t set 
+	   <trim suffixOverrides="," >
+	  	<![CDATA[  t.flag = 'DELETE', ]]>
+	     </trim> where t.id= #{id}
+	</update>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from APP_USER_CAR t where t.id = #{id}
+	 and t.flag!='DELETE'
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from APP_USER_CAR t
+	left join APP_USER u on t.user_id = u.id
+	<include refid="Example_Where_Clause"/>
+	<if test="userAccount != null and userAccount != ''" >
+		and u.user_account = #{userAccount}
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,u.user_account
+	from APP_USER_CAR t
+	left join APP_USER u on t.user_id = u.id
+	<include refid="Example_Where_Clause"/>
+	<if test="userAccount != null and userAccount != ''" >
+		and u.user_account = #{userAccount}
+	</if>
+	AND t.flag != 'DELETE'
+	<if test="pager.orderCondition == ''">
+		order by create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<select id="getUserCarByUserId" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List"/>
+		from APP_USER_CAR t
+		where t.user_id = #{userId} and flag != 'DELETE'
+		order by t.create_time desc
+	</select>
+	<select id="queryIsDefault" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List"/>
+		from APP_USER_CAR t
+		where t.is_default = 1 and t.user_id = #{userId}
+	</select>
+	<select id="queryIsExist" parameterType="Object" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER_CAR t
+		where t.plate_no=#{plateNo} and t.user_id = #{userId}
+	</select>
+	<select id="queryPlateCountByUserId" parameterType="Object" resultType="java.lang.Integer">
+		select
+		count(1)
+		from APP_USER_CAR t
+		where t.user_id = #{userId}
+		and flag != 'DELETE'
+	</select>
+	
+	<!-- 根据用户和车牌号码及颜色查询 -->
+	<select id="findCarByUserAndPlateNo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT * FROM app_user_car 
+		WHERE FLAG != 'DELETE' 
+		  AND USER_ID = #{userId} 
+		  AND PLATE_NO = #{plateNo}
+		  AND PLATE_COLOR = #{plateColor}
+	</select>
+	
+	<resultMap id="UserCarInfoMap" type="java.util.Map" >
+		<result column="id" property="id" javaType="java.lang.String"/>
+		<result column="user_id" property="userId" javaType="java.lang.String"/>
+		<result column="is_default" property="isDefault" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<!-- 查询其他绑定该车牌的用户信息 -->
+	<select id="queryOtherPlateInfo" resultMap="UserCarInfoMap" parameterType="java.util.Map">
+		SELECT id,user_id,is_default FROM app_user_car 
+		WHERE flag != 'DELETE' 
+		AND plate_no = #{plateNo}
+		AND plate_color = #{plateColor}
+		AND id != #{carId}
+		AND is_identify = 0
+	</select>
+	
+	 <!-- 根据id批量置为DELETE -->
+	 <update id="setUserCarDelete" parameterType="java.util.ArrayList">
+	 	<foreach collection="list" item="item" index="index">
+			UPDATE app_user_car
+			SET flag='DELETE'
+			WHERE id = #{item.id};
+		</foreach>
+	 </update>
+	 
+	 <!-- 查询该用户不是默认的车牌 -->
+	<select id="queryNotDefaultCarByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT * FROM app_user_car 
+		WHERE flag != 'DELETE' 
+		  AND user_id = #{userId} 
+		  AND is_default = 0
+	</select>
+	
+	<!-- 查询该车牌是否被认证 -->
+	<select id="queryIsIdentifyByOthers" resultType="java.lang.Integer" parameterType="Object">
+		SELECT count(1) FROM app_user_car 
+		WHERE flag != 'DELETE' 
+		  AND plate_no = #{plateNo}
+		  AND plate_color = #{plateColor}
+		  <if test="carId != null and carId != '' " >
+			AND id != #{carId}
+    	  </if>
+		  AND is_identify = 1
+	</select>
+
+	<!-- 查询该车牌是否被其他人开通代扣 -->
+	<select id="queryIsOpenAutopayByOthers" resultType="java.lang.Integer" parameterType="Object">
+		SELECT count(1) FROM app_user_car
+		WHERE flag != 'DELETE'
+		AND plate_no = #{plateNo}
+		AND plate_color = #{plateColor}
+		<if test="userId != null and userId != '' " >
+			AND user_id != #{userId}
+		</if>
+		AND is_card_autopay = 1
+	</select>
+	
+	<!-- 查询该车牌是否被认证 -->
+	<select id="queryIsIdentifyById" resultType="java.lang.Integer" parameterType="Object">
+		SELECT is_identify FROM app_user_car WHERE id = #{id}
+	</select>
+	
+	<!-- 根据电子标签号；查询车牌绑定信息 -->
+	<select id="queryPlateByElectTagNo" resultMap="BaseResultMap" parameterType="Object">
+		SELECT PLATE_NO ,PLATE_COLOR ,ELECT_TAG_NO,IS_ELECT_TAG FROM APP_USER_CAR 
+		WHERE 1=1 
+		AND FLAG!='DELETE' AND IS_ELECT_TAG = 1 AND ELECT_TAG_NO = #{electTagNo} LIMIT 1 
+	</select>
+	
+	
+	<!-- 根据 车牌号和颜色 查询代扣车牌 -->
+	<select id="queryAutoPayPlateByPlateInfo" resultMap="BaseResultMap" parameterType="Object">
+		SELECT * FROM APP_USER_CAR WHERE 1=1 
+		AND FLAG!='DELETE' AND IS_CARD_AUTOPAY = 1 AND PLATE_NO = #{plateNo} AND PLATE_COLOR = #{plateColor}  LIMIT 1 
+	</select>
+
+	<!-- 列表总数-->
+	<select id="queryByElectTagCount" resultType="java.lang.Integer"  parameterType="Object">
+		select count(1) from APP_USER_CAR t
+		left join app_user u on t.user_id = u.id
+		<include refid="Example_Where_Clause"/>
+		<if test="userAccount != null and userAccount != '' " >
+			and u.user_account like  '${userAccount}%'
+		</if>
+		and t.is_elect_tag = 1
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="queryByElectTagList" resultMap="BaseResultMap"  parameterType="Object">
+		select
+		<include refid="Base_Column_List"/>
+		,u.user_account
+		from APP_USER_CAR t
+		left join app_user u on t.user_id = u.id
+		<include refid="Example_Where_Clause"/>
+		<if test="userAccount != null and userAccount != '' " >
+			and u.user_account like  '${userAccount}%'
+		</if>
+		and t.is_elect_tag = 1
+		<if test="pager.orderCondition == ''">
+			order by create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+			${pager.orderCondition}
+		</if>
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+
+	<!-- 查询该代扣车辆用户id -->
+	<select id="queryAutoPayUserId" resultType="java.lang.String" parameterType="Object">
+		SELECT user_id FROM app_user_car WHERE plate_no = #{plateNo} and plate_color = #{plateColor} and is_card_autopay = 1
+		limit 1
+	</select>
+
+	<!-- 查询该代扣车辆用户id -->
+	<select id="queryIsElectTagUserInfo" resultType="java.lang.String" parameterType="Object">
+		SELECT u.user_account
+		FROM app_user_car c
+		LEFT JOIN app_user u ON c.user_id = u.id
+		WHERE c.plate_no = #{plateNo} and c.plate_color = #{plateColor} and c.is_elect_tag = 1
+		limit 1
+	</select>
+
+	<!-- Result Map-->
+	<resultMap id="UserCarInfoItemMap" type="com.innotek.pos.entity.guidance.UserCarInfoItem" >
+		<result column="user_account" property="userMobile"/>
+		<result column="plate_no" property="plateNo"/>
+	</resultMap>
+	<!-- 查询该日期新增用户信息（含有默认车牌的用户） -->
+	<select id="queryScopeNewUserInfo" resultMap="UserCarInfoItemMap" parameterType="Object">
+		SELECT u.user_account,car.plate_no FROM app_user u
+		LEFT JOIN app_user_car car ON u.id = car.user_id
+		WHERE u.id IN (SELECT ext.user_id FROM app_user_ext ext
+		WHERE ext.AREA_CODE_GAODE = #{cityCode}) AND car.plate_no IS NOT NULL AND car.is_default = 1 AND car.flag!='DELETE'
+		AND u.create_time BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s')
+	</select>
+
+	<!-- 查询该日期修改默认车牌用户信息 -->
+	<select id="queryScopeUserInfo" resultMap="UserCarInfoItemMap" parameterType="Object">
+		SELECT u.user_account,car.plate_no FROM app_user_car car
+		LEFT JOIN app_user u ON car.user_id = u.id
+		LEFT JOIN app_user_ext ext ON car.user_id = ext.user_id
+		WHERE ext.AREA_CODE_GAODE = #{cityCode} AND car.update_time BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s')
+		AND car.is_default = 1 AND car.flag!='DELETE'
+	</select>
+
+	<!-- 查询认证车牌是否是亲情号,有则是亲情号副号，否则是主号 -->
+	<select id="queryIsFamilyUser" resultType="java.lang.Integer" parameterType="Object">
+		SELECT count(1)
+		FROM app_user_car car
+		LEFT JOIN app_user_car_identify auci ON car.id = auci.car_id
+		WHERE car.flag != 'DELETE' AND car.is_identify = 1 AND auci.identify_car_id = #{identifyCarId}
+	</select>
+	
+	<select id="queryByPlateNo" resultMap="BaseResultMap" parameterType="Object">
+		SELECT * FROM app_user_car WHERE flag != 'DELETE' AND plate_no = #{plateNo} AND plate_color = #{plateColor}
+	</select>
+</mapper>   

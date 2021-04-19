@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserPayAccountDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap"
+		type="com.innotek.fragrans.entity.user.UserPayAccountEntity">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="pay_account" property="payAccount" />
+		<result column="pay_account_type" property="payAccountType" />
+		<result column="flag" property="flag" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+	<!-- table all fields -->
+	<sql id="Base_Column_List">
+		t.user_id,
+		t.pay_account,
+		t.pay_account_type,
+		t.flag,
+		t.create_time,
+		t.update_time,
+		t.id
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and t.id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				and t.user_id = #{userId}
+			</if>
+			<if test="payAccount != null and payAccount != '' ">
+				and t.pay_account = #{payAccount}
+			</if>
+			<if test="payAccountType != null ">
+				and t.pay_account_type = #{payAccountType}
+			</if>
+			<if test="createTime != null ">
+				and t.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null ">
+				and t.update_time = #{updateTime}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT sys_guid() from dual
+		</selectKey>
+
+		insert into APP_USER_PAY_ACCOUNT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			create_time,update_time,flag,
+			<if test="id != null ">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="payAccount != null and payAccount != '' ">
+				pay_account,
+			</if>
+			<if test="payAccountType != null ">
+				pay_account_type,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			sysdate,sysdate,'ADD',
+			<if test="id != null ">
+        <![CDATA[  #{id}, ]]>
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="payAccount != null and payAccount != '' ">
+  		<![CDATA[  #{payAccount}, ]]>
+			</if>
+			<if test="payAccountType != null ">
+  		<![CDATA[  #{payAccountType}, ]]>
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update APP_USER_PAY_ACCOUNT t set
+		<trim suffixOverrides=",">
+			<if test="userId != null and userId != '' ">
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+			</if>
+			<if test="payAccount != null and payAccount != '' ">
+  	<![CDATA[  t.pay_account = #{payAccount}, ]]>
+			</if>
+			<if test="payAccountType != null ">
+  	<![CDATA[  t.pay_account_type = #{payAccountType}, ]]>
+			</if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+  	<![CDATA[  t.update_time = sysdate, ]]>
+		</trim>
+		where t.id= #{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from APP_USER_PAY_ACCOUNT where id = #{id}
+	</delete>
+	
+	<!-- 假删除记录 -->
+	<update id="deleted" parameterType="Object" >
+		update APP_USER_PAY_ACCOUNT t set 
+	   <trim suffixOverrides="," >
+	  	<![CDATA[  t.flag = 'DELETE', ]]>
+	     </trim> where t.id= #{id}
+	</update>
+
+	<!-- 根据id查询 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER_PAY_ACCOUNT t where t.id = #{id}
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from APP_USER_PAY_ACCOUNT t
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"
+		parameterType="Object">
+		<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+		</if>
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER_PAY_ACCOUNT t
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition == ''">
+			order by t.create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+			${pager.oracleQueryConditionEnd}
+		</if>
+	</select>
+	<!-- *************************************自定义接口****************************************************** -->
+	<select id="getUserPayByUserId" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List"/>
+		from APP_USER_PAY_ACCOUNT t
+		where t.user_id = #{userId}
+		order by t.create_time desc
+	</select>
+	
+	<!-- 判断该用户支付账号是否为新账号 -->
+	<select id="findByUserIdAndBuyerAccount" resultMap="BaseResultMap" parameterType="Object">
+		SELECT * FROM app_user_pay_account 
+		WHERE flag != 'DELETE' AND user_id = #{userId} AND pay_account = #{payAccount} 
+	</select>
+	
+	<!-- 查询客户协议号 -->
+	<select id="findByUserIdAndPayType" resultMap="BaseResultMap" parameterType="Object">
+		SELECT * FROM app_user_pay_account 
+		WHERE flag != 'DELETE' 
+		  AND user_id = #{userId} AND pay_account_type = #{payAccountType} 
+	</select>
+</mapper>   

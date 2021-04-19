@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- 添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- 使用thymeleaf引入依赖-->
+    <!--    <link rel="stylesheet" th:href="@{css/bootstrap.css}">-->
+    <!--    <script th:src="@{js/jquery-3.6.0.js}"></script>-->
+    <!--    <script th:src="@{js/bootstrap.bundle.js}"></script>-->
+
+    <!--    需要启tomcat，本地引入依赖文件-->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/bootstrap.bundle.js"></script>
+
+    <!--    不用启tomcat，本地引入依赖文件-->
+    <!--        <link rel="stylesheet" href="../static/css/bootstrap.css">-->
+    <!--        <script src="../static/js/jquery-3.6.0.js"></script>-->
+    <!--        <script src="../static/js/bootstrap.bundle.js"></script>-->
+
+    <!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+    <!--    ======================分界线======================-->
+
+    <!--页面标题-->
+    <title>/addDeptAndEE.html</title>
+
+    <!--    新增部门表单验证,聚焦时不验证，失去焦点时验证-->
+    <script src="/js/valid_dept.js"></script>
+    <!--    聚焦时-->
+    <script>
+        $(function () {
+            $("#form_add_dept_name").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+
+            $("#form_add_dept_code").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+        })
+    </script>
+    <!--    失去焦点时-->
+    <script>
+        $(function () {
+            $("#form_add_dept_name").blur(function () {
+                let dept_name = $(this).val();
+                if(valid_dept_name(dept_name) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+
+            $("#form_add_dept_code").blur(function () {
+                let dept_code = $(this).val();
+                if(valid_dept_code(dept_code) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+        })
+    </script>
+    <!--    新增部门提交时验证函数-->
+    <script>
+        function valid_add_dept(){
+            let dept_name = $("#form_add_dept_name").val();
+            let dept_code = $("#form_add_dept_code").val();
+
+            if(valid_dept_name(dept_name) && valid_dept_code(dept_code))
+                return true;
+
+            return false;
+        }
+    </script>
+
+
+    <!-- 新增表单验证 聚焦时不验证 失焦时验证-->
+    <script src="/js/valid_ee.js"></script>
+    <!--    聚焦-->
+    <script>
+        $(function () {
+            $("#form_add_ee_name").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+
+            $("#form_add_ee_age").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+
+            $("#form_add_ee_tel").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+
+            $("#form_add_ee_account").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+
+            $("#form_add_ee_pwd").focus(function () {
+                $(this).removeClass("is-invalid");
+                $(this).next().removeClass("text-danger").addClass("text-muted");
+            })
+        })
+    </script>
+    <!--    失焦-->
+    <script>
+        $(function () {
+            $("#form_add_ee_name").blur(function () {
+                let ee_name = $(this).val();
+                if(valid_ee_name(ee_name) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+
+            $("#form_add_ee_age").blur(function () {
+                let ee_age = $(this).val();
+                if(valida_ee_age(ee_age) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+
+            $("#form_add_ee_tel").blur(function () {
+                let ee_tel = $(this).val();
+                if(valid_ee_tel(ee_tel) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+
+            $("#form_add_ee_account").blur(function () {
+                let ee_account = $(this).val();
+                if(valid_ee_account(ee_account) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+
+            $("#form_add_ee_pwd").blur(function () {
+                let ee_pwd = $(this).val();
+                if(valid_ee_pwd(ee_pwd) === false){
+                    $(this).addClass("is-invalid");
+                    $(this).next().removeClass("text-muted").addClass("text-danger");
+                }else {
+                    ;
+                }
+            })
+        })
+    </script>
+    <!--    新增员工提交时验证函数-->
+    <script>
+        function valid_add_ee() {
+            let ee_name = $("#form_add_ee_name").val();
+            let ee_age = $("#form_add_ee_age").val();
+            let ee_tel = $("#form_add_ee_tel").val();
+            let ee_account = $("#form_add_ee_account").val();
+            let ee_pwd = $("#form_add_ee_pwd").val();
+
+            if(valid_ee_name(ee_name) && valida_ee_age(ee_age) && valid_ee_tel(ee_tel) &&
+                valid_ee_account(ee_account) && valid_ee_pwd(ee_pwd)){
+                return true;
+            }
+
+            return false;
+
+        }
+    </script>
+
+
+    <!--    绑定增加员工toggle-->
+    <script>
+        $(function () {
+            $("#ee_add_modal_toggle").click(function () {
+                $("#form_add_ee_reset_btn").click();
+                $("#ee_add_modal").modal("show");
+            })
+        })
+    </script>
+
+    <!--    绑定模态框新增员工表单的提交按钮-->
+    <script>
+        $(function () {
+            $("#form_add_ee_submit_btn").click(function () {
+                if(valid_add_ee()){
+                    let ee_id = 0;
+                    let ee_name = $("#form_add_ee_name").val();
+                    let ee_sex = $("#form_add_ee :radio:checked").val();
+                    let ee_age = $("#form_add_ee_age").val();
+                    let ee_tel = $("#form_add_ee_tel").val();
+                    let ee_account = $("#form_add_ee_account").val();
+                    let ee_pwd = $("#form_add_ee_pwd").val();
+                    let ee_deptId = 0;
+
+                    let ee = {};
+                    ee.id = ee_id;
+                    ee.name = ee_name;
+                    ee.sex = ee_sex;
+
+                    if(ee_age.length === 0){
+                        ee.age = null;
+                    }else {
+                        ee.age = +ee_age;
+                    }
+
+                    if(ee_tel.length === 0){
+                        ee.tel = null;
+                    }else {
+                        ee.tel = ee_tel;
+                    }
+
+                    ee.account = ee_account;
+                    ee.pwd = ee_pwd;
+                    ee.deptId = 0;
+
+                    let ee_To_JSON = JSON.stringify(ee);
+                    $("#ees").append("<p>"+ee_To_JSON+"</p>");
+                    alert("已将所填信息以json格式保存，内容为：" + ee_To_JSON);
+
+
+                    $("#form_add_ee_reset_btn").click();
+
+                    if(confirm("是否继续添加员工？")){
+                        ;
+                    }else {
+                        $("#ee_add_modal").modal("hide");
+                    }
+
+                }else {
+                    alert("请根据提示填写正确的信息");
+                }
+            })
+        })
+    </script>
+
+    <!--    绑定新增部门表单的提交按钮-->
+    <script>
+        $(function () {
+            $("#form_add_dept_submit_btn").click(function () {
+                if(valid_add_dept()){
+                    let id = 0;
+                    let name = $("#form_add_dept_name").val();
+                    let code = $("#form_add_dept_code").val();
+                    let deptExt = {};
+                    deptExt.id = id;
+                    deptExt.name = name;
+                    deptExt.code = code;
+
+                    let $ees = $("#ees p");
+                    let eesList = [];
+                    for (let i = 0; i < $ees.length; ++i){
+                        let ee_json_str = $ees.eq(i).text();
+                        let ee_json_object = JSON.parse(ee_json_str);
+                        eesList.push(ee_json_object);
+                    }
+
+                    deptExt.ees = eesList;
+
+                    $.ajax({
+                        url: "/insertDeptAndEEV2",
+                        type: "post",
+                        data: JSON.stringify(deptExt),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            let deptId = +data;
+                            if(data !== 0){
+                                alert("添加成功，部门编号为："+deptId);
+                                //清理
+                                $("#ees p").remove();
+                                $("#form_add_dept_reset_btn").click();
+                                //转跳
+                                let url = "/eeadmin/"+ deptId;
+                                location.assign(url);
+                            }else {
+                                alert("添加失败,请检查填写的信息");
+                            }
+
+                        },
+                        error: function () {
+                            alert("添加失败，请稍后再试");
+                        }
+                    })
+
+                }else {
+                    alert("请根据提示填写正确的信息");
+                }
+            })
+        })
+    </script>
+
+
+</head>
+<body>
+<div class="container">
+    <!--    导航栏-->
+    <nav class="navbar navbar-expand bg-dark navbar-dark">
+        <a class="navbar-brand text-info disabled" href="#">InnotekDemo</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/deptadmin">部门管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/eeadmin/0">员工管理</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/addDeptAndEE">级联新增</a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/search">搜索部门或员工</a>-->
+<!--            </li>-->
+        </ul>
+    </nav>
+
+    <hr />
+    <h5>级联新增</h5>
+    <hr />
+
+    <!--    存ees数组-->
+    <div id="ees"></div>
+
+    <!--    新增部门表单-->
+    <div>
+        <form id="form_add_dept" method="get" action="/insertDepartment">
+            <!-- 部门编号 隐藏域-->
+            <input type="number" name="id" value="0" hidden>
+
+            <div class="form-group">
+                <label for="form_add_dept_name">部门名称</label>
+                <input type="text" id="form_add_dept_name" name="name" class="form-control"
+                       required minlength="3" maxlength="16" />
+                <small id="form_add_dept_name_help" class="form-text text-muted">部门名称不能为空，最少3字符，最多16字符</small>
+            </div>
+
+            <div class="form-group">
+                <label for="form_add_dept_code">部门代码</label>
+                <input type="text" id="form_add_dept_code" name="code" class="form-control"
+                       required minlength="4" maxlength="16">
+                <small id="form_add_dept_code_help" class="form-text text-muted">部门代码不能为空，最少4字符，最多16字符</small>
+            </div>
+            <div>
+                <button type="reset" id="form_add_dept_reset_btn" class="btn btn-sm btn-secondary">清空输入</button>
+                <button type="button"  class="btn btn-sm btn-primary" id="ee_add_modal_toggle">增加员工</button>
+                <button type="button" class="btn btn-sm btn-success" id="form_add_dept_submit_btn">提交</button>
+            </div>
+        </form>
+    </div>
+
+    <!--    新增员工模态框-->
+    <div id="ee_add_modal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">增加员工</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_add_ee" method="get" action="/insertEmployee">
+                        <!--     员工编号id 隐藏域-->
+                        <input type="number" name="id" value="0" hidden>
+                        <input type="number" name="deptId" value="0" hidden>
+
+                        <div class="form-group">
+                            <label for="form_add_ee_name">员工姓名</label>
+                            <input type="text" id="form_add_ee_name" name="name" class="form-control"
+                                   required minlength="2" maxlength="16" />
+                            <small id="form_add_ee_name_help" class="form-text text-muted">员工姓名不能为空，最少2字符，最多16字符</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form_add_ee_age">年龄</label>
+                            <input type="number" id="form_add_ee_age" name="age" class="form-control" min="18" max="65">
+                            <small id="form_add_ee_age_help" class="form-text text-muted">最低年龄为18岁，最高年龄为65岁</small>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="form-text">性别</span>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="sex" id="form_add_ee_sex_male" value="男" class="form-check-input" checked>
+                                <label for="form_add_ee_sex_male" class="form-check-label">男</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="sex" id="form_add_ee_sex_female" value="女" class="form-check-input">
+                                <label for="form_add_ee_sex_female" class="form-check-label">女</label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="form_add_ee_tel">手机号码</label>
+                            <input type="tel" id="form_add_ee_tel" name="tel" class="form-control" pattern="[1][3,4,5,7,8][0-9]{9}"/>
+                            <small id="form_add_ee_tel_help" class="form-text text-muted">请输入正确的中国大陆地区11位手机号码</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form_add_ee_account">账户</label>
+                            <input type="text" id="form_add_ee_account" name="account" class="form-control"
+                                   minlength="6" maxlength="16" required/>
+                            <small id="form_add_ee_account_help" class="form-text text-muted">账户不能为空，最少6字符，最多16字符</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form_add_ee_pwd">密码</label>
+                            <input type="password" id="form_add_ee_pwd" name="pwd" class="form-control"
+                                   minlength="6" maxlength="16" required/>
+                            <small id="form_add_ee_pwd_help" class="form-text text-muted">密码不能为空，最少6字符，最多16字符</small>
+                        </div>
+
+
+                        <div>
+                            <button type="reset" id="form_add_ee_reset_btn" class="btn btn-sm btn-secondary">清空输入</button>
+<!--                            <button type="submit" class="btn btn-success">提交</button>-->
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="form_add_ee_cancel_btn">关闭</button>
+                    <button type="button" class="btn btn-success" id="form_add_ee_submit_btn">提交</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

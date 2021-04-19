@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.discount.ActivityDiscountStratBaseDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.discount.ActivityDiscountStratBase" >
+	<result column="id" property="id"/>
+		<result column="discount_id" property="discountId"/>
+		<result column="discount_desc" property="discountDesc"/>
+		<result column="discount" property="discount"/>
+		<result column="is_valid" property="isValid"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.discount_id,
+		 t.discount_desc,
+		 t.discount,
+		 t.is_valid,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="discountId != null and discountId != '' " >
+    	and t.discount_id =  #{discountId}
+	</if>
+	<if test="discountDesc != null and discountDesc != '' " >
+    	and t.discount_desc =  #{discountDesc}
+	</if>
+	<if test="discount != null " >
+    	and t.discount =  #{discount}
+	</if>
+	<if test="isValid != null " >
+    	and t.is_valid =  #{isValid}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	 <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey> 
+  
+	insert into app_activity_discount_strat_base 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="discountId != null and discountId != '' " >
+		 discount_id,
+		</if>
+    	<if test="discountDesc != null and discountDesc != '' " >
+		 discount_desc,
+		</if>
+    	<if test="discount != null " >
+		discount,
+		</if>
+    	<if test="isValid != null " >
+		is_valid,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+		create_time,
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+		<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="discountId != null and discountId != '' " >
+  		<![CDATA[  #{discountId}, ]]>
+    	</if>
+    	<if test="discountDesc != null and discountDesc != '' " >
+  		<![CDATA[  #{discountDesc}, ]]>
+    	</if>
+    	<if test="discount != null " >
+  		<![CDATA[  #{discount}, ]]>
+    	</if>
+    	<if test="isValid != null " >
+  		<![CDATA[  #{isValid}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	now(),
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_activity_discount_strat_base t set 
+   <trim suffixOverrides="," >
+	<if test="discountId != null and discountId != '' " >
+  	<![CDATA[  t.discount_id = #{discountId}, ]]>
+    </if>
+    <if test="discountDesc != null and discountDesc != '' " >
+  	<![CDATA[  t.discount_desc = #{discountDesc}, ]]>
+    </if>
+    <if test="discount != null " >
+  	<![CDATA[  t.discount = #{discount}, ]]>
+    </if>
+    <if test="isValid != null " >
+  	<![CDATA[  t.is_valid = #{isValid}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_activity_discount_strat_base where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_activity_discount_strat_base t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_activity_discount_strat_base t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_activity_discount_strat_base t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询普通折扣折扣策略配置 -->
+<select id="findBaseDiscountConf" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT t1.* FROM app_activity_discount_strat t
+	LEFT JOIN app_activity_discount_strat_base t1 ON t.STRAT_ID = t1.id
+	WHERE t.IS_VALID = 1 AND t.DISCOUNT_ID = #{discountId}
+	  AND t.STRAT_TYPE = #{stratType}
+	  AND t1.IS_VALID = 1 AND t1.DISCOUNT_ID = #{discountId}
+
+</select>
+
+<!-- 根据折扣id查找所有折扣基本策略 -->
+<select id="getActivityDiscountStratBaseByid" resultMap="BaseResultMap"  parameterType="java.util.Map">
+   SELECT  * from app_activity_discount_strat_base where DISCOUNT_ID =#{id}
+</select>
+<!-- 根据discount_id删除 -->
+<delete id="deleteByDiscountId" parameterType="Object">
+   
+	delete from app_activity_discount_strat_base where discount_id = #{discountId}
+</delete>
+
+<insert id="insert" parameterType="Object" >
+  
+	insert into app_activity_discount_strat_base 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="discountId != null and discountId != '' " >
+		 discount_id,
+		</if>
+    	<if test="discountDesc != null and discountDesc != '' " >
+		 discount_desc,
+		</if>
+    	<if test="discount != null " >
+		discount,
+		</if>
+    	<if test="isValid != null " >
+		is_valid,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+		
+		create_time,
+		
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="discountId != null and discountId != '' " >
+  		<![CDATA[  #{discountId}, ]]>
+    	</if>
+    	<if test="discountDesc != null and discountDesc != '' " >
+  		<![CDATA[  #{discountDesc}, ]]>
+    	</if>
+    	<if test="discount != null " >
+  		<![CDATA[  #{discount}, ]]>
+    	</if>
+    	<if test="isValid != null " >
+  		<![CDATA[  #{isValid}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	now(),
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+</mapper>   

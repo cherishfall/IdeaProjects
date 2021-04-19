@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.membercard.MemberRechargeCardDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.membercard.MemberRechargeCard" >
+	<result column="id" property="id"/>
+	<result column="batch_id" property="batchId"/>
+	<result column="recharge_card_no" property="rechargeCardNo"/>
+	<result column="password" property="password"/>
+	<result column="denomination" property="denomination"/>
+	<result column="valid_date" property="validDate"/>
+	<result column="is_used" property="isUsed"/>
+	<result column="is_overtime" property="isOvertime"/>
+	<result column="flag" property="flag"/>
+	<result column="created_by" property="createdBy"/>
+	<result column="updated_by" property="updatedBy"/>
+	<result column="create_time" property="createTime"/>
+	<result column="update_time" property="updateTime"/>
+	<result column="is_recevice" property="isRecevice"/>
+	<result column="producer" property="producer"/>
+	<result column="recevicer" property="recevicer"/>
+</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.recharge_card_no,
+		 t.password,
+		 t.denomination,
+		 t.valid_date,
+		 t.is_used,
+		 t.is_overtime,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id,
+	     t.batch_id,
+	     t.is_recevice
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="rechargeCardNo != null and rechargeCardNo != '' " >
+    	and t.recharge_card_no =  #{rechargeCardNo}
+	</if>
+	<if test="password != null and password != '' " >
+    	and t.password =  #{password}
+	</if>
+	<if test="denomination != null " >
+    	and t.denomination =  #{denomination}
+	</if>
+	<if test="validDate != null " >
+    	and t.valid_date =  #{validDate}
+	</if>
+	<if test="isUsed != null " >
+    	and t.is_used =  #{isUsed}
+	</if>
+	<if test="isOvertime != null " >
+    	and t.is_overtime =  #{isOvertime}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="batchId != null" >
+    	and t.batch_id =  #{batchId}
+	</if>
+	<if test="isRecevice != null" >
+    	and t.is_recevice =  #{isRecevice}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_member_recharge_card 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+		<if test="batchId != null" >
+		 batch_id,
+		</if>
+	 	<if test="rechargeCardNo != null and rechargeCardNo != '' " >
+		 recharge_card_no,
+		</if>
+    	<if test="password != null and password != '' " >
+		 password,
+		</if>
+    	<if test="denomination != null " >
+		denomination,
+		</if>
+    	<if test="validDate != null " >
+		valid_date,
+		</if>
+    	<if test="isUsed != null " >
+		is_used,
+		</if>
+    	<if test="isOvertime != null " >
+		is_overtime,
+		</if>
+    	<if test="isRecevice != null " >
+		is_recevice,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	    <if test="batchId != null" >
+  			<![CDATA[  #{batchId}, ]]>
+    	</if>
+	 	<if test="rechargeCardNo != null and rechargeCardNo != '' " >
+  		<![CDATA[  #{rechargeCardNo}, ]]>
+    	</if>
+    	<if test="password != null and password != '' " >
+  		<![CDATA[  #{password}, ]]>
+    	</if>
+    	<if test="denomination != null " >
+  		<![CDATA[  #{denomination}, ]]>
+    	</if>
+    	<if test="validDate != null " >
+  		<![CDATA[  #{validDate}, ]]>
+    	</if>
+    	<if test="isUsed != null " >
+  		<![CDATA[  #{isUsed}, ]]>
+    	</if>
+    	<if test="isOvertime != null " >
+  		<![CDATA[  #{isOvertime}, ]]>
+    	</if>
+    	<if test="isRecevice != null " >
+  		<![CDATA[  #{isRecevice}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_member_recharge_card t set 
+   <trim suffixOverrides="," >
+	<if test="rechargeCardNo != null and rechargeCardNo != '' " >
+  	<![CDATA[  t.recharge_card_no = #{rechargeCardNo}, ]]>
+    </if>
+    <if test="password != null and password != '' " >
+  	<![CDATA[  t.password = #{password}, ]]>
+    </if>
+    <if test="denomination != null " >
+  	<![CDATA[  t.denomination = #{denomination}, ]]>
+    </if>
+    <if test="validDate != null " >
+  	<![CDATA[  t.valid_date = #{validDate}, ]]>
+    </if>
+    <if test="isUsed != null " >
+  	<![CDATA[  t.is_used = #{isUsed}, ]]>
+    </if>
+    <if test="isOvertime != null " >
+  	<![CDATA[  t.is_overtime = #{isOvertime}, ]]>
+    </if>
+    <if test="isRecevice != null " >
+  	<![CDATA[  t.is_recevice = #{isRecevice}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="batchId != null and batchId != '' " >
+  	<![CDATA[  t.batch_id = #{batchId}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_member_recharge_card where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_member_recharge_card t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_member_recharge_card t 
+	<include refid="Example_Where_Clause"/>
+	and t.flag != 'DELETE'
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>,t1.producer,t1.recevicer
+	from app_member_recharge_card t 
+	left join app_member_recharge_card_batch t1 on t.batch_id = t1.batch_id
+	<include refid="Example_Where_Clause"/>
+	and t.flag != 'DELETE'
+	<if test="pager.orderCondition == ''">
+		order by t.is_used asc,t.is_overtime asc,t.is_recevice asc,t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 根据充值卡号查询充值卡信息 -->
+<select id="findByCardNo" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT * FROM app_member_recharge_card 
+	WHERE RECHARGE_CARD_NO = #{_parameter}
+</select>
+
+<!-- 批量写入 -->
+ <insert id="batchSave" parameterType="java.util.ArrayList">
+ 	INSERT INTO app_member_recharge_card 
+ 	(id,batch_id,recharge_card_no,password,denomination,valid_date,is_used,is_overtime,
+ 		is_recevice,flag,created_by,create_time)
+	VALUES
+	<foreach collection="list" index="inden" separator="," item="item">
+	 (#{item.id},#{item.batchId},#{item.rechargeCardNo},#{item.password},
+	  #{item.denomination},#{item.validDate},#{item.isUsed},#{item.isOvertime},
+  	  #{item.isRecevice},#{item.flag},#{item.createdBy},#{item.createTime})
+  	 </foreach>
+ </insert>
+ 
+ <!-- 更新会员充值卡已领取-->
+ <update id="BatchUpdateIsRecevice" parameterType="java.util.Map">
+ 	UPDATE app_member_recharge_card 
+ 	SET IS_RECEVICE = 1,FLAG = 'UPDATE',
+ 	    UPDATED_BY = #{userAccount},UPDATE_TIME = NOW() WHERE BATCH_ID in
+ 	<foreach collection="array" open="(" close=")" item="batchId" separator=",">
+		#{batchId}
+	</foreach>
+ </update>
+ 
+ <!-- 根据充值卡号查询充值卡信息 -->
+<select id="findByCardNoLock" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT * FROM app_member_recharge_card 
+	WHERE RECHARGE_CARD_NO = #{_parameter}
+	  for update
+</select>
+
+<!-- 根据批次ID查询 -->
+<select id="cvsMemberRechargeCardList" resultMap="BaseResultMap" >
+	SELECT t.*,t1.producer,t1.recevicer 
+	FROM app_member_recharge_card t
+	left join app_member_recharge_card_batch t1 on t.batch_id = t1.batch_id
+	WHERE t.FLAG != 'DELETE' AND t.IS_OVERTIME = 0 AND t.IS_RECEVICE = 0 
+		AND DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i:%s') &lt; 
+			DATE_FORMAT(t.valid_date,'%Y-%m-%d 23:59:59')  
+		AND t.BATCH_ID  =  #{batchId}
+<!-- 		<foreach collection="array" open="(" close=")" item="batchId" separator=","> -->
+<!-- 			#{batchId} -->
+<!-- 		</foreach> -->
+</select>
+ 
+</mapper>   

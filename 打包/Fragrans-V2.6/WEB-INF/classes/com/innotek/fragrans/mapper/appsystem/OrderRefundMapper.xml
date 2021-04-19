@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.OrderRefundDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.OrderRefund" >
+	<result column="id" property="id"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="city_name" property="cityName"/>
+		<result column="area_name" property="areaName"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="pay_time" property="payTime"/>
+		<result column="refund_no" property="refundNo"/>
+		<result column="refund_fee" property="refundFee"/>
+		<result column="refund_time" property="refundTime"/>
+		<result column="create_by" property="createBy"/>
+		<result column="reason" property="reason"/>
+		<result column="is_complate" property="isComplate"/>
+		<result column="note" property="note"/>
+		<result column="notify_status" property="notifyStatus"/>
+		<result column="counter_fee" property="counterFee"/>
+	</resultMap>
+	
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.parkrecord_id,
+		 t.city_code,
+		 t.area_code,
+		 t.order_no,
+		 t.pay_time,
+		 t.refund_no,
+		 t.refund_fee,
+		 t.refund_time,
+		 t.create_by,
+		 t.reason,
+		 t.is_complate,
+		 t.note,
+	     t.id,
+	     t.notify_status,
+	     t.counter_fee
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="areaCode != null and areaCode != '' " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="payTime != null " >
+    	and t.pay_time =  #{payTime}
+	</if>
+	<if test="refundNo != null and refundNo != '' " >
+    	and t.refund_no =  #{refundNo}
+	</if>
+	<if test="refundFee != null " >
+    	and t.refund_fee =  #{refundFee}
+	</if>
+	<if test="refundTime != null " >
+    	and t.refund_time =  #{refundTime}
+	</if>
+	<if test="createBy != null and createBy != '' " >
+    	and t.create_by =  #{createBy}
+	</if>
+	<if test="reason != null and reason != '' " >
+    	and t.reason =  #{reason}
+	</if>
+	<if test="isComplate != null " >
+    	and t.is_complate =  #{isComplate}
+	</if>
+	<if test="note != null and note != '' " >
+    	and t.note =  #{note}
+	</if>
+	<if test="notifyStatus != null" >
+    	and t.notify_status =  #{notifyStatus}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and t.area_code LIKE '${userCityCode}%'
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_order_refund 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  refund_time,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+		<if test="cityCode != null " >
+		city_code,
+		</if>
+		<if test="areaCode != null " >
+		area_code,
+		</if>
+	 	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="payTime != null " >
+		pay_time,
+		</if>
+    	<if test="refundNo != null and refundNo != '' " >
+		 refund_no,
+		</if>
+    	<if test="refundFee != null " >
+		refund_fee,
+		</if>
+	  	<if test="refundPayFee != null " >
+		refund_pay_fee,
+	  	</if>
+    	<if test="createBy != null and createBy != '' " >
+		 create_by,
+		</if>
+    	<if test="reason != null and reason != '' " >
+		 reason,
+		</if>
+    	<if test="isComplate != null " >
+		is_complate,
+		</if>
+    	<if test="note != null and note != '' " >
+		 note,
+		</if>
+    	<if test="notifyStatus != null" >
+		 notify_status,
+		</if>
+    	<if test="counterFee != null" >
+		 counter_fee,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	now(),
+		<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+	 	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="payTime != null " >
+  		<![CDATA[  #{payTime}, ]]>
+    	</if>
+    	<if test="refundNo != null and refundNo != '' " >
+  		<![CDATA[  #{refundNo}, ]]>
+    	</if>
+    	<if test="refundFee != null " >
+  		<![CDATA[  #{refundFee}, ]]>
+    	</if>
+		<if test="refundPayFee != null " >
+		<![CDATA[  #{refundPayFee}, ]]>
+		</if>
+    	<if test="createBy != null and createBy != '' " >
+  		<![CDATA[  #{createBy}, ]]>
+    	</if>
+    	<if test="reason != null and reason != '' " >
+  		<![CDATA[  #{reason}, ]]>
+    	</if>
+    	<if test="isComplate != null " >
+  		<![CDATA[  #{isComplate}, ]]>
+    	</if>
+    	<if test="note != null and note != '' " >
+  		<![CDATA[  #{note}, ]]>
+    	</if>
+    	<if test="notifyStatus != null " >
+  		<![CDATA[  #{notifyStatus}, ]]>
+    	</if>
+    	<if test="counterFee != null " >
+  		<![CDATA[  #{counterFee}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_order_refund t set 
+   <trim suffixOverrides="," >
+	<if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="payTime != null " >
+  	<![CDATA[  t.pay_time = #{payTime}, ]]>
+    </if>
+    <if test="refundNo != null and refundNo != '' " >
+  	<![CDATA[  t.refund_no = #{refundNo}, ]]>
+    </if>
+    <if test="refundFee != null " >
+  	<![CDATA[  t.refund_fee = #{refundFee}, ]]>
+    </if>
+    <if test="refundTime != null " >
+  	<![CDATA[  t.refund_time = #{refundTime}, ]]>
+    </if>
+    <if test="createBy != null and createBy != '' " >
+  	<![CDATA[  t.create_by = #{createBy}, ]]>
+    </if>
+    <if test="reason != null and reason != '' " >
+  	<![CDATA[  t.reason = #{reason}, ]]>
+    </if>
+    <if test="isComplate != null " >
+  	<![CDATA[  t.is_complate = #{isComplate}, ]]>
+    </if>
+    <if test="note != null and note != '' " >
+  	<![CDATA[  t.note = #{note}, ]]>
+    </if>
+    <if test="notifyStatus != null " >
+  	<![CDATA[  t.notify_status = #{notifyStatus}, ]]>
+    </if>
+   <if test="counterFee != null " >
+ 		<![CDATA[ t.counter_fee = #{counterFee}, ]]>
+   	</if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_order_refund where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_order_refund t where t.id = #{id}
+</select>
+
+<sql id="Refund_Column_List" >
+		 ba1.area_name city_name,
+		 ba2.area_name area_name,
+		 t.parkrecord_id,
+		 t.order_no,
+		 t.pay_time,
+		 t.refund_no,
+		 t.refund_fee,
+		 t.refund_time,
+		 t.create_by,
+		 t.reason,
+		 t.is_complate,
+		 t.note,
+		 t.notify_status,
+	     t.id,
+	     t.counter_fee
+</sql>
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_order_refund t 
+	left join base_area ba1 on t.city_code = ba1.area_code
+	left join base_area ba2 on t.area_code = ba2.area_code
+	LEFT JOIN app_order t1 ON t.order_no = t1.order_no
+	LEFT JOIN app_user t2 ON t1.user_id = t2.id
+	<include refid="Example_Where_Clause"/>
+	<if test="userAccount != null and userAccount != '' ">
+	  and t2.user_account = #{userAccount}
+	</if>
+	<if test="startTime != null and endTime != null ">
+		and t.refund_time between #{startTime} and #{endTime}
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Refund_Column_List"/>
+	from app_order_refund t 
+	left join base_area ba1 on t.city_code = ba1.area_code
+	left join base_area ba2 on t.area_code = ba2.area_code
+	LEFT JOIN app_order t1 ON t.order_no = t1.order_no
+	LEFT JOIN app_user t2 ON t1.user_id = t2.id
+	<include refid="Example_Where_Clause"/>
+	<if test="userAccount != null and userAccount != '' ">
+	  and t2.user_account = #{userAccount}
+	</if>
+	<if test="startTime != null and endTime != null ">
+		and t.refund_time between #{startTime} and #{endTime}
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.refund_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<resultMap id="GetMyBillDetailMap" type="com.innotek.fragrans.entity.user.GetMyBillDetailItem">
+	<result column="refund_no" property="orderNo" />
+	<result column="plate_no" property="plateNo" />
+	<result column="is_complate" property="orderStatus" />
+	<result column="refund_fee" property="payFee" />
+	<result column="payment" property="payType" />
+	<result column="order_type" property="orderType" />
+	<result column="refund_time" property="createTime" />
+</resultMap>
+<!-- 查询退款订单详细 -->
+<select id="findBillDetailByRefundNo" resultMap="GetMyBillDetailMap"  parameterType="java.util.Map">
+	 SELECT t.refund_pay_fee payFee,t.is_complate,t1.plate_no,t1.payment,t.refund_no,
+	        t.refund_time,3 order_type 
+	 FROM app_order_refund t
+	 LEFT JOIN app_order_paylog t1 ON t.order_no = t1.order_no 
+	 WHERE t.is_complate = 200 AND t1.is_paid = 200 
+	   AND t.city_code = #{cityCode}
+	   AND t1.user_id = #{userId} 
+	   AND t.refund_no = #{orderNo}
+	 limit 1
+</select>
+
+<!-- 查询退款订单详细 -->
+<select id="findBillDetailByMonthlyRefundNo" resultMap="GetMyBillDetailMap"  parameterType="java.util.Map">
+	 SELECT t.refund_fee,t.is_complate,t1.plate_no,t1.payment,t.refund_no,
+	        t.refund_time,3 order_type 
+	 FROM app_order_refund t
+	 LEFT JOIN app_order_park_monthly t1 ON t.order_no = t1.order_no 
+	 WHERE t.is_complate = 200 AND t1.order_status = 200 
+	   AND t.city_code = #{cityCode}
+	   AND t1.user_id = #{userId} 
+	   AND t.refund_no = #{orderNo}
+	 limit 1
+</select>
+
+<!-- 计算该笔订单已生成退费订单总手续费 -->
+<select id="getTotalCounterFeeByOrderNo" resultType="java.lang.String"  parameterType="java.lang.String">
+	SELECT SUM(COUNTER_FEE)
+	FROM app_order_refund 
+	WHERE is_complate = 200 AND order_no = #{_parameter}
+</select>
+
+<!--查询该笔订单已退费用  -->
+<select id="getTotalFeeByOrderNo" resultType="java.lang.String"  parameterType="java.lang.String">
+	SELECT SUM(refund_fee)
+	FROM app_order_refund 
+	WHERE is_complate = 200 AND order_no = #{_parameter}
+</select>
+
+<!-- 根据退款编号查询 -->
+<select id="findByRefundNo" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT *
+	FROM app_order_refund 
+	WHERE refund_no = #{_parameter}
+</select>
+
+<!-- 根据订单编码查询 -->
+<select id="findByOrderNo" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT *
+	FROM app_order_refund 
+	WHERE is_complate = 200 AND order_no = #{_parameter}
+</select>
+
+<!--查询导出数据 -->
+<select id="queryExportData" resultMap="BaseResultMap" parameterType="java.util.Map">
+	SELECT t.create_by,t.order_no,t.parkrecord_id,t.pay_time,t.reason,
+		   t.refund_fee,t.refund_no,t.refund_time,t1.AREA_NAME
+	FROM app_order_refund t
+	LEFT JOIN base_area t1 ON t.AREA_CODE = t1.AREA_CODE
+	WHERE t.is_complate = 200
+	<if test="cityId != null and cityId != '' ">
+		AND t1.id = #{cityId}
+	</if>
+	<if test="startDate != null and startDate != ''
+		and endDate != null and endDate != '' ">
+		AND refund_time BETWEEN str_to_date(#{startDate},'%Y-%m-%d %H:%i:%s')
+						AND str_to_date(#{endDate},'%Y-%m-%d %H:%i:%s')
+	</if>
+	order by t.refund_time desc
+</select>
+</mapper>   

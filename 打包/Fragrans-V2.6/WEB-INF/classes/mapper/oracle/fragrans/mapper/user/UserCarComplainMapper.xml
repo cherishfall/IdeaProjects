@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserCarComplainDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.user.UserCarComplain" >
+	<result column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="user_id" property="userId"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="plate_color" property="plateColor"/>
+		<result column="driver_id" property="driverId"/>
+		<result column="remark" property="remark"/>
+		<result column="driving_image" property="drivingImage"/>
+		<result column="status" property="status"/>
+		<result column="process_user" property="processUser"/>
+		<result column="process_suggestion" property="processSuggestion"/>
+		<result column="flag" property="flag"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.city_code,
+		 t.user_id,
+		 t.plate_no,
+		 t.plate_color,
+		 t.driver_id,
+		 t.remark,
+		 t.driving_image,
+		 t.status,
+		 t.process_user,
+		 t.process_suggestion,
+		 t.flag,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="plateNo != null and plateNo != '' " >
+    	and t.plate_no =  #{plateNo}
+	</if>
+	<if test="plateColor != null " >
+    	and t.plate_color =  #{plateColor}
+	</if>
+	<if test="driverId != null and driverId != '' " >
+    	and t.driver_id =  #{driverId}
+	</if>
+	<if test="remark != null and remark != '' " >
+    	and t.remark =  #{remark}
+	</if>
+	<if test="drivingImage != null and drivingImage != '' " >
+    	and t.driving_image =  #{drivingImage}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="processUser != null and processUser != '' " >
+    	and t.process_user =  #{processUser}
+	</if>
+	<if test="processSuggestion != null and processSuggestion != '' " >
+    	and t.process_suggestion =  #{processSuggestion}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+		SELECT sys_guid() from dual
+	</selectKey>
+  
+	insert into app_user_car_complain 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    flag,create_time,
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="plateNo != null and plateNo != '' " >
+		 plate_no,
+		</if>
+    	<if test="plateColor != null " >
+		plate_color,
+		</if>
+    	<if test="driverId != null and driverId != '' " >
+		 driver_id,
+		</if>
+    	<if test="remark != null and remark != '' " >
+		 remark,
+		</if>
+    	<if test="drivingImage != null and drivingImage != '' " >
+		 driving_image,
+		</if>
+    	<if test="status != null " >
+		status,
+		</if>
+    	<if test="processUser != null and processUser != '' " >
+		 process_user,
+		</if>
+    	<if test="processSuggestion != null and processSuggestion != '' " >
+		 process_suggestion,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	     'ADD',sysdate,
+	     <if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="plateNo != null and plateNo != '' " >
+  		<![CDATA[  #{plateNo}, ]]>
+    	</if>
+    	<if test="plateColor != null " >
+  		<![CDATA[  #{plateColor}, ]]>
+    	</if>
+    	<if test="driverId != null and driverId != '' " >
+  		<![CDATA[  #{driverId}, ]]>
+    	</if>
+    	<if test="remark != null and remark != '' " >
+  		<![CDATA[  #{remark}, ]]>
+    	</if>
+    	<if test="drivingImage != null and drivingImage != '' " >
+  		<![CDATA[  #{drivingImage}, ]]>
+    	</if>
+    	<if test="status != null " >
+  		<![CDATA[  #{status}, ]]>
+    	</if>
+    	<if test="processUser != null and processUser != '' " >
+  		<![CDATA[  #{processUser}, ]]>
+    	</if>
+    	<if test="processSuggestion != null and processSuggestion != '' " >
+  		<![CDATA[  #{processSuggestion}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_car_complain t set 
+   <trim suffixOverrides="," >
+	<if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="plateNo != null and plateNo != '' " >
+  	<![CDATA[  t.plate_no = #{plateNo}, ]]>
+    </if>
+    <if test="plateColor != null " >
+  	<![CDATA[  t.plate_color = #{plateColor}, ]]>
+    </if>
+    <if test="driverId != null and driverId != '' " >
+  	<![CDATA[  t.driver_id = #{driverId}, ]]>
+    </if>
+    <if test="remark != null and remark != '' " >
+  	<![CDATA[  t.remark = #{remark}, ]]>
+    </if>
+    <if test="drivingImage != null and drivingImage != '' " >
+  	<![CDATA[  t.driving_image = #{drivingImage}, ]]>
+    </if>
+    <if test="status != null " >
+  	<![CDATA[  t.status = #{status}, ]]>
+    </if>
+    <if test="processUser != null and processUser != '' " >
+  	<![CDATA[  t.process_user = #{processUser}, ]]>
+    </if>
+    <if test="processSuggestion != null and processSuggestion != '' " >
+  	<![CDATA[  t.process_suggestion = #{processSuggestion}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_car_complain t where t.id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_car_complain t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_car_complain t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+    <if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_car_complain t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+</mapper>   

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.prebuy.PrebuyParkrecordDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap"
+		type="com.innotek.fragrans.entity.prebuy.PrebuyParkrecord">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="berth_code" property="berthCode" />
+		<result column="parkrecord_id" property="parkrecordId" />
+		<result column="park_name" property="parkName" />
+		<result column="plate_no" property="plateNo" />
+		<result column="arrival_time" property="arrivalTime" />
+		<result column="departure_time" property="departureTime" />
+		<result column="prebuy_count" property="prebuyCount" />
+		<result column="prebuy_duration" property="prebuyDuration" />
+		<result column="over_time" property="overTime" />
+		<result column="photo_count" property="photoCount" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="status" property="status" />
+		<result column="is_departure" property="isDeparture" />
+		<result column="flag" property="flag" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+	<!-- table all fields -->
+	<sql id="Base_Column_List">
+		t.user_id,
+		t.city_code,
+		t.area_code,
+		t.berth_code,
+		t.parkrecord_id,
+		t.park_name,
+		t.plate_no,
+		t.arrival_time,
+		t.departure_time,
+		t.prebuy_count,
+		t.prebuy_duration,
+		t.over_time,
+		t.photo_count,
+		t.photo_url,
+		t.status,
+		t.is_departure,
+		t.flag,
+		t.create_time,
+		t.update_time,
+		t.id
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and t.id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				and t.user_id = #{userId}
+			</if>
+			<if test="cityCode != null ">
+				and t.city_code = #{cityCode}
+			</if>
+			<if test="areaCode != null ">
+				and t.area_code = #{areaCode}
+			</if>
+			<if test="berthCode != null and berthCode != '' ">
+				and t.berth_code = #{berthCode}
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+				and t.parkrecord_id = #{parkrecordId}
+			</if>
+			<if test="parkName != null and parkName != '' ">
+				and t.park_name = #{parkName}
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+				and t.plate_no = #{plateNo}
+			</if>
+			<if test="arrivalTime != null ">
+				and t.arrival_time = #{arrivalTime}
+			</if>
+			<if test="departureTime != null ">
+				and t.departure_time = #{departureTime}
+			</if>
+			<if test="prebuyCount != null ">
+				and t.prebuy_count = #{prebuyCount}
+			</if>
+			<if test="prebuyDuration != null ">
+				and t.prebuy_duration = #{prebuyDuration}
+			</if>
+			<if test="overTime != null ">
+				and t.over_time = #{overTime}
+			</if>
+			<if test="photoCount != null ">
+				and t.photo_count = #{photoCount}
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+				and t.photo_url = #{photoUrl}
+			</if>
+			<if test="status != null ">
+				and t.status = #{status}
+			</if>
+			<if test="isDeparture != null ">
+				and t.is_departure = #{isDeparture}
+			</if>
+			<if test="flag != null and flag != '' ">
+				and t.flag = #{flag}
+			</if>
+			<if test="createTime != null ">
+				and t.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null ">
+				and t.update_time = #{updateTime}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+
+		insert into app_prebuy_parkrecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="cityCode != null ">
+				city_code,
+			</if>
+			<if test="areaCode != null ">
+				area_code,
+			</if>
+			<if test="berthCode != null and berthCode != '' ">
+				berth_code,
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+				parkrecord_id,
+			</if>
+			<if test="parkName != null and parkName != '' ">
+				park_name,
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+				plate_no,
+			</if>
+			<if test="arrivalTime != null ">
+				arrival_time,
+			</if>
+			<if test="departureTime != null ">
+				departure_time,
+			</if>
+			<if test="prebuyCount != null ">
+				prebuy_count,
+			</if>
+			<if test="prebuyDuration != null ">
+				prebuy_duration,
+			</if>
+			<if test="overTime != null ">
+				over_time,
+			</if>
+			<if test="photoCount != null ">
+				photo_count,
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+				photo_url,
+			</if>
+			<if test="status != null ">
+				status,
+			</if>
+			<if test="isDeparture != null ">
+				is_departure,
+			</if>
+			<if test="flag != null and flag != '' ">
+				flag,
+			</if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
+			<if test="updateTime != null ">
+				update_time,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">
+  			<![CDATA[  #{id}, ]]>
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="cityCode != null ">
+  		<![CDATA[  #{cityCode}, ]]>
+			</if>
+			<if test="areaCode != null ">
+  		<![CDATA[  #{areaCode}, ]]>
+			</if>
+			<if test="berthCode != null and berthCode != '' ">
+  		<![CDATA[  #{berthCode}, ]]>
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+  		<![CDATA[  #{parkrecordId}, ]]>
+			</if>
+			<if test="parkName != null and parkName != '' ">
+  		<![CDATA[  #{parkName}, ]]>
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+  		<![CDATA[  #{plateNo}, ]]>
+			</if>
+			<if test="arrivalTime != null ">
+  		<![CDATA[  #{arrivalTime}, ]]>
+			</if>
+			<if test="departureTime != null ">
+  		<![CDATA[  #{departureTime}, ]]>
+			</if>
+			<if test="prebuyCount != null ">
+  		<![CDATA[  #{prebuyCount}, ]]>
+			</if>
+			<if test="prebuyDuration != null ">
+  		<![CDATA[  #{prebuyDuration}, ]]>
+			</if>
+			<if test="overTime != null ">
+  		<![CDATA[  #{overTime}, ]]>
+			</if>
+			<if test="photoCount != null ">
+  		<![CDATA[  #{photoCount}, ]]>
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+  		<![CDATA[  #{photoUrl}, ]]>
+			</if>
+			<if test="status != null ">
+  		<![CDATA[  #{status}, ]]>
+			</if>
+			<if test="isDeparture != null ">
+  		<![CDATA[  #{isDeparture}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  		<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createTime != null ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null ">
+  		<![CDATA[  #{updateTime}, ]]>
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update app_prebuy_parkrecord t set
+		<trim suffixOverrides=",">
+			<if test="userId != null and userId != '' ">
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+			</if>
+			<if test="cityCode != null ">
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+			</if>
+			<if test="areaCode != null ">
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+			</if>
+			<if test="berthCode != null and berthCode != '' ">
+  	<![CDATA[  t.berth_code = #{berthCode}, ]]>
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+			</if>
+			<if test="parkName != null and parkName != '' ">
+  	<![CDATA[  t.park_name = #{parkName}, ]]>
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+  	<![CDATA[  t.plate_no = #{plateNo}, ]]>
+			</if>
+			<if test="arrivalTime != null ">
+  	<![CDATA[  t.arrival_time = #{arrivalTime}, ]]>
+			</if>
+			<if test="departureTime != null ">
+  	<![CDATA[  t.departure_time = #{departureTime}, ]]>
+			</if>
+			<if test="prebuyCount != null ">
+  	<![CDATA[  t.prebuy_count = #{prebuyCount}, ]]>
+			</if>
+			<if test="prebuyDuration != null ">
+  	<![CDATA[  t.prebuy_duration = #{prebuyDuration}, ]]>
+			</if>
+			<if test="overTime != null ">
+  	<![CDATA[  t.over_time = #{overTime}, ]]>
+			</if>
+			<if test="photoCount != null ">
+  	<![CDATA[  t.photo_count = #{photoCount}, ]]>
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+  	<![CDATA[  t.photo_url = #{photoUrl}, ]]>
+			</if>
+			<if test="status != null ">
+  	<![CDATA[  t.status = #{status}, ]]>
+			</if>
+			<if test="isDeparture != null ">
+  	<![CDATA[  t.is_departure = #{isDeparture}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  	<![CDATA[  t.flag = #{flag}, ]]>
+			</if>
+			<if test="createTime != null ">
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null ">
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+			</if>
+		</trim>
+		where t.id= #{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from
+		app_prebuy_parkrecord where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from app_prebuy_parkrecord t where t.id = #{id}
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from app_prebuy_parkrecord t
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"
+		parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from app_prebuy_parkrecord t
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition == ''">
+			order by t.id desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	<!-- *************************************自定义接口****************************************************** -->
+	<!-- 查询用户预买拍照数 -->
+	<select id="findByParkrecordId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT photo_count FROM app_prebuy_parkrecord
+		WHERE 1=1
+		AND flag != 'DELETE'
+		AND parkrecord_id = #{parkrecordId}
+		AND user_id = #{userId}
+		ORDER BY create_time DESC
+		LIMIT 1
+	</select>
+
+	<!-- 查询用户当前停车是否已预买过 -->
+	<select id="queryIsExistPrebuy" resultType="java.lang.String"
+		parameterType="Object">
+		SELECT berth_code FROM app_prebuy_parkrecord
+		WHERE status = 1 AND is_departure = 0
+		AND user_id = #{userId}
+		AND flag != 'DELETE'
+		order by create_time desc
+		limit 1
+	</select>
+
+	<!-- 根据停车记录id查询是否存在预买记录 -->
+	<select id="queryPrebuyByParkrecordId" resultMap="BaseResultMap"
+		parameterType="Object">
+		SELECT * FROM app_prebuy_parkrecord
+		WHERE is_departure = 0
+		AND flag != 'DELETE'
+		AND parkrecord_id = #{parkrecordId} and user_id = #{userId}
+		limit 1
+	</select>
+
+	<!-- 更新预买驶离 -->
+	<update id="updateParkrecord" parameterType="Object">
+		update app_prebuy_parkrecord t set
+		<trim suffixOverrides=",">
+			<if test="isDeparture != null ">
+	  	<![CDATA[  t.is_departure = #{isDeparture}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  	<![CDATA[  t.flag = #{flag}, ]]>
+			</if>
+			<if test="departureTime != null and departureTime != ''">
+  	<![CDATA[  t.departure_time = #{departureTime}, ]]>
+			</if>
+			<if test="updateTime != null ">
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+			</if>
+		</trim>
+		where t.user_id = #{userId} and t.parkrecord_id = #{parkrecordId}
+	</update>
+	
+	<!-- 查询该用户是否有该泊位的预买记录 -->
+	<select id="queryIsPrebuyByUser" resultType="java.lang.Integer"
+		parameterType="Object">
+		SELECT count(1) FROM app_prebuy_parkrecord
+		WHERE status = 1 AND is_departure = 0
+		AND user_id = #{userId} and parkrecord_id = #{parkrecordId}
+		AND flag != 'DELETE'
+	</select>
+	
+	<!-- 查询累计预买时长 -->
+	<select id="queryTotalPrebuyTime" resultType="java.lang.String" parameterType="Object">
+		SELECT prebuy_duration FROM app_prebuy_parkrecord
+		WHERE status = 1 AND is_departure = 0
+		AND user_id = #{userId} and parkrecord_id = #{parkrecordId}
+		AND flag != 'DELETE'
+	</select>
+	
+	<!-- 查询用户预买记录 -->
+	<select id="queryPrebuyByParkRecordAndUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT * FROM app_prebuy_parkrecord
+		WHERE user_id = #{userId} and parkrecord_id = #{parkrecordId}
+		AND flag != 'DELETE'
+	</select>
+	
+	
+	<!-- 更新预买照片评分 -->
+	<update id="updateParkrecordPhotoScore" parameterType="Object">
+		update app_prebuy_parkrecord t set t.photo_score = #{photoScore}  where t.id = #{id}
+	</update>
+</mapper>   

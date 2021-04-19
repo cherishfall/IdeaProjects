@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.ActivityDailyDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.ActivityDailyEntity" >
+	<result column="id" property="id"/>
+		<result column="day_time" property="dayTime"/>
+		<result column="activity_count_login" property="activityCountLogin"/>
+		<result column="activity_count_total" property="activityCountTotal"/>
+		<result column="new_register_count" property="newRegisterCount"/>
+		<result column="new_access_count" property="newAccessCount"/>
+		<result column="next_day_still_use_count" property="nextDayStillUseCount"/>
+		<result column="startup_count" property="startupCount"/>
+		<result column="download_count_android" property="downloadCountAndroid"/>
+		<result column="download_count_ios" property="downloadCountIos"/>
+		<result column="download_count_all" property="downloadCountAll"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.day_time,
+		 t.activity_count_login,
+		 t.activity_count_total,
+		 t.new_register_count,
+		 t.new_access_count,
+		 t.next_day_still_use_count,
+		 t.startup_count,
+		 t.download_count_android,
+		 t.download_count_ios,
+		 t.download_count_all,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="dayTime != null and dayTime != '' " >
+    	and t.day_time =  #{dayTime}
+	</if>
+	<if test="activityCountLogin != null " >
+    	and t.activity_count_login =  #{activityCountLogin}
+	</if>
+	<if test="activityCountTotal != null " >
+    	and t.activity_count_total =  #{activityCountTotal}
+	</if>
+	<if test="newRegisterCount != null " >
+    	and t.new_register_count =  #{newRegisterCount}
+	</if>
+	<if test="newAccessCount != null " >
+    	and t.new_access_count =  #{newAccessCount}
+	</if>
+	<if test="nextDayStillUseCount != null " >
+    	and t.next_day_still_use_count =  #{nextDayStillUseCount}
+	</if>
+	<if test="startupCount != null " >
+    	and t.startup_count =  #{startupCount}
+	</if>
+	<if test="downloadCountAndroid != null " >
+    	and t.download_count_android =  #{downloadCountAndroid}
+	</if>
+	<if test="downloadCountIos != null " >
+    	and t.download_count_ios =  #{downloadCountIos}
+	</if>
+	<if test="downloadCountAll != null " >
+    	and t.download_count_all =  #{downloadCountAll}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into STAT_ACTIVITY_DAILY 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="dayTime != null and dayTime != '' " >
+		 day_time,
+		</if>
+    	<if test="activityCountLogin != null " >
+		activity_count_login,
+		</if>
+    	<if test="activityCountTotal != null " >
+		activity_count_total,
+		</if>
+    	<if test="newRegisterCount != null " >
+		new_register_count,
+		</if>
+    	<if test="newAccessCount != null " >
+		new_access_count,
+		</if>
+    	<if test="nextDayStillUseCount != null " >
+		next_day_still_use_count,
+		</if>
+    	<if test="startupCount != null " >
+		startup_count,
+		</if>
+    	<if test="downloadCountAndroid != null " >
+		download_count_android,
+		</if>
+    	<if test="downloadCountIos != null " >
+		download_count_ios,
+		</if>
+    	<if test="downloadCountAll != null " >
+		download_count_all,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="dayTime != null and dayTime != '' " >
+  		<![CDATA[  #{dayTime}, ]]>
+    	</if>
+    	<if test="activityCountLogin != null " >
+  		<![CDATA[  #{activityCountLogin}, ]]>
+    	</if>
+    	<if test="activityCountTotal != null " >
+  		<![CDATA[  #{activityCountTotal}, ]]>
+    	</if>
+    	<if test="newRegisterCount != null " >
+  		<![CDATA[  #{newRegisterCount}, ]]>
+    	</if>
+    	<if test="newAccessCount != null " >
+  		<![CDATA[  #{newAccessCount}, ]]>
+    	</if>
+    	<if test="nextDayStillUseCount != null " >
+  		<![CDATA[  #{nextDayStillUseCount}, ]]>
+    	</if>
+    	<if test="startupCount != null " >
+  		<![CDATA[  #{startupCount}, ]]>
+    	</if>
+    	<if test="downloadCountAndroid != null " >
+  		<![CDATA[  #{downloadCountAndroid}, ]]>
+    	</if>
+    	<if test="downloadCountIos != null " >
+  		<![CDATA[  #{downloadCountIos}, ]]>
+    	</if>
+    	<if test="downloadCountAll != null " >
+  		<![CDATA[  #{downloadCountAll}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update STAT_ACTIVITY_DAILY t set 
+   <trim suffixOverrides="," >
+	<if test="dayTime != null and dayTime != '' " >
+  	<![CDATA[  t.day_time = #{dayTime}, ]]>
+    </if>
+    <if test="activityCountLogin != null " >
+  	<![CDATA[  t.activity_count_login = #{activityCountLogin}, ]]>
+    </if>
+    <if test="activityCountTotal != null " >
+  	<![CDATA[  t.activity_count_total = #{activityCountTotal}, ]]>
+    </if>
+    <if test="newRegisterCount != null " >
+  	<![CDATA[  t.new_register_count = #{newRegisterCount}, ]]>
+    </if>
+    <if test="newAccessCount != null " >
+  	<![CDATA[  t.new_access_count = #{newAccessCount}, ]]>
+    </if>
+    <if test="nextDayStillUseCount != null " >
+  	<![CDATA[  t.next_day_still_use_count = #{nextDayStillUseCount}, ]]>
+    </if>
+    <if test="startupCount != null " >
+  	<![CDATA[  t.startup_count = #{startupCount}, ]]>
+    </if>
+    <if test="downloadCountAndroid != null " >
+  	<![CDATA[  t.download_count_android = #{downloadCountAndroid}, ]]>
+    </if>
+    <if test="downloadCountIos != null " >
+  	<![CDATA[  t.download_count_ios = #{downloadCountIos}, ]]>
+    </if>
+    <if test="downloadCountAll != null " >
+  	<![CDATA[  t.download_count_all = #{downloadCountAll}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from STAT_ACTIVITY_DAILY where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from STAT_ACTIVITY_DAILY t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from STAT_ACTIVITY_DAILY t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from STAT_ACTIVITY_DAILY t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+</mapper>   

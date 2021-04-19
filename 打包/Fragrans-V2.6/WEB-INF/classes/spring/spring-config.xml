@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       		http://www.springframework.org/schema/beans/spring-beans.xsd 
+       		http://www.springframework.org/schema/context 
+       		http://www.springframework.org/schema/context/spring-context.xsd
+       		http://www.springframework.org/schema/aop 
+       		http://www.springframework.org/schema/aop/spring-aop.xsd
+       		http://www.springframework.org/schema/mvc
+       		http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+       default-autowire="byName">
+    <!-- ons consumer -->
+<!-- 	<import resource="mq/spring-mq-ons-consumer.xml"/> -->
+<!-- 	<import resource="mq/spring-mq-ons-producer.xml"/>  -->
+     
+     <!-- rocket consumer -->
+<!--     <import resource="mq/spring-mq-rocket-producer.xml"/> -->
+<!--     <import resource="mq/spring-mq-rocket-consumer.xml"/> -->
+
+ 	<!-- redis -->
+	<import resource="spring-redis.xml"/>
+    <!-- rocket mq -->
+    <import resource="mq/spring-mq-rocket-producer.xml"/>
+<!--     <import resource="mq/spring-mq-rocket-consumer.xml"/> -->
+	
+     <!-- <bean id="springDSN"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver">
+        </property>
+        <property name="url"
+            value="jdbc:mysql://192.168.10.229:3306/fragrans?useUnicode=true&amp;charaterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull">
+        </property>
+        <property name="username" value="fragrans"></property>
+        <property name="password" value="fragrans"></property>
+    </bean> -->
+
+<!-- 	<bean id="springDSN" -->
+<!-- 		class="org.apache.commons.dbcp.BasicDataSource"> -->
+<!--         <property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property> -->
+<!--         <property name="url"><value>jdbc:mysql://rm-bp16q35k5b272c520.mysql.rds.aliyuncs.com:3306/fragrans?useUnicode=true&amp;charaterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull</value></property> -->
+<!--         <property name="username"><value>fragrans</value></property> -->
+<!--         <property name="password"><value>Fragrans098</value></property> -->
+<!-- 		<property name="initialSize" value="10" /> -->
+<!-- 		<property name="maxIdle" value="20" /> -->
+<!-- 		<property name="minIdle" value="10" /> -->
+<!-- 		<property name="maxActive" value="100" /> -->
+<!-- 		<property name="removeAbandoned" value="true" /> -->
+<!-- 		<property name="removeAbandonedTimeout" value="180" /> -->
+<!-- 		<property name="maxWait" value="60000" />  -->
+<!-- 	</bean> -->
+	
+<!--     <bean id="jdbcTemplate" -->
+<!--         class="org.springframework.jdbc.core.JdbcTemplate" abstract="false" -->
+<!--         lazy-init="false" autowire="default"> -->
+<!--         <property name="dataSource"> -->
+<!--             <ref bean="springDSN" /> -->
+<!--         </property> -->
+<!--     </bean> -->
+
+     
+</beans>

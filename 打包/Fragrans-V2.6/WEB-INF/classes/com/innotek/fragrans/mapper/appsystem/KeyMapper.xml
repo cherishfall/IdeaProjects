@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.KeyDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.AppKeyEntity" >
+	<result column="id" property="id"/>
+		<result column="app_id" property="appId"/>
+		<result column="APP_KEY" property="appKey"/>
+		<result column="app_name" property="appName"/>
+		<result column="expired_day" property="expiredDay"/>
+		<result column="app_status" property="appStatus"/>
+		<result column="app_desc" property="appDesc"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="is_super" property="isSuper"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.app_id,
+		 t.APP_KEY,
+		 t.app_name,
+		 t.expired_day,
+		 t.app_status,
+		 t.app_desc,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id,
+	     t.is_super
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="appId != null and appId != '' " >
+    	and t.app_id =  #{appId}
+	</if>
+	<if test="appKey != null and appKey != '' " >
+    	and t.APP_KEY =  #{appKey}
+	</if>
+	<if test="appName != null and appName != '' " >
+    	and t.app_name like '%${appName}%'
+	</if>
+	<if test="expiredDay != null " >
+    	and t.expired_day =  #{expiredDay}
+	</if>
+	<if test="appStatus != null and appStatus != '' " >
+    	and t.app_status =  #{appStatus}
+	</if>
+	<if test="appDesc != null and appDesc != '' " >
+    	and t.app_desc =  #{appDesc}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="isSuper != null " >
+    	and t.is_super =  #{isSuper}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into APP_KEY 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,flag,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="appId != null and appId != '' " >
+		 app_id,
+		</if>
+    	<if test="appKey != null and appKey != '' " >
+		 APP_KEY,
+		</if>
+    	<if test="appName != null and appName != '' " >
+		 app_name,
+		</if>
+    	<if test="expiredDay != null " >
+		expired_day,
+		</if>
+    	<if test="appStatus != null and appStatus != '' " >
+		 app_status,
+		</if>
+    	<if test="appDesc != null and appDesc != '' " >
+		 app_desc,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="isSuper != null " >
+		 is_super,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	now(),'ADD',
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="appId != null and appId != '' " >
+  		<![CDATA[  #{appId}, ]]>
+    	</if>
+    	<if test="appKey != null and appKey != '' " >
+  		<![CDATA[  #{appKey}, ]]>
+    	</if>
+    	<if test="appName != null and appName != '' " >
+  		<![CDATA[  #{appName}, ]]>
+    	</if>
+    	<if test="expiredDay != null " >
+  		<![CDATA[  #{expiredDay}, ]]>
+    	</if>
+    	<if test="appStatus != null and appStatus != '' " >
+  		<![CDATA[  #{appStatus}, ]]>
+    	</if>
+    	<if test="appDesc != null and appDesc != '' " >
+  		<![CDATA[  #{appDesc}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="isSuper != null" >
+  		<![CDATA[  #{isSuper}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update APP_KEY t set 
+   <trim suffixOverrides="," >
+	<if test="appId != null and appId != '' " >
+  	<![CDATA[  t.app_id = #{appId}, ]]>
+    </if>
+    <if test="appKey != null and appKey != '' " >
+  	<![CDATA[  t.APP_KEY = #{appKey}, ]]>
+    </if>
+    <if test="appName != null and appName != '' " >
+  	<![CDATA[  t.app_name = #{appName}, ]]>
+    </if>
+    <if test="expiredDay != null " >
+  	<![CDATA[  t.expired_day = #{expiredDay}, ]]>
+    </if>
+    <if test="appStatus != null and appStatus != '' " >
+  	<![CDATA[  t.app_status = #{appStatus}, ]]>
+    </if>
+    <if test="appDesc != null and appDesc != '' " >
+  	<![CDATA[  t.app_desc = #{appDesc}, ]]>
+    </if>
+    <if test="isSuper != null" >
+  	<![CDATA[  t.is_super = #{isSuper}, ]]>
+    </if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+  	<![CDATA[  t.update_time = now(), ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from APP_KEY where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from APP_KEY t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from APP_KEY t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from APP_KEY t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<select id="queryAllKey"  resultMap="BaseResultMap" parameterType="Object">
+	 select 
+	 <include refid="Base_Column_List" /> 
+	 from APP_KEY t
+</select>
+
+</mapper>   

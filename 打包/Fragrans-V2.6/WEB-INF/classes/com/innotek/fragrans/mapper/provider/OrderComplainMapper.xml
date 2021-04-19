@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.provider.OrderComplainDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.provider.OrderComplain" >
+	<result column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="user_id" property="userId"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="palte_no" property="palteNo"/>
+		<result column="complain_type" property="complainType"/>
+		<result column="is_complate" property="isComplate"/>
+		<result column="complain_desc" property="complainDesc"/>
+		<result column="status" property="status"/>
+		<result column="handle_user" property="handleUser"/>
+		<result column="flag" property="flag"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="area_name" property="areaName"/>
+		<result column="query_user_id" property="queryUserId"/>
+		<result column="process_id" property="processId"/>
+		<result column="refund_flag" property="refundFlag"/>
+		<result column="complain_resource" property="complainResource"/>
+		<result column="refund_fee" property="refundFee"/>
+		<result column="QUESTION_TYPE" property="questionType"/>
+		<result column="MAINTENANCE_FLAG" property="maintenanceFlag"/>
+		<result column="CURRENT_ROLE" property="currentRole"/>
+</resultMap>
+<resultMap id="ComplainItemMap" type="com.innotek.fragrans.remote.bean.msg.parkingFee.OrderComplainItem">
+		<result column="park_name" property="parkName"/>
+		<result column="park_address" property="address"/>
+		<result column="arrival_time" property="arriveTime"/>
+		<result column="departure_time" property="departureTime"/>
+		<result column="charge_rate" property="chargeRate"/>
+		<result column="unpaid_fee" property="parkFee"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="orde_status" property="orderStatus"/>
+		<result column="complain_type" property="complainType"/>
+		<result column="complain_status" property="complainStatus"/>
+		<result column="complain_desc" property="complainDesc"/>
+</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.city_code,
+		 t.user_id,
+		 t.parkrecord_id,
+		 t.palte_no,
+		 t.complain_type,
+		 t.is_complate,
+		 t.complain_desc,
+		 t.status,
+		 t.handle_user,
+		 t.flag,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+		 au.user_account,
+	     t.id,
+	     t.refund_fee,
+	     t.refund_flag,
+	     t.QUESTION_TYPE,
+	     t.MAINTENANCE_FLAG,
+	     t.CURRENT_ROLE
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="palteNo != null and palteNo != '' " >
+    	and t.palte_no =  #{palteNo}
+	</if>
+	<if test="complainType != null " >
+    	and t.complain_type =  #{complainType}
+	</if>
+	<if test="isComplate != null " >
+    	and t.is_complate =  #{isComplate}
+	</if>
+	<if test="complainDesc != null and complainDesc != '' " >
+    	and t.complain_desc =  #{complainDesc}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="handleUser != null and handleUser != '' " >
+    	and t.handle_user =  #{handleUser}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and t.city_code LIKE '${userCityCode}%'
+	</if>
+	<if test="refundFlag != null" >
+    	and t.refund_flag =  #{refundFlag}
+	</if>
+	<if test="refundFee != null and refundFee != ''" >
+    	and t.refund_fee =  #{refundFee}
+	</if>
+	<if test="currentRole != null and currentRole != ''" >
+    	and t.CURRENT_ROLE =  #{currentRole}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_order_complain 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,flag,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+		<if test="cityCode != null " >
+    	 city_code,
+	    </if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="palteNo != null and palteNo != '' " >
+		 palte_no,
+		</if>
+    	<if test="complainType != null " >
+		complain_type,
+		</if>
+    	<if test="isComplate != null " >
+		is_complate,
+		</if>
+    	<if test="complainDesc != null and complainDesc != '' " >
+		 complain_desc,
+		</if>
+    	<if test="status != null " >
+		status,
+		</if>
+    	<if test="handleUser != null and handleUser != '' " >
+		 handle_user,
+		</if>
+    	<if test="complainResource != null " >
+		 complain_resource,
+		</if>
+    	<if test="refundFee != null and refundFee != ''">
+		 refund_fee,
+		</if>
+		<if test="currentRole != null and currentRole != '' " >
+		 CURRENT_ROLE,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 		now(),'ADD',
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+    	<![CDATA[  #{cityCode}, ]]>
+	    </if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="palteNo != null and palteNo != '' " >
+  		<![CDATA[  #{palteNo}, ]]>
+    	</if>
+    	<if test="complainType != null " >
+  		<![CDATA[  #{complainType}, ]]>
+    	</if>
+    	<if test="isComplate != null " >
+  		<![CDATA[  #{isComplate}, ]]>
+    	</if>
+    	<if test="complainDesc != null and complainDesc != '' " >
+  		<![CDATA[  #{complainDesc}, ]]>
+    	</if>
+    	<if test="status != null " >
+  		<![CDATA[  #{status}, ]]>
+    	</if>
+    	<if test="handleUser != null and handleUser != '' " >
+  		<![CDATA[  #{handleUser}, ]]>
+    	</if>
+    	<if test="complainResource != null " >
+		 <![CDATA[  #{complainResource}, ]]>
+		</if>
+    	<if test="refundFee != null and refundFee != ''">
+		 <![CDATA[  #{refundFee}, ]]>
+		</if>
+		<if test="currentRole != null and currentRole != '' " >
+  		<![CDATA[  #{currentRole}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_order_complain t set 
+   <trim suffixOverrides="," >
+    <if test="cityCode != null " >
+     <![CDATA[ t.city_code = #{cityCode}, ]]>
+	</if>
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+	<if test="processId != null and processId != '' " >
+  	<![CDATA[  t.process_id = #{processId}, ]]>
+    </if>
+	<if test="refundFlag != null " >
+  	<![CDATA[  t.refund_flag = #{refundFlag}, ]]>
+    </if>
+	<if test="refundFee != null and refundFee != ''">
+  	<![CDATA[  t.refund_fee = #{refundFee}, ]]>
+    </if>
+    <if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="palteNo != null and palteNo != '' " >
+  	<![CDATA[  t.palte_no = #{palteNo}, ]]>
+    </if>
+    <if test="complainType != null " >
+  	<![CDATA[  t.complain_type = #{complainType}, ]]>
+    </if>
+    <if test="isComplate != null " >
+  	<![CDATA[  t.is_complate = #{isComplate}, ]]>
+    </if>
+    <if test="complainDesc != null and complainDesc != '' " >
+  	<![CDATA[  t.complain_desc = #{complainDesc}, ]]>
+    </if>
+    <if test="status != null " >
+  	<![CDATA[  t.status = #{status}, ]]>
+    </if>
+    <if test="handleUser != null and handleUser != '' " >
+  	<![CDATA[  t.handle_user = #{handleUser}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="currentRole != null and currentRole != '' " >
+  	<![CDATA[  t.CURRENT_ROLE = #{currentRole}, ]]>
+    </if>
+    <if test="maintenanceFlag != null " >
+  	<![CDATA[  t.MAINTENANCE_FLAG = #{maintenanceFlag}, ]]>
+    </if>
+    <if test="questionType != null" >
+  	<![CDATA[  t.QUESTION_TYPE = #{questionType}, ]]>
+    </if>
+    <![CDATA[  t.flag = 'UPDATE', ]]>
+  	<![CDATA[  t.update_time = now(), ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_order_complain where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	from app_order_complain t
+	left join app_user au ON au.id = t.user_id
+	where t.id = #{id}
+</select>
+
+<!-- table all fields -->
+<sql id="Complain_Column_List" >
+		 t.city_code,
+		 ba.area_name,
+		 t.user_id,
+		 t.parkrecord_id,
+		 t.palte_no,
+		 t.complain_type,
+		 t.is_complate,
+		 t.complain_desc,
+		 t.status,
+		 t.handle_user,
+		 t.flag,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+		 t.process_id,
+		 t.refund_flag,
+		 t.refund_fee,
+		 t.complain_resource,
+<!-- 		 apc.BUSI_PROCESS_NAME process_name, -->
+		 au.user_account,
+	     t.id
+</sql>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from (
+	select 
+	<include refid="Complain_Column_List"/>
+	from app_order_complain t
+	left join app_user au ON au.id = t.user_id
+	left join base_area ba on t.city_code = ba.area_code
+	LEFT JOIN app_process_conf apc ON t.process_id=apc.BUSI_PROCESS_ID
+	<include refid="Example_Where_Clause"/>
+	<if test="userAccount != null and userAccount != '' " >
+    	and au.user_account =  #{userAccount}
+	</if>
+	AND ba.flag!='DELETE'
+	) A
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Complain_Column_List"/>
+	from app_order_complain t
+	left join app_user au ON au.id = t.user_id
+	left join base_area ba on t.city_code = ba.area_code
+	LEFT JOIN app_process_conf apc ON t.process_id=apc.BUSI_PROCESS_ID
+	<include refid="Example_Where_Clause"/>
+	<if test="userAccount != null and userAccount != '' " >
+    	and au.user_account =  #{userAccount}
+	</if>
+	AND ba.flag!='DELETE'
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询申诉记录 -->
+<select id="queryOrderComplainByMapper" resultMap="BaseResultMap"  parameterType="Object">
+	select t.*
+	from app_order_complain t
+	<include refid="Example_Where_Clause"/>
+	<if test="userAccount != null and userAccount != '' " >
+    	and au.user_account =  #{userAccount}
+	</if>
+	order by t.create_time desc;
+</select>
+
+<!-- 根据用户ID查询我的申诉记录 -->
+<select id="findComplainListByUserId" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT t.* FROM app_order_complain t
+	WHERE t.user_id = #{userId}
+	AND t.flag != 'DELETE'
+	order by t.STATUS asc,t.CREATE_TIME desc 
+	LIMIT #{startIndex},#{pageLength}
+</select>
+
+<!-- 根据用户ID查询记录 -->
+<select id="findComplainByUserId" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT t.* FROM app_order_complain t
+	WHERE t.user_id = #{userId} and t.id = #{complainId}
+	AND t.flag != 'DELETE'
+</select>
+
+<select id="findComplainByUserIdAndComplainId" resultMap="ComplainItemMap"  parameterType="Object">
+  SELECT t.park_name,t.park_address,t.arrival_time,t.departure_time,
+         t.charge_rate,t.unpaid_fee,t1.PALTE_NO plate_no,t1.IS_COMPLATE orde_status,
+         t1.COMPLAIN_TYPE complain_type,t1.STATUS complain_status,t1.COMPLAIN_DESC complain_desc
+  FROM app_order_parkrecord t 
+       LEFT JOIN app_order_complain t1
+       ON (t.parkrecord_id=t1.parkrecord_id AND t.is_deleted=1)
+  WHERE t1.user_id = #{userId}
+    AND t1.id = #{complainId} 
+    AND t1.flag != 'DELETE' 
+</select>
+<!-- 根据停车记录ID查询申诉记录 -->
+<select id="getOrderComplainDetailByParkRecordId" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT * FROM app_order_complain 
+	WHERE parkrecord_id = #{parkrecordId}
+	  AND flag!='DELETE'
+	  LIMIT 1
+</select>
+
+	<!-- 根据停车记录ID和cityCode查询申诉记录 -->
+	<select id="getOrderComplainDetail" resultMap="BaseResultMap"  parameterType="Object">
+		SELECT * FROM app_order_complain
+		WHERE parkrecord_id = #{parkrecordId} AND city_code = #{cityCode}
+		AND flag!='DELETE'
+		LIMIT 1
+	</select>
+
+<!-- 根据停车记录ID查询申诉记录 -->
+<select id="getOrderComplainByParkRecordId" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT * FROM app_order_complain 
+	WHERE parkrecord_id = #{parkrecordId}
+	AND flag!='DELETE' 
+</select>
+
+<!-- 查询需要登录用户处理的申诉记录 -->
+<select id="queryMyWorkByList" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT * FROM (SELECT t.city_code, t5.area_name, t.user_id, t.parkrecord_id, t.palte_no, t.complain_type, t.is_complate, t.complain_desc, t.status, t.handle_user, t.flag, 
+		t.updated_by, t.create_time, t.update_time, t.process_id, au.user_account, t.id,t.refund_flag,t.refund_fee,t.complain_resource
+ 	FROM app_order_complain t 
+ 	LEFT JOIN (SELECT * FROM app_process_log WHERE from_time IN (SELECT MAX(from_time) FROM app_process_log GROUP BY busi_id)) t1 ON t.id = t1.busi_id 
+ 	LEFT JOIN base_role t2 ON t1.to_role = t2.id
+  	LEFT JOIN base_role_rel t3 ON t3.role_id = t2.id
+   	LEFT JOIN base_user t4 ON t4.id = t3.obj_id
+    LEFT JOIN base_area t5 ON t.city_code = t5.area_code 
+    LEFT JOIN app_user au ON au.id = t.user_id
+    <include refid="Example_Where_Clause"/>
+    <if test="userAccount != null and userAccount != '' " >
+    	and au.user_account =  #{userAccount}
+	</if>
+    	 AND t3.rel_type = 1 AND t.status != 2
+       	 AND t4.id = #{queryUserId} 
+    <if test="queryFlag == 1 ">
+    UNION 
+ 	SELECT t.city_code, t2.area_name, t.user_id, t.parkrecord_id, t.palte_no, t.complain_type, t.is_complate, t.complain_desc, t.status, t.handle_user, t.flag, 
+		   t.updated_by, t.create_time, t.update_time, t.process_id, t3.user_account, t.id,t.refund_flag,t.refund_fee,t.complain_resource
+ 	FROM app_order_complain t
+ 	LEFT JOIN (SELECT * FROM app_process_log WHERE from_time IN (SELECT MAX(from_time) FROM app_process_log GROUP BY busi_id)) t1 ON t.id = t1.busi_id 
+ 	LEFT JOIN base_area t2 ON t.city_code = t2.area_code 
+ 	LEFT JOIN app_user t3 ON t3.id = t.user_id
+ 	<include refid="Example_Where_Clause"/>
+ 		AND t.status != 2
+      	AND  t1.from_user = #{queryUserId} AND t1.to_role = '111111'
+     </if> 
+    )A 
+    GROUP BY A.ID
+     <if test="pager.orderCondition == ''">
+		order by A.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if> 
+     
+</select>
+
+	<!-- 查询需要登录用户处理的申诉记录 -->
+	<select id="queryMyWorkByListNew" resultMap="BaseResultMap"  parameterType="Object">
+		SELECT t.city_code, t5.area_name, t.user_id, t.parkrecord_id, t.palte_no, t.complain_type, t.is_complate, t.complain_desc, t.status, t.handle_user, t.flag, 
+		t.updated_by, t.create_time, t.update_time, t.process_id, au.user_account, t.id,t.refund_flag,t.refund_fee,t.complain_resource
+			FROM app_order_complain t
+			  LEFT JOIN base_role t2 ON t.CURRENT_ROLE = t2.id
+			  LEFT JOIN base_role_rel t3 ON t3.role_id = t2.id
+			  LEFT JOIN base_user t4 ON t4.id = t3.obj_id
+			  LEFT JOIN base_area t5 ON t.city_code = t5.area_code
+			  LEFT JOIN app_user au ON au.id = t.user_id
+	    <include refid="Example_Where_Clause"/>
+	    <if test="userAccount != null and userAccount != '' " >
+	    	and au.user_account =  #{userAccount}
+		</if>
+	    	 AND t3.rel_type = 1 AND t.status != 2
+	       	 AND t4.id = #{queryUserId} 
+	    <if test="pager.orderCondition == ''">
+			order by t.create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+	      ${pager.orderCondition}
+	    </if>
+	     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+	       ${pager.mysqlQueryCondition}
+	    </if> 
+	     
+	</select>
+
+<!-- 查询需要登录用户处理的申诉记录条数 -->
+<select id="queryMyWorkByCount" resultType="java.lang.Integer"  parameterType="Object">
+    SELECT COUNT(1) FROM (SELECT t.city_code, t5.area_name, t.user_id, t.parkrecord_id, t.palte_no, t.complain_type, t.is_complate, t.complain_desc, t.status, t.handle_user, t.flag, 
+		t.updated_by, t.create_time, t.update_time, t.process_id, au.user_account, t.id,t.refund_flag,t.refund_fee,t.complain_resource
+ 	FROM app_order_complain t 
+ 	LEFT JOIN (SELECT * FROM app_process_log WHERE from_time IN (SELECT MAX(from_time) FROM app_process_log GROUP BY busi_id)) t1 ON t.id = t1.busi_id 
+ 	LEFT JOIN base_role t2 ON t1.to_role = t2.id
+  	LEFT JOIN base_role_rel t3 ON t3.role_id = t2.id
+   	LEFT JOIN base_user t4 ON t4.id = t3.obj_id
+    LEFT JOIN base_area t5 ON t.city_code = t5.area_code 
+    LEFT JOIN app_user au ON au.id = t.user_id
+    <include refid="Example_Where_Clause"/>
+    <if test="userAccount != null and userAccount != '' " >
+    	and au.user_account =  #{userAccount}
+	</if>
+    	 AND t3.rel_type = 1 AND t.status != 2
+      	 AND t4.id = #{queryUserId}
+    <if test="queryFlag == 1 ">
+    UNION 
+ 	SELECT t.city_code, t2.area_name, t.user_id, t.parkrecord_id, t.palte_no, t.complain_type, t.is_complate, t.complain_desc, t.status, t.handle_user, t.flag, 
+		t.updated_by, t.create_time, t.update_time, t.process_id, t3.user_account, t.id,t.refund_flag,t.refund_fee,t.complain_resource
+ 	FROM app_order_complain t
+ 	LEFT JOIN (SELECT * FROM app_process_log WHERE from_time IN (SELECT MAX(from_time) FROM app_process_log GROUP BY busi_id)) t1 ON t.id = t1.busi_id 
+ 	LEFT JOIN base_area t2 ON t.city_code = t2.area_code 
+ 	LEFT JOIN app_user t3 ON t3.id = t.user_id
+ 	<include refid="Example_Where_Clause"/>
+ 		 AND t.status != 2
+      	 AND  t1.from_user = #{queryUserId} AND t1.to_role = '111111'
+    </if>
+    )A
+</select>
+
+<!-- 查询需要登录用户处理的申诉记录条数 -->
+<select id="queryMyWorkByCountNew" resultType="java.lang.Integer"  parameterType="Object">
+    SELECT COUNT(1) FROM (SELECT t.city_code, t5.area_name, t.user_id, t.parkrecord_id, t.palte_no, t.complain_type, t.is_complate, t.complain_desc, t.status, t.handle_user, t.flag, 
+		t.updated_by, t.create_time, t.update_time, t.process_id, au.user_account, t.id,t.refund_flag,t.refund_fee,t.complain_resource
+ 	FROM app_order_complain t 
+ 	LEFT JOIN (SELECT * FROM app_process_log WHERE from_time IN (SELECT MAX(from_time) FROM app_process_log GROUP BY busi_id)) t1 ON t.id = t1.busi_id 
+ 	LEFT JOIN base_role t2 ON t1.to_role = t2.id
+  	LEFT JOIN base_role_rel t3 ON t3.role_id = t2.id
+   	LEFT JOIN base_user t4 ON t4.id = t3.obj_id
+    LEFT JOIN base_area t5 ON t.city_code = t5.area_code 
+    LEFT JOIN app_user au ON au.id = t.user_id
+    <include refid="Example_Where_Clause"/>
+    <if test="userAccount != null and userAccount != '' " >
+    	and au.user_account =  #{userAccount}
+	</if>
+    	 AND t3.rel_type = 1 AND t.status != 2
+      	 AND t4.id = #{queryUserId}
+    <if test="queryFlag == 1 ">
+    UNION 
+ 	SELECT t.city_code, t2.area_name, t.user_id, t.parkrecord_id, t.palte_no, t.complain_type, t.is_complate, t.complain_desc, t.status, t.handle_user, t.flag, 
+		t.updated_by, t.create_time, t.update_time, t.process_id, t3.user_account, t.id,t.refund_flag,t.refund_fee,t.complain_resource
+ 	FROM app_order_complain t
+ 	LEFT JOIN (SELECT * FROM app_process_log WHERE from_time IN (SELECT MAX(from_time) FROM app_process_log GROUP BY busi_id)) t1 ON t.id = t1.busi_id 
+ 	LEFT JOIN base_area t2 ON t.city_code = t2.area_code 
+ 	LEFT JOIN app_user t3 ON t3.id = t.user_id
+ 	<include refid="Example_Where_Clause"/>
+ 		 AND t.status != 2
+      	 AND  t1.from_user = #{queryUserId} AND t1.to_role = '111111'
+    </if>
+    )A
+</select>
+
+<!-- 录入申诉记录 -->
+<insert id="saveOrderComplainFromPhone" parameterType="Object" >
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+	insert into app_order_complain 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	STATUS,PROCESS_ID,REFUND_FLAG,FLAG,CREATE_TIME,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+		<if test="cityCode != null " >
+    	 city_code,
+	    </if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="palteNo != null and palteNo != '' " >
+		 palte_no,
+		</if>
+    	<if test="complainType != null " >
+		complain_type,
+		</if>
+    	<if test="isComplate != null " >
+		is_complate,
+		</if>
+    	<if test="complainDesc != null and complainDesc != '' " >
+		 complain_desc,
+		</if>
+    	<if test="handleUser != null and handleUser != '' " >
+		 handle_user,
+		</if>
+    	<if test="complainResource != null " >
+		 complain_resource,
+		</if>
+		<if test="currentRole != null and currentRole != '' " >
+		 CURRENT_ROLE,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	 0,1,1,'ADD',now(),
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+    	<![CDATA[  #{cityCode}, ]]>
+	    </if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="palteNo != null and palteNo != '' " >
+  		<![CDATA[  #{palteNo}, ]]>
+    	</if>
+    	<if test="complainType != null " >
+  		<![CDATA[  #{complainType}, ]]>
+    	</if>
+    	<if test="isComplate != null " >
+  		<![CDATA[  #{isComplate}, ]]>
+    	</if>
+    	<if test="complainDesc != null and complainDesc != '' " >
+  		<![CDATA[  #{complainDesc}, ]]>
+    	</if>
+    	<if test="handleUser != null and handleUser != '' " >
+  		<![CDATA[  #{handleUser}, ]]>
+    	</if>
+    	<if test="complainResource != null  " >
+  		<![CDATA[  #{complainResource}, ]]>
+    	</if>
+    	<if test="currentRole != null and currentRole != '' " >
+  		<![CDATA[  #{currentRole}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 查询录入申诉记录详细 -->
+<select id="queryByUserAccountAndComplainResource" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT t.* FROM app_order_complain t
+	LEFT JOIN app_user t1 ON t.user_id = t1.ID
+	WHERE t.flag != 'DELETE'AND t.parkrecord_id IS NULL 
+	  AND t.complain_resource = #{complainResource} AND t1.user_account = #{userAccount}
+	ORDER BY t.CREATE_TIME DESC
+	LIMIT 1
+</select>
+
+<!-- 查询导出申诉表参数值-->
+<select id="cvsOrderComplainList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT ba.area_name,au.mobile,t.parkrecord_id,t.palte_no,t.complain_desc,t.status,t.create_time
+ 	from app_order_complain t
+ 	left join app_user au ON au.id = t.user_id
+	left join base_area ba on t.city_code = ba.area_code
+	WHERE 1=1 
+	<trim>
+	 <if test="startDate != null and startDate != '' and endDate != null
+	 	and endDate != '' ">
+	 	and t.create_time BETWEEN #{startDate} AND #{endDate}
+	 </if>
+	 <if test="cityCode != null and cityCode != '' ">
+	  	AND t.city_code like '${cityCode}%'  
+	  </if>
+	  <if test="status != null and status != ''">
+	  	AND t.status = #{status} 
+	  </if>
+	</trim>
+	ORDER BY t.create_time desc
+</select>	
+
+<!-- 更新申诉记录的退款状态 -->
+ <update id="batchUpdateRefundFlag"  parameterType="java.util.ArrayList">
+ 	<foreach collection="list" item="item" index="index">
+		update app_order_complain t 
+		set t.refund_flag = #{item.refundFlag},t.update_time = now(),t.flag='UPDATE'
+		where t.id = #{item.id};
+	</foreach>
+ </update>
+</mapper>   

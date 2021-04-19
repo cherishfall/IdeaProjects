@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.AppSubstimesyncDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap"
+		type="com.innotek.fragrans.entity.appsystem.AppSubstimesyncEntity">
+		<result column="id" property="id" />
+		<result column="city_code" property="cityCode" />
+		<result column="city_name" property="cityName" />
+		<result column="timelong" property="timelong" />
+		<result column="is_default" property="isDefault" />
+	</resultMap>
+	
+	<!-- ********************************自定义接口********************************************** -->
+	<select id="findDataBySql" resultMap="BaseResultMap"
+		parameterType="Object">
+		SELECT t.id,t.city_code,t.city_name,t.timelong,t.is_default 
+		FROM app_substimesync t
+		WHERE t.city_code= #{cityCode}
+		ORDER BY TIMELONG ASC
+	</select>
+</mapper>   

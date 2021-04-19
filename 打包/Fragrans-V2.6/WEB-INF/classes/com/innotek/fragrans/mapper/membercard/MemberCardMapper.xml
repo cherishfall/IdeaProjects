@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.membercard.MemberCardDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.membercard.MemberCard" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="area_name" property="areaName"/>
+		<result column="member_card_no" property="memberCardNo"/>
+		<result column="balance" property="balance"/>
+		<result column="gift_amount" property="giftAmount"/>
+		<result column="pay_password" property="payPassword"/>
+		<result column="is_no_pwdpay" property="isNoPwdpay"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="status" property="status"/>
+		<result column="err_count" property="errCount"/>
+		<result column="last_err_time" property="lastErrTime"/>
+		<result column="refund_status" property="refundStatus"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.user_account,
+		 t.area_code,
+		 t.member_card_no,
+		 t.balance,
+		 t.gift_amount,
+		 t.pay_password,
+		 t.is_no_pwdpay,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id,
+	     t.status,
+	     t.err_count,
+	     t.last_err_time,
+	     t.refund_status
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="userAccount != null and userAccount != '' " >
+    	and t.user_account =  #{userAccount}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="memberCardNo != null and memberCardNo != '' " >
+    	and t.member_card_no =  #{memberCardNo}
+	</if>
+	<if test="balance != null " >
+    	and t.balance =  #{balance}
+	</if>
+	<if test="payPassword != null and payPassword != '' " >
+    	and t.pay_password =  #{payPassword}
+	</if>
+	<if test="isNoPwdpay != null " >
+    	and t.is_no_pwdpay =  #{isNoPwdpay}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="refundStatus != null " >
+		and t.refund_status =  #{refundStatus}
+	</if>
+	<if test="errCount != null " >
+    	and t.err_count =  #{errCount}
+	</if>
+	<if test="lastErrTime != null " >
+    	and t.last_err_time =  #{lastErrTime}
+	</if>
+	</trim>
+</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object" >
+
+		<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+
+		insert into app_member_card
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null and id != '' " >
+				id,
+			</if>
+			<if test="userId != null and userId != '' " >
+				user_id,
+			</if>
+			<if test="userAccount != null and userAccount != '' " >
+				user_account,
+			</if>
+			<if test="areaCode != null " >
+				area_code,
+			</if>
+			<if test="memberCardNo != null and memberCardNo != '' " >
+				member_card_no,
+			</if>
+			<if test="balance != null " >
+				balance,
+			</if>
+			<if test="giftAmount != null " >
+				gift_amount,
+			</if>
+			<if test="payPassword != null and payPassword != '' " >
+				pay_password,
+			</if>
+			<if test="isNoPwdpay != null " >
+				is_no_pwdpay,
+			</if>
+			<if test="status != null " >
+				status,
+			</if>
+			<if test="errCount != null " >
+				err_count,
+			</if>
+			<if test="lastErrTime != null " >
+				last_err_time,
+			</if>
+			<if test="refundStatus != null " >
+				refund_status,
+			</if>
+			<if test="flag != null and flag != '' " >
+				flag,
+			</if>
+			<if test="createdBy != null and createdBy != '' " >
+				created_by,
+			</if>
+			<if test="updatedBy != null and updatedBy != '' " >
+				updated_by,
+			</if>
+			<if test="createTime != null " >
+				create_time,
+			</if>
+			<if test="updateTime != null " >
+				update_time,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null and id != '' " >
+				<![CDATA[  #{id}, ]]>
+			</if>
+			<if test="userId != null and userId != '' " >
+				<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="userAccount != null and userAccount != '' " >
+				<![CDATA[  #{userAccount}, ]]>
+			</if>
+			<if test="areaCode != null " >
+				<![CDATA[  #{areaCode}, ]]>
+			</if>
+			<if test="memberCardNo != null and memberCardNo != '' " >
+				<![CDATA[  #{memberCardNo}, ]]>
+			</if>
+			<if test="balance != null " >
+				<![CDATA[  #{balance}, ]]>
+			</if>
+			<if test="giftAmount != null " >
+				<![CDATA[  #{giftAmount}, ]]>
+			</if>
+			<if test="payPassword != null and payPassword != '' " >
+				<![CDATA[  #{payPassword}, ]]>
+			</if>
+			<if test="isNoPwdpay != null " >
+				<![CDATA[  #{isNoPwdpay}, ]]>
+			</if>
+			<if test="status != null " >
+				<![CDATA[  #{status}, ]]>
+			</if>
+			<if test="errCount != null " >
+				<![CDATA[  #{errCount}, ]]>
+			</if>
+			<if test="lastErrTime != null " >
+				<![CDATA[  #{lastErrTime}, ]]>
+			</if>
+			<if test="refundStatus != null " >
+				<![CDATA[  #{refundStatus}, ]]>
+			</if>
+			<if test="flag != null and flag != '' " >
+				<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createdBy != null and createdBy != '' " >
+				<![CDATA[  #{createdBy}, ]]>
+			</if>
+			<if test="updatedBy != null and updatedBy != '' " >
+				<![CDATA[  #{updatedBy}, ]]>
+			</if>
+			<if test="createTime != null " >
+				<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null " >
+				<![CDATA[  #{updateTime}, ]]>
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据id，修改记录-->
+	<update id="update" parameterType="Object" >
+		update app_member_card t set
+		<trim suffixOverrides="," >
+			<if test="userId != null and userId != '' " >
+				<![CDATA[  t.user_id = #{userId}, ]]>
+			</if>
+			<if test="userAccount != null and userAccount != '' " >
+				<![CDATA[  t.user_account = #{userAccount}, ]]>
+			</if>
+			<if test="areaCode != null " >
+				<![CDATA[  t.area_code = #{areaCode}, ]]>
+			</if>
+			<if test="memberCardNo != null and memberCardNo != '' " >
+				<![CDATA[  t.member_card_no = #{memberCardNo}, ]]>
+			</if>
+			<if test="balance != null " >
+				<![CDATA[  t.balance = #{balance}, ]]>
+			</if>
+			<if test="giftAmount != null " >
+				<![CDATA[  t.gift_amount = #{giftAmount}, ]]>
+			</if>
+			<if test="payPassword != null and payPassword != '' " >
+				<![CDATA[  t.pay_password = #{payPassword}, ]]>
+			</if>
+			<if test="isNoPwdpay != null " >
+				<![CDATA[  t.is_no_pwdpay = #{isNoPwdpay}, ]]>
+			</if>
+			<if test="status != null " >
+				<![CDATA[  t.status = #{status}, ]]>
+			</if>
+			<if test="errCount != null " >
+				<![CDATA[  t.err_count = #{errCount}, ]]>
+			</if>
+			<if test="lastErrTime != null " >
+				<![CDATA[  t.last_err_time = #{lastErrTime}, ]]>
+			</if>
+			<if test="refundStatus != null " >
+				<![CDATA[  t.refund_status = #{refundStatus}, ]]>
+			</if>
+			<if test="flag != null and flag != '' " >
+				<![CDATA[  t.flag = #{flag}, ]]>
+			</if>
+			<if test="createdBy != null and createdBy != '' " >
+				<![CDATA[  t.created_by = #{createdBy}, ]]>
+			</if>
+			<if test="updatedBy != null and updatedBy != '' " >
+				<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+			</if>
+			<if test="createTime != null " >
+				<![CDATA[  t.create_time = #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null " >
+				<![CDATA[  t.update_time = #{updateTime}, ]]>
+			</if>
+		</trim> where t.id= #{id}
+	</update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_member_card where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_member_card t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_member_card t
+	left join base_area ba on t.area_code = ba.area_code
+	<include refid="Example_Where_Clause"/>
+	and t.flag != 'DELETE'
+	<if test="areaId != null and areaId != '' ">
+		and ba.id = #{areaId}
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,ba.area_name 
+	from app_member_card t 
+	left join base_area ba on t.area_code = ba.area_code
+	<include refid="Example_Where_Clause"/>
+	 and t.flag != 'DELETE'
+	<if test="areaId != null and areaId != '' ">
+	 and ba.id = #{areaId}
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.status asc,t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 根据用户ID查询用户会员卡信息 -->
+<select id="getByUserId" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT * FROM app_member_card 
+	WHERE FLAG != 'DELETE' AND USER_ID = #{_parameter}
+	order by create_time desc
+	limit 1
+</select>
+
+<!-- 注销用户会员卡 -->
+<update id="cancleMemberCard" parameterType="java.lang.String">
+	UPDATE app_member_card SET STATUS = 2,ERR_COUNT=0,LAST_ERR_TIME=NULL,
+		FLAG='UPDATE',UPDATED_BY='system',UPDATE_TIME=NOW() 
+	WHERE id= #{_parameter}
+</update>
+
+<!-- 批量受理退款 -->
+<update id="updateBatchMemberCardRefund" parameterType="java.util.ArrayList">
+	<foreach collection="list" item="item" index="index">
+		UPDATE app_member_card
+		SET REFUND_STATUS = #{item.refundStatus},FLAG = #{item.flag},
+		UPDATED_BY = #{item.updatedBy},UPDATE_TIME = #{item.updateTime}
+		WHERE id = #{item.id};
+	</foreach>
+</update>
+</mapper>   

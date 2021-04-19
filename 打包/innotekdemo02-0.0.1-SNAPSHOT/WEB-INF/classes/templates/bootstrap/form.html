@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang=zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <!--添加让 viewport（视口）支持响应式布局的 标签-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--    本地引入依赖文件-->
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <script src="../../static/js/jquery-3.6.0.js"></script>
+    <script src="../../static/js/bootstrap.bundle.js"></script>
+    <!--    测试jquery-->
+    <script>
+        $(document).ready(function () {
+            // alert("jquery 已启用");
+        })
+    </script>
+
+    <title>表单</title>
+</head>
+<body>
+
+<div class="container-fluid">
+<!--    第一个bootstrap表单-->
+<!--    ready only 和 form-control-plaintext综合使用的效果很好-->
+    <form>
+        <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" name="username" value="lifan" id="username" class="form-control-plaintext" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" name="remember" class="form-check-input"> 记住我
+            </label>
+        </div>
+
+        <button type="reset" class="btn btn-sm btn-danger">重置</button> &nbsp; &nbsp;
+        <button type="submit" class="btn btn-sm btn-success">提交</button>
+    </form>
+    <br />
+    <br />
+
+<!--    表单控件-->
+    <form>
+<!--        input-->
+        <div class="form-group">
+            <label for="usr">usr:</label>
+            <input type="text" name="usr" id="usr" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="pwd">pwd:</label>
+            <input type="password" name="pwd" id="pwd" class="form-control">
+        </div>
+
+<!--        textarea-->
+        <div class="form-group">
+            <label for="comment">comment:</label>
+            <textarea name="comment" id="comment" class="form-control" rows="5"></textarea>
+        </div>
+
+<!--        select下拉表单-->
+        <div class="form-group">
+            <label for="slt"></label>
+            <select class="form-control" name="slt" id="slt">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+
+<!--       纵向排列的 check box-->
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" name="cck01" value="1" class="form-check-input">1
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" name="cck01" value="2" class="form-check-input">2
+            </label>
+        </div>
+
+<!--        横向排列的check box-->
+        <div class="form-check-inline">
+            <label class="form-check-label">
+                <input type="checkbox" name="cck02" value="lifan" class="form-check-input"> lifan
+            </label>
+        </div>
+
+        <div class="form-check-inline">
+            <label class="form-check-label">
+                <input type="checkbox" name="cck02" value="lilifan" class="form-check-input"> lilifan
+            </label>
+        </div>
+
+<!--    纵向排列的radio和横向排列的radio-->
+
+        <div class="form-check">
+        <label class="form-check-label">
+            <input type="radio" name="rd01" value="1" class="form-check-input">1
+        </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" name="rd01" value="2" class="form-check-input">2
+            </label>
+        </div>
+
+        <div class="form-check-inline">
+            <label class="form-check-label">
+                <input type="radio" name="rd02" value="lifan" class="form-check-input">lifan
+            </label>
+        </div>
+
+        <div class="form-check-inline">
+            <label class="form-check-label">
+                <input type="radio" name="rd02" value="lilifan" class="form-check-input">lilifan
+            </label>
+        </div>
+
+
+
+
+
+
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.activity.ActivityRedeemCodeDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.activity.ActivityRedeemCode" >
+	<result column="id" property="id"/>
+		<result column="activity_id" property="activityId"/>
+		<result column="redeem_code" property="redeemCode"/>
+		<result column="reddem_imageurl" property="reddemImageurl"/>
+		<result column="redeem_activity_url" property="redeemActivityUrl"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="activity_name" property="activityName"/>
+		<result column="ecs_reddem_imageurl" property="ecsReddemImageurl"/>
+	</resultMap>
+	
+	<resultMap id="GetRedeemActivityInfo" type="com.innotek.fragrans.entity.activity.GetRedeemActivityInfoItem" >
+		<result column="activity_name" property="activityName"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="redeem_code" property="redeemCode"/>
+		<result column="reddem_imageurl" property="imageUrl"/>
+		<result column="redeem_activity_url" property="redeemActivityUrl"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.activity_id,
+		 t.redeem_code,
+		 t.reddem_imageurl,
+		 t.redeem_activity_url,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id,
+	     t.ecs_reddem_imageurl
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="activityId != null and activityId != '' " >
+    	and t.activity_id =  #{activityId}
+	</if>
+	<if test="redeemCode != null and redeemCode != '' " >
+    	and t.redeem_code =  #{redeemCode}
+	</if>
+	<if test="reddemImageurl != null and reddemImageurl != '' " >
+    	and t.reddem_imageurl =  #{reddemImageurl}
+	</if>
+	<if test="redeemActivityUrl != null and redeemActivityUrl != '' " >
+    	and t.redeem_activity_url =  #{redeemActivityUrl}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_activity_redeem_code 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,
+		flag,
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="activityId != null and activityId != '' " >
+		 activity_id,
+		</if>
+    	<if test="redeemCode != null and redeemCode != '' " >
+		 redeem_code,
+		</if>
+    	<if test="reddemImageurl != null and reddemImageurl != '' " >
+		 reddem_imageurl,
+		</if>
+    	<if test="redeemActivityUrl != null and redeemActivityUrl != '' " >
+		 redeem_activity_url,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="ecsReddemImageurl != null and ecsReddemImageurl != '' " >
+		 ecs_reddem_imageurl,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 NOW(),
+	 'ADD',
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="activityId != null and activityId != '' " >
+  		<![CDATA[  #{activityId}, ]]>
+    	</if>
+    	<if test="redeemCode != null and redeemCode != '' " >
+  		<![CDATA[  #{redeemCode}, ]]>
+    	</if>
+    	<if test="reddemImageurl != null and reddemImageurl != '' " >
+  		<![CDATA[  #{reddemImageurl}, ]]>
+    	</if>
+    	<if test="redeemActivityUrl != null and redeemActivityUrl != '' " >
+  		<![CDATA[  #{redeemActivityUrl}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="ecsReddemImageurl != null and ecsReddemImageurl != '' " >
+		 <![CDATA[  #{ecsReddemImageurl}, ]]>
+		</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_activity_redeem_code t set 
+   <trim suffixOverrides="," >
+	<if test="activityId != null and activityId != '' " >
+  	<![CDATA[  t.activity_id = #{activityId}, ]]>
+    </if>
+    <if test="redeemCode != null and redeemCode != '' " >
+  	<![CDATA[  t.redeem_code = #{redeemCode}, ]]>
+    </if>
+    <if test="reddemImageurl != null and reddemImageurl != '' " >
+  	<![CDATA[  t.reddem_imageurl = #{reddemImageurl}, ]]>
+    </if>
+    <if test="redeemActivityUrl != null and redeemActivityUrl != '' " >
+  	<![CDATA[  t.redeem_activity_url = #{redeemActivityUrl}, ]]>
+    </if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="ecsReddemImageurl != null and ecsReddemImageurl != '' " >
+  	<![CDATA[  t.ecs_reddem_imageurl = #{ecsReddemImageurl}, ]]>
+    </if>
+  	<![CDATA[  t.update_time = now(), ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_activity_redeem_code where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_activity_redeem_code t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_activity_redeem_code t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,a.activity_name
+	from app_activity_redeem_code t 
+	left join app_activity a on t.activity_id = a.id
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc,t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询兑换活动封面信息列表 -->
+<select id="queryRedeemActivityList" resultMap="GetRedeemActivityInfo">
+	SELECT t.redeem_code,t.reddem_imageurl,t.redeem_activity_url ,t1.activity_name,
+	       DATE_FORMAT(t1.start_time,'%Y-%m-%d') start_time,DATE_FORMAT(t1.end_time,'%Y-%m-%d') end_time 
+	FROM app_activity_redeem_code t
+	LEFT JOIN app_activity t1 ON t.activity_id = t1.id
+	WHERE t.flag != 'DELETE' AND t1.status = 1 AND t1.flag!= 'DELETE' 
+	  AND NOW() BETWEEN DATE_FORMAT(t1.start_time,'%Y-%m-%d 00:00:00') AND DATE_FORMAT(t1.end_time,'%Y-%m-%d 23:59:59')
+</select>
+
+<!-- 根据兑换码查询配置信息 -->
+<select id="findByRedeemCode" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT * FROM app_activity_redeem_code t
+	WHERE REDEEM_CODE = #{_parameter}
+</select>
+
+<!-- 根据活动查询兑换码信息 -->
+<select id="getByActivityIdAndRedeem" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT * FROM app_activity_redeem_code 
+	WHERE FLAG != 'DELETE' AND REDEEM_CODE = #{redeemCode}
+	  AND ACTIVITY_ID = #{activityId}
+	limit 1
+</select>
+
+<!-- 查询是否存在相同的兑换码  -->
+<select id="isExistRedeemCode" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT * FROM app_activity_redeem_code t
+	WHERE REDEEM_CODE = #{_parameter}
+	limit 1
+</select>
+</mapper>   

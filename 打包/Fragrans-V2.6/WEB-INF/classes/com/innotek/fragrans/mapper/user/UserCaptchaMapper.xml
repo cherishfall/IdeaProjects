@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserCaptchaDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.AppUserCaptchaEntity" >
+	<result column="id" property="id"/>
+		<result column="account" property="account"/>
+		<result column="captcha" property="captcha"/>
+		<result column="reason" property="reason"/>
+		<result column="expired_time" property="expiredTime"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="flag" property="flag"/>
+		<result column="last_valid_time" property="lastValidTime"/>
+		<result column="count" property="count"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.account,
+		 t.captcha,
+		 t.reason,
+		 t.expired_time,
+		 t.create_time,
+		 t.update_time,
+		 t.flag,
+		 t.last_valid_time,
+		 t.count,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="account != null and account != '' " >
+    	and t.account like  '${account}%'
+	</if>
+	<if test="captcha != null and captcha != '' " >
+    	and t.captcha =  #{captcha}
+	</if>
+	<if test="reason != null " >
+    	and t.reason =  #{reason}
+	</if>
+	<if test="expiredTime != null " >
+    	and t.expired_time =  #{expiredTime}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="lastValidTime != null and lastValidTime != '' " >
+    	and t.last_valid_time =  #{lastValidTime}
+	</if>
+	<if test="count != null" >
+    	and t.count =  #{count}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into APP_USER_CAPTCHA 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  create_time,flag,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="account != null and account != '' " >
+		 account,
+		</if>
+    	<if test="captcha != null and captcha != '' " >
+		 captcha,
+		</if>
+    	<if test="reason != null " >
+		reason,
+		</if>
+    	<if test="expiredTime != null " >
+		expired_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 		now(),'ADD',
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="account != null and account != '' " >
+  		<![CDATA[  #{account}, ]]>
+    	</if>
+    	<if test="captcha != null and captcha != '' " >
+  		<![CDATA[  #{captcha}, ]]>
+    	</if>
+    	<if test="reason != null " >
+  		<![CDATA[  #{reason}, ]]>
+    	</if>
+    	<if test="expiredTime != null " >
+  		<![CDATA[  #{expiredTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update APP_USER_CAPTCHA t set 
+   <trim suffixOverrides="," >
+	<if test="account != null and account != '' " >
+  	<![CDATA[  t.account = #{account}, ]]>
+    </if>
+    <if test="captcha != null and captcha != '' " >
+  	<![CDATA[  t.captcha = #{captcha}, ]]>
+    </if>
+    <if test="reason != null " >
+  	<![CDATA[  t.reason = #{reason}, ]]>
+    </if>
+    <if test="expiredTime != null " >
+  	<![CDATA[  t.expired_time = #{expiredTime}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from APP_USER_CAPTCHA where id = #{id}
+</delete>
+
+<!-- 假删除记录 -->
+	<update id="deleted" parameterType="Object" >
+		update APP_USER_CAPTCHA t set 
+	   <trim suffixOverrides="," >
+	  	<![CDATA[  t.flag = 'DELETE', ]]>
+	     </trim> where t.id= #{id}
+	</update>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from APP_USER_CAPTCHA t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from APP_USER_CAPTCHA t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from APP_USER_CAPTCHA t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.account desc,t.last_valid_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<select id="getUserCaptchaByAccount" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List"/>
+		from APP_USER_CAPTCHA t
+		where t.account = #{mobile} or t.account = #{email}
+		order by t.create_time desc
+	</select>
+</mapper>   

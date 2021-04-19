@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.activity.ActivityShareDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.activity.ActivityShare" >
+	<result column="id" property="id"/>
+		<result column="activity_name" property="activityName"/>
+		<result column="activity_type" property="activityType"/>
+		<result column="activity_desc" property="activityDesc"/>
+		<result column="share_url" property="shareUrl"/>
+		<result column="share_image" property="shareImage"/>
+		<result column="is_tiger" property="isTiger"/>
+		<result column="is_fromuser_tiger" property="isFromuserTiger"/>
+		<result column="get_count" property="getCount"/>
+		<result column="validity" property="validity"/>
+		<result column="status" property="status"/>
+		<result column="display_conf" property="displayConf"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="share_time" property="shareTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.activity_name,
+		 t.activity_type,
+		 t.activity_desc,
+		 t.share_url,
+		 t.share_image,
+		 t.is_tiger,
+		 t.is_fromuser_tiger,
+		 t.get_count,
+		 t.validity,
+		 t.status,
+		 t.display_conf,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="activityName != null and activityName != '' " >
+    	and t.activity_name =  #{activityName}
+	</if>
+	<if test="activityType != null " >
+    	and t.activity_type =  #{activityType}
+	</if>
+	<if test="activityDesc != null and activityDesc != '' " >
+    	and t.activity_desc =  #{activityDesc}
+	</if>
+	<if test="shareUrl != null and shareUrl != '' " >
+    	and t.share_url =  #{shareUrl}
+	</if>
+	<if test="shareImage != null and shareImage != '' " >
+    	and t.share_image =  #{shareImage}
+	</if>
+	<if test="isTiger != null " >
+    	and t.is_tiger =  #{isTiger}
+	</if>
+	<if test="isFromuserTiger != null " >
+    	and t.is_fromuser_tiger =  #{isFromuserTiger}
+	</if>
+	<if test="getCount != null " >
+    	and t.get_count =  #{getCount}
+	</if>
+	<if test="validity != null " >
+    	and t.validity =  #{validity}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="displayConf != null " >
+    	and t.display_conf =  #{displayConf}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_activity_share 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,flag,
+	 	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="activityName != null and activityName != '' " >
+		 activity_name,
+		</if>
+    	<if test="activityType != null " >
+		activity_type,
+		</if>
+    	<if test="activityDesc != null and activityDesc != '' " >
+		 activity_desc,
+		</if>
+    	<if test="shareUrl != null and shareUrl != '' " >
+		 share_url,
+		</if>
+    	<if test="shareImage != null and shareImage != '' " >
+		 share_image,
+		</if>
+    	<if test="isTiger != null " >
+		is_tiger,
+		</if>
+    	<if test="isFromuserTiger != null " >
+		is_fromuser_tiger,
+		</if>
+    	<if test="getCount != null " >
+		get_count,
+		</if>
+    	<if test="validity != null " >
+		validity,
+		</if>
+    	<if test="status != null " >
+		status,
+		</if>
+    	<if test="displayConf != null " >
+		display_conf,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	now(),'ADD',
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="activityName != null and activityName != '' " >
+  		<![CDATA[  #{activityName}, ]]>
+    	</if>
+    	<if test="activityType != null " >
+  		<![CDATA[  #{activityType}, ]]>
+    	</if>
+    	<if test="activityDesc != null and activityDesc != '' " >
+  		<![CDATA[  #{activityDesc}, ]]>
+    	</if>
+    	<if test="shareUrl != null and shareUrl != '' " >
+  		<![CDATA[  #{shareUrl}, ]]>
+    	</if>
+    	<if test="shareImage != null and shareImage != '' " >
+  		<![CDATA[  #{shareImage}, ]]>
+    	</if>
+    	<if test="isTiger != null " >
+  		<![CDATA[  #{isTiger}, ]]>
+    	</if>
+    	<if test="isFromuserTiger != null " >
+  		<![CDATA[  #{isFromuserTiger}, ]]>
+    	</if>
+    	<if test="getCount != null " >
+  		<![CDATA[  #{getCount}, ]]>
+    	</if>
+    	<if test="validity != null " >
+  		<![CDATA[  #{validity}, ]]>
+    	</if>
+    	<if test="status != null " >
+  		<![CDATA[  #{status}, ]]>
+    	</if>
+    	<if test="displayConf != null " >
+  		<![CDATA[  #{displayConf}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_activity_share t set 
+   <trim suffixOverrides="," >
+	<if test="activityName != null and activityName != '' " >
+  	<![CDATA[  t.activity_name = #{activityName}, ]]>
+    </if>
+    <if test="activityType != null " >
+  	<![CDATA[  t.activity_type = #{activityType}, ]]>
+    </if>
+    <if test="activityDesc != null and activityDesc != '' " >
+  	<![CDATA[  t.activity_desc = #{activityDesc}, ]]>
+    </if>
+    <if test="shareUrl != null and shareUrl != '' " >
+  	<![CDATA[  t.share_url = #{shareUrl}, ]]>
+    </if>
+    <if test="shareImage != null and shareImage != '' " >
+  	<![CDATA[  t.share_image = #{shareImage}, ]]>
+    </if>
+    <if test="isTiger != null " >
+  	<![CDATA[  t.is_tiger = #{isTiger}, ]]>
+    </if>
+    <if test="isFromuserTiger != null " >
+  	<![CDATA[  t.is_fromuser_tiger = #{isFromuserTiger}, ]]>
+    </if>
+    <if test="getCount != null " >
+  	<![CDATA[  t.get_count = #{getCount}, ]]>
+    </if>
+    <if test="validity != null " >
+  	<![CDATA[  t.validity = #{validity}, ]]>
+    </if>
+    <if test="status != null " >
+  	<![CDATA[  t.status = #{status}, ]]>
+    </if>
+    <if test="displayConf != null " >
+  	<![CDATA[  t.display_conf = #{displayConf}, ]]>
+    </if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+  	<![CDATA[  t.update_time = now(), ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_activity_share where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_activity_share t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_activity_share t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_activity_share t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 根据分享活动类型查询活动信息 -->
+<select id="findActivityShareByactivityType" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT t.id,t.activity_name,t.activity_desc,t.share_url,
+	       t.share_image,t.get_count,t.activity_type FROM app_activity_share t
+	WHERE t.status = 1 AND t.display_conf = 1 AND flag != 'DELETE'
+	AND t.activity_type = #{activityType}
+	limit 1
+</select>
+
+<!-- 查询分享优惠券可领取最大次数 -->
+<select id="findMaxGetTicketCountByUserShareId" resultType="java.lang.Integer"  parameterType="java.lang.String">
+	SELECT t.get_count FROM app_activity_share t
+	LEFT JOIN app_activity_share_user t1 ON t.id = t1.activity_share_id
+	WHERE t1.flag != 'DELETE' AND t1.id = #{_parameter}
+</select>
+
+<!-- 根据用户分享ID查询分享配置信息 -->
+<select id="findActivityShareByUserShareId" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT t.*,t1.create_time share_time FROM app_activity_share t
+	LEFT JOIN app_activity_share_user t1 ON t.id = t1.activity_share_id
+	WHERE t1.flag != 'DELETE' AND t1.id = #{_parameter}
+	limit 1
+</select>
+
+<!-- 查询所有分享活动 -->
+<select id="findAllActivityShareList" resultMap="BaseResultMap" >
+	SELECT t.id,t.activity_name FROM app_activity_share t
+	WHERE t.flag != 'DELETE' 
+</select>
+</mapper>   

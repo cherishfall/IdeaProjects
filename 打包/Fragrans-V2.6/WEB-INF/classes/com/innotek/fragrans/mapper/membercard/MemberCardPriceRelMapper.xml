@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.membercard.MemberCardPriceRelDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.membercard.MemberCardPriceRel" >
+	<result column="id" property="id"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="recharge_amount" property="rechargeAmount"/>
+		<result column="pay_amount" property="payAmount"/>
+		<result column="is_common" property="isCommon"/>
+		<result column="display_no" property="displayNo"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="area_name" property="areaName"/>
+		<result column="is_default" property="isDefault"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.area_code,
+		 t.recharge_amount,
+		 t.pay_amount,
+		 t.is_common,
+		 t.display_no,
+		 t.start_time,
+		 t.end_time,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id,
+	     t.is_default
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="rechargeAmount != null " >
+    	and t.recharge_amount =  #{rechargeAmount}
+	</if>
+	<if test="payAmount != null " >
+    	and t.pay_amount =  #{payAmount}
+	</if>
+	<if test="isCommon != null " >
+    	and t.is_common =  #{isCommon}
+	</if>
+	<if test="isDefault != null " >
+    	and t.is_default =  #{isDefault}
+	</if>
+	<if test="displayNo != null " >
+    	and t.display_no =  #{displayNo}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_member_card_price_rel 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="rechargeAmount != null " >
+		recharge_amount,
+		</if>
+    	<if test="payAmount != null " >
+		pay_amount,
+		</if>
+    	<if test="isCommon != null " >
+		is_common,
+		</if>
+		<if test="isDefault != null " >
+    	is_default ,
+		</if>
+    	<if test="displayNo != null " >
+		display_no,
+		</if>
+		<if test="startTime != null " >
+		start_time,
+		</if>
+		<if test="endTime != null " >
+		end_time,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="rechargeAmount != null " >
+  		<![CDATA[  #{rechargeAmount}, ]]>
+    	</if>
+    	<if test="payAmount != null " >
+  		<![CDATA[  #{payAmount}, ]]>
+    	</if>
+    	<if test="isCommon != null " >
+  		<![CDATA[  #{isCommon}, ]]>
+    	</if>
+    	<if test="isDefault != null " >
+    	<![CDATA[  #{isDefault}, ]]>
+		</if>
+    	<if test="displayNo != null " >
+  		<![CDATA[  #{displayNo}, ]]>
+    	</if>
+		<if test="startTime != null and startTime != ''" >
+		<![CDATA[  #{startTime}, ]]>
+		</if>
+		<if test="endTime != null and endTime != ''" >
+		<![CDATA[  #{endTime}, ]]>
+		</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_member_card_price_rel t set 
+   <trim suffixOverrides="," >
+	<if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="rechargeAmount != null " >
+  	<![CDATA[  t.recharge_amount = #{rechargeAmount}, ]]>
+    </if>
+    <if test="payAmount != null " >
+  	<![CDATA[  t.pay_amount = #{payAmount}, ]]>
+    </if>
+    <if test="isCommon != null " >
+  	<![CDATA[  t.is_common = #{isCommon}, ]]>
+    </if>
+    <if test="isDefault != null " >
+    <![CDATA[  t.is_default = #{isDefault}, ]]>
+	</if>
+    <if test="displayNo != null " >
+  	<![CDATA[  t.display_no = #{displayNo}, ]]>
+    </if>
+	<if test="startTime != null and startTime != ''" >
+	<![CDATA[  t.start_time = #{startTime}, ]]>
+	</if>
+	<if test="endTime != null and endTime != ''" >
+	<![CDATA[  t.end_time = #{endTime}, ]]>
+	</if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_member_card_price_rel where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	 select <include refid="Base_Column_List" />,t1.area_name 
+	 from app_member_card_price_rel t 
+	 left join base_area t1 on t.area_code = t1.area_code
+	 where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_member_card_price_rel t 
+	left join base_area t1 on t.area_code = t1.area_code
+	<include refid="Example_Where_Clause"/>
+	and t.flag != 'DELETE'
+	<if test="areaId != null and areaId != '' ">
+	 	and t1.id = #{areaId}
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>,t1.area_name
+	from app_member_card_price_rel t 
+	left join base_area t1 on t.area_code = t1.area_code
+	<include refid="Example_Where_Clause"/>
+	and t.flag != 'DELETE'
+	<if test="areaId != null and areaId != '' ">
+	 	and t1.id = #{areaId}
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.is_common desc,t.area_code desc,t.is_default desc,display_no asc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<resultMap id="RechargeParaMap" type="com.innotek.fragrans.entity.membercard.MemberCardRechargeDenomination" >
+	<result column="id" property="relId"/>
+	<result column="recharge_amount" property="denomination"/>
+	<result column="pay_amount" property="payFee"/>
+	<result column="is_default" property="isDefault"/>
+</resultMap>
+<!-- 查询会员卡充值参数 -->
+<select id="queryRechargePara" resultMap="RechargeParaMap"  parameterType="java.util.Map">
+	 SELECT id,recharge_amount,pay_amount,is_default
+	 FROM app_member_card_price_rel
+	 WHERE FLAG != 'DELETE'
+	 AND DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i:%s') BETWEEN start_time AND end_time
+	 <if test="areaCode != null and areaCode != '' ">
+	 	AND AREA_CODE = #{areaCode}
+	 </if>
+	 <if test="isCommon != null">
+	 	 AND IS_COMMON = #{isCommon}
+	 </if>
+	 ORDER BY DISPLAY_NO ASC;
+</select>
+
+<!-- 查询配置是否存在 -->
+<select id="findIsExit" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_member_card_price_rel t 
+	where 1=1 and t.flag != 'DELETE'
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="payAmount != null " >
+    	and t.pay_amount =  #{payAmount}
+	</if>
+	<if test="isCommon != null " >
+    	and t.is_common =  #{isCommon}
+	</if>
+	<if test= "id != null and id != '' ">
+		<if test="isDefault != null " >
+	    	and t.is_default =  #{isDefault}
+		</if>
+		<if test="displayNo != null " >
+    		and t.display_no =  #{displayNo}
+		</if>
+	</if>
+</select>
+
+	<!-- 查询会员卡充值参数 -->
+	<select id="queryRechargePricePara" resultType="java.lang.String" parameterType="Object">
+		SELECT pay_amount
+		FROM app_member_card_price_rel
+		WHERE FLAG != 'DELETE'
+		<if test="_parameter != null and _parameter != ''" >
+			and (area_code LIKE '${_parameter}%' or IS_COMMON = 1)
+		</if>
+		ORDER BY pay_amount ASC
+	</select>
+</mapper>   

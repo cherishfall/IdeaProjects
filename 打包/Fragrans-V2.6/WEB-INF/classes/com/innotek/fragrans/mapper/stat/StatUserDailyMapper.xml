@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.StatUserDailyDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.StatUserDaily" >
+	<result column="id" property="id"/>
+		<result column="day_time" property="dayTime"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="reg_user_count" property="regUserCount"/>
+		<result column="reg_user_pay_count" property="regUserPayCount"/>
+		<result column="active_user_count" property="activeUserCount"/>
+		<result column="active_device_count" property="activeDeviceCount"/>
+		<result column="new_device_count" property="newDeviceCount"/>
+		<result column="user_pay_count" property="userPayCount"/>
+		<result column="activity_user_count" property="activityUserCount"/>
+		<result column="growth" property="growth"/>
+		<result column="create_time" property="createTime"/>
+		<result column="area_name" property="cityName"/>
+		<result column="reg_user_month_count" property="regUserMonthCount"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.day_time,
+		 t.city_code,
+		 t.area_code,
+		 t.reg_user_count,
+		 t.reg_user_pay_count,
+		 t.active_user_count,
+		 t.active_device_count,
+		 t.new_device_count,
+		 t.user_pay_count,
+		 t.activity_user_count,
+		 t.reg_user_month_count,
+		 t.growth,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null and id != '' " >
+	    and t.id = #{id}
+	</if>
+	<if test="dayTime != null " >
+    	and t.day_time =  #{dayTime}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="regUserCount != null " >
+    	and t.reg_user_count =  #{regUserCount}
+	</if>
+	<if test="regUserPayCount != null " >
+    	and t.reg_user_pay_count =  #{regUserPayCount}
+	</if>
+	<if test="activeUserCount != null " >
+    	and t.active_user_count =  #{activeUserCount}
+	</if>
+	<if test="activeDeviceCount != null " >
+    	and t.active_device_count =  #{activeDeviceCount}
+	</if>
+	<if test="newDeviceCount != null " >
+    	and t.new_device_count =  #{newDeviceCount}
+	</if>
+	<if test="userPayCount != null " >
+    	and t.user_pay_count =  #{userPayCount}
+	</if>
+	<if test="activityUserCount != null " >
+    	and t.activity_user_count =  #{activityUserCount}
+	</if>
+	<if test="growth != null " >
+    	and t.growth =  #{growth}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="dayTimeStart != null and dayTimeStart != '' and dayTimeEnd != null and dayTimeEnd != '' " >
+	    and t.day_time BETWEEN STR_TO_DATE('${dayTimeStart}','%Y-%m-%d') AND STR_TO_DATE('${dayTimeEnd}','%Y-%m-%d')
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_stat_user_daily 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="id != null and id != '' " >
+		id,
+		</if>
+	 	<if test="dayTime != null " >
+		day_time,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="regUserCount != null " >
+		reg_user_count,
+		</if>
+    	<if test="regUserPayCount != null " >
+		reg_user_pay_count,
+		</if>
+    	<if test="activeUserCount != null " >
+		active_user_count,
+		</if>
+    	<if test="activeDeviceCount != null " >
+		active_device_count,
+		</if>
+    	<if test="newDeviceCount != null " >
+		new_device_count,
+		</if>
+    	<if test="userPayCount != null " >
+		user_pay_count,
+		</if>
+    	<if test="activityUserCount != null " >
+		activity_user_count,
+		</if>
+		<if test="regUserMonthCount != null " >
+		reg_user_month_count,
+		</if>
+    	<if test="growth != null " >
+		growth,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="id != null and id != '' " >
+		<![CDATA[  #{id}, ]]>
+		</if>
+	 	<if test="dayTime != null " >
+  		<![CDATA[  #{dayTime}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="regUserCount != null " >
+  		<![CDATA[  #{regUserCount}, ]]>
+    	</if>
+    	<if test="regUserPayCount != null " >
+  		<![CDATA[  #{regUserPayCount}, ]]>
+    	</if>
+    	<if test="activeUserCount != null " >
+  		<![CDATA[  #{activeUserCount}, ]]>
+    	</if>
+    	<if test="activeDeviceCount != null " >
+  		<![CDATA[  #{activeDeviceCount}, ]]>
+    	</if>
+    	<if test="newDeviceCount != null " >
+  		<![CDATA[  #{newDeviceCount}, ]]>
+    	</if>
+    	<if test="userPayCount != null " >
+  		<![CDATA[  #{userPayCount}, ]]>
+    	</if>
+    	<if test="activityUserCount != null " >
+  		<![CDATA[  #{activityUserCount}, ]]>
+    	</if>
+    	<if test="regUserMonthCount != null " >
+		<![CDATA[  #{regUserMonthCount}, ]]>
+		</if>
+    	<if test="growth != null " >
+  		<![CDATA[  #{growth}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_stat_user_daily t set 
+   <trim suffixOverrides="," >
+	<if test="dayTime != null " >
+  	<![CDATA[  t.day_time = #{dayTime}, ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="regUserCount != null " >
+  	<![CDATA[  t.reg_user_count = #{regUserCount}, ]]>
+    </if>
+    <if test="regUserPayCount != null " >
+  	<![CDATA[  t.reg_user_pay_count = #{regUserPayCount}, ]]>
+    </if>
+    <if test="activeUserCount != null " >
+  	<![CDATA[  t.active_user_count = #{activeUserCount}, ]]>
+    </if>
+    <if test="activeDeviceCount != null " >
+  	<![CDATA[  t.active_device_count = #{activeDeviceCount}, ]]>
+    </if>
+    <if test="newDeviceCount != null " >
+  	<![CDATA[  t.new_device_count = #{newDeviceCount}, ]]>
+    </if>
+    <if test="userPayCount != null " >
+  	<![CDATA[  t.user_pay_count = #{userPayCount}, ]]>
+    </if>
+    <if test="activityUserCount != null " >
+  	<![CDATA[  t.activity_user_count = #{activityUserCount}, ]]>
+    </if>
+    <if test="regUserMonthCount != null " >
+		<![CDATA[  t.reg_user_month_count = #{regUserMonthCount}, ]]>
+	</if>
+    <if test="growth != null " >
+  	<![CDATA[  t.growth = #{growth}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_stat_user_daily where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_stat_user_daily t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_stat_user_daily t 
+	left join base_area b on b.area_code = t.city_code
+	<include refid="Example_Where_Clause"/>
+	<if test="cityId != null and cityId != ''">
+		and b.id = #{cityId}
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>,
+	CASE WHEN t.city_code = 0 THEN '其他'
+	  WHEN t.city_code != 0 THEN b.area_name END area_name
+	from app_stat_user_daily t 
+	left join base_area b on b.area_code = t.city_code
+	<include refid="Example_Where_Clause"/>
+	<if test="cityId != null and cityId != ''">
+		and b.id = #{cityId}
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.day_time desc,t.city_code
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<delete id="deleteStatUserDailyByDateAndCityCode" parameterType="Object">
+	delete from app_stat_user_daily where day_time = #{dayTime} and city_code = #{cityCode}
+</delete>
+
+<!-- 查询符合条件的数据 -->
+<select id="queryStatUserDailyList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>,
+	CASE WHEN t.city_code = 0 THEN '其他'
+	  WHEN t.city_code != 0 THEN b.area_name END area_name
+	from app_stat_user_daily t 
+	left join base_area b on b.area_code = t.city_code
+	<include refid="Example_Where_Clause"/>
+	<if test="cityId != null and cityId != ''">
+		and b.id = #{cityId}
+	</if>
+	order by t.day_time desc,t.city_code
+</select>
+
+<!-- 查询所有数据 -->
+<select id="queryAllStatUser" resultMap="BaseResultMap"  parameterType="Object">
+	select day_time,
+	SUM(IFNULL(ACTIVE_DEVICE_COUNT,0)) activeDeviceCount,
+	SUM(IFNULL(ACTIVE_USER_COUNT,0)) activeUserCount,
+	SUM(IFNULL(REG_USER_COUNT,0)) regUserCount,
+	SUM(IFNULL(USER_PAY_COUNT,0)) userPayCount
+	from app_stat_user_daily
+	GROUP BY day_time HAVING day_time = #{_queryDate}
+</select>
+<!-- 根据城市编码查询数据 -->
+<select id="findStatUserByCityCode" resultMap="BaseResultMap"  parameterType="Object">
+	select day_time,city_code,
+	SUM(IFNULL(ACTIVE_DEVICE_COUNT,0)) activeDeviceCount,
+	SUM(IFNULL(ACTIVE_USER_COUNT,0)) activeUserCount,
+	SUM(IFNULL(REG_USER_COUNT,0)) regUserCount,
+	SUM(IFNULL(USER_PAY_COUNT,0)) userPayCount
+	from app_stat_user_daily
+	GROUP BY day_time,city_code 
+	having day_time = #{_queryDate} AND city_code like '${cityCode}%'
+</select>
+
+</mapper>   

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.TransactionDailyDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.TransactionDailyEntity" >
+	<result column="id" property="id"/>
+		<result column="day_time" property="dayTime"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="tran_success_count" property="tranSuccessCount"/>
+		<result column="tran_success_amount" property="tranSuccessAmount"/>
+		<result column="tran_fault_count" property="tranFaultCount"/>
+		<result column="tran_fault_amount" property="tranFaultAmount"/>
+		<result column="book_count" property="bookCount"/>
+		<result column="book_amount" property="bookAmount"/>
+		<result column="should_paid_amount" property="shouldPaidAmount"/>
+		<result column="actually_paid_amount" property="actuallyPaidAmount"/>
+		<result column="create_time" property="createTime"/>
+		<result column="city_name" property="cityName"/>
+		<result column="area_name" property="areaName"/>
+		<result column="cmbPayCount" property="cmbPayCount"/>
+		<result column="cmbPayAmount" property="cmbPayAmount"/>
+		<result column="alipayCounterFee" property="alipayCounterFee"/>
+		<result column="wxpayCounterFee" property="wxpayCounterFee"/>
+		<result column="cmbpayCounterFee" property="cmbpayCounterFee"/>
+		<result column="ticketDiscountCount" property="ticketDiscountCount"/>
+		<result column="ticketDiscountAmount" property="ticketDiscountAmount"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.day_time,
+		 t.city_code,
+		 t.tran_success_count,
+		 t.tran_success_amount,
+		 t.tran_fault_count,
+		 t.tran_fault_amount,
+		 t.book_count,
+		 t.book_amount,
+		 t.should_paid_amount,
+		 t.actually_paid_amount,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="dayTime != null and dayTime != '' " >
+    	and t.day_time =  #{dayTime}
+	</if>
+	<if test="cityCode != null and cityCode != '' " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="tranSuccessCount != null " >
+    	and t.tran_success_count =  #{tranSuccessCount}
+	</if>
+	<if test="tranSuccessAmount != null " >
+    	and t.tran_success_amount =  #{tranSuccessAmount}
+	</if>
+	<if test="tranFaultCount != null " >
+    	and t.tran_fault_count =  #{tranFaultCount}
+	</if>
+	<if test="tranFaultAmount != null " >
+    	and t.tran_fault_amount =  #{tranFaultAmount}
+	</if>
+	<if test="bookCount != null " >
+    	and t.book_count =  #{bookCount}
+	</if>
+	<if test="bookAmount != null " >
+    	and t.book_amount =  #{bookAmount}
+	</if>
+	<if test="shouldPaidAmount != null " >
+    	and t.should_paid_amount =  #{shouldPaidAmount}
+	</if>
+	<if test="actuallyPaidAmount != null " >
+    	and t.actually_paid_amount =  #{actuallyPaidAmount}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into STAT_TRANSACTION_DAILY 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="dayTime != null and dayTime != '' " >
+		 day_time,
+		</if>
+    	<if test="cityCode != null and cityCode != '' " >
+		 city_code,
+		</if>
+    	<if test="tranSuccessCount != null " >
+		tran_success_count,
+		</if>
+    	<if test="tranSuccessAmount != null " >
+		tran_success_amount,
+		</if>
+    	<if test="tranFaultCount != null " >
+		tran_fault_count,
+		</if>
+    	<if test="tranFaultAmount != null " >
+		tran_fault_amount,
+		</if>
+    	<if test="bookCount != null " >
+		book_count,
+		</if>
+    	<if test="bookAmount != null " >
+		book_amount,
+		</if>
+    	<if test="shouldPaidAmount != null " >
+		should_paid_amount,
+		</if>
+    	<if test="actuallyPaidAmount != null " >
+		actually_paid_amount,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="dayTime != null and dayTime != '' " >
+  		<![CDATA[  #{dayTime}, ]]>
+    	</if>
+    	<if test="cityCode != null and cityCode != '' " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="tranSuccessCount != null " >
+  		<![CDATA[  #{tranSuccessCount}, ]]>
+    	</if>
+    	<if test="tranSuccessAmount != null " >
+  		<![CDATA[  #{tranSuccessAmount}, ]]>
+    	</if>
+    	<if test="tranFaultCount != null " >
+  		<![CDATA[  #{tranFaultCount}, ]]>
+    	</if>
+    	<if test="tranFaultAmount != null " >
+  		<![CDATA[  #{tranFaultAmount}, ]]>
+    	</if>
+    	<if test="bookCount != null " >
+  		<![CDATA[  #{bookCount}, ]]>
+    	</if>
+    	<if test="bookAmount != null " >
+  		<![CDATA[  #{bookAmount}, ]]>
+    	</if>
+    	<if test="shouldPaidAmount != null " >
+  		<![CDATA[  #{shouldPaidAmount}, ]]>
+    	</if>
+    	<if test="actuallyPaidAmount != null " >
+  		<![CDATA[  #{actuallyPaidAmount}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update STAT_TRANSACTION_DAILY t set 
+   <trim suffixOverrides="," >
+	<if test="dayTime != null and dayTime != '' " >
+  	<![CDATA[  t.day_time = #{dayTime}, ]]>
+    </if>
+    <if test="cityCode != null and cityCode != '' " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="tranSuccessCount != null " >
+  	<![CDATA[  t.tran_success_count = #{tranSuccessCount}, ]]>
+    </if>
+    <if test="tranSuccessAmount != null " >
+  	<![CDATA[  t.tran_success_amount = #{tranSuccessAmount}, ]]>
+    </if>
+    <if test="tranFaultCount != null " >
+  	<![CDATA[  t.tran_fault_count = #{tranFaultCount}, ]]>
+    </if>
+    <if test="tranFaultAmount != null " >
+  	<![CDATA[  t.tran_fault_amount = #{tranFaultAmount}, ]]>
+    </if>
+    <if test="bookCount != null " >
+  	<![CDATA[  t.book_count = #{bookCount}, ]]>
+    </if>
+    <if test="bookAmount != null " >
+  	<![CDATA[  t.book_amount = #{bookAmount}, ]]>
+    </if>
+    <if test="shouldPaidAmount != null " >
+  	<![CDATA[  t.should_paid_amount = #{shouldPaidAmount}, ]]>
+    </if>
+    <if test="actuallyPaidAmount != null " >
+  	<![CDATA[  t.actually_paid_amount = #{actuallyPaidAmount}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from STAT_TRANSACTION_DAILY t where t.id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from STAT_TRANSACTION_DAILY t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from STAT_TRANSACTION_DAILY t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from STAT_TRANSACTION_DAILY t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+<!-- 列表总数-->
+<select id="queryDailyAndAreaByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from(
+	SELECT odr.CITY_CODE,odr.AREA_CODE,ba1.area_name city_name,ba2.area_name area_name,DATE_FORMAT(odr.CREATE_TIME,'%Y-%m-%d') dayTime,
+	COUNT(1) tranTotalCount,
+	SUM(PRICE) tranTotalAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 THEN 1 ELSE 0 END ) tranSuccessCount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 THEN PRICE ELSE 0 END ) tranSuccessAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS!=200 THEN 1 ELSE 0 END ) tranFaultCount,
+	SUM(CASE WHEN odr.ORDER_STATUS!=200 THEN PRICE ELSE 0 END ) tranFaultAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 AND LENGTH(odr.PARKRECORD_ID)>10 THEN 1 ELSE 0 END ) bookCount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 AND LENGTH(odr.PARKRECORD_ID)>10 THEN PRICE ELSE 0 END ) bookAmount
+	FROM app_order odr 
+	LEFT JOIN BASE_AREA ba1 ON odr.city_code = ba1.area_code
+	LEFT JOIN BASE_AREA ba2 ON odr.area_code = ba2.area_code
+	GROUP BY odr.CITY_CODE,odr.AREA_CODE,DATE_FORMAT(odr.CREATE_TIME,'%Y-%m-%d')
+	having 1=1
+	<trim  suffixOverrides="," >
+	<if test="areaCode != null and areaCode != '' ">
+	 and odr.AREA_CODE = #{areaCode}
+	</if>
+	<if test="dayTime != null and dayTime != '' ">
+	 and dayTime = #{dayTime}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+	 and odr.AREA_CODE LIKE '${userCityCode}%'
+	</if>
+	</trim>
+	) a
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryDailyAndAreaByList" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT odr.CITY_CODE,odr.AREA_CODE,ba1.area_name city_name,ba2.area_name area_name,DATE_FORMAT(odr.CREATE_TIME,'%Y-%m-%d') dayTime,
+	COUNT(1) tranTotalCount,
+	SUM(PRICE) tranTotalAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 THEN 1 ELSE 0 END ) tranSuccessCount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 AND odr.PAY_TYPE=1 THEN PRICE ELSE 0 END ) aliPaySuccessAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 AND odr.PAY_TYPE=2 THEN PRICE ELSE 0 END ) wxSuccessAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 THEN PRICE ELSE 0 END ) tranSuccessAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS!=200 THEN 1 ELSE 0 END ) tranFaultCount,
+	SUM(CASE WHEN odr.ORDER_STATUS!=200 THEN PRICE ELSE 0 END ) tranFaultAmount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 AND LENGTH(odr.PARKRECORD_ID)>10 THEN 1 ELSE 0 END ) bookCount,
+	SUM(CASE WHEN odr.ORDER_STATUS=200 AND LENGTH(odr.PARKRECORD_ID)>10 THEN PRICE ELSE 0 END ) bookAmount,
+	SUM(CASE WHEN odr.order_status = 200 AND pay_type = 5 THEN 1 ELSE 0 END) cmbPayCount,
+	SUM(CASE WHEN odr.order_status = 200 AND pay_type = 5 THEN odr.price ELSE 0 END) cmbPayAmount,
+	SUM(CASE WHEN odr.order_status = 200 AND pay_type = 1 THEN aop.COUNTER_FEE ELSE 0 END) alipayCounterFee,
+	SUM(CASE WHEN odr.order_status = 200 AND pay_type = 2 THEN aop.COUNTER_FEE ELSE 0 END) wxpayCounterFee,
+	SUM(CASE WHEN odr.order_status = 200 AND pay_type = 5 THEN aop.COUNTER_FEE ELSE 0 END) cmbpayCounterFee,
+	SUM(CASE WHEN odr.order_status = 200 AND aop.ACTIVITY_TYPE=1 THEN 1 ELSE 0 END) ticketDiscountCount,
+	SUM(CASE WHEN odr.order_status = 200 AND aop.ACTIVITY_TYPE=1 THEN ticket_fee ELSE 0 END) ticketDiscountAmount
+	FROM app_order odr 
+	LEFT JOIN app_order_paylog aop ON odr.order_no = aop.order_no
+	LEFT JOIN BASE_AREA ba1 ON odr.city_code = ba1.area_code
+	LEFT JOIN BASE_AREA ba2 ON odr.area_code = ba2.area_code
+	GROUP BY odr.CITY_CODE,odr.AREA_CODE,DATE_FORMAT(odr.CREATE_TIME,'%Y-%m-%d')
+	having 1=1
+	<trim  suffixOverrides="," >
+	<if test="areaCode != null and areaCode != '' ">
+	 and odr.AREA_CODE = #{areaCode}
+	</if>
+	<if test="dayTime != null and dayTime != '' ">
+	 and dayTime = #{dayTime}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+	 and odr.AREA_CODE LIKE '${userCityCode}%'
+	</if>
+	</trim>
+	<if test="pager.orderCondition == ''">
+		ORDER BY DATE_FORMAT(odr.CREATE_TIME,'%Y-%m-%d') DESC
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+</mapper>   

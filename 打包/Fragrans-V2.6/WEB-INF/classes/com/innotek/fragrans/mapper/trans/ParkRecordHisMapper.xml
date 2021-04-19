@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.trans.ParkRecordHisDao" >
+
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.trans.ParkRecordHis" >
+		<result column="park_record_id" property="parkRecordId"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_name" property="areaName"/>
+		<result column="park_id" property="parkId"/>
+		<result column="park_name" property="parkName"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="plate_color" property="plateColor"/>
+		<result column="plate_color_name" property="plateColorName"/>
+		<result column="arrive_time" property="arriveTime"/>
+		<result column="departure_time" property="departureTime"/>
+		<result column="unpaid_fee" property="unpaidFee"/>
+	</resultMap>
+
+	<!-- Result Map-->
+	<resultMap id="RecordTotalMap" type="com.innotek.fragrans.entity.trans.ParkRecordHis" >
+		<result column="city_code" property="cityCode"/>
+		<result column="area_name" property="areaName"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="plate_color" property="plateColor"/>
+		<result column="plate_color_name" property="plateColorName"/>
+		<result column="unpaid_amount" property="unpaidAmount"/>
+		<result column="unpaid_count" property="unpaidCount"/>
+	</resultMap>
+
+	<!-- Result Map-->
+	<resultMap id="CityTotalMap" type="com.innotek.fragrans.entity.trans.ParkRecordHis" >
+		<result column="city_code" property="cityCode"/>
+		<result column="area_name" property="areaName"/>
+		<result column="unpaid_amount" property="unpaidAmount"/>
+		<result column="unpaid_count" property="unpaidCount"/>
+		<result column="city_status" property="cityStatus"/>
+	</resultMap>
+
+	<!-- Result Map-->
+	<resultMap id="DictionaryParamsMap" type="com.innotek.fragrans.entity.constans.DictionaryParams" >
+		<result column="code_type" property="codeType"/>
+		<result column="code_value" property="codeValue"/>
+		<result column="code_text" property="codeText"/>
+	</resultMap>
+
+	<!-- Result Map-->
+	<resultMap id="CityParamsMap" type="com.innotek.fragrans.entity.constans.CityParams" >
+		<result column="area_code" property="areaCode"/>
+		<result column="area_name" property="areaName"/>
+	</resultMap>
+
+	<!-- table all fields -->
+	<sql id="Base_Column_List" >
+		o.id,
+		o.park_record_id,
+		o.owefee_record_id,
+		o.city_code,
+		o.park_name,
+		o.plate_no,
+		o.plate_color,
+		o.arrive_time,
+		o.departure_time,
+		o.unpaid_fee,
+		o.status,
+		o.update_time,
+		o.create_time,
+		o.order_status
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+	<trim  suffixOverrides="," >
+		<if test="plateNo != null" >
+			and o.plate_no = #{plateNo}
+		</if>
+		<if test="plateColor != null and plateColor != '' " >
+			and o.plate_color =  #{plateColor}
+		</if>
+		</trim>
+	</sql>
+ 
+	<!-- 根据条件查询总数 -->
+	<select id="queryTotalByParam"  resultMap="RecordTotalMap" parameterType="Object">
+		select
+			owe.city_code,
+			ba.area_name,
+			owe.plate_no,
+			owe.plate_color,
+			bd.code_text plate_color_name,
+			sum(IFNULL(owe.unpaid_fee,0)) unpaid_amount,
+			count(*) unpaid_count
+		from
+			owefee_record owe
+			LEFT JOIN base_area ba ON ba.area_code = owe.city_code
+			LEFT JOIN base_dictionary bd ON bd.code_type = 'PLATE_COLOR' AND bd.code_value = owe.plate_color
+		WHERE
+			ba.is_batchpay = 1
+			AND ba.is_online = 1
+			AND owe.order_status != 200
+			AND owe.status = 0
+			AND owe.plate_no = #{plateNo}
+			AND owe.plate_color = #{plateColor}
+			AND owe.unpaid_fee > 0
+		<if test="parkRecordId != null">
+			AND owe.park_record_id!= #{parkRecordId}
+		</if>
+		GROUP BY
+		    owe.city_code
+	</select>
+
+	<!-- 根据条件查询总数 -->
+	<select id="queryTotalByCityCode"  resultMap="CityTotalMap" parameterType="Object">
+		select
+			owe.city_code,
+			ba.area_name,
+			sum(IFNULL(owe.unpaid_fee,0)) unpaid_amount,
+			count(*) unpaid_count,
+			owe.city_status
+		from
+			owefee_record owe
+			LEFT JOIN base_area ba ON ba.area_code = owe.city_code
+		WHERE
+			ba.is_batchpay = 1
+			AND ba.is_online = 1
+			AND owe.order_status != 200
+			AND owe.status = 0
+			AND owe.plate_no = #{plateNo}
+			AND owe.plate_color = #{plateColor}
+			AND owe.city_code = #{cityCode}
+			AND owe.unpaid_fee > 0
+		<if test="parkRecordId != null">
+			AND owe.park_record_id!= #{parkRecordId}
+		</if>
+	</select>
+
+	<!-- 根据条件查询详情 -->
+	<select id="queryListByParam"  resultMap="BaseResultMap" parameterType="Object">
+		select
+			o.park_record_id,
+			o.city_code,
+			ba.area_name,
+			o.park_id,
+			o.park_name,
+			o.plate_no,
+			o.plate_color,
+			bd.code_text plate_color_name,
+			o.arrive_time,
+			o.departure_time,
+			o.unpaid_fee,
+			o.city_status
+		from
+			owefee_record o
+			LEFT JOIN base_area ba ON ba.area_code = o.city_code
+			LEFT JOIN base_dictionary bd ON bd.code_type = 'PLATE_COLOR' AND bd.code_value = o.plate_color
+		where
+			o.order_status!=200
+			AND o.status = 0
+			AND o.unpaid_fee > 0
+			<if test="plateNo != null" >
+				and o.plate_no = #{plateNo}
+			</if>
+			<if test="plateColor != null and plateColor != '' " >
+				and o.plate_color =  #{plateColor}
+			</if>
+			<if test="cityCode != null and cityCode != '' " >
+				and o.city_code =  #{cityCode}
+			</if>
+			<if test="parkRecordId != null and parkRecordId != '' " >
+				and o.park_record_Id !=  #{parkRecordId}
+			</if>
+		ORDER BY
+			ARRIVE_TIME DESC
+		LIMIT #{startRow},#{endRow}
+
+	</select>
+
+	<!-- 根据条件修改状态 -->
+	<select id="updateOwefeeStatus"  parameterType="java.util.HashMap">
+		update
+			owefee_record
+		set
+			order_status = #{orderStatus}
+		where
+			order_status = "100"
+			AND city_code = #{cityCode}
+			AND park_record_id IN
+			<foreach collection="list" item = "item" index="index" open ="(" close=")" separator=",">
+				#{item}
+			</foreach>
+	</select>
+
+	<select id="queryDictionaryParams" resultMap="DictionaryParamsMap">
+		select
+			code_type,
+			code_text,
+			code_value
+		from
+			base_dictionary
+	</select>
+
+	<select id="queryCityParams" resultMap="CityParamsMap">
+		select
+			area_code,
+			area_name
+		from
+			base_area
+	</select>
+
+
+</mapper>

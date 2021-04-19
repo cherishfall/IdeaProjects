@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.fragrans.dao.InductionDataSyncDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.InductionDataSync">
+		<result column="id" property="id" />
+		<result column="area_code" property="areaCode" />
+		<result column="area_name" property="areaName" />
+		<result column="app_id" property="appId" />
+		<result column="APP_KEY" property="appKey" />
+		<result column="app_name" property="appName" />
+		<result column="expired_day" property="expiredTime" />
+		<result column="app_status" property="appStatus" />
+		<result column="app_desc" property="appDesc" />
+		<result column="auth_ip" property="authIp" />
+		<result column="flag" property="flag" />
+		<result column="sync_last_update_time" property="sync_last_update_time" />
+		<result column="created_by" property="createBy" />
+		<result column="updated_by" property="updateBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		where 1 = 1 and flag !='DELETE'
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				and area_code = #{areaCode}
+			</if>
+			<if test="areaName != null and areaName != ''">
+				and area_name like CONCAT(#{areaName},'%')
+			</if>
+			<if test="appId != null and appId != '' ">
+				and app_id LIKE CONCAT(#{appId},'%')
+			</if>
+			<if test="appKey != null and appKey != ''">
+				and app_key LIKE CONCAT(#{appKey},'%')
+			</if>
+			<if test="appName != null and appName != ''">
+				and app_name LIKE CONCAT(#{appName},'%')
+			</if>
+
+			<if test="expiredTime != null and expiredTime != ''">
+				and expired_day like CONCAT(#{expiredTime},'%')
+			</if>
+			<if test="appStatus != null and appStatus != ''">
+				and app_status =#{appStatus}
+			</if>
+		</trim>
+	</sql>
+	<select id="queryByList" parameterType="Object" resultMap="BaseResultMap">
+		SELECT
+		id,
+		area_code,
+		area_name,
+		app_id,
+		APP_KEY,
+		app_name,
+		expired_day,
+		app_status,
+		app_desc,
+		auth_ip,
+		flag,
+		sync_last_update_time,
+		created_by,
+		updated_by,
+		create_time,
+		update_time
+		FROM trans_app_sync_key
+		<include refid="Example_Where_Clause" />
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	<select id="queryById" parameterType="Object" resultMap="BaseResultMap">
+		SELECT
+		id,
+		area_code,
+		area_name,
+		app_id,
+		APP_KEY,
+		app_name,
+		expired_day,
+		app_status,
+		app_desc,
+		auth_ip,
+		flag,
+		sync_last_update_time,
+		created_by,
+		updated_by,
+		create_time,
+		update_time
+		FROM trans_app_sync_key
+		where
+		id=#{id}
+	</select>
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from trans_app_sync_key
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<select id="add" parameterType="Object">
+		insert into trans_app_sync_key
+		<trim prefix="(" suffixOverrides="," suffix=")">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				area_code,
+			</if>
+			<if test="areaName != null and areaName != ''">
+				area_name,
+			</if>
+			<if test="appId != null and appId != '' ">
+				app_id,
+			</if>
+			<if test="appKey != null and appKey != ''">
+				app_key,
+			</if>
+			<if test="appName != null and appName != ''">
+				app_name,
+			</if>
+
+			<if test="expiredTime != null and expiredTime != ''">
+				expired_day,
+			</if>
+			<if test="appStatus != null and appStatus != ''">
+				app_status,
+			</if>
+			<if test="appDesc != null and appDesc != ''">
+				app_desc,
+			</if>
+			<if test="authIp != null and authIp != ''">
+				auth_ip,
+			</if>
+			flag,
+			<if test="createBy != null and createBy != ''">
+				created_by,
+			</if>
+
+			create_time,
+
+		</trim>
+		values
+		<trim prefix="(" suffixOverrides="," suffix=")">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				#{areaCode},
+			</if>
+			<if test="areaName != null and areaName != ''">
+				#{areaName},
+			</if>
+			<if test="appId != null and appId != '' ">
+				#{appId},
+			</if>
+			<if test="appKey != null and appKey != ''">
+				#{appKey},
+			</if>
+			<if test="appName != null and appName != ''">
+				#{appName},
+			</if>
+
+			<if test="expiredTime != null and expiredTime != ''">
+				#{expiredTime},
+			</if>
+			<if test="appStatus != null and appStatus != ''">
+				#{appStatus},
+			</if>
+			<if test="appDesc != null and appDesc != ''">
+				#{appDesc},
+			</if>
+			<if test="authIp != null and authIp != ''">
+				#{authIp},
+			</if>
+			'ADD',
+			<if test="createBy != null and createBy != ''">
+				#{createBy},
+			</if>
+			now()
+		</trim>
+	</select>
+
+	<update id="update" parameterType="Object">
+		update trans_app_sync_key set
+		<trim suffixOverrides=",">
+
+			<if test="areaCode != null and areaCode != ''">
+				area_code=#{areaCode},
+			</if>
+			<if test="areaName != null and areaName != ''">
+				area_name=#{areaName},
+			</if>
+			<if test="appId != null and appId != '' ">
+				app_id=#{appId},
+			</if>
+			<if test="appKey != null and appKey != ''">
+				app_key=#{appKey},
+			</if>
+			<if test="appName != null and appName != ''">
+				app_name=#{appName},
+			</if>
+
+			<if test="expiredTime != null and expiredTime != ''">
+				expired_day=#{expiredTime},
+			</if>
+			<if test="appStatus != null and appStatus != ''">
+				app_status=#{appStatus},
+			</if>
+			<if test="appDesc != null and appDesc != ''">
+				app_desc=#{appDesc},
+			</if>
+			<if test="authIp != null and authIp != ''">
+				auth_ip=#{authIp},
+			</if>
+			sync_last_update_time=now(),
+			flag='UPDATE',
+			<if test="updateBy != null and updateBy != ''">
+				updated_by=#{updateBy}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time=now()
+			</if>
+		</trim>
+		<where>
+			<if test="id != null">
+				id=#{id}
+			</if>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="Object">
+		update trans_app_sync_key set
+		flag='DELETE',
+		update_time= now()
+		where id=#{id}
+	</delete>
+</mapper>

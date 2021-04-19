@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.push.dao.appsystem.PushTaskRelDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.PushTaskRel" >
+	<result column="id" property="id"/>
+		<result column="task_id" property="taskId"/>
+		<result column="user_id" property="userId"/>
+		<result column="client_id" property="clientId"/>
+		<result column="send_time" property="sendTime"/>
+		<result column="is_read" property="isRead"/>
+		<result column="push_status" property="pushStatus"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="device_type" property="deviceType"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.task_id,
+		 t.user_id,
+		 t.client_id,
+		 t.send_time,
+		 t.is_read,
+		 t.push_status,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="taskId != null and taskId != '' " >
+    	and t.task_id =  #{taskId}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="clientId != null and clientId != '' " >
+    	and t.client_id =  #{clientId}
+	</if>
+	<if test="sendTime != null " >
+    	and t.send_time =  #{sendTime}
+	</if>
+	<if test="isRead != null " >
+    	and t.is_read =  #{isRead}
+	</if>
+	<if test="pushStatus != null " >
+    	and t.push_status =  #{pushStatus}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_push_task_rel 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	  	<if test="deviceType != null " >
+		 device_type,
+		</if>
+	 	<if test="taskId != null and taskId != '' " >
+		 task_id,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="clientId != null and clientId != '' " >
+		 client_id,
+		</if>
+    	<if test="sendTime != null " >
+		send_time,
+		</if>
+    	<if test="isRead != null " >
+		is_read,
+		</if>
+    	<if test="pushStatus != null " >
+		push_status,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	now(),
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="deviceType != null " >
+  		<![CDATA[  #{deviceType}, ]]>
+    	</if>
+	 	<if test="taskId != null and taskId != '' " >
+  		<![CDATA[  #{taskId}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="clientId != null and clientId != '' " >
+  		<![CDATA[  #{clientId}, ]]>
+    	</if>
+    	<if test="sendTime != null " >
+  		<![CDATA[  #{sendTime}, ]]>
+    	</if>
+    	<if test="isRead != null " >
+  		<![CDATA[  #{isRead}, ]]>
+    	</if>
+    	<if test="pushStatus != null " >
+  		<![CDATA[  #{pushStatus}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_push_task_rel t set 
+   <trim suffixOverrides="," >
+	<if test="taskId != null and taskId != '' " >
+  	<![CDATA[  t.task_id = #{taskId}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="clientId != null and clientId != '' " >
+  	<![CDATA[  t.client_id = #{clientId}, ]]>
+    </if>
+    <if test="sendTime != null " >
+  	<![CDATA[  t.send_time = #{sendTime}, ]]>
+    </if>
+    <if test="isRead != null " >
+  	<![CDATA[  t.is_read = #{isRead}, ]]>
+    </if>
+    <if test="pushStatus != null " >
+  	<![CDATA[  t.push_status = #{pushStatus}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+  	<![CDATA[  t.update_time = now(), ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_push_task_rel where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_push_task_rel t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_push_task_rel t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_push_task_rel t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 获取所有消息未下发的记录 -->
+<select id="findAllUnSendRecord" resultMap="BaseResultMap" >
+	SELECT * FROM app_push_task_rel WHERE push_status = 0
+</select>
+
+<!-- 获取所有消息未下发的记录归属任务-->
+<select id="findTaskListByRel" resultMap="BaseResultMap" >
+	SELECT * FROM app_push_task_rel WHERE push_status = 0 GROUP BY task_id
+</select>
+
+<!-- 更新消息下发执行状态-->
+<select id="updatePushTaskRelStatus" parameterType="Object">
+	UPDATE app_push_task_rel  t
+	SET 
+	<if test="pushStatus != null " >
+  		<![CDATA[  t.push_status = #{pushStatus}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="updateTime != null " >
+    	<![CDATA[  t.update_time = #{updateTime}]]> 
+    </if>
+	where t.task_id = #{taskId}
+</select>
+</mapper>   

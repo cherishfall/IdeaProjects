@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.point.UserPointRecordDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.point.UserPointRecord" >
+	<result column="id" property="id"/>
+		<result column="point_conf_id" property="pointConfId"/>
+		<result column="point_limit_id" property="pointLimitId"/>
+		<result column="user_id" property="userId"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="status" property="status"/>
+		<result column="point_method" property="pointMethod"/>
+		<result column="change_point" property="changePoint"/>
+		<result column="point_change_desc" property="pointChangeDesc"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<resultMap id="UserPointRecordsMap" type="com.innotek.fragrans.entity.point.GetUserPointRecordsItem" >
+	    <result column="point_method" property="pointType"/>
+		<result column="point_change_desc" property="pointDesc"/>
+		<result column="status" property="status"/>
+		<result column="change_point" property="point"/>
+		<result column="create_time" property="date"/>
+	</resultMap>
+	
+	<resultMap id="SignUserItemMap" type="com.innotek.fragrans.entity.point.GetSignUserItem" >
+	    <result column="sign_count" property="signCount"/>
+		<result column="user_id" property="userId"/>
+		<result column="last_sign_time" property="lastSignTime"/>
+	</resultMap>	
+	
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.point_conf_id,
+		 t.point_limit_id,
+		 t.user_id,
+		 t.order_no,
+		 t.status,
+		 t.point_method,
+		 t.change_point,
+		 t.point_change_desc,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="pointConfId != null and pointConfId != '' " >
+    	and t.point_conf_id =  #{pointConfId}
+	</if>
+	<if test="pointLimitId != null and pointLimitId != '' " >
+    	and t.point_limit_id =  #{pointLimitId}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="status != null " >
+    	and t.status =  #{status}
+	</if>
+	<if test="pointMethod != null " >
+    	and t.point_method =  #{pointMethod}
+	</if>
+	<if test="changePoint != null " >
+    	and t.change_point =  #{changePoint}
+	</if>
+	<if test="pointChangeDesc != null and pointChangeDesc != '' " >
+    	and t.point_change_desc =  #{pointChangeDesc}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_user_point_record 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="pointConfId != null and pointConfId != '' " >
+		 point_conf_id,
+		</if>
+    	<if test="pointLimitId != null and pointLimitId != '' " >
+		 point_limit_id,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="status != null " >
+		status,
+		</if>
+    	<if test="pointMethod != null " >
+		point_method,
+		</if>
+    	<if test="changePoint != null " >
+		change_point,
+		</if>
+    	<if test="pointChangeDesc != null and pointChangeDesc != '' " >
+		 point_change_desc,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="pointConfId != null and pointConfId != '' " >
+  		<![CDATA[  #{pointConfId}, ]]>
+    	</if>
+    	<if test="pointLimitId != null and pointLimitId != '' " >
+  		<![CDATA[  #{pointLimitId}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="status != null " >
+  		<![CDATA[  #{status}, ]]>
+    	</if>
+    	<if test="pointMethod != null " >
+  		<![CDATA[  #{pointMethod}, ]]>
+    	</if>
+    	<if test="changePoint != null " >
+  		<![CDATA[  #{changePoint}, ]]>
+    	</if>
+    	<if test="pointChangeDesc != null and pointChangeDesc != '' " >
+  		<![CDATA[  #{pointChangeDesc}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_point_record t set 
+   <trim suffixOverrides="," >
+	<if test="pointConfId != null and pointConfId != '' " >
+  	<![CDATA[  t.point_conf_id = #{pointConfId}, ]]>
+    </if>
+    <if test="pointLimitId != null and pointLimitId != '' " >
+  	<![CDATA[  t.point_limit_id = #{pointLimitId}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="status != null " >
+  	<![CDATA[  t.status = #{status}, ]]>
+    </if>
+    <if test="pointMethod != null " >
+  	<![CDATA[  t.point_method = #{pointMethod}, ]]>
+    </if>
+    <if test="changePoint != null " >
+  	<![CDATA[  t.change_point = #{changePoint}, ]]>
+    </if>
+    <if test="pointChangeDesc != null and pointChangeDesc != '' " >
+  	<![CDATA[  t.point_change_desc = #{pointChangeDesc}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_point_record where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_point_record t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_point_record t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_point_record t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询用户积分明细 -->
+<select id="findRecordCountByUserId" resultType="java.lang.Integer" parameterType="java.lang.String">
+	SELECT COUNT(1) FROM app_user_point_record  
+	WHERE user_id = #{_parameter}
+</select>
+
+<!-- 分页查询用户积分明细 -->
+<select id="findRecordsByUserId" resultMap="UserPointRecordsMap"  parameterType="java.util.Map">
+	SELECT t.point_method,t.point_change_desc,t.status,t.change_point,t.create_time
+	FROM app_user_point_record t
+	WHERE t.user_id = #{userId}
+	ORDER BY t.create_time DESC,t.POINT_CHANGE_DESC DESC
+	limit #{pageIndex},#{pageLength}
+</select>
+
+<!-- 查询用户今日签到获取积分 -->
+<select id="findTodayPointByUserId" resultType="java.lang.String" parameterType="java.lang.String">
+	SELECT SUM(t.point) todayPoint FROM app_user_sign_record t
+	WHERE t.user_id = #{_parameter}
+	AND DATE_FORMAT(t.create_time,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')
+</select>
+
+<!-- 查询积分变动 -->
+<select id="findByOrderNo" resultType="java.lang.String" parameterType="java.lang.String">
+	SELECT t.CHANGE_POINT
+	FROM app_user_point_record t 
+	WHERE t.order_no = #{_parameter}
+</select>
+
+<!-- 查询用户 连续签到次数 -->
+<select id="findUserContinuitySignCount" resultMap="SignUserItemMap" >
+ SELECT A.id as user_id,B.sign_count,B.last_sign_time FROM app_user A 
+      LEFT JOIN app_user_member B ON A.id = B.user_id 
+</select>
+
+</mapper>   

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.UserActionDailyDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.UserActionDailyEntity" >
+	<result column="id" property="id"/>
+		<result column="day_time" property="dayTime"/>
+		<result column="device_no" property="deviceNo"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="personal_info_count" property="personalInfoCount"/>
+		<result column="wallet_count" property="walletCount"/>
+		<result column="book_count" property="bookCount"/>
+		<result column="message_count" property="messageCount"/>
+		<result column="set_count" property="setCount"/>
+		<result column="search_count" property="searchCount"/>
+		<result column="pay_count" property="payCount"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.day_time,
+		 t.device_no,
+		 t.user_id,
+		 t.personal_info_count,
+		 t.wallet_count,
+		 t.book_count,
+		 t.message_count,
+		 t.set_count,
+		 t.search_count,
+		 t.pay_count,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="dayTime != null " >
+    	and t.day_time =  #{dayTime}
+	</if>
+	<if test="deviceNo != null and deviceNo != '' " >
+    	and t.device_no =  #{deviceNo}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="personalInfoCount != null " >
+    	and t.personal_info_count =  #{personalInfoCount}
+	</if>
+	<if test="walletCount != null " >
+    	and t.wallet_count =  #{walletCount}
+	</if>
+	<if test="bookCount != null " >
+    	and t.book_count =  #{bookCount}
+	</if>
+	<if test="messageCount != null " >
+    	and t.message_count =  #{messageCount}
+	</if>
+	<if test="setCount != null " >
+    	and t.set_count =  #{setCount}
+	</if>
+	<if test="searchCount != null " >
+    	and t.search_count =  #{searchCount}
+	</if>
+	<if test="payCount != null " >
+    	and t.pay_count =  #{payCount}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into APP_USER_ACTION_UPLOAD 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="dayTime != null " >
+		day_time,
+		</if>
+    	<if test="deviceNo != null and deviceNo != '' " >
+		 device_no,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="personalInfoCount != null " >
+		personal_info_count,
+		</if>
+    	<if test="walletCount != null " >
+		wallet_count,
+		</if>
+    	<if test="bookCount != null " >
+		book_count,
+		</if>
+    	<if test="messageCount != null " >
+		message_count,
+		</if>
+    	<if test="setCount != null " >
+		set_count,
+		</if>
+    	<if test="searchCount != null " >
+		search_count,
+		</if>
+    	<if test="payCount != null " >
+		pay_count,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="dayTime != null " >
+  		<![CDATA[  #{dayTime}, ]]>
+    	</if>
+    	<if test="deviceNo != null and deviceNo != '' " >
+  		<![CDATA[  #{deviceNo}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="personalInfoCount != null " >
+  		<![CDATA[  #{personalInfoCount}, ]]>
+    	</if>
+    	<if test="walletCount != null " >
+  		<![CDATA[  #{walletCount}, ]]>
+    	</if>
+    	<if test="bookCount != null " >
+  		<![CDATA[  #{bookCount}, ]]>
+    	</if>
+    	<if test="messageCount != null " >
+  		<![CDATA[  #{messageCount}, ]]>
+    	</if>
+    	<if test="setCount != null " >
+  		<![CDATA[  #{setCount}, ]]>
+    	</if>
+    	<if test="searchCount != null " >
+  		<![CDATA[  #{searchCount}, ]]>
+    	</if>
+    	<if test="payCount != null " >
+  		<![CDATA[  #{payCount}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update APP_USER_ACTION_UPLOAD t set 
+   <trim suffixOverrides="," >
+	<if test="dayTime != null " >
+  	<![CDATA[  t.day_time = #{dayTime}, ]]>
+    </if>
+    <if test="deviceNo != null and deviceNo != '' " >
+  	<![CDATA[  t.device_no = #{deviceNo}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="personalInfoCount != null " >
+  	<![CDATA[  t.personal_info_count = #{personalInfoCount}, ]]>
+    </if>
+    <if test="walletCount != null " >
+  	<![CDATA[  t.wallet_count = #{walletCount}, ]]>
+    </if>
+    <if test="bookCount != null " >
+  	<![CDATA[  t.book_count = #{bookCount}, ]]>
+    </if>
+    <if test="messageCount != null " >
+  	<![CDATA[  t.message_count = #{messageCount}, ]]>
+    </if>
+    <if test="setCount != null " >
+  	<![CDATA[  t.set_count = #{setCount}, ]]>
+    </if>
+    <if test="searchCount != null " >
+  	<![CDATA[  t.search_count = #{searchCount}, ]]>
+    </if>
+    <if test="payCount != null " >
+  	<![CDATA[  t.pay_count = #{payCount}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from APP_USER_ACTION_UPLOAD where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from APP_USER_ACTION_UPLOAD t where t.id = #{id}
+</select>
+
+<sql id="Action_Column_List" >
+		 t.day_time,
+		 au.user_account,
+		 t.device_no,
+		 t.user_id,
+		 t.personal_info_count,
+		 t.wallet_count,
+		 t.book_count,
+		 t.message_count,
+		 t.set_count,
+		 t.search_count,
+		 t.pay_count,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from APP_USER_ACTION_UPLOAD t 
+	left join app_user au on t.user_id = au.id
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Action_Column_List"/>
+	from APP_USER_ACTION_UPLOAD t 
+	left join app_user au on t.user_id = au.id
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+</mapper>   

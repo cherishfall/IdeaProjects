@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.fanc.FancOrderSpmsDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.fanc.FancOrderSpms" >
+	<result column="id" property="id"/>
+		<result column="stat_date" property="statDate"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="park_id" property="parkId"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="pay_type" property="payType"/>
+		<result column="order_type" property="orderType"/>
+		<result column="price" property="price"/>
+		<result column="refund_no" property="refundNo"/>
+		<result column="refund_fee" property="refundFee"/>
+		<result column="berth_code" property="berthCode"/>
+		<result column="park_name" property="parkName"/>
+		<result column="park_durations" property="parkDurations"/>
+		<result column="arrive_time" property="arriveTime"/>
+		<result column="departure_time" property="departureTime"/>
+		<result column="exception_type" property="exceptionType"/>
+		<result column="park_type" property="parkType"/>
+		<result column="error_type" property="errorType"/>
+		<result column="area_name" property="cityName"/>
+		<result column="error_desc" property="errorDesc"/>
+		<result column="refund_time" property="refundTime"/>
+		<result column="is_white" property="isWhite"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.stat_date,
+		 t.city_code,
+		 t.order_no,
+		 t.park_id,
+		 t.parkrecord_id,
+		 t.plate_no,
+		 t.pay_type,
+		 t.order_type,
+		 t.price,
+		 t.refund_no,
+		 t.refund_fee,
+		 t.berth_code,
+		 t.park_name,
+		 t.park_durations,
+		 t.arrive_time,
+		 t.departure_time,
+		 t.exception_type,
+		 t.park_type,
+		 t.error_type,
+		 t.error_desc,
+		 t.is_white,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="statDate != null " >
+    	and t.stat_date = #{statDate}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="parkId != null and parkId != '' " >
+    	and t.park_id =  #{parkId}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="plateNo != null and plateNo != '' " >
+    	and t.plate_no =  #{plateNo}
+	</if>
+	<if test="payType != null and payType != '' " >
+    	and t.pay_type =  #{payType}
+	</if>
+	<if test="orderType != null and orderType != '' " >
+    	and t.order_type =  #{orderType}
+	</if>
+	<if test="price != null " >
+    	and t.price =  #{price}
+	</if>
+	<if test="refundNo != null and refundNo != '' " >
+    	and t.refund_no =  #{refundNo}
+	</if>
+	<if test="refundFee != null " >
+    	and t.refund_fee =  #{refundFee}
+	</if>
+	<if test="berthCode != null and berthCode != '' " >
+    	and t.berth_code =  #{berthCode}
+	</if>
+	<if test="parkName != null and parkName != '' " >
+    	and t.park_name =  #{parkName}
+	</if>
+	<if test="parkDurations != null and parkDurations != '' " >
+    	and t.park_durations =  #{parkDurations}
+	</if>
+	<if test="arriveTime != null " >
+    	and t.arrive_time =  #{arriveTime}
+	</if>
+	<if test="departureTime != null " >
+    	and t.departure_time =  #{departureTime}
+	</if>
+	<if test="exceptionType != null " >
+    	and t.exception_type =  #{exceptionType}
+	</if>
+	<if test="parkType != null " >
+    	and t.park_type =  #{parkType}
+	</if>
+	<if test="errorType != null " >
+    	and t.error_type =  #{errorType}
+	</if>
+	<if test="isWhite != null " >
+    	and t.is_white =  #{isWhite}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into fanc_order_spms 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="statDate != null " >
+		stat_date,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="parkId != null and parkId != '' " >
+		 park_id,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="plateNo != null and plateNo != '' " >
+		 plate_no,
+		</if>
+    	<if test="payType != null and payType != '' " >
+		 pay_type,
+		</if>
+    	<if test="orderType != null and orderType != '' " >
+		 order_type,
+		</if>
+    	<if test="price != null " >
+		price,
+		</if>
+    	<if test="refundNo != null and refundNo != '' " >
+		 refund_no,
+		</if>
+    	<if test="refundFee != null " >
+		refund_fee,
+		</if>
+    	<if test="berthCode != null and berthCode != '' " >
+		 berth_code,
+		</if>
+    	<if test="parkName != null and parkName != '' " >
+		 park_name,
+		</if>
+    	<if test="parkDurations != null and parkDurations != '' " >
+		 park_durations,
+		</if>
+    	<if test="arriveTime != null " >
+		arrive_time,
+		</if>
+    	<if test="departureTime != null " >
+		departure_time,
+		</if>
+    	<if test="exceptionType != null " >
+		exception_type,
+		</if>
+    	<if test="parkType != null " >
+		park_type,
+		</if>
+    	<if test="errorType != null " >
+		error_type,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="statDate != null " >
+  		<![CDATA[  #{statDate}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="parkId != null and parkId != '' " >
+  		<![CDATA[  #{parkId}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="plateNo != null and plateNo != '' " >
+  		<![CDATA[  #{plateNo}, ]]>
+    	</if>
+    	<if test="payType != null and payType != '' " >
+  		<![CDATA[  #{payType}, ]]>
+    	</if>
+    	<if test="orderType != null and orderType != '' " >
+  		<![CDATA[  #{orderType}, ]]>
+    	</if>
+    	<if test="price != null " >
+  		<![CDATA[  #{price}, ]]>
+    	</if>
+    	<if test="refundNo != null and refundNo != '' " >
+  		<![CDATA[  #{refundNo}, ]]>
+    	</if>
+    	<if test="refundFee != null " >
+  		<![CDATA[  #{refundFee}, ]]>
+    	</if>
+    	<if test="berthCode != null and berthCode != '' " >
+  		<![CDATA[  #{berthCode}, ]]>
+    	</if>
+    	<if test="parkName != null and parkName != '' " >
+  		<![CDATA[  #{parkName}, ]]>
+    	</if>
+    	<if test="parkDurations != null and parkDurations != '' " >
+  		<![CDATA[  #{parkDurations}, ]]>
+    	</if>
+    	<if test="arriveTime != null " >
+  		<![CDATA[  #{arriveTime}, ]]>
+    	</if>
+    	<if test="departureTime != null " >
+  		<![CDATA[  #{departureTime}, ]]>
+    	</if>
+    	<if test="exceptionType != null " >
+  		<![CDATA[  #{exceptionType}, ]]>
+    	</if>
+    	<if test="parkType != null " >
+  		<![CDATA[  #{parkType}, ]]>
+    	</if>
+    	<if test="errorType != null " >
+  		<![CDATA[  #{errorType}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update fanc_order_spms t set 
+   <trim suffixOverrides="," >
+	<if test="statDate != null " >
+  	<![CDATA[  t.stat_date =#{statDate}, ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="parkId != null and parkId != '' " >
+  	<![CDATA[  t.park_id = #{parkId}, ]]>
+    </if>
+    <if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="plateNo != null and plateNo != '' " >
+  	<![CDATA[  t.plate_no = #{plateNo}, ]]>
+    </if>
+    <if test="payType != null and payType != '' " >
+  	<![CDATA[  t.pay_type = #{payType}, ]]>
+    </if>
+    <if test="orderType != null and orderType != '' " >
+  	<![CDATA[  t.order_type = #{orderType}, ]]>
+    </if>
+    <if test="price != null " >
+  	<![CDATA[  t.price = #{price}, ]]>
+    </if>
+    <if test="refundNo != null and refundNo != '' " >
+  	<![CDATA[  t.refund_no = #{refundNo}, ]]>
+    </if>
+    <if test="refundFee != null " >
+  	<![CDATA[  t.refund_fee = #{refundFee}, ]]>
+    </if>
+    <if test="berthCode != null and berthCode != '' " >
+  	<![CDATA[  t.berth_code = #{berthCode}, ]]>
+    </if>
+    <if test="parkName != null and parkName != '' " >
+  	<![CDATA[  t.park_name = #{parkName}, ]]>
+    </if>
+    <if test="parkDurations != null and parkDurations != '' " >
+  	<![CDATA[  t.park_durations = #{parkDurations}, ]]>
+    </if>
+    <if test="arriveTime != null " >
+  	<![CDATA[  t.arrive_time = #{arriveTime}, ]]>
+    </if>
+    <if test="departureTime != null " >
+  	<![CDATA[  t.departure_time = #{departureTime}, ]]>
+    </if>
+    <if test="exceptionType != null " >
+  	<![CDATA[  t.exception_type = #{exceptionType}, ]]>
+    </if>
+    <if test="parkType != null " >
+  	<![CDATA[  t.park_type = #{parkType}, ]]>
+    </if>
+    <if test="errorType != null " >
+  	<![CDATA[  t.error_type = #{errorType}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from fanc_order_spms where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from fanc_order_spms t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from fanc_order_spms t 
+	left join base_area b on b.area_code = t.city_code 
+	<include refid="Example_Where_Clause"/>
+	<if test="cityId != null and cityId != '' " >
+    	and b.id =  #{cityId}
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>,b.area_name
+	from fanc_order_spms t 
+	left join base_area b on b.area_code = t.city_code 
+	<include refid="Example_Where_Clause"/>
+	<if test="cityId != null and cityId != '' " >
+    	and b.id =  #{cityId}
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.stat_date desc,t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<select id="getFragransOrder" resultMap="BaseResultMap"  parameterType="java.util.Map">
+select #{statdate} stat_date,op.city_code,o.order_no,op.park_id,op.parkrecord_id,
+		op.plate_no,o.pay_type,'1' order_type,NVL(o.price,0) price,'' refund_no,0 refund_fee,
+		op.berth_code,p.name park_name,op.arrival_time arrive_time,op.departure_time,p.park_type,
+		sysdate refund_time,'' error_desc
+	from app_order o left join app_order_parkrecord op on op.order_no = o.order_no
+	left join app_park p on op.park_id = p.id
+	where o.order_time between to_date('${startTime}','yyyy-MM-dd HH24:mi:ss') and to_date('${endTime}','yyyy-MM-dd HH24:mi:ss') and order_status = #{orderStatus}
+union
+select #{statdate} stat_date,op.city_code,o.order_no,op.park_id,op.parkrecord_id,
+		 op.plate_no,od.pay_type,'2' order_type,0 price,o.refund_no,NVL(o.refund_fee,0) refund_fee,
+		 op.berth_code,p.name park_name,op.arrival_time arrive_time,op.departure_time,p.park_type,
+		 o.refund_time,(o.order_no||'订单于'||o.refund_time ||'退费'||o.refund_fee||'，退费订单号：'||o.refund_no) error_desc
+	from app_order_refund o left join app_order_parkrecord op on op.order_no = o.order_no
+	left join app_park p on op.park_id = p.id 
+	left join app_order od on od.order_no = o.order_no 
+	where o.refund_time between to_date('${startTime}','yyyy-MM-dd HH24:mi:ss') and to_date('${endTime}','yyyy-MM-dd HH24:mi:ss') and order_status = #{orderStatus}
+order by order_no
+</select>
+
+<delete id="deleteFancOrderSpmsByStatdate">
+	delete from fanc_order_spms where stat_date = to_date(#{statDate},'yyyy-MM-dd')
+</delete>
+
+<insert id="batchSave" parameterType="java.util.List">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">  
+        SELECT LAST_INSERT_ID()  
+    </selectKey>  
+	insert into fanc_order_spms 
+	  (id, stat_date, city_code, order_no, park_id, parkrecord_id, plate_no,
+		pay_type, order_type, price, refund_no, refund_fee, berth_code, 
+		park_name,park_durations,arrive_time, departure_time,exception_type,
+		park_type,error_type,error_desc,is_white)
+	values
+	<foreach collection="list" index="inden" separator="," item="item">
+	 (#{item.id}, #{item.statDate}, #{item.cityCode}, #{item.orderNo}, #{item.parkId}, #{item.parkrecordId}, #{item.plateNo},
+		#{item.payType}, #{item.orderType}, #{item.price}, #{item.refundNo}, #{item.refundFee}, #{item.berthCode},
+		#{item.parkName}, #{item.parkDurations}, #{item.arriveTime}, #{item.departureTime}, #{item.exceptionType},
+		#{item.parkType}, #{item.errorType}, #{item.errorDesc}, #{item.isWhite})
+		</foreach>
+</insert>
+
+<select id="queryGroupFancOrderSpms" resultMap="BaseResultMap"  parameterType="Object">
+	select * from (select op.city_code,o.order_no,op.park_id,op.parkrecord_id,
+		op.plate_no,o.pay_type,'1' order_type,NVL(o.price,0) price,'' refund_no,0 refund_fee,
+		op.berth_code,p.name park_name,op.arrival_time arrive_time,op.departure_time,p.park_type
+	from app_order o left join app_order_parkrecord op on op.order_no = o.order_no
+	left join app_park p on op.park_id = p.id
+	where o.order_no = #{orderNo}
+	union
+	select op.city_code,o.order_no,op.park_id,op.parkrecord_id,
+		 op.plate_no,od.pay_type,'2' order_type,0 price,o.refund_no,sum(NVL(o.refund_fee,0)) refund_fee,
+		 op.berth_code,p.name park_name,op.arrival_time arrive_time,op.departure_time,p.park_type
+	from app_order_refund o left join app_order_parkrecord op on op.order_no = o.order_no
+	left join app_park p on op.park_id = p.id 
+	left join app_order od on od.order_no = o.order_no 
+	where o.order_no = #{orderNo}) t where t.order_type = #{orderType}
+</select>
+<!-- 获取账单列表 -->
+<select id="queryFancOrderSpmsList" resultMap="BaseResultMap"  parameterType="Object">
+	select <include refid="Base_Column_List"/> from fanc_order_spms t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 获取时间段内账单 -->
+<select id="queryFancOrderSpmsListByStateDate" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT <include refid="Base_Column_List"/>,b.area_name 
+	FROM fanc_order_spms t 
+	left join base_area b on b.area_code = t.city_code 
+	WHERE t.stat_date &gt;= to_date('${startDate}','yyyy-MM-dd') AND t.stat_date &lt;= to_date('${endDate}','yyyy-MM-dd') 
+	<if test="cityId != null and cityId != '' " >
+    	and b.id =  #{cityId}
+	</if>
+	ORDER BY t.stat_date desc
+</select>
+<!-- 汇总记录数 -->
+<select id="summaryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(count) from (SELECT count(t.city_code) count
+	 FROM fanc_order_spms t
+	 LEFT JOIN base_area ba ON ba.AREA_CODE = t.city_code 
+	WHERE 1=1
+	<if test="summaryMonthStart != null and summaryMonthStart != '' and summaryMonthEnd != null and summaryMonthEnd != '' ">
+		and t.stat_date BETWEEN to_date('${summaryMonthStart}','yyyy-MM-dd') AND to_date('${summaryMonthEnd}','yyyy-MM-dd')
+	</if>
+	<if test="cityCode != null and cityCode != '' ">
+		and ba.id = #{cityCode}
+	</if>
+	 GROUP BY to_char(t.stat_date,'yyyy-MM'),t.city_code) t
+</select>
+<!-- 汇总记录列表 -->
+<select id="summaryDataList" resultType="java.util.Map" parameterType="Object">
+	SELECT
+	    to_char(fos.stat_date,'yy-MM') summaryMonth,
+	    fos.city_code,
+	    nvl(ba.area_name,'') area_name,
+	    fos.order_type,
+	    fos.pay_type,
+	    fos.exception_type,
+	    SUM(nvl(fos.PRICE,0)) price,
+	    SUM(nvl(fos.refund_fee,0)) refundFee,
+	    SUM(nvl(aop.REDBOX_FEE,0)+nvl(aop.TICKET_FEE,0)+nvl(aop.DISCOUNT_FEE,0)) discountPrice,
+	    SUM(nvl(ros.price,0))    priceSpms,
+	    SUM(nvl(ros.refund_fee,0))    refundFeeSpms
+	  FROM fanc_order_spms fos
+	    LEFT JOIN app_order_paylog aop ON aop.ORDER_NO = fos.order_no
+	    LEFT JOIN rca_order_spms ros ON ros.order_no = fos.order_no AND ros.order_type=fos.order_type
+	    LEFT JOIN base_area ba ON ba.AREA_CODE = fos.city_code
+	  WHERE 1=1
+	<if test="summaryMonthStart != null and summaryMonthStart != '' and summaryMonthEnd != null and summaryMonthEnd != '' ">
+		and fos.stat_date BETWEEN to_date('${summaryMonthStart}','yy-MM-dd') AND to_date('${summaryMonthEnd}','yy-MM-dd')
+	</if>
+	<if test="cityCode != null and cityCode != '' ">
+		and ba.id = #{cityCode}
+	</if>
+	GROUP BY to_char(fos.stat_date,'yy-MM'),fos.city_code,fos.order_type,fos.pay_type,fos.exception_type,ba.area_name
+</select>
+</mapper>   

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.activity.ActivityShareGetuserDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.activity.ActivityShareGetuser" >
+	<result column="id" property="id"/>
+		<result column="user_shareid" property="userShareid"/>
+		<result column="from_user_id" property="fromUserId"/>
+		<result column="from_user_account" property="fromUserAccount"/>
+		<result column="source" property="source"/>
+		<result column="to_useraccount" property="toUseraccount"/>
+		<result column="is_reg" property="isReg"/>
+		<result column="reg_time" property="regTime"/>
+		<result column="is_getticket" property="isGetticket"/>
+		<result column="ticket_name" property="ticketName"/>
+		<result column="ticket_conf_id" property="ticketConfId"/>
+		<result column="getticket_time" property="getticketTime"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="is_history_user" property="isHistoryUser"/>
+	</resultMap>
+	
+    <resultMap id="ReceiveTicketMap" type="com.innotek.fragrans.entity.activity.ReceiveTicketItem" >
+	    <result column="id" property="id"/>
+		<result column="to_useraccount" property="userAccount"/>
+		<result column="ticket_name" property="ticketName"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_shareid,
+		 t.from_user_id,
+		 t.from_user_account,
+		 t.source,
+		 t.to_useraccount,
+		 t.is_reg,
+		 t.reg_time,
+		 t.is_getticket,
+		 t.ticket_name,
+		 t.ticket_conf_id,
+		 t.getticket_time,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userShareid != null and userShareid != '' " >
+    	and t.user_shareid =  #{userShareid}
+	</if>
+	<if test="fromUserId != null and fromUserId != '' " >
+    	and t.from_user_id =  #{fromUserId}
+	</if>
+	<if test="fromUserAccount != null and fromUserAccount != '' " >
+    	and t.from_user_account =  #{fromUserAccount}
+	</if>
+	<if test="source != null " >
+    	and t.source =  #{source}
+	</if>
+	<if test="toUseraccount != null and toUseraccount != '' " >
+    	and t.to_useraccount =  #{toUseraccount}
+	</if>
+	<if test="isReg != null " >
+    	and t.is_reg =  #{isReg}
+	</if>
+	<if test="regTime != null " >
+    	and t.reg_time =  #{regTime}
+	</if>
+	<if test="isGetticket != null " >
+    	and t.is_getticket =  #{isGetticket}
+	</if>
+	<if test="ticketName != null and ticketName != '' " >
+    	and t.ticket_name =  #{ticketName}
+	</if>
+	<if test="ticketConfId != null and ticketConfId != '' " >
+    	and t.ticket_conf_id =  #{ticketConfId}
+	</if>
+	<if test="getticketTime != null " >
+    	and t.getticket_time =  #{getticketTime}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_activity_share_getuser 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,flag,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="userShareid != null and userShareid != '' " >
+		 user_shareid,
+		</if>
+    	<if test="fromUserId != null and fromUserId != '' " >
+		 from_user_id,
+		</if>
+    	<if test="fromUserAccount != null and fromUserAccount != '' " >
+		 from_user_account,
+		</if>
+    	<if test="source != null " >
+		source,
+		</if>
+    	<if test="toUseraccount != null and toUseraccount != '' " >
+		 to_useraccount,
+		</if>
+    	<if test="isReg != null " >
+		is_reg,
+		</if>
+    	<if test="regTime != null " >
+		reg_time,
+		</if>
+    	<if test="isGetticket != null " >
+		is_getticket,
+		</if>
+    	<if test="ticketName != null and ticketName != '' " >
+		 ticket_name,
+		</if>
+    	<if test="ticketConfId != null and ticketConfId != '' " >
+		 ticket_conf_id,
+		</if>
+    	<if test="getticketTime != null " >
+		getticket_time,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="isHistoryUser != null" >
+		 is_history_user,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	NOW(),'ADD',
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="userShareid != null and userShareid != '' " >
+  		<![CDATA[  #{userShareid}, ]]>
+    	</if>
+    	<if test="fromUserId != null and fromUserId != '' " >
+  		<![CDATA[  #{fromUserId}, ]]>
+    	</if>
+    	<if test="fromUserAccount != null and fromUserAccount != '' " >
+  		<![CDATA[  #{fromUserAccount}, ]]>
+    	</if>
+    	<if test="source != null " >
+  		<![CDATA[  #{source}, ]]>
+    	</if>
+    	<if test="toUseraccount != null and toUseraccount != '' " >
+  		<![CDATA[  #{toUseraccount}, ]]>
+    	</if>
+    	<if test="isReg != null " >
+  		<![CDATA[  #{isReg}, ]]>
+    	</if>
+    	<if test="regTime != null " >
+  		<![CDATA[  #{regTime}, ]]>
+    	</if>
+    	<if test="isGetticket != null " >
+  		<![CDATA[  #{isGetticket}, ]]>
+    	</if>
+    	<if test="ticketName != null and ticketName != '' " >
+  		<![CDATA[  #{ticketName}, ]]>
+    	</if>
+    	<if test="ticketConfId != null and ticketConfId != '' " >
+  		<![CDATA[  #{ticketConfId}, ]]>
+    	</if>
+    	<if test="getticketTime != null " >
+  		<![CDATA[  #{getticketTime}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="isHistoryUser != null" >
+		 <![CDATA[  #{isHistoryUser}, ]]>
+		</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_activity_share_getuser t set 
+   <trim suffixOverrides="," >
+	<if test="userShareid != null and userShareid != '' " >
+  	<![CDATA[  t.user_shareid = #{userShareid}, ]]>
+    </if>
+    <if test="fromUserId != null and fromUserId != '' " >
+  	<![CDATA[  t.from_user_id = #{fromUserId}, ]]>
+    </if>
+    <if test="fromUserAccount != null and fromUserAccount != '' " >
+  	<![CDATA[  t.from_user_account = #{fromUserAccount}, ]]>
+    </if>
+    <if test="source != null " >
+  	<![CDATA[  t.source = #{source}, ]]>
+    </if>
+    <if test="toUseraccount != null and toUseraccount != '' " >
+  	<![CDATA[  t.to_useraccount = #{toUseraccount}, ]]>
+    </if>
+    <if test="isReg != null " >
+  	<![CDATA[  t.is_reg = #{isReg}, ]]>
+    </if>
+    <if test="regTime != null " >
+  	<![CDATA[  t.reg_time = #{regTime}, ]]>
+    </if>
+    <if test="isGetticket != null " >
+  	<![CDATA[  t.is_getticket = #{isGetticket}, ]]>
+    </if>
+    <if test="ticketName != null and ticketName != '' " >
+  	<![CDATA[  t.ticket_name = #{ticketName}, ]]>
+    </if>
+    <if test="ticketConfId != null and ticketConfId != '' " >
+  	<![CDATA[  t.ticket_conf_id = #{ticketConfId}, ]]>
+    </if>
+    <if test="getticketTime != null " >
+  	<![CDATA[  t.getticket_time = #{getticketTime}, ]]>
+    </if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+  	<![CDATA[  t.update_time = NOW(), ]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_activity_share_getuser where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_activity_share_getuser t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_activity_share_getuser t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_activity_share_getuser t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 根据用户ID查询领取用户次数 -->
+<select id="findUserCountByUserId" resultType="java.lang.Integer"  parameterType="Object">
+	 SELECT COUNT(DISTINCT TO_USERACCOUNT) FROM app_activity_share_getuser
+ 	 WHERE flag != 'DELETE' AND from_user_id = #{fromUserId}
+</select>
+
+<!-- 根据用户ID查询领取成功次数 -->
+<select id="findSucUserCountByUserId" resultType="java.lang.Integer"  parameterType="Object">
+	 SELECT COUNT(DISTINCT t.to_useraccount) FROM app_activity_share_getuser t
+ 	WHERE t.flag != 'DELETE' AND t.is_reg = 1 AND t.is_history_user = 0 
+ 	  AND t.from_user_id = #{fromUserId}
+  	  AND t.to_useraccount != #{toUseraccount}
+</select>
+
+<!-- 根据用户ID查询获取停车券张数 -->
+<select id="findTicketCountByUserId" resultType="java.lang.Integer"  parameterType="Object">
+ 	  SELECT COUNT(1) FROM app_activity_share_getuser t
+ 	  LEFT JOIN app_activity_share_user t1 ON t.USER_SHAREID = t1.id
+ 	  LEFT JOIN app_activity_share t2 ON t2.id = t1.ACTIVITY_SHARE_ID
+ 	  WHERE t.flag != 'DELETE' AND t2.ACTIVITY_TYPE = 1
+ 	    AND t.is_getticket = 1 AND t.FROM_USER_ID = #{fromUserId}
+</select>
+
+<!-- 查询分享链接记录-->
+<select id="findListByUserShareId" resultMap="BaseResultMap"  parameterType="Object">
+	  SELECT * FROM app_activity_share_getuser
+	  WHERE flag != 'DELETE' 
+	    AND user_shareid = #{userShareid}
+</select>
+
+<!-- 查询优惠券领取记录-->
+<select id="findGetTicketListByUserShareId" resultMap="BaseResultMap"  parameterType="Object">
+	  SELECT * FROM app_activity_share_getuser
+	  WHERE flag != 'DELETE' and is_reg = 1 and is_getticket = 1
+	    AND user_shareid = #{userShareid}
+</select>
+
+<!-- 查询用户领取记录 -->
+<select id="findByToUserAccountAndUserShareaId" resultMap="BaseResultMap"  parameterType="Object">
+	  SELECT * FROM app_activity_share_getuser 
+	  WHERE flag != 'DELETE' AND is_getticket = 1
+	  <if test="toUseraccount != null and toUseraccount != ''">
+	  	AND to_useraccount = #{toUseraccount}
+	  </if>
+	  <if test="userShareid != null and userShareid != '' ">
+	  	AND user_shareid = #{userShareid}
+	  </if>
+</select>
+
+<!-- 查询分享领取人列表 -->
+<select id="findShareGetuserListByUserShareId" resultMap="ReceiveTicketMap"  parameterType="Object">
+	  SELECT to_useraccount,ticket_name FROM app_activity_share_getuser
+	  WHERE flag != 'DELETE' AND is_reg = 1 AND is_getticket = 1
+	    AND user_shareid = #{userShareid}
+</select>
+</mapper>   

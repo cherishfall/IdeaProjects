@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.external.AppExternalDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.external.AppExternalEntity" >
+	<result column="id" property="id"/>
+		<result column="app_id" property="appId"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="area_name" property="areaName"/>
+		<result column="is_freeberth" property="isFreeBerth"/>
+		<result column="auth_type" property="authType"/>
+		<result column="create_user" property="createUser"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_user" property="updateUser"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="remark" property="remark"/>
+	</resultMap>
+       
+<select id="getAreaCode"  resultMap="BaseResultMap"  parameterType="Object">
+	SELECT id,auth_type,is_freeberth FROM APP_EXTERNAL WHERE app_id=#{appId}
+</select>
+
+<!-- ****************页面begin*********************** -->
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.app_id,
+		 t.area_code,
+		 t.auth_type,
+		 t.is_freeberth,
+		 t.create_user,
+		 t.create_time,
+		 t.update_user,
+		 t.update_time,
+		 t.remark,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="appId != null and appId != '' " >
+    	and t.app_id =  #{appId}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="authType != null " >
+    	and t.auth_type =  #{authType}
+	</if>
+	<if test="isFreeBerth != null " >
+    	and t.is_freeberth =  #{isFreeBerth}
+	</if>
+	<if test="createUser != null and createUser != '' " >
+    	and t.create_user =  #{createUser}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateUser != null and updateUser != '' " >
+    	and t.update_user =  #{updateUser}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="remark != null and remark != '' " >
+    	and t.remark =  #{remark}
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and t.area_code LIKE '${userCityCode}%'
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_external 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="appId != null and appId != '' " >
+		 app_id,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="authType != null " >
+		auth_type,
+		</if>
+    	<if test="isFreeBerth != null " >
+		is_freeberth,
+		</if>
+    	<if test="createUser != null and createUser != '' " >
+		 create_user,
+		</if>
+    	<if test="remark != null and remark != '' " >
+		 remark,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	now(),
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="appId != null and appId != '' " >
+  		<![CDATA[  #{appId}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="authType != null " >
+  		<![CDATA[  #{authType}, ]]>
+    	</if>
+    	<if test="isFreeBerth != null " >
+  		<![CDATA[  #{isFreeBerth}, ]]>
+    	</if>
+    	<if test="createUser != null and createUser != '' " >
+  		<![CDATA[  #{createUser}, ]]>
+    	</if>
+    	<if test="remark != null and remark != '' " >
+  		<![CDATA[  #{remark}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_external t set 
+   <trim suffixOverrides="," >
+	<if test="appId != null and appId != '' " >
+  	<![CDATA[  t.app_id = #{appId}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="authType != null " >
+  	<![CDATA[  t.auth_type = #{authType}, ]]>
+    </if>
+    <if test="isFreeBerth != null " >
+  	<![CDATA[  t.is_freeberth = #{isFreeBerth}, ]]>
+    </if>
+    <if test="updateUser != null and updateUser != '' " >
+  	<![CDATA[  t.update_user = #{updateUser}, ]]>
+    </if>
+  	<![CDATA[  t.update_time = now(), ]]>
+    <if test="remark != null and remark != '' " >
+  	<![CDATA[  t.remark = #{remark}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_external where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_external t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_external t 
+	left join base_area ba on t.area_code = ba.area_code
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,ba.area_name
+	from app_external t 
+	left join base_area ba on t.area_code = ba.area_code
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- ****************页面end*********************** -->
+</mapper>   

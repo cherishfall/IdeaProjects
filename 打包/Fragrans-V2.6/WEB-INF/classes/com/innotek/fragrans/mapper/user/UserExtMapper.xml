@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserExtDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.AppUserExtEntity">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="pay_password" property="payPassword" />
+		<result column="nick_name" property="nickName" />
+		<result column="city_code" property="cityCode" />
+		<result column="email" property="email" />
+		<result column="is_email_activated" property="isEmailActivated" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="address" property="address" />
+		<result column="remark" property="remark" />
+		<result column="flag" property="flag" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="attribute1" property="attribute1" />
+		<result column="attribute2" property="attribute2" />
+		<result column="attribute3" property="attribute3" />
+		<result column="attribute4" property="attribute4" />
+		<result column="attribute5" property="attribute5" />
+		<result column="device_type" property="deviceType" />
+	</resultMap>
+
+	<!-- table all fields -->
+	<sql id="Base_Column_List">
+		t.user_id,
+		t.nick_name,
+		t.city_code,
+		t.email,
+		t.is_email_activated,
+		t.photo_url,
+		t.address,
+		t.remark,
+		t.flag,
+		t.create_time,
+		t.update_time,
+		t.attribute1,
+		t.attribute2,
+		t.attribute3,
+		t.attribute4,
+		t.attribute5,
+		pay_password,
+		t.id
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and t.id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				and t.user_id = #{userId}
+			</if>
+			<if test="nickName != null and nickName != '' ">
+				and t.nick_name = #{nickName}
+			</if>
+			<if test="cityCode != null and cityCode != '' ">
+				and t.city_code = #{cityCode}
+			</if>
+			<if test="email != null and email != '' ">
+				and t.email = #{email}
+			</if>
+			<if test="isEmailActivated != null ">
+				and t.is_email_activated = #{isEmailActivated}
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+				and t.photo_url = #{photoUrl}
+			</if>
+			<if test="address != null and address != '' ">
+				and t.address = #{address}
+			</if>
+			<if test="remark != null and remark != '' ">
+				and t.remark = #{remark}
+			</if>
+			<if test="createTime != null ">
+				and t.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null ">
+				and t.update_time = #{updateTime}
+			</if>
+			<if test="attribute1 != null and attribute1 != '' ">
+				and t.attribute1 = #{attribute1}
+			</if>
+			<if test="attribute2 != null and attribute2 != '' ">
+				and t.attribute2 = #{attribute2}
+			</if>
+			<if test="attribute3 != null and attribute3 != '' ">
+				and t.attribute3 = #{attribute3}
+			</if>
+			<if test="attribute4 != null and attribute4 != '' ">
+				and t.attribute4 = #{attribute4}
+			</if>
+			<if test="attribute5 != null and attribute5 != '' ">
+				and t.attribute5 = #{attribute5}
+			</if>
+			and t.flag !=  'DELETE'
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+
+		insert into APP_USER_EXT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			create_time,flag,
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="nickName != null and nickName != '' ">
+				nick_name,
+			</if>
+			<if test="cityCode != null and cityCode != '' ">
+				city_code,
+			</if>
+			<if test="email != null and email != '' ">
+				email,
+			</if>
+			<if test="isEmailActivated != null ">
+				is_email_activated,
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+				photo_url,
+			</if>
+			<if test="address != null and address != '' ">
+				address,
+			</if>
+			<if test="remark != null and remark != '' ">
+				remark,
+			</if>
+			<if test="attribute1 != null and attribute1 != '' ">
+				attribute1,
+			</if>
+			<if test="attribute2 != null and attribute2 != '' ">
+				attribute2,
+			</if>
+			<if test="attribute3 != null and attribute3 != '' ">
+				attribute3,
+			</if>
+			<if test="attribute4 != null and attribute4 != '' ">
+				attribute4,
+			</if>
+			<if test="attribute5 != null and attribute5 != '' ">
+				attribute5,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			now(),'ADD',
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="nickName != null and nickName != '' ">
+  		<![CDATA[  #{nickName}, ]]>
+			</if>
+			<if test="cityCode != null and cityCode != '' ">
+  		<![CDATA[  #{cityCode}, ]]>
+			</if>
+			<if test="email != null and email != '' ">
+  		<![CDATA[  #{email}, ]]>
+			</if>
+			<if test="isEmailActivated != null ">
+  		<![CDATA[  #{isEmailActivated}, ]]>
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+  		<![CDATA[  #{photoUrl}, ]]>
+			</if>
+			<if test="address != null and address != '' ">
+  		<![CDATA[  #{address}, ]]>
+			</if>
+			<if test="remark != null and remark != '' ">
+  		<![CDATA[  #{remark}, ]]>
+			</if>
+			<if test="attribute1 != null and attribute1 != '' ">
+  		<![CDATA[  #{attribute1}, ]]>
+			</if>
+			<if test="attribute2 != null and attribute2 != '' ">
+  		<![CDATA[  #{attribute2}, ]]>
+			</if>
+			<if test="attribute3 != null and attribute3 != '' ">
+  		<![CDATA[  #{attribute3}, ]]>
+			</if>
+			<if test="attribute4 != null and attribute4 != '' ">
+  		<![CDATA[  #{attribute4}, ]]>
+			</if>
+			<if test="attribute5 != null and attribute5 != '' ">
+  		<![CDATA[  #{attribute5}, ]]>
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据user_id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update APP_USER_EXT t set
+		<trim suffixOverrides=",">
+			<if test="nickName != null and nickName != '' ">
+  	<![CDATA[  t.nick_name = #{nickName}, ]]>
+			</if>
+			<if test="cityCode != null and cityCode != '' ">
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+			</if>
+			<if test="email != null and email != '' ">
+  	<![CDATA[  t.email = #{email}, ]]>
+			</if>
+			<if test="isEmailActivated != null ">
+  	<![CDATA[  t.is_email_activated = #{isEmailActivated}, ]]>
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+  	<![CDATA[  t.photo_url = #{photoUrl}, ]]>
+			</if>
+			<if test="address != null and address != '' ">
+  	<![CDATA[  t.address = #{address}, ]]>
+			</if>
+			<if test="remark != null and remark != '' ">
+  	<![CDATA[  t.remark = #{remark}, ]]>
+			</if>
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+  	<![CDATA[  t.update_time = now(), ]]>
+			<if test="attribute1 != null and attribute1 != '' ">
+  	<![CDATA[  t.attribute1 = #{attribute1}, ]]>
+			</if>
+			<if test="attribute2 != null and attribute2 != '' ">
+  	<![CDATA[  t.attribute2 = #{attribute2}, ]]>
+			</if>
+			<if test="attribute3 != null and attribute3 != '' ">
+  	<![CDATA[  t.attribute3 = #{attribute3}, ]]>
+			</if>
+			<if test="attribute4 != null and attribute4 != '' ">
+  	<![CDATA[  t.attribute4 = #{attribute4}, ]]>
+			</if>
+			<if test="attribute5 != null and attribute5 != '' ">
+  	<![CDATA[  t.attribute5 = #{attribute5}, ]]>
+			</if>
+			<if test="payPassword != null and payPassword != '' ">
+  	<![CDATA[  t.pay_password = #{payPassword}, ]]>
+			</if>
+		</trim>
+		where t.user_id= #{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<update id="delete" parameterType="Object">
+		update APP_USER_EXT set flag = 'DELETE' where id= #{id}
+	</update>
+	
+	<!-- 假删除记录 -->
+	<update id="deleted" parameterType="Object" >
+		update APP_USER_EXT t set 
+	   <trim suffixOverrides="," >
+	  	<![CDATA[  t.flag = 'DELETE', ]]>
+	     </trim> where t.id= #{id}
+	</update>
+
+	<!-- 拓展表对应的记录 -->
+	<update id="deleteByUserId" parameterType="Object">
+		update APP_USER_EXT set flag = 'DELETE' where user_id= #{id}
+	</update>
+
+	<!-- 根据id查询 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER_EXT t where t.id = #{id}
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from APP_USER_EXT t
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"
+		parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER_EXT t
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition == ''">
+			order by t.id desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	<!-- *************************************自定义接口****************************************************** -->
+	<select id="queryUserExtByUserId" resultMap="BaseResultMap" parameterType="Object">
+		select * from app_user_ext where user_id=#{userId}
+	</select>
+	
+	<!-- 根据ID修改用户扩展表 -->
+	<update id="updateUserExtById" parameterType="Object">
+		update APP_USER_EXT set
+		<trim suffixOverrides=",">
+		<if test="attribute3 != null and attribute3 != ''">
+  		<![CDATA[ attribute3  = #{attribute3}, ]]>
+		</if>
+		<![CDATA[  update_time = now(), ]]>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据城市编码获取全部注册用户数 -->
+	<select id="getTotalRegistersByCityCode" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		 SELECT COUNT(1) FROM app_user u LEFT JOIN app_user_ext e ON u.id=e.user_id
+		 where e.city_code like '${_parameter}%'
+		<if test="_parameter == 3301">
+			OR e.city_code IS NULL
+		</if>
+		AND u.flag !='DELETE'
+	</select>
+	<!-- 根据城市编码获取今日注册用户数 -->
+	<select id="getTodayRegistersByCityCode" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		SELECT COUNT(1) FROM app_user u LEFT JOIN app_user_ext e ON u.id=e.user_id
+		where e.city_code like '${_parameter}%'
+		and TO_DAYS(u.create_time) = TO_DAYS(NOW())
+		AND u.flag !='DELETE'
+	</select>
+	<!-- 根据城市编码获取最近30天的新增用户数 -->
+	<select id="getMonthRegistersByCityCode" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT COUNT(1) FROM app_user u LEFT JOIN app_user_ext e ON u.id=e.user_id
+		WHERE e.city_code LIKE '${cityCode}%'
+		AND STR_TO_DATE(u.create_time,'%Y-%m-%d') &gt; STR_TO_DATE(#{startTime},'%Y-%m-%d') 
+		AND u.create_time &lt;= NOW()
+		AND u.flag !='DELETE'
+	</select>
+	
+	<select id="queryCityCodeByUserId" resultType="java.lang.String" parameterType="Object">
+		select city_code from app_user_ext where user_id=#{userId}
+	</select>
+	
+	<!-- 更新用户经纬度 -->
+	<update id="updateUserLatAndLon" parameterType="Object">
+		update APP_USER_EXT t set
+		<trim suffixOverrides=",">
+			<if test="attribute4 != null and attribute4 != '' ">
+  				<![CDATA[  t.attribute4 = #{attribute4}, ]]>
+			</if>
+			<if test="attribute5 != null and attribute5 != '' ">
+  				<![CDATA[  t.attribute5 = #{attribute5}, ]]>
+			</if>
+		</trim>
+		where t.id= #{id}
+	</update>
+	
+	<!-- 查询有经纬度、区域编码为空或区域等级大于区域级的用户扩展记录 -->
+	<select id="findUserExts" resultMap="BaseResultMap" >
+		SELECT t.* FROM app_user_ext t
+		LEFT JOIN app_user t1 ON t.user_id = t1.id
+		LEFT JOIN base_area t2 ON t.city_code = t2.area_code
+		WHERE t1.FLAG != 'DELETE' AND (t.city_code IS NULL OR t2.area_level &lt; 3)
+		AND t.ATTRIBUTE4 IS NOT NULL AND t.ATTRIBUTE5 IS NOT NULL 
+		AND t.ATTRIBUTE4 NOT LIKE '0.%' AND t.ATTRIBUTE5 NOT LIKE '0.%'
+	</select>
+	
+	<!-- 根据id，修改记录 -->
+	<update id="updatePhotoByUploadFileId" parameterType="java.util.Map">
+		UPDATE app_user_ext SET PHOTO_URL = #{photoUrl} 
+		WHERE user_id = 
+		(SELECT user_id FROM app_upload_file WHERE id = #{id})
+	</update>
+	
+	<!-- 根据文件上传ID查找用户扩展信息 -->
+	<select id="findByFileId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * FROM app_user_ext 
+		WHERE user_id IN 
+		  (SELECT user_id FROM app_upload_file WHERE id = #{id})
+	</select>
+	
+	<!-- 根据用户id查询用户区域编码 -->
+	<select id="findCityCodeByUserId"  resultType="java.lang.String" parameterType="java.lang.String">
+		 SELECT city_code FROM app_user_ext WHERE user_id= #{userId}
+	</select>
+	
+	<!-- 更新用户设备类型 -->
+	<update id="updateUserDeviceType" parameterType="Object">
+		UPDATE app_user_ext SET DEVICE_TYPE = #{deviceType} 
+		WHERE id = #{id}
+	</update>
+</mapper>   

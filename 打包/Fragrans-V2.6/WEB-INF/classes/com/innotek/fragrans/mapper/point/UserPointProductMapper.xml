@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.point.UserPointProductDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.point.UserPointProduct" >
+	<result column="id" property="id"/>
+		<result column="obj_type" property="objType"/>
+		<result column="obj_id" property="objId"/>
+		<result column="exchange_point" property="exchangePoint"/>
+		<result column="displayconf" property="displayconf"/>
+		<result column="image_url" property="imageUrl"/>
+		<result column="product_desc" property="productDesc"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.obj_type,
+		 t.obj_id,
+		 t.exchange_point,
+		 t.displayconf,
+		 t.image_url,
+		 t.product_desc,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="objType != null " >
+    	and t.obj_type =  #{objType}
+	</if>
+	<if test="objId != null and objId != '' " >
+    	and t.obj_id =  #{objId}
+	</if>
+	<if test="exchangePoint != null " >
+    	and t.exchange_point =  #{exchangePoint}
+	</if>
+	<if test="displayconf != null " >
+    	and t.displayconf =  #{displayconf}
+	</if>
+	<if test="imageUrl != null and imageUrl != '' " >
+    	and t.image_url =  #{imageUrl}
+	</if>
+	<if test="productDesc != null and productDesc != '' " >
+    	and t.product_desc =  #{productDesc}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_user_point_product 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="objType != null " >
+		obj_type,
+		</if>
+    	<if test="objId != null and objId != '' " >
+		 obj_id,
+		</if>
+    	<if test="exchangePoint != null " >
+		exchange_point,
+		</if>
+    	<if test="displayconf != null " >
+		displayconf,
+		</if>
+    	<if test="imageUrl != null and imageUrl != '' " >
+		 image_url,
+		</if>
+    	<if test="productDesc != null and productDesc != '' " >
+		 product_desc,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="objType != null " >
+  		<![CDATA[  #{objType}, ]]>
+    	</if>
+    	<if test="objId != null and objId != '' " >
+  		<![CDATA[  #{objId}, ]]>
+    	</if>
+    	<if test="exchangePoint != null " >
+  		<![CDATA[  #{exchangePoint}, ]]>
+    	</if>
+    	<if test="displayconf != null " >
+  		<![CDATA[  #{displayconf}, ]]>
+    	</if>
+    	<if test="imageUrl != null and imageUrl != '' " >
+  		<![CDATA[  #{imageUrl}, ]]>
+    	</if>
+    	<if test="productDesc != null and productDesc != '' " >
+  		<![CDATA[  #{productDesc}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_point_product t set 
+   <trim suffixOverrides="," >
+	<if test="objType != null " >
+  	<![CDATA[  t.obj_type = #{objType}, ]]>
+    </if>
+    <if test="objId != null and objId != '' " >
+  	<![CDATA[  t.obj_id = #{objId}, ]]>
+    </if>
+    <if test="exchangePoint != null " >
+  	<![CDATA[  t.exchange_point = #{exchangePoint}, ]]>
+    </if>
+    <if test="displayconf != null " >
+  	<![CDATA[  t.displayconf = #{displayconf}, ]]>
+    </if>
+    <if test="imageUrl != null and imageUrl != '' " >
+  	<![CDATA[  t.image_url = #{imageUrl}, ]]>
+    </if>
+    <if test="productDesc != null and productDesc != '' " >
+  	<![CDATA[  t.product_desc = #{productDesc}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_point_product where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_point_product t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_point_product t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_point_product t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<resultMap id="PointProductMap" type="com.innotek.fragrans.entity.point.GetPointProductListItem" >
+	<result column="obj_type" property="productType"/>
+	<result column="ticket_money" property="ticketMoney"/>
+	<result column="ticket_name" property="ticketName"/>
+	<result column="ticket_validity" property="ticketValidDate"/>
+	<result column="ticket_bgimage" property="imageUrl"/>
+	<result column="ticket_desc" property="productDesc"/>
+	<result column="exchange_point" property="needPoint"/>
+	<result column="status" property="status"/>
+	<result column="product_id" property="productId"/>
+</resultMap>
+<!-- 查询积分兑换商品列表 -->
+<select id="queryProductList" resultMap="PointProductMap"  parameterType="Object">
+	SELECT t.obj_type,t1.ticket_money,t1.ticket_name,t1.ticket_validity,t1.ticket_bgimage,
+		   t1.ticket_desc,t.exchange_point,t.id product_id,
+		   case when #{point} &gt;= t.exchange_point then 1 else 2 end status
+ 	FROM app_user_point_product t
+	LEFT JOIN app_activity_ticket_conf t1 ON t.OBJ_ID = t1.ID
+	WHERE t.OBJ_TYPE = 1 AND t.DISPLAYCONF = 1 AND t1.flag != 'DELETE'
+	GROUP BY t.exchange_point asc
+</select>
+
+<!-- 查询商品关联活动id -->
+<select id="queryActivityIdByProduct" resultType="java.lang.String"  parameterType="Object">
+	SELECT t1.activity_id FROM app_user_point_product t
+	LEFT JOIN app_activity_ticket_conf t1 ON t.OBJ_ID = t1.ID
+	WHERE t.OBJ_TYPE = 1 AND t.DISPLAYCONF = 1 AND t1.flag != 'DELETE' 
+	AND t.id = #{productId}
+</select>
+</mapper>   

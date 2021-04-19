@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.AppOrderDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.AppOrderEntity">
+		<result column="id" property="id" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="user_id" property="userId" />
+		<result column="user_account" property="userAccount" />
+		<result column="order_no" property="orderNo" />
+		<result column="parkrecord_id" property="parkrecordId" />
+		<result column="pay_type" property="payType" />
+		<result column="price" property="price" />
+		<result column="subject" property="subject" />
+		<result column="order_body" property="orderBody" />
+		<result column="order_status" property="orderStatus" />
+		<result column="order_time" property="orderTime" />
+		<result column="pay_time" property="payTime" /> 
+		<result column="buyer_account" property="buyerAccount" />
+		<result column="notify_status" property="notifyStatus" />
+		<result column="notify_time" property="notifyTime" />
+		<result column="create_time" property="createTime" />
+		<result column="city_name" property="cityName" />
+		<result column="area_name" property="areaName" />
+		<result column="park_id" property="parkId" />
+		<result column="park_name" property="parkName" />
+		<result column="park_fee" property="parkFee" />
+		<result column="discount_fee" property="discountFee" />
+		<result column="ticket_fee" property="ticketFee" />
+		<result column="paid_fee" property="paidFee" />
+		<result column="refund_fee" property="refundFee" />
+		<result column="is_complate" property="isComplate" />
+		<result column="suc_refund" property="sucRefund" />
+		<result column="fail_refund" property="failRefund" />
+		<result column="ct" property="count" />
+		<result column="bill_no" property="billNo" />
+		<result column="external_no" property="externalNo" />
+	</resultMap>
+	
+	<!-- table all fields -->
+	<sql id="Base_Column_List">
+		t.city_code,
+		t.area_code,
+		t.user_id,
+		t.user_account,
+		t.order_no,
+		t.parkrecord_id,
+		t.pay_type,
+		t.price,
+		t.subject,
+		t.order_body,
+		t.order_status,
+		t.order_time,
+		t.pay_time,
+		t.buyer_account,
+		t.notify_status,
+		t.notify_time,
+		t.create_time,
+		t.bill_no,
+		t.id,
+		external_no
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != '' ">
+				and t.id = #{id}
+			</if>
+			<if test="cityCode != null ">
+				and t.city_code = #{cityCode}
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				and t.area_code = #{areaCode}
+			</if>
+			<if test="userId != null and userId != '' ">
+				and t.user_id = #{userId}
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+				and t.user_account like '${userAccount}%'
+			</if>
+			<if test="orderNo != null and orderNo != '' ">
+				and t.order_no = #{orderNo}
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+				and t.parkrecord_id = #{parkrecordId}
+			</if>
+			<if test="payType != null and payType != '' ">
+				and t.pay_type = #{payType}
+			</if>
+			<if test="price != null ">
+				and t.price = #{price}
+			</if>
+			<if test="subject != null and subject !=''">
+				and t.subject = #{subject}
+			</if>
+			<if test="orderBody != null and orderBody != '' ">
+				and t.order_body = #{orderBody}
+			</if>
+			<if test="orderStatus != null and orderStatus != '' ">
+				and t.order_status = #{orderStatus}
+			</if>
+			<if test="orderTime != null and orderTime != '' ">
+				and t.order_time = #{orderTime}
+			</if>
+			<if test="payTime != null and payTime != '' ">
+				and t.pay_time = #{payTime}
+			</if>
+			<if test="buyerAccount != null and buyerAccount != '' ">
+				and t.buyer_account = #{buyerAccount}
+			</if>
+			<if test="notifyStatus != null and notifyStatus != '' ">
+				and t.notify_status = #{notifyStatus}
+			</if>
+			<if test="notifyTime != null and notifyTime != '' ">
+				and t.notify_time = #{notifyTime}
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				and t.create_time = #{createTime}
+			</if>
+			<if test="userCityCode != null and userCityCode != '' ">
+				and t.area_code LIKE '${userCityCode}%'
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT sys_guid() from dual
+		</selectKey>
+
+		insert into APP_ORDER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">
+				id,
+			</if>
+			<if test="cityCode != null  ">
+				city_code,
+			</if>
+			<if test="areaCode != null  ">
+				area_code,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+				user_account,
+			</if>
+			<if test="orderNo != null and orderNo != '' ">
+				order_no,
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+				parkrecord_id,
+			</if>
+			<if test="payType != null and payType != '' ">
+				pay_type,
+			</if>
+			<if test="price != null ">
+				price,
+			</if>
+			<if test="subject != null and subject !=''">
+				subject,
+			</if>
+			<if test="orderBody != null and orderBody != '' ">
+				order_body,
+			</if>
+			<if test="orderStatus != null and orderStatus != '' ">
+				order_status,
+			</if>
+			<if test="orderTime != null and orderTime != '' ">
+				order_time,
+			</if>
+			<if test="payTime != null and payTime != '' ">
+				pay_time,
+			</if>
+			<if test="buyerAccount != null and buyerAccount != '' ">
+				buyer_account,
+			</if>
+			<if test="notifyStatus != null and notifyStatus != '' ">
+				notify_status,
+			</if>
+			<if test="notifyTime != null and notifyTime != '' ">
+				notify_time,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="billNo != null and billNo != '' ">
+				bill_no,
+			</if>
+			<if test="externalNo != null and externalNo != '' ">
+				external_no,
+			</if>
+		</trim>
+	values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">
+  		<![CDATA[  #{id}, ]]>
+			</if>
+			<if test="cityCode != null and cityCode != '' ">
+  		<![CDATA[  #{cityCode}, ]]>
+  		    </if>
+			<if test="areaCode != null  ">
+		<![CDATA[  #{areaCode}, ]]>
+			</if>
+			<if test="userId != null and userId != '' ">
+		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+		<![CDATA[  #{userAccount}, ]]>
+			</if>
+			<if test="orderNo != null and orderNo != '' ">
+		<![CDATA[  #{orderNo}, ]]>
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+		<![CDATA[  #{parkrecordId}, ]]>
+			</if>
+			<if test="payType != null and payType !='' ">
+		<![CDATA[  #{payType}, ]]>
+			</if>
+			<if test="price != null ">
+		<![CDATA[  #{price}, ]]>
+			</if>
+			<if test="subject != null and subject != '' ">
+		<![CDATA[  #{subject}, ]]>
+			</if>
+			<if test="orderBody != null and orderBody != '' ">
+		<![CDATA[  #{orderBody}, ]]>
+			</if>
+			<if test="orderStatus != null and orderStatus != '' ">
+		<![CDATA[  #{orderStatus}, ]]>
+			</if>
+			<if test="orderTime != null and orderTime != '' ">
+		<![CDATA[  #{orderTime}, ]]>
+			</if>
+			<if test="payTime != null and payTime != '' ">
+		<![CDATA[  #{payTime}, ]]>
+			</if>
+			<if test="buyerAccount != null and buyerAccount != '' ">
+		<![CDATA[  #{buyerAccount}, ]]>
+			</if>
+			<if test="notifyStatus != null and notifyStatus != '' ">
+		<![CDATA[  #{notifyStatus}, ]]>
+			</if>
+			<if test="notifyTime != null and notifyTime != '' ">
+		<![CDATA[  #{notifyTime}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="billNo != null and billNo != '' ">
+		<![CDATA[  #{billNo}, ]]>
+			</if>
+			<if test="externalNo != null and externalNo != '' ">
+		<![CDATA[  #{externalNo}, ]]>
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_order t set 
+   <trim suffixOverrides="," >
+	<if test="cityCode != null and cityCode != '' ">
+  		<![CDATA[  t.city_code = #{cityCode}, ]]>
+  		    </if>
+			<if test="areaCode != null  ">
+		<![CDATA[  t.area_code = #{areaCode}, ]]>
+			</if>
+			<if test="userId != null and userId != '' ">
+		<![CDATA[  t.user_id = #{userId}, ]]>
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+		<![CDATA[  t.user_account = #{userAccount}, ]]>
+			</if>
+			<if test="orderNo != null and orderNo != '' ">
+		<![CDATA[  t.order_no = #{orderNo}, ]]>
+			</if>
+			<if test="parkrecordId != null and parkrecordId != '' ">
+		<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+			</if>
+			<if test="payType != null and payType !='' ">
+		<![CDATA[  t.pay_type = #{payType}, ]]>
+			</if>
+			<if test="price != null ">
+		<![CDATA[  t.price = #{price}, ]]>
+			</if>
+			<if test="subject != null and subject != '' ">
+		<![CDATA[  t.subject = #{subject}, ]]>
+			</if>
+			<if test="orderBody != null and orderBody != '' ">
+		<![CDATA[  t.order_body = #{orderBody}, ]]>
+			</if>
+			<if test="orderStatus != null and orderStatus != '' ">
+		<![CDATA[  t.order_status = #{orderStatus}, ]]>
+			</if>
+			<if test="orderTime != null and orderTime != '' ">
+		<![CDATA[  t.order_time = #{orderTime}, ]]>
+			</if>
+			<if test="payTime != null and payTime != '' ">
+		<![CDATA[  t.pay_time = #{payTime}, ]]>
+			</if>
+			<if test="buyerAccount != null">
+		<![CDATA[  t.buyer_account = #{buyerAccount}, ]]>
+			</if>
+			<if test="notifyStatus != null and notifyStatus != '' ">
+		<![CDATA[  t.notify_status = #{notifyStatus}, ]]>
+			</if>
+			<if test="notifyTime != null and notifyTime != '' ">
+		<![CDATA[  t.notify_time = #{notifyTime}, ]]>
+			</if>
+     </trim>
+     where t.id= #{id}
+ </update>
+ 
+ <!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_order where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_order t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_order t
+	left join base_area ba1 on t.city_code = ba1.area_code
+	left join base_area ba2 on t.area_code = ba2.area_code
+	<include refid="Example_Where_Clause"/>
+	AND ba1.flag!='DELETE'
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Order_Column_List"/>
+	from app_order t 
+	left join base_area ba1 on t.city_code = ba1.area_code
+	left join base_area ba2 on t.area_code = ba2.area_code
+	<include refid="Example_Where_Clause"/>
+	AND ba1.flag!='DELETE'
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+	<!-- ******************************自定义接口********************************************** -->
+	<select id="findByOrderNo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM APP_ORDER t WHERE t.order_no=#{orderNo} and  rownum = 1
+	</select>
+	
+	<select id="findByParkRecordIdAndTime" resultMap="BaseResultMap" 
+		parameterType="java.lang.Long">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM app_order t WHERE t.parkrecord_id = #{parkRecordId}  
+		AND t.create_time BETWEEN DATE_SUB(sysdate,INTERVAL 1 MINUTE) AND sysdate
+	    ORDER BY t.create_time DESC
+	</select>
+	
+	<select id="findUnpaidOrderByParkRecordId" resultMap="BaseResultMap" parameterType="Object">
+		SELECT * FROM(
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM app_order t WHERE t.parkrecord_id = #{parkRecordId} 
+		and t.order_status = 100
+		<if test="cityCode != null" >
+		 and t.area_code = #{cityCode}
+		</if>
+		ORDER BY t.create_time DESC)
+		WHERE  ROWNUM = 1
+	</select>
+	
+	<sql id="Order_Column_List">
+		ba1.area_name city_name,
+		ba2.area_name area_name,
+		t.city_code,
+		t.area_code,
+		t.user_id,
+		t.user_account,
+		t.order_no,
+		t.parkrecord_id,
+		t.pay_type,
+		t.price,
+		t.subject,
+		t.order_body,
+		t.order_status,
+		t.order_time,
+		t.pay_time,
+		t.buyer_account,
+		t.notify_status,
+		t.notify_time,
+		t.create_time,
+		t.id
+	</sql>
+	
+	<select id="queryByParkrecordId" resultMap="BaseResultMap"
+		parameterType="Object">
+		select
+		<include refid="Order_Column_List" />
+		from app_order t 
+		LEFT JOIN BASE_AREA ba1 ON t.city_code = ba1.area_code
+		LEFT JOIN BASE_AREA ba2 ON t.area_code = ba2.area_code 
+		where t.parkrecord_id = #{parkrecordId}
+		order by t.create_time desc
+	</select>
+	
+	 <!-- 删除记录 -->
+	<delete id="deleteByParkrecordId" parameterType="Object">
+		delete from app_order where parkrecord_id = #{parkrecordId}
+	</delete>
+	
+	<!-- 查询用户一天内的折扣次数 -->
+	<select id="queryOrderByUserIdInnerDay" resultMap="BaseResultMap"
+		parameterType="Object" >
+		SELECT t.* FROM app_order t 
+		LEFT JOIN app_order_parkrecord t1 
+			ON (t.area_code=t1.city_code AND t.order_no=t1.order_no)
+		WHERE t.user_id = #{userId} AND t.area_code = #{cityCode}
+		  AND t.order_status = 200  
+		  AND t1.is_deleted = 1 AND t1.discount_fee > 0
+		  AND t.create_time BETWEEN to_char(sysdate,(to_char(sysdate, 'yyyy-MM-dd') ,' 00:00:00'))
+   		  AND to_char(sysdate,CONCAT(to_char(sysdate, 'yyyy-MM-dd') ,' 23:59:59'))
+	</select>
+	
+	<!-- 支付记录接口 -->
+	<resultMap id="PayResultMap" type="com.innotek.fragrans.remote.bean.msg.parkingFee.InnotekPayItem">
+		<result column="city_code" property="cityCode" />
+		<result column="order_no" property="orderNo" />
+		<result column="order_body" property="orderBody" />
+		<result column="pay_time" property="payTime" /> 
+		<result column="city_name" property="cityName" />
+		<result column="park_id" property="parkId" />
+		<result column="park_name" property="parkName" />
+		<result column="park_fee" property="parkFee" />
+		<result column="discount_fee" property="discountFee" />
+		<result column="ticket_fee" property="ticketFee" />
+		<result column="paid_fee" property="paidFee" />
+	</resultMap>
+	
+	<sql id="Pay_Column_List">
+		t.city_code,
+		ba.area_name city_name,
+		aop.park_id,
+		aop.park_name,
+		ao.order_no,
+		ao.payment,
+		t.pay_time,
+		t.order_body,
+		ao.park_fee,
+		ao.discount_fee,
+		ao.ticket_fee,
+		aop.paid_fee
+	</sql>
+	
+	<select id="queryOrderRecords" resultMap="PayResultMap"
+		parameterType="Object">
+		select
+		<include refid="Pay_Column_List" />
+		from app_order t 
+		LEFT JOIN base_area ba ON t.city_code = ba.area_code
+		LEFT JOIN app_order_parkrecord aop ON t.parkrecord_id = aop.parkrecord_id
+		LEFT JOIN app_order_paylog ao ON t.parkrecord_id = ao.parkrecord_id
+		where t.parkrecord_id = #{parkrecordId} and t.city_code = #{cityCode} and t.user_id = #{userId}
+	</select>
+	
+	<select id="findOrderByParkrecordId" resultMap="BaseResultMap"  parameterType="Object">
+	select *from (
+	select 
+	<include refid="Base_Column_List"/>
+	from app_order t 
+	where t.parkrecord_id = #{parkrecordId}
+	order by create_time desc)
+	where  rownum = 1
+	</select>
+	
+	<select id="queryByOrderNo" resultMap="BaseResultMap"
+		parameterType="Object">
+		select * from (
+		SELECT
+	    t.parkrecord_id,t.city_code,t.area_code,t.pay_time,t.pay_type,t.order_no,t.price,
+	    refund.suc_refund,refund.fail_refund
+	    FROM app_order t 
+	    left JOIN (SELECT r.order_no,
+	    SUM(CASE r.is_complate WHEN 200 THEN r.refund_fee ELSE 0 END) suc_refund,
+	    SUM(CASE r.is_complate WHEN 500 THEN r.refund_fee ELSE 0 END) fail_refund FROM app_order_refund r GROUP BY r.order_no) refund ON refund.order_no = t.order_no
+	    where t.order_no = #{orderNo})
+		WHERE  rownum = 1
+	</select>
+	
+	
+	<select id="queryOrderAndRefundByParkrecordId" resultMap="BaseResultMap"
+		parameterType="Object">
+			SELECT t.* , NVL(f.suc_refund,0) suc_refund,NVL(f.ct,0) ct
+			FROM (       
+			SELECT	
+				t.*,
+				ba1.AREA_NAME city_name,
+				ba2.AREA_NAME
+				FROM app_order t 		
+				LEFT JOIN BASE_AREA ba1 ON t.city_code = ba1.area_code
+				LEFT JOIN BASE_AREA ba2 ON t.area_code = ba2.area_code 
+				WHERE t.parkrecord_id = #{parkrecordId} 
+				order by t.create_time desc
+				) t 		
+				LEFT JOIN (		
+			SELECT refund.order_no,
+			SUM(CASE is_complate WHEN 200 THEN refund_fee ELSE 0 END) suc_refund  ,
+			COUNT(order_no) ct
+			FROM app_order_refund refund 
+			 GROUP BY refund.order_no ) f ON t.order_no = f.order_no
+	</select>
+	
+	<!-- 查询通知失败订单 -->
+	<select id="queryNotifyFailOrder" resultMap="BaseResultMap" >
+		SELECT * FROM app_order 
+		WHERE ORDER_STATUS=200 AND NOTIFY_STATUS=0 ORDER BY create_time DESC
+	</select>
+	
+	<!-- 查询某条停车记录的所有支付订单 -->
+	<select id="findAllOrderByParkRecordIdAndCityCode" resultMap="BaseResultMap" parameterType="Object">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM app_order t WHERE t.parkrecord_id = #{parkRecordId} 
+		<if test="cityCode != null" >
+		 and t.area_code = #{cityCode}
+		</if>
+		ORDER BY t.create_time DESC
+	</select>
+	
+	<!-- 根据parkrecordId查询某条停车记录的所有支付订单 -->
+	<select id="findAllOrderByParkRecordId" resultMap="BaseResultMap" parameterType="Object">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM app_order t WHERE t.parkrecord_id = #{parkrecordId} 
+		ORDER BY t.create_time DESC
+	</select>
+	
+	<select id="getAllOrderByOrderTime" resultMap="BaseResultMap" parameterType="Object">
+		SELECT <include refid="Base_Column_List" /> 
+		FROM app_order t where t.order_time BETWEEN to_date(#{startTime},'yyyy-MM-dd HH24:mi:ss') AND to_date(#{endtime},'yyyy-MM-dd HH24:mi:ss') and order_status = #{orderStatus}
+		ORDER BY t.order_time DESC
+	</select>
+	
+	<!-- 根据parkrecordId获取订单金额 -->
+	<select id="getOrderPriceByParkrecordId" resultType="java.lang.String" parameterType="Object">
+		SELECT SUM(price) FROM app_order 
+		WHERE order_status = 200 AND notify_status = 1 
+		  AND parkrecord_id = #{parkrecordId}
+	</select>
+	
+	<!-- 获取一天缴费用户数量 -->
+	<select id="getPayCountByCityCodeAndPayTime" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(user_account) count FROM 
+		(SELECT t.user_account FROM app_order t 
+		WHERE t.CREATE_TIME BETWEEN to_date('${date} 00:00:00','yyyy-MM-dd HH24:mi:ss') AND to_date('${date} 23:59:59','yyyy-MM-dd HH24:mi:ss')
+		AND t.ORDER_STATUS = #{orderStatus} 
+		<if test="cityCode != null and cityCode != 0">
+	    	AND t.city_code = #{cityCode} 
+	    </if>
+	    <if test="cityCode != null and cityCode == 0 ">
+	      	AND t.city_code is null
+	    </if>
+		GROUP BY t.user_account) o
+	</select>
+</mapper> 
+
+ 

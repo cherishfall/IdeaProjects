@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang=zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <script src="../../static/js/jquery-3.6.0.js"></script>
+    <script src="../../static/js/bootstrap.bundle.js"></script>
+
+    <!--测试jquery-->
+    <script>
+        $(function () {
+            // alert("jq");
+        })
+    </script>
+
+</head>
+<body>
+
+<!-- 对象使用-->
+<script>
+    /*
+    $(function () {
+        let obj = {a: 1, "b":2, 3:3};
+
+        alert(obj.a); // 1
+        alert(obj.b); //2
+        // alert(obj."3"); error
+
+
+        // alert(obj.[3]); error
+        // alert(obj[a]); error
+        // alert(obj[b]); error
+        alert(obj["a"]);//1
+        alert(obj["b"]);//2
+        alert(obj["3"]);//3
+
+        let str1 = "a";
+        let str2 = "b";
+        let str3 = "3";
+        alert(obj[str1]);//1
+        alert(obj[str2]);//2
+        alert(obj[str3]);//3
+
+        //说明定义对象时候，属性名是可以是标识符，字符串和数字，但是使用时有区别
+        //属性名在存储的时候都是存储成字符串的，使用[]时，里面要填字符串或着字符串的变量
+        //使用 . 时候，只能使用不带引号的标识符，且标识符不能以数字开头
+
+
+
+
+    })
+
+     */
+</script>
+
+<!-- undefind-->
+<script>
+    /*
+    $(function () {
+        let a;
+        // alert(typeof a);//undefined
+
+        // alert(undefined);//undefined
+        // alert(typeof undefined);//undefined
+
+        var undefined = "lifan";
+        alert(undefined);//lifan
+        alert(typeof undefined);//string
+        alert(typeof a);//undefined 有点奇怪哈。undefined是全局可读变量
+
+
+    })
+
+     */
+</script>
+
+<!--function-->
+<script>
+    /*
+    $(function () {
+        let fun1 = function () {
+            return 1+2;
+        }
+
+        function fun2(){
+            return 1+2;
+        }
+
+        alert(typeof fun1);//function
+        alert(typeof fun2);//function
+    })
+
+     */
+
+
+</script>
+
+<!-- 字符串转数字-->
+<script>
+    /*
+    $(function () {
+        // alert("100" - 1); //99
+
+        let a = "101" - 0;
+        // alert(a);//101
+        // alert(typeof a);//number
+
+        // let b = "102" - '';  //空字符串被转成0
+        // alert(b);//102
+        // alert(typeof b);//number
+
+        let c = "103";
+        let d = "-104";
+
+        let e = +c;
+        let f = +d;
+
+        alert(e);//103
+        alert(typeof e);//number
+
+        alert(f);//-104
+        alert(typeof f);//number
+
+    //    牛逼
+
+
+    })
+
+     */
+</script>
+
+<!--ReferenceRrror 异常-->
+<script>
+    $(function () {
+        alert(a);//确实没有反应
+
+        let b;
+        alert(b);// 这个也没有反应，看来是上面的抛出了异常，阻止了下面的运行。
+    })
+</script>
+
+
+</body>
+</html>

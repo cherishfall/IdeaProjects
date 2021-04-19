@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.point.UserMemberDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.point.UserMember" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="all_point" property="allPoint"/>
+		<result column="all_price" property="allPrice"/>
+		<result column="level" property="level"/>
+		<result column="sign_count" property="signCount"/>
+		<result column="last_sign_time" property="lastSignTime"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.all_point,
+		 t.all_price,
+		 t.level,
+		 t.sign_count,
+		 t.last_sign_time,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="allPoint != null " >
+    	and t.all_point =  #{allPoint}
+	</if>
+	<if test="allPrice != null " >
+    	and t.all_price =  #{allPrice}
+	</if>
+	<if test="level != null " >
+    	and t.level =  #{level}
+	</if>
+	<if test="signCount != null " >
+    	and t.sign_count =  #{signCount}
+	</if>
+	<if test="lastSignTime != null " >
+    	and t.last_sign_time =  #{lastSignTime}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_user_member 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="allPoint != null " >
+		all_point,
+		</if>
+    	<if test="allPrice != null " >
+		all_price,
+		</if>
+    	<if test="level != null " >
+		level,
+		</if>
+    	<if test="signCount != null " >
+		sign_count,
+		</if>
+    	<if test="lastSignTime != null " >
+		last_sign_time,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="allPoint != null " >
+  		<![CDATA[  #{allPoint}, ]]>
+    	</if>
+    	<if test="allPrice != null " >
+  		<![CDATA[  #{allPrice}, ]]>
+    	</if>
+    	<if test="level != null " >
+  		<![CDATA[  #{level}, ]]>
+    	</if>
+    	<if test="signCount != null " >
+  		<![CDATA[  #{signCount}, ]]>
+    	</if>
+    	<if test="lastSignTime != null " >
+  		<![CDATA[  #{lastSignTime}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_member t set 
+   <trim suffixOverrides="," >
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="allPoint != null " >
+  	<![CDATA[  t.all_point = #{allPoint}, ]]>
+    </if>
+    <if test="allPrice != null " >
+  	<![CDATA[  t.all_price = #{allPrice}, ]]>
+    </if>
+    <if test="level != null " >
+  	<![CDATA[  t.level = #{level}, ]]>
+    </if>
+    <if test="signCount != null " >
+  	<![CDATA[  t.sign_count = #{signCount}, ]]>
+    </if>
+    <if test="lastSignTime != null " >
+  	<![CDATA[  t.last_sign_time = #{lastSignTime}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_member where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_member t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_member t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_member t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询用户当前积分 -->
+<select id="findPointByUserId" resultType="java.lang.String" parameterType="java.lang.String">
+	SELECT case when all_point is null then 0 else all_point end all_point 
+	FROM app_user_member 
+	WHERE user_id = #{_parameter}
+</select>
+
+<!-- 查询用户今日是否已签到 -->
+<select id="findIsSignByUserId" resultType="java.lang.String" parameterType="java.lang.String">
+	SELECT CASE WHEN DATE_FORMAT(LAST_SIGN_TIME,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d') THEN 1 ELSE 0 END is_sign
+	FROM app_user_member 
+	WHERE user_id = #{_parameter}
+</select>
+
+<!-- 查询用户连续签到次数 -->
+<select id="findSignCountsByUserId" resultType="java.lang.String" parameterType="java.lang.String">
+	SELECT CASE WHEN SIGN_COUNT IS NULL THEN 0 ELSE SIGN_COUNT END sign_count
+	FROM app_user_member
+	WHERE user_id = #{_parameter}
+</select>
+
+<!-- 根据userId查询 -->
+<select id="queryMemberInfoByUserId"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	from app_user_member t where t.user_id = #{userId}
+</select>
+</mapper>   

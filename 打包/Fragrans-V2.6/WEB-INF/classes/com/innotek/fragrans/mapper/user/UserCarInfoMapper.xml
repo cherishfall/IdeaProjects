@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserCarInfoDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.user.UserCarInfo" >
+	<result column="id" property="id"/>
+		<result column="car_id" property="carId"/>
+		<result column="car_brand" property="carBrand"/>
+		<result column="car_color" property="carColor"/>
+		<result column="vehicle_type" property="vehicleType"/>
+		<result column="vehicle_number" property="vehicleNumber"/>
+		<result column="engine_number" property="engineNumber"/>
+		<result column="manufacture_time" property="manufactureTime"/>
+		<result column="license_photo" property="licensePhoto"/>
+		<result column="license_photo_vice" property="licensePhotoVice"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.car_id,
+		 t.car_brand,
+		 t.car_color,
+		 t.vehicle_type,
+		 t.vehicle_number,
+		 t.engine_number,
+		 t.manufacture_time,
+		 t.license_photo,
+		 t.license_photo_vice,
+		 t.flag,
+		 t.created_by,
+		 t.create_time,
+		 t.updated_by,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="carId != null and carId != '' " >
+    	and t.car_id =  #{carId}
+	</if>
+	<if test="carBrand != null and carBrand != '' " >
+    	and t.car_brand =  #{carBrand}
+	</if>
+	<if test="carColor != null and carColor != '' " >
+    	and t.car_color =  #{carColor}
+	</if>
+	<if test="vehicleType != null and vehicleType != '' " >
+    	and t.vehicle_type =  #{vehicleType}
+	</if>
+	<if test="vehicleNumber != null and vehicleNumber != '' " >
+    	and t.vehicle_number =  #{vehicleNumber}
+	</if>
+	<if test="engineNumber != null and engineNumber != '' " >
+    	and t.engine_number =  #{engineNumber}
+	</if>
+	<if test="manufactureTime != null " >
+    	and t.manufacture_time =  #{manufactureTime}
+	</if>
+	<if test="licensePhoto != null and licensePhoto != '' " >
+    	and t.license_photo =  #{licensePhoto}
+	</if>
+	<if test="licensePhotoVice != null and licensePhotoVice != '' " >
+    	and t.license_photo_vice =  #{licensePhotoVice}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_user_car_info 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="carId != null and carId != '' " >
+		 car_id,
+		</if>
+    	<if test="carBrand != null and carBrand != '' " >
+		 car_brand,
+		</if>
+    	<if test="carColor != null and carColor != '' " >
+		 car_color,
+		</if>
+    	<if test="vehicleType != null and vehicleType != '' " >
+		 vehicle_type,
+		</if>
+    	<if test="vehicleNumber != null and vehicleNumber != '' " >
+		 vehicle_number,
+		</if>
+    	<if test="engineNumber != null and engineNumber != '' " >
+		 engine_number,
+		</if>
+    	<if test="manufactureTime != null " >
+		manufacture_time,
+		</if>
+    	<if test="licensePhoto != null and licensePhoto != '' " >
+		 license_photo,
+		</if>
+    	<if test="licensePhotoVice != null and licensePhotoVice != '' " >
+		 license_photo_vice,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="carId != null and carId != '' " >
+  		<![CDATA[  #{carId}, ]]>
+    	</if>
+    	<if test="carBrand != null and carBrand != '' " >
+  		<![CDATA[  #{carBrand}, ]]>
+    	</if>
+    	<if test="carColor != null and carColor != '' " >
+  		<![CDATA[  #{carColor}, ]]>
+    	</if>
+    	<if test="vehicleType != null and vehicleType != '' " >
+  		<![CDATA[  #{vehicleType}, ]]>
+    	</if>
+    	<if test="vehicleNumber != null and vehicleNumber != '' " >
+  		<![CDATA[  #{vehicleNumber}, ]]>
+    	</if>
+    	<if test="engineNumber != null and engineNumber != '' " >
+  		<![CDATA[  #{engineNumber}, ]]>
+    	</if>
+    	<if test="manufactureTime != null " >
+  		<![CDATA[  #{manufactureTime}, ]]>
+    	</if>
+    	<if test="licensePhoto != null and licensePhoto != '' " >
+  		<![CDATA[  #{licensePhoto}, ]]>
+    	</if>
+    	<if test="licensePhotoVice != null and licensePhotoVice != '' " >
+  		<![CDATA[  #{licensePhotoVice}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_car_info t set 
+   <trim suffixOverrides="," >
+	<if test="carId != null and carId != '' " >
+  	<![CDATA[  t.car_id = #{carId}, ]]>
+    </if>
+    <if test="carBrand != null and carBrand != '' " >
+  	<![CDATA[  t.car_brand = #{carBrand}, ]]>
+    </if>
+    <if test="carColor != null and carColor != '' " >
+  	<![CDATA[  t.car_color = #{carColor}, ]]>
+    </if>
+    <if test="vehicleType != null and vehicleType != '' " >
+  	<![CDATA[  t.vehicle_type = #{vehicleType}, ]]>
+    </if>
+    <if test="vehicleNumber != null and vehicleNumber != '' " >
+  	<![CDATA[  t.vehicle_number = #{vehicleNumber}, ]]>
+    </if>
+    <if test="engineNumber != null and engineNumber != '' " >
+  	<![CDATA[  t.engine_number = #{engineNumber}, ]]>
+    </if>
+    <if test="manufactureTime != null " >
+  	<![CDATA[  t.manufacture_time = #{manufactureTime}, ]]>
+    </if>
+    <if test="licensePhoto != null and licensePhoto != '' " >
+  	<![CDATA[  t.license_photo = #{licensePhoto}, ]]>
+    </if>
+    <if test="licensePhotoVice != null and licensePhotoVice != '' " >
+  	<![CDATA[  t.license_photo_vice = #{licensePhotoVice}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_car_info where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_car_info t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_car_info t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_car_info t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<!-- 根据plateId查询是否存在正在审核中的日志 -->
+	<select id="queryIsExistReviewingLog" resultType="java.lang.Integer" parameterType="Object">
+		SELECT COUNT(1) FROM app_user_car_info a
+		LEFT JOIN app_review_log b ON a.id = b.busi_id
+		WHERE a.car_id = #{plateId} and b.REVIEW_STATUS != 2 and b.REVIEW_STATUS != 3 
+	</select>
+	
+	<!-- 根据plateId查询是否存在已审核通过的日志 -->
+	<select id="queryIsExistHasReviewLog" resultType="java.lang.Integer" parameterType="Object">
+		SELECT COUNT(1) FROM app_user_car_info a
+		LEFT JOIN app_review_log b ON a.id = b.busi_id
+		WHERE a.car_id = #{plateId} and b.REVIEW_STATUS = 2
+	</select>
+	
+	<!-- 根据car_id查询(未审核和审核中的) -->
+	<select id="queryReviewingByCarId"  resultMap="BaseResultMap" parameterType="Object">
+		SELECT t.* FROM app_user_car_info t
+		LEFT JOIN app_review_log r ON r.busi_id = t.id
+		WHERE t.car_id = #{carId} and (r.review_status = 0 or r.review_status = 1) 
+	</select>
+	
+	<!-- 根据id批量删除记录 -->
+	<delete id="deleteByIds" parameterType="Object">
+		delete from app_user_car_info where id in 
+		<foreach collection="list" item="id" open="(" close=")" separator=",">   
+            #{id}  
+        </foreach> 
+	</delete>
+</mapper>   

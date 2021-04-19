@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.point.UserPointTaskDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.point.UserPointTask" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="point_conf_id" property="pointConfId"/>
+		<result column="is_complate" property="isComplate"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.point_conf_id,
+		 t.is_complate,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="pointConfId != null and pointConfId != '' " >
+    	and t.point_conf_id =  #{pointConfId}
+	</if>
+	<if test="isComplate != null " >
+    	and t.is_complate =  #{isComplate}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_user_point_task 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="pointConfId != null and pointConfId != '' " >
+		 point_conf_id,
+		</if>
+    	<if test="isComplate != null " >
+		is_complate,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="pointConfId != null and pointConfId != '' " >
+  		<![CDATA[  #{pointConfId}, ]]>
+    	</if>
+    	<if test="isComplate != null " >
+  		<![CDATA[  #{isComplate}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_point_task t set 
+   <trim suffixOverrides="," >
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="pointConfId != null and pointConfId != '' " >
+  	<![CDATA[  t.point_conf_id = #{pointConfId}, ]]>
+    </if>
+    <if test="isComplate != null " >
+  	<![CDATA[  t.is_complate = #{isComplate}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_point_task where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_point_task t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_point_task t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_point_task t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<resultMap id="PointTaskMap" type="com.innotek.fragrans.entity.point.UserPointTask" >
+	<result column="point_conf_id" property="pointConfId"/>
+	<result column="point_type" property="handleType"/>
+	<result column="point_name" property="taskName"/>
+	<result column="gain_point" property="gainPoint"/>
+	<result column="is_complate" property="isComplate"/>
+</resultMap>
+<!-- 查询积分任务列表 -->
+<select id="findPointTasks" resultMap="PointTaskMap">
+	SELECT t.id point_conf_id,t.point_type,t.point_name,
+	       CASE WHEN t.point_tiger_type=1 THEN '随机' ELSE t.point END gain_point
+	FROM app_user_point_tiger_conf t
+	WHERE t.status = 1 AND t.is_display = 1
+	order by t.point_tiger_type asc
+</select>
+<!-- 根据任务id和userId查询任务记录 -->
+<select id="queryPointTaskRecord" resultMap="BaseResultMap" parameterType="Object">
+	SELECT *
+	FROM app_user_point_task t
+	WHERE t.POINT_CONF_ID = #{pointConfId} and t.user_id = #{userId}
+</select>
+</mapper>   

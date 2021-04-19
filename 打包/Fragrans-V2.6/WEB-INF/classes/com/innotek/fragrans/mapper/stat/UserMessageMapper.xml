@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.UserMessageDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.UserMessageEntity" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="message_id" property="messageId"/>
+		<result column="is_read" property="isRead"/>
+		<result column="create_time" property="createTime"/>
+		<result column="device_no" property="deviceNo"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.message_id,
+		 t.is_read,
+		 t.create_time,
+		 t.device_no,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="messageId != null and messageId != '' " >
+    	and t.message_id =  #{messageId}
+	</if>
+	<if test="isRead != null " >
+    	and t.is_read =  #{isRead}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="deviceNo != null and deviceNo != '' " >
+    	and t.device_no =  #{deviceNo}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+<!-- 	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id"> -->
+<!-- 		SELECT LAST_INSERT_ID() as ID  -->
+<!-- 	</selectKey> -->
+  
+	insert into app_user_message 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="messageId != null and messageId != '' " >
+		 message_id,
+		</if>
+    	<if test="isRead != null " >
+		is_read,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="deviceNo != null and deviceNo != '' " >
+		 device_no,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="messageId != null and messageId != '' " >
+  		<![CDATA[  #{messageId}, ]]>
+    	</if>
+    	<if test="isRead != null " >
+  		<![CDATA[  #{isRead}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="deviceNo != null and deviceNo != '' " >
+  		<![CDATA[  #{deviceNo}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_message t set 
+   <trim suffixOverrides="," >
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="messageId != null and messageId != '' " >
+  	<![CDATA[  t.message_id = #{messageId}, ]]>
+    </if>
+    <if test="isRead != null " >
+  	<![CDATA[  t.is_read = #{isRead}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="deviceNo != null and deviceNo != '' " >
+  	<![CDATA[  t.device_no = #{deviceNo}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_message t where t.id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_message t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_message t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_message t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+
+<!-- 根据deviceNo、userId、messageId查询 -->
+<select id="getMessageByDeviceNoOrUserId"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_message t where t.MESSAGE_ID = #{messageId}
+	  and (t.DEVICE_NO= #{deviceNo}
+	     <if test="userId != null " >
+	    	and t.user_id=#{userId}    
+		 </if>
+	  )
+</select>
+
+<!-- 批量插入数据 -->
+<insert id="addUserMessageBatch" parameterType="Object">  
+    insert into app_user_message (id,user_id,message_id,is_read,create_time,device_no)   
+    values  
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.id},#{item.userId},#{item.messageId},1,now(),#{item.deviceNo})  
+    </foreach>  
+</insert>  
+
+</mapper>   

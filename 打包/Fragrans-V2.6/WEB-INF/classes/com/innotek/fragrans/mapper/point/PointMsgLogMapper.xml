@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.point.PointMsgLogDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.point.PointMsgLog" >
+	<result column="id" property="id"/>
+		<result column="msg_type" property="msgType"/>
+		<result column="msg_servicename" property="msgServicename"/>
+		<result column="request_msg" property="requestMsg"/>
+		<result column="response_msg" property="responseMsg"/>
+		<result column="request_number" property="requestNumber"/>
+		<result column="request_time" property="requestTime"/>
+		<result column="response_time" property="responseTime"/>
+		<result column="handle_time" property="handleTime"/>
+		<result column="msg_status" property="msgStatus"/>
+		<result column="handle_status" property="handleStatus"/>
+		<result column="handle_result" property="handleResult"/>
+		<result column="flag" property="flag"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.msg_type,
+		 t.msg_servicename,
+		 t.request_msg,
+		 t.response_msg,
+		 t.request_number,
+		 t.request_time,
+		 t.response_time,
+		 t.handle_time,
+		 t.msg_status,
+		 t.handle_status,
+		 t.handle_result,
+		 t.flag,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="msgType != null and msgType != '' " >
+    	and t.msg_type =  #{msgType}
+	</if>
+	<if test="msgServicename != null and msgServicename != '' " >
+    	and t.msg_servicename =  #{msgServicename}
+	</if>
+	<if test="requestMsg != null and requestMsg != '' " >
+    	and t.request_msg =  #{requestMsg}
+	</if>
+	<if test="responseMsg != null and responseMsg != '' " >
+    	and t.response_msg =  #{responseMsg}
+	</if>
+	<if test="requestNumber != null " >
+    	and t.request_number =  #{requestNumber}
+	</if>
+	<if test="requestTime != null " >
+    	and t.request_time =  #{requestTime}
+	</if>
+	<if test="responseTime != null " >
+    	and t.response_time =  #{responseTime}
+	</if>
+	<if test="handleTime != null " >
+    	and t.handle_time =  #{handleTime}
+	</if>
+	<if test="msgStatus != null " >
+    	and t.msg_status =  #{msgStatus}
+	</if>
+	<if test="handleStatus != null " >
+    	and t.handle_status =  #{handleStatus}
+	</if>
+	<if test="handleResult != null and handleResult != '' " >
+    	and t.handle_result =  #{handleResult}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+			SELECT UUID() as ID
+	</selectKey>
+  
+	insert into sre_point_msg_log 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	<if test="id != null and id != ''">
+		 id,
+		</if>
+	 	<if test="msgType != null and msgType != '' " >
+		 msg_type,
+		</if>
+    	<if test="msgServicename != null and msgServicename != '' " >
+		 msg_servicename,
+		</if>
+    	<if test="requestMsg != null and requestMsg != '' " >
+		 request_msg,
+		</if>
+    	<if test="responseMsg != null and responseMsg != '' " >
+		 response_msg,
+		</if>
+    	<if test="requestNumber != null " >
+		request_number,
+		</if>
+    	<if test="requestTime != null " >
+		request_time,
+		</if>
+    	<if test="responseTime != null " >
+		response_time,
+		</if>
+    	<if test="handleTime != null " >
+		handle_time,
+		</if>
+    	<if test="msgStatus != null " >
+		msg_status,
+		</if>
+    	<if test="handleStatus != null " >
+		handle_status,
+		</if>
+    	<if test="handleResult != null and handleResult != '' " >
+		 handle_result,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="id != null and id != ''" >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="msgType != null and msgType != '' " >
+  		<![CDATA[  #{msgType}, ]]>
+    	</if>
+    	<if test="msgServicename != null and msgServicename != '' " >
+  		<![CDATA[  #{msgServicename}, ]]>
+    	</if>
+    	<if test="requestMsg != null and requestMsg != '' " >
+  		<![CDATA[  #{requestMsg}, ]]>
+    	</if>
+    	<if test="responseMsg != null and responseMsg != '' " >
+  		<![CDATA[  #{responseMsg}, ]]>
+    	</if>
+    	<if test="requestNumber != null " >
+  		<![CDATA[  #{requestNumber}, ]]>
+    	</if>
+    	<if test="requestTime != null " >
+  		<![CDATA[  #{requestTime}, ]]>
+    	</if>
+    	<if test="responseTime != null " >
+  		<![CDATA[  #{responseTime}, ]]>
+    	</if>
+    	<if test="handleTime != null " >
+  		<![CDATA[  #{handleTime}, ]]>
+    	</if>
+    	<if test="msgStatus != null " >
+  		<![CDATA[  #{msgStatus}, ]]>
+    	</if>
+    	<if test="handleStatus != null " >
+  		<![CDATA[  #{handleStatus}, ]]>
+    	</if>
+    	<if test="handleResult != null and handleResult != '' " >
+  		<![CDATA[  #{handleResult}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update sre_point_msg_log t set 
+   <trim suffixOverrides="," >
+	<if test="msgType != null and msgType != '' " >
+  	<![CDATA[  t.msg_type = #{msgType}, ]]>
+    </if>
+    <if test="msgServicename != null and msgServicename != '' " >
+  	<![CDATA[  t.msg_servicename = #{msgServicename}, ]]>
+    </if>
+    <if test="requestMsg != null and requestMsg != '' " >
+  	<![CDATA[  t.request_msg = #{requestMsg}, ]]>
+    </if>
+    <if test="responseMsg != null and responseMsg != '' " >
+  	<![CDATA[  t.response_msg = #{responseMsg}, ]]>
+    </if>
+    <if test="requestNumber != null " >
+  	<![CDATA[  t.request_number = #{requestNumber}, ]]>
+    </if>
+    <if test="requestTime != null " >
+  	<![CDATA[  t.request_time = #{requestTime}, ]]>
+    </if>
+    <if test="responseTime != null " >
+  	<![CDATA[  t.response_time = #{responseTime}, ]]>
+    </if>
+    <if test="handleTime != null " >
+  	<![CDATA[  t.handle_time = #{handleTime}, ]]>
+    </if>
+    <if test="msgStatus != null " >
+  	<![CDATA[  t.msg_status = #{msgStatus}, ]]>
+    </if>
+    <if test="handleStatus != null " >
+  	<![CDATA[  t.handle_status = #{handleStatus}, ]]>
+    </if>
+    <if test="handleResult != null and handleResult != '' " >
+  	<![CDATA[  t.handle_result = #{handleResult}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from sre_point_msg_log where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from sre_point_msg_log t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from sre_point_msg_log t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from sre_point_msg_log t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+</mapper>   

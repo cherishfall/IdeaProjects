@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.business.dao.AppLogDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.AppLogEntity" >
+		<result column="id" property="id"/>
+		<result column="app_id" property="appId"/>
+		<result column="service_name" property="serviceName"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="user_id" property="userId"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="device_no" property="deviceNo"/>
+		<result column="machine_type" property="machineType"/>
+		<result column="os_version" property="osVersion"/>
+		<result column="device_type" property="deviceType"/>
+		<result column="app_version" property="appVersion"/>
+		<result column="timelong" property="timeLong"/>
+		<result column="source" property="source"/>
+		<result column="log_status" property="logStatus"/>
+		<result column="note" property="note"/>
+		<result column="request_msg" property="requestMsg"/>
+		<result column="repsonse_msg" property="repsonseMsg"/>
+		<result column="request_time" property="requestTime"/>
+		<result column="response_time" property="responseTime"/>
+		<result column="flag" property="flag"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.app_id,
+		 t.device_no,
+		 t.service_name,
+		 t.city_code,
+		 t.user_account,
+		 t.user_id,
+		 t.plate_no,
+		 t.machine_type,
+		 t.os_version,
+		 t.device_type,
+		 t.app_version,
+		 t.timelong,
+		 t.source,
+		 t.log_status,
+		 t.note,
+		 t.request_msg,
+		 t.repsonse_msg,
+		 t.request_time,
+		 t.response_time,
+		 t.flag,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="appId != null and appId != '' " >
+    	and t.app_id =  #{appId}
+	</if>
+	<if test="deviceNo != null and deviceNo != '' " >
+    	and t.device_no =  #{deviceNo}
+	</if>
+	<if test="serviceName != null and serviceName != '' " >
+    	and t.service_name =  #{serviceName}
+	</if>
+	
+	<if test="cityCode != null and cityCode != '' " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	
+	<if test="appVersion != null and appVersion != '' " >
+    	and t.app_version =  #{appVersion}
+	</if>
+	
+	<if test="deviceType != null and deviceType != '' " >
+    	and t.device_type =  #{deviceType}
+	</if>
+	
+	<if test="osVersion != null and osVersion != '' " >
+    	and t.os_version =  #{osVersion}
+	</if>
+	
+	
+	<if test="note != null and note != '' " >
+    	and t.note =  #{note}
+	</if>
+	<if test="requestMsg != null and requestMsg != '' " >
+    	and t.request_msg like '%${requestMsg}%'
+	</if>
+	<if test="repsonseMsg != null and repsonseMsg != '' " >
+    	and t.repsonse_msg like '%${repsonseMsg}%'
+	</if>
+	<if test="requestTime != null " >
+    	and t.request_time =  #{requestTime}
+	</if>
+	<if test="responseTime != null " >
+    	and t.response_time =  #{responseTime}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="endDate != null and endDate != '' ">
+	  	and t.request_time between #{startDate} and #{endDate}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	insert into APP_LOG 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	id,create_time,flag,
+	 	<if test="appId != null and appId != '' " >
+		 app_id,
+		</if>
+		 <if test="cityCode != null and cityCode != '' " >
+		 	city_code,
+		 </if>
+    	<if test="deviceNo != null and deviceNo != '' " >
+		 device_no,
+		</if>
+		 <if test="serviceName != null and serviceName != '' " >
+		 	service_name,
+		 </if>
+		 <if test="userAccount != null and userAccount != '' " >
+		 	user_account,
+		 </if>
+		 <if test="userId != null and userId != '' " >
+		 	user_id,
+		 </if>
+		 <if test="plateNo != null and plateNo != '' " >
+		 	plate_no,
+		 </if>
+		 <if test="machineType != null and machineType != '' " >
+		 	machine_type,
+		 </if>
+		 <if test="osVersion != null and osVersion != '' " >
+		 	os_version,
+		 </if>
+		 <if test="deviceType != null and deviceType != '' " >
+		 	device_type,
+		 </if>
+		 <if test="appVersion != null and appVersion != '' " >
+		 	app_version,
+		 </if>
+		 <if test="timeLong != null" >
+		 	timelong,
+		 </if>
+		 <if test="source != null" >
+		 	source,
+		 </if>
+    	<if test="note != null and note != '' " >
+		 note,
+		</if>
+    	<if test="requestMsg != null and requestMsg != '' " >
+		 request_msg,
+		</if>
+    	<if test="repsonseMsg != null and repsonseMsg != '' " >
+		 repsonse_msg,
+		</if>
+    	<if test="requestTime != null " >
+		request_time,
+		</if>
+    	<if test="responseTime != null " >
+		response_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	UUID(),now(),'ADD',
+	 	<if test="appId != null and appId != '' " >
+  		<![CDATA[  #{appId}, ]]>
+    	</if>
+    	 <if test="cityCode != null and cityCode != '' " >
+		 	<![CDATA[  #{cityCode}, ]]>
+		 </if>
+    	<if test="deviceNo != null and deviceNo != '' " >
+  		<![CDATA[  #{deviceNo}, ]]>
+    	</if>
+    	<if test="serviceName != null and serviceName != '' " >
+		 	<![CDATA[  #{serviceName}, ]]>
+		 </if>
+		 <if test="userAccount != null and userAccount != '' " >
+		 	<![CDATA[  #{userAccount}, ]]>
+		 </if>
+		 <if test="userId != null and userId != '' " >
+		 	<![CDATA[  #{userId}, ]]>
+		 </if>
+		 <if test="plateNo != null and plateNo != '' " >
+		 	 <![CDATA[  #{plateNo}, ]]>
+		 </if>
+		 <if test="machineType != null and machineType != '' " >
+		 	 <![CDATA[  #{machineType}, ]]>
+		 </if>
+		 <if test="osVersion != null and osVersion != '' " >
+		 	 <![CDATA[  #{osVersion}, ]]>
+		 </if>
+		 <if test="deviceType != null and deviceType != '' " >
+		  	<![CDATA[  #{deviceType}, ]]>
+		 </if>
+		 <if test="appVersion != null and appVersion != '' " >
+		 	 <![CDATA[  #{appVersion}, ]]>
+		 </if>
+		 <if test="timeLong != null" >
+		 	 <![CDATA[  #{timeLong}, ]]>
+		 </if>
+		 <if test="source != null" >
+		 	 <![CDATA[  #{source}, ]]>
+		 </if>
+    	<if test="note != null and note != '' " >
+  		<![CDATA[  #{note}, ]]>
+    	</if>
+    	<if test="requestMsg != null and requestMsg != '' " >
+  		<![CDATA[  #{requestMsg}, ]]>
+    	</if>
+    	<if test="repsonseMsg != null and repsonseMsg != '' " >
+  		<![CDATA[  #{repsonseMsg}, ]]>
+    	</if>
+    	<if test="requestTime != null " >
+  		<![CDATA[  #{requestTime}, ]]>
+    	</if>
+    	<if test="responseTime != null " >
+  		<![CDATA[  #{responseTime}, ]]>
+    	</if>
+    </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update APP_LOG t set 
+   <trim suffixOverrides="," >
+	<if test="appId != null and appId != '' " >
+  	<![CDATA[  t.app_id = #{appId}, ]]>
+    </if>
+    <if test="deviceNo != null and deviceNo != '' " >
+  	<![CDATA[  t.device_no = #{deviceNo}, ]]>
+    </if>
+    <if test="note != null and note != '' " >
+  	<![CDATA[  t.note = #{note}, ]]>
+    </if>
+    <if test="requestMsg != null and requestMsg != '' " >
+  	<![CDATA[  t.request_msg = #{requestMsg}, ]]>
+    </if>
+    <if test="repsonseMsg != null and repsonseMsg != '' " >
+  	<![CDATA[  t.repsonse_msg = #{repsonseMsg}, ]]>
+    </if>
+    <if test="requestTime != null " >
+  	<![CDATA[  t.request_time = #{requestTime}, ]]>
+    </if>
+    <if test="responseTime != null " >
+  	<![CDATA[  t.response_time = #{responseTime}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = 'UPDATE', ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from APP_LOG where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from APP_LOG t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from APP_LOG t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from APP_LOG t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 统计一天城市活跃设备数 -->
+<select id="getActiveDeviceCountByCityCodeAndTime" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(DEVICE_NO) COUNT FROM 
+	(SELECT t.DEVICE_NO FROM app_log t 
+	WHERE t.CREATE_TIME BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s')
+	<if test="cityCode != null and cityCode == 0">
+      	 AND t.city_code is null
+    </if>
+    <if test="cityCode != null and cityCode != 0">
+    	 AND t.CITY_CODE = #{cityCode}
+    </if>
+	GROUP BY t.DEVICE_NO) m
+</select>
+
+<!-- 统计一天新增设备数 -->
+<select id="getNewDeviceCountByCityCodeAndTime" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT
+	  COUNT(DEVICE_NO)    COUNT
+	FROM (SELECT DEVICE_NO
+	      FROM (SELECT t.DEVICE_NO FROM app_log t
+	            WHERE t.CREATE_TIME BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s')
+	                AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s') 
+	                <if test="cityCode != null and cityCode == 0">
+						AND t.city_code is null
+					</if>
+					<if test="cityCode != null and cityCode != 0">
+						 AND t.CITY_CODE = #{cityCode}
+					</if>
+	            GROUP BY t.DEVICE_NO) m
+	      WHERE NOT EXISTS(SELECT l.DEVICE_NO FROM app_log l
+	                       WHERE l.CREATE_TIME NOT BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s')
+	                           AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s') 
+	                           <if test="cityCode != null and cityCode == 0">
+									AND l.city_code is null
+								</if>
+								<if test="cityCode != null and cityCode != 0">
+									 AND l.CITY_CODE = #{cityCode}
+								</if>)) n
+</select>
+
+<!-- 查询列表 -->
+<select id="queryDataList" resultMap="BaseResultMap"  parameterType="Object">
+	 SELECT t.* FROM app_log t
+	 WHERE 1=1
+	 <if test="startDate != null and startDate != '' and
+	 			endDate != null and endDate != '' ">
+	 	 and t.create_time BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:%s') 
+	 	 AND STR_TO_DATE(#{endDate},'%Y-%m-%d %H:%i:%s')
+	 </if>
+	 <if test="serviceName != null and serviceName != '' ">
+	 	AND t.service_name like '%${serviceName}%' 
+	 </if>
+	 <if test="userAccount != null and userAccount != '' ">
+	 	AND t.user_account = #{userAccount}
+	 </if>
+     <if test="requestMsg != null and requestMsg != '' ">
+     	 AND t.request_msg like '%${requestMsg}%' 
+     </if> 
+     <if test="repsonseMsg != null and repsonseMsg != '' ">
+     	AND t.repsonse_msg like '%${repsonseMsg}%' 
+     </if>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询列表条数 -->
+<select id="queryDataListCount" resultType="java.lang.Integer"  parameterType="Object">
+	 SELECT count(1) FROM app_log t
+	 WHERE 1=1
+	  <if test="startDate != null and startDate != '' and
+	 			endDate != null and endDate != '' ">
+	 	 and t.create_time BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:%s') 
+	 	 AND STR_TO_DATE(#{endDate},'%Y-%m-%d %H:%i:%s')
+	  </if>
+	  <if test="serviceName != null and serviceName != '' ">
+	 	AND t.service_name like '%${serviceName}%' 
+	  </if>
+	  <if test="userAccount != null and userAccount != '' ">
+	 	AND t.user_account = #{userAccount}
+	  </if>
+      <if test="requestMsg != null and requestMsg != '' ">
+     	 AND t.request_msg like '%${requestMsg}%' 
+      </if> 
+      <if test="repsonseMsg != null and repsonseMsg != '' ">
+     	AND t.repsonse_msg like '%${repsonseMsg}%' 
+     </if>
+</select>
+</mapper>   

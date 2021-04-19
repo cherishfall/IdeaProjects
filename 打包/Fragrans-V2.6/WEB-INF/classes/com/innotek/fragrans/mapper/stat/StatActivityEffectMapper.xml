@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.StatActivityEffectDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.StatActivityEffect" >
+	<result column="id" property="id"/>
+		<result column="day_time" property="dayTime"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="activity_name" property="activityName"/>
+		<result column="activity_id" property="activityId"/>
+		<result column="putlog_count" property="putlogCount"/>
+		<result column="used_count" property="usedCount"/>
+		<result column="unused_user_count" property="cumulativUnusedUserCount"/>
+		<result column="part_user_count" property="cumulativeParticipateUserCount"/>
+		<result column="payfee_order_count" property="cumulativePayfeeOrderCount"/>
+		<result column="payfee_user_count" property="payfeeUserCount"/>
+		<result column="tp_user_count" property="ticketpayUserCount"/>
+		<result column="ticket_money_amount" property="ticketMoneyAmount"/>
+		<result column="act_discount_amount" property="actualDiscountAmount"/>
+		<result column="ticket_discount_scale" property="ticketDiscountScale"/>
+		<result column="revenue_growth_rate" property="revenueGrowthRate"/>
+		<result column="create_time" property="createTime"/>
+		<result column="area_name" property="areaName"/>
+		<result column="city_name" property="cityName"/>
+		<result column="activity_topic_id" property="activityTopicId"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.day_time,
+		 t.city_code,
+		 t.area_code,
+		 t.activity_name,
+		 t.activity_id,
+		 t.putlog_count,
+		 t.used_count,
+		 t.unused_user_count,
+		 t.part_user_count,
+		 t.payfee_order_count,
+		 t.payfee_user_count,
+		 t.tp_user_count,
+		 t.ticket_money_amount,
+		 t.act_discount_amount,
+		 t.ticket_discount_scale,
+		 t.revenue_growth_rate,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="dayTime != null " >
+    	and t.day_time =  #{dayTime}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="activityName != null and activityName != '' " >
+    	and t.activity_name =  #{activityName}
+	</if>
+	<if test="activityId != null and activityId != '' " >
+    	and t.activity_id =  #{activityId}
+	</if>
+	<if test="putlogCount != null " >
+    	and t.putlog_count =  #{putlogCount}
+	</if>
+	<if test="usedCount != null " >
+    	and t.used_count =  #{usedCount}
+	</if>
+	<if test="cumulativUnusedUserCount != null " >
+    	and t.unused_user_count =  #{cumulativUnusedUserCount}
+	</if>
+	<if test="cumulativeParticipateUserCount != null " >
+    	and t.part_user_count =  #{cumulativeParticipateUserCount}
+	</if>
+	<if test="cumulativePayfeeOrderCount != null " >
+    	and t.payfee_order_count =  #{cumulativePayfeeOrderCount}
+	</if>
+	<if test="payfeeUserCount != null " >
+    	and t.payfee_user_count =  #{payfeeUserCount}
+	</if>
+	<if test="ticketpayUserCount != null " >
+    	and t.tp_user_count =  #{ticketpayUserCount}
+	</if>
+	<if test="ticketMoneyAmount != null " >
+    	and t.ticket_money_amount =  #{ticketMoneyAmount}
+	</if>
+	<if test="actualDiscountAmount != null " >
+    	and t.act_discount_amount =  #{actualDiscountAmount}
+	</if>
+	<if test="ticketDiscountScale != null " >
+    	and t.ticket_discount_scale =  #{ticketDiscountScale}
+	</if>
+	<if test="revenueGrowthRate != null " >
+    	and t.revenue_growth_rate =  #{revenueGrowthRate}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT UUID() as ID
+	</selectKey>
+  
+	insert into app_stat_activity_effect 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	<if test="id != null">
+				id,
+		</if>
+	 	<if test="dayTime != null " >
+		day_time,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="activityName != null and activityName != '' " >
+		 activity_name,
+		</if>
+    	<if test="activityId != null and activityId != '' " >
+		 activity_id,
+		</if>
+    	<if test="putlogCount != null " >
+		putlog_count,
+		</if>
+    	<if test="usedCount != null " >
+		used_count,
+		</if>
+    	<if test="cumulativUnusedUserCount != null " >
+		unused_user_count,
+		</if>
+    	<if test="cumulativeParticipateUserCount != null " >
+		part_user_count,
+		</if>
+    	<if test="cumulativePayfeeOrderCount != null " >
+		payfee_order_count,
+		</if>
+    	<if test="payfeeUserCount != null " >
+		payfee_user_count,
+		</if>
+    	<if test="ticketpayUserCount != null " >
+		tp_user_count,
+		</if>
+    	<if test="ticketMoneyAmount != null " >
+		ticket_money_amount,
+		</if>
+    	<if test="actualDiscountAmount != null " >
+		act_discount_amount,
+		</if>
+    	<if test="ticketDiscountScale != null " >
+		ticket_discount_scale,
+		</if>
+    	<if test="revenueGrowthRate != null " >
+		revenue_growth_rate,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="id != null">
+  		<![CDATA[  #{id}, ]]>
+		</if>
+	 	<if test="dayTime != null " >
+  		<![CDATA[  #{dayTime}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="activityName != null and activityName != '' " >
+  		<![CDATA[  #{activityName}, ]]>
+    	</if>
+    	<if test="activityId != null and activityId != '' " >
+  		<![CDATA[  #{activityId}, ]]>
+    	</if>
+    	<if test="putlogCount != null " >
+  		<![CDATA[  #{putlogCount}, ]]>
+    	</if>
+    	<if test="usedCount != null " >
+  		<![CDATA[  #{usedCount}, ]]>
+    	</if>
+    	<if test="cumulativUnusedUserCount != null " >
+  		<![CDATA[  #{cumulativUnusedUserCount}, ]]>
+    	</if>
+    	<if test="cumulativeParticipateUserCount != null " >
+  		<![CDATA[  #{cumulativeParticipateUserCount}, ]]>
+    	</if>
+    	<if test="cumulativePayfeeOrderCount != null " >
+  		<![CDATA[  #{cumulativePayfeeOrderCount}, ]]>
+    	</if>
+    	<if test="payfeeUserCount != null " >
+  		<![CDATA[  #{payfeeUserCount}, ]]>
+    	</if>
+    	<if test="ticketpayUserCount != null " >
+  		<![CDATA[  #{ticketpayUserCount}, ]]>
+    	</if>
+    	<if test="ticketMoneyAmount != null " >
+  		<![CDATA[  #{ticketMoneyAmount}, ]]>
+    	</if>
+    	<if test="actualDiscountAmount != null " >
+  		<![CDATA[  #{actualDiscountAmount}, ]]>
+    	</if>
+    	<if test="ticketDiscountScale != null " >
+  		<![CDATA[  #{ticketDiscountScale}, ]]>
+    	</if>
+    	<if test="revenueGrowthRate != null " >
+  		<![CDATA[  #{revenueGrowthRate}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_stat_activity_effect t set 
+   <trim suffixOverrides="," >
+	<if test="dayTime != null " >
+  	<![CDATA[  t.day_time = #{dayTime}, ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="activityName != null and activityName != '' " >
+  	<![CDATA[  t.activity_name = #{activityName}, ]]>
+    </if>
+    <if test="activityId != null and activityId != '' " >
+  	<![CDATA[  t.activity_id = #{activityId}, ]]>
+    </if>
+    <if test="putlogCount != null " >
+  	<![CDATA[  t.putlog_count = #{putlogCount}, ]]>
+    </if>
+    <if test="usedCount != null " >
+  	<![CDATA[  t.used_count = #{usedCount}, ]]>
+    </if>
+    <if test="cumulativUnusedUserCount != null " >
+  	<![CDATA[  t.unused_user_count = #{cumulativUnusedUserCount}, ]]>
+    </if>
+    <if test="cumulativeParticipateUserCount != null " >
+  	<![CDATA[  t.part_user_count = #{cumulativeParticipateUserCount}, ]]>
+    </if>
+    <if test="cumulativePayfeeOrderCount != null " >
+  	<![CDATA[  t.payfee_order_count = #{cumulativePayfeeOrderCount}, ]]>
+    </if>
+    <if test="payfeeUserCount != null " >
+  	<![CDATA[  t.payfee_user_count = #{payfeeUserCount}, ]]>
+    </if>
+    <if test="ticketpayUserCount != null " >
+  	<![CDATA[  t.tp_user_count = #{ticketpayUserCount}, ]]>
+    </if>
+    <if test="ticketMoneyAmount != null " >
+  	<![CDATA[  t.ticket_money_amount = #{ticketMoneyAmount}, ]]>
+    </if>
+    <if test="actualDiscountAmount != null " >
+  	<![CDATA[  t.act_discount_amount = #{actualDiscountAmount}, ]]>
+    </if>
+    <if test="ticketDiscountScale != null " >
+  	<![CDATA[  t.ticket_discount_scale = #{ticketDiscountScale}, ]]>
+    </if>
+    <if test="revenueGrowthRate != null " >
+  	<![CDATA[  t.revenue_growth_rate = #{revenueGrowthRate}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_stat_activity_effect where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_stat_activity_effect t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_stat_activity_effect t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_stat_activity_effect t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 获取指定日期活动效果统计数据-->
+<select id="queryActivityEffectByDayTime" resultMap="BaseResultMap"  parameterType="Object">
+	  SELECT * FROM app_stat_activity_effect t
+	  LEFT JOIN app_activity t1 ON t.activity_id = t1.id
+	  WHERE  t.day_time = #{dayTime} 
+	  <trim>
+         <if test="activityTopicId != null and activityTopicId !='' ">
+           	and t1.activity_topic_id = #{activityTopicId}
+         </if>
+         <if test="areaCode != null and areaCode !='' ">
+           	AND t.area_code like '${areaCode}%' 
+         </if>
+     </trim> 
+</select>
+
+<!-- 查询发券总数-->
+<select id="findPutlogCount" resultType="java.lang.String"  parameterType="java.util.Map">
+	  SELECT COUNT(t.activity_id) putlog_count FROM app_activity_ticket_putlog t
+	  LEFT JOIN app_user_ext t1 ON t.user_id = t1.user_id
+	  WHERE DATE_FORMAT(t.GET_TICKET_TIME,'%Y-%m-%d') = #{dayTime} 
+	    AND (t1.city_code LIKE '${areaCode}%' OR t1.city_code IS NULL)
+		AND t.activity_id  = #{activityId} 
+</select>
+
+<!-- 查询使用总数-->
+<select id="findUsedCount" resultType="java.lang.String"  parameterType="object">
+	 SELECT COUNT(t.activity_id) used_count FROM app_order_paylog t
+	 WHERE DATE_FORMAT(t.create_time,'%Y-%m-%d') = #{dayTime}  
+	   AND t.is_paid = 200 AND t.activity_type = 1
+	   AND t.city_code = #{areaCode}
+	   AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询累计未使用用户数-->
+<select id="findCumulativUnusedUserCount" resultType="java.lang.String"  parameterType="object">
+	SELECT COUNT(DISTINCT t.user_id) unused_user_count 
+	FROM app_activity_ticket_putlog t
+	LEFT JOIN app_user_ext t1 ON t.user_id = t1.user_id
+	WHERE t.is_used = 0   
+	  AND (t1.city_code LIKE '${areaCode}%' OR t1.city_code IS NULL)
+	  AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询累计参与用户数-->
+<select id="findCumulativeParticipateUserCount" resultType="java.lang.String"  parameterType="object">
+	SELECT COUNT(DISTINCT t.user_id) part_user_count
+	FROM app_activity_ticket_putlog t
+	LEFT JOIN app_user_ext t1 ON t.user_id = t1.user_id
+	WHERE (t1.city_code LIKE '${areaCode}%' OR t1.city_code IS NULL)
+	  AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询累计缴费订单数-->
+<select id="findCumulativePayfeeOrderCount" resultType="java.lang.String"  parameterType="object">
+	SELECT COUNT(t.activity_id) payfee_order_count
+	FROM app_order_paylog t
+	WHERE t.activity_type = 1 AND is_paid = 200
+	  AND t.city_code = #{areaCode}
+	  AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询缴费用户数-->
+<select id="findPayfeeUserCount" resultType="java.lang.String"  parameterType="object">
+	SELECT COUNT(DISTINCT t.user_id) payfee_user_count FROM app_order_paylog t
+	WHERE t.is_paid = 200 
+	  AND DATE_FORMAT(t.create_time,'%Y-%m-%d') = #{dayTime} 
+	  AND t.city_code = #{areaCode} 
+	  AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询券缴费用户数-->
+<select id="findTicketpayUserCount" resultType="java.lang.String"  parameterType="object">
+	SELECT COUNT(DISTINCT t.user_id) tp_user_count FROM app_order_paylog t
+	WHERE  t.activity_type = 1 AND t.is_paid = 200
+	   AND DATE_FORMAT(t.create_time,'%Y-%m-%d') = #{dayTime}  
+	   AND t.city_code = #{areaCode}
+	   AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询券总面额-->
+<select id="findTicketMoneyAmount" resultType="java.lang.String"  parameterType="object">
+	SELECT SUM(CASE WHEN t.ticket_money = 0 THEN t.ticket_fee ELSE t.ticket_money END) ticket_money_amount 
+	FROM app_order_paylog t
+	WHERE t.is_paid = 200 AND t.activity_type = 1
+	  AND DATE_FORMAT(t.create_time,'%Y-%m-%d') = #{dayTime} 
+	  AND t.city_code = #{areaCode}
+	  AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询券实际抵扣总面额-->
+<select id="findActualDiscountAmount" resultType="java.lang.String"  parameterType="object">
+	SELECT SUM(t.ticket_fee) act_discount_amount
+	FROM app_order_paylog t
+	WHERE t.is_paid = 200 AND t.activity_type = 1
+	  AND DATE_FORMAT(t.create_time,'%Y-%m-%d') = #{dayTime}   
+	  AND t.city_code = #{areaCode}
+	  AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询券抵扣金额占比-->
+<select id="findTicketDiscountScale" resultType="java.lang.String"  parameterType="object">
+	SELECT ROUND(SUM(t.ticket_fee)/SUM(t.park_fee)*100,2) ticket_discount_scale
+	FROM app_order_paylog t
+	WHERE t.is_paid = 200 AND t.activity_type = 1 
+	AND DATE_FORMAT(t.create_time,'%Y-%m-%d') = #{dayTime} 
+	AND t.city_code = #{areaCode}
+	AND t.activity_id  = #{activityId}
+</select>
+
+<!-- 查询每月初至今收入情况-->
+<select id="findPerMonthAmountUtilNow" resultType="java.lang.String"  parameterType="java.util.Map">
+	SELECT SUM(t.pay_fee) FROM app_order_paylog t
+	WHERE  t.is_paid = 200 
+	   AND t.city_code = #{areaCode}
+	   AND DATE_FORMAT(t.create_time,'%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+</select>
+
+<!-- 导出活动效果统计报表 -->
+<select id="cvsActivityEffectList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT t.day_time,t.activity_name,t.putlog_count,t.used_count,
+	       t.unused_user_count,t.part_user_count,
+	       t.payfee_order_count,t.payfee_user_count,t.tp_user_count,
+	       ticket_money_amount,
+	       act_discount_amount,
+	       t.ticket_discount_scale,t.revenue_growth_rate,
+	       t1.area_name city_name,t2.area_name area_name
+	FROM app_stat_activity_effect t	
+	LEFT JOIN base_area t1 ON t.city_code=t1.area_code
+	LEFT JOIN base_area t2 ON t.area_code=t2.area_code
+	WHERE 1=1 
+	<trim>
+	 <if test="startDate != null and startDate != '' and endDate != null
+	 	and endDate != '' ">
+	 	and t.day_time BETWEEN #{startDate} AND #{endDate}
+	 </if>
+	 <if test="cityCode != null and cityCode != '' ">
+	  	AND t.city_code = (SELECT t3.area_code FROM base_area t3 WHERE t3.id = #{cityCode})  
+	  </if>
+	  <if test="areaCode != null and areaCode != '' ">
+	  	AND t.area_code = (SELECT t4.area_code FROM base_area t4 WHERE t4.id = #{areaCode})
+	  </if>
+	</trim>
+	ORDER BY t.day_time desc
+</select>
+
+<!-- 获取指定日期活动效果统计数据条数 -->
+<select id="quertStatActivityEffectByDayTime" resultType="java.lang.Integer"  parameterType="Object">
+	  SELECT count(1)
+	  FROM app_stat_activity_effect t
+	  LEFT JOIN base_area t1 ON t.area_code=t1.area_code
+	  LEFT JOIN base_area t2 ON t.city_code=t2.area_code
+	  WHERE 1=1 AND t1.flag!='DELETE'
+	  <trim>
+	  <if test="endDate != null and endDate != '' ">
+	  	and t.day_time between #{startDate} and #{endDate}
+	  </if>
+	  <if test="cityCode != null and cityCode != '' ">
+	  	AND t.city_code like '${cityCode}%' 
+	  </if>
+	  <if test="areaCode != null and areaCode != '' ">
+	  	AND t.AREA_CODE like '${areaCode}%'
+	  </if>
+	  <if test="userCityCode != null and userCityCode != '' ">
+		and t.AREA_CODE LIKE '${userCityCode}%'
+	  </if>
+	  </trim>
+</select>
+
+<!-- 获取指定日期活动效果统计数据列表 -->
+<select id="queryStatActivityEffectByTime" resultMap="BaseResultMap"  parameterType="Object">
+	  SELECT t.*,t1.area_name area_name,t2.area_name city_name
+	  FROM app_stat_activity_effect t
+	  LEFT JOIN base_area t1 ON t.area_code=t1.area_code
+	  LEFT JOIN base_area t2 ON t.city_code=t2.area_code
+	  WHERE 1=1 AND t1.flag!='DELETE'
+	  <trim>
+	  <if test="endDate != null and endDate != '' ">
+	  	and t.day_time between #{startDate} and #{endDate}
+	  </if>
+	  <if test="areaCode != null and areaCode != '' ">
+	  	AND t.AREA_CODE like '${areaCode}%'
+	  </if>
+	  <if test="userCityCode != null and userCityCode != '' ">
+		and t.AREA_CODE LIKE '${userCityCode}%'
+	  </if>
+	  <if test="pager.orderCondition == ''">
+		order by t.day_time desc,t.area_code asc
+	  </if>
+	  <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+       ${pager.orderCondition}
+      </if>
+      <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+     </if>
+	  </trim>
+</select>
+
+</mapper>   

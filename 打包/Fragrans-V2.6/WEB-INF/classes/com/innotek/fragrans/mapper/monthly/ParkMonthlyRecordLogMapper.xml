@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.monthly.ParkMonthlyRecordLogDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.monthly.ParkMonthlyRecordLog" >
+	<result column="id" property="id"/>
+		<result column="monthly_record_id" property="monthlyRecordId"/>
+		<result column="user_id" property="userId"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="monthly_fee" property="monthlyFee"/>
+		<result column="accept_time" property="acceptTime"/>
+		<result column="verify_user" property="verifyUser"/>
+		<result column="verify_time" property="verifyTime"/>
+		<result column="verify_status" property="verifyStatus"/>
+		<result column="verify_info" property="verifyInfo"/>
+		<result column="advice_start_time" property="adviceStartTime"/>
+		<result column="advice_monthly_duration" property="adviceMonthlyDuration"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="accept_user" property="acceptUser"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.monthly_record_id,
+		 t.user_id,
+		 t.start_time,
+		 t.end_time,
+		 t.monthly_fee,
+		 t.accept_time,
+		 t.verify_user,
+		 t.verify_time,
+		 t.verify_status,
+		 t.verify_info,
+		 t.advice_start_time,
+		 t.advice_monthly_duration,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+		 t.accept_user,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="monthlyRecordId != null and monthlyRecordId != '' " >
+    	and t.monthly_record_id =  #{monthlyRecordId}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="startTime != null " >
+    	and t.start_time =  #{startTime}
+	</if>
+	<if test="endTime != null " >
+    	and t.end_time =  #{endTime}
+	</if>
+	<if test="monthlyFee != null " >
+    	and t.monthly_fee =  #{monthlyFee}
+	</if>
+	<if test="acceptTime != null " >
+    	and t.accept_time =  #{acceptTime}
+	</if>
+	<if test="verifyUser != null and verifyUser != '' " >
+    	and t.verify_user =  #{verifyUser}
+	</if>
+	<if test="verifyTime != null " >
+    	and t.verify_time =  #{verifyTime}
+	</if>
+	<if test="verifyStatus != null " >
+    	and t.verify_status =  #{verifyStatus}
+	</if>
+	<if test="verifyInfo != null and verifyInfo != '' " >
+    	and t.verify_info =  #{verifyInfo}
+	</if>
+	<if test="adviceStartTime != null " >
+    	and t.advice_start_time =  #{adviceStartTime}
+	</if>
+	<if test="adviceMonthlyDuration != null " >
+    	and t.advice_monthly_duration =  #{adviceMonthlyDuration}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_park_monthly_record_log 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="monthlyRecordId != null and monthlyRecordId != '' " >
+		 monthly_record_id,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="startTime != null " >
+		start_time,
+		</if>
+    	<if test="endTime != null " >
+		end_time,
+		</if>
+    	<if test="monthlyFee != null " >
+		monthly_fee,
+		</if>
+    	<if test="acceptTime != null " >
+		accept_time,
+		</if>
+    	<if test="verifyUser != null and verifyUser != '' " >
+		 verify_user,
+		</if>
+    	<if test="verifyTime != null " >
+		verify_time,
+		</if>
+    	<if test="verifyStatus != null " >
+		verify_status,
+		</if>
+    	<if test="verifyInfo != null and verifyInfo != '' " >
+		 verify_info,
+		</if>
+    	<if test="adviceStartTime != null " >
+		advice_start_time,
+		</if>
+    	<if test="adviceMonthlyDuration != null " >
+		advice_monthly_duration,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="monthlyRecordId != null and monthlyRecordId != '' " >
+  		<![CDATA[  #{monthlyRecordId}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="startTime != null " >
+  		<![CDATA[  #{startTime}, ]]>
+    	</if>
+    	<if test="endTime != null " >
+  		<![CDATA[  #{endTime}, ]]>
+    	</if>
+    	<if test="monthlyFee != null " >
+  		<![CDATA[  #{monthlyFee}, ]]>
+    	</if>
+    	<if test="acceptTime != null " >
+  		<![CDATA[  #{acceptTime}, ]]>
+    	</if>
+    	<if test="verifyUser != null and verifyUser != '' " >
+  		<![CDATA[  #{verifyUser}, ]]>
+    	</if>
+    	<if test="verifyTime != null " >
+  		<![CDATA[  #{verifyTime}, ]]>
+    	</if>
+    	<if test="verifyStatus != null " >
+  		<![CDATA[  #{verifyStatus}, ]]>
+    	</if>
+    	<if test="verifyInfo != null and verifyInfo != '' " >
+  		<![CDATA[  #{verifyInfo}, ]]>
+    	</if>
+    	<if test="adviceStartTime != null " >
+  		<![CDATA[  #{adviceStartTime}, ]]>
+    	</if>
+    	<if test="adviceMonthlyDuration != null " >
+  		<![CDATA[  #{adviceMonthlyDuration}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_park_monthly_record_log t set 
+   <trim suffixOverrides="," >
+	<if test="monthlyRecordId != null and monthlyRecordId != '' " >
+  	<![CDATA[  t.monthly_record_id = #{monthlyRecordId}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="startTime != null " >
+  	<![CDATA[  t.start_time = #{startTime}, ]]>
+    </if>
+    <if test="endTime != null " >
+  	<![CDATA[  t.end_time = #{endTime}, ]]>
+    </if>
+    <if test="monthlyFee != null " >
+  	<![CDATA[  t.monthly_fee = #{monthlyFee}, ]]>
+    </if>
+    <if test="acceptTime != null " >
+  	<![CDATA[  t.accept_time = #{acceptTime}, ]]>
+    </if>
+    <if test="verifyUser != null and verifyUser != '' " >
+  	<![CDATA[  t.verify_user = #{verifyUser}, ]]>
+    </if>
+    <if test="verifyTime != null " >
+  	<![CDATA[  t.verify_time = #{verifyTime}, ]]>
+    </if>
+    <if test="verifyStatus != null " >
+  	<![CDATA[  t.verify_status = #{verifyStatus}, ]]>
+    </if>
+    <if test="verifyInfo != null and verifyInfo != '' " >
+  	<![CDATA[  t.verify_info = #{verifyInfo}, ]]>
+    </if>
+    <if test="adviceStartTime != null " >
+  	<![CDATA[  t.advice_start_time = #{adviceStartTime}, ]]>
+    </if>
+    <if test="adviceMonthlyDuration != null " >
+  	<![CDATA[  t.advice_monthly_duration = #{adviceMonthlyDuration}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_park_monthly_record_log where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_park_monthly_record_log t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	SELECT count(1)
+	FROM app_park_monthly_record_log t
+	LEFT JOIN app_park_monthly_record t1 ON t.MONTHLY_RECORD_ID = t1.id 
+	LEFT JOIN app_user t2 ON t.user_id = t2.ID
+	WHERE 1=1
+	<if test="isAllStatus == null">
+		AND t.verify_status in (0,1) and t.flag != 'DELETE'
+	</if>
+	<if test="verifyStatus != null and verifyStatus == 4">
+		and t.flag = 'DELETE'
+	</if>
+	<if test="verifyStatus != null and verifyStatus != 4">
+		and t.verify_status = #{verifyStatus} and t.flag != 'DELETE'
+	</if>
+	<if test="userAccount != null and userAccount != '' ">
+		and t2.user_account = #{userAccount}
+	</if>
+	<if test="phone != null and phone != '' ">
+		 AND t1.PHONE = #{phone}
+	</if>
+	<if test="plateNo != null and plateNo != '' ">
+		AND t1.PLATE_NO = #{plateNo}
+	</if>
+	<if test="plateColor != null">
+		AND t1.plate_color = #{plateColor}
+	</if>
+	<if test="startTime != null and endTime != null">
+		 AND t1.START_TIME &lt;= str_to_date(#{startTime},'%Y-%m-%d')
+		 AND t1.END_TIME &gt;= str_to_date(#{endTime},'%Y-%m-%d')
+	</if>
+	<if test="userCityCode != null and userCityCode != '' and userCityCode != 0">
+		AND t1.AREA_CODE LIKE '${userCityCode}%'
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT <include refid="Base_Column_List"/>,t2.USER_ACCOUNT
+	FROM app_park_monthly_record_log t
+	LEFT JOIN app_park_monthly_record t1 ON t.MONTHLY_RECORD_ID = t1.id 
+	LEFT JOIN app_user t2 ON t.user_id = t2.ID
+	WHERE 1=1
+	<if test="isAllStatus == null">
+		AND t.verify_status in (0,1) and t.flag != 'DELETE'
+	</if>
+	<if test="verifyStatus != null and verifyStatus == 4">
+		and t.flag = 'DELETE'
+	</if>
+	<if test="verifyStatus != null and verifyStatus != 4">
+		and t.verify_status = #{verifyStatus} and t.flag != 'DELETE'
+	</if>
+	<if test="userAccount != null and userAccount != '' ">
+		and t2.user_account = #{userAccount}
+	</if>
+	<if test="phone != null and phone != '' ">
+		 AND t1.PHONE = #{phone}
+	</if>
+	<if test="plateNo != null and plateNo != '' ">
+		AND t1.PLATE_NO = #{plateNo}
+	</if>
+	<if test="plateColor != null">
+		AND t1.plate_color = #{plateColor}
+	</if>
+	<if test="startTime != null and endTime != null">
+		 AND t1.START_TIME &lt;= str_to_date(#{startTime},'%Y-%m-%d')
+		 AND t1.END_TIME &gt;= str_to_date(#{endTime},'%Y-%m-%d')
+	</if>
+	<if test="userCityCode != null and userCityCode != '' and userCityCode != 0">
+		AND t1.AREA_CODE LIKE '${userCityCode}%'
+	</if>
+	<if test="pager.orderCondition == ''">
+		ORDER BY t.VERIFY_STATUS ASC,t.create_time DESC,t.update_time DESC
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 查询包月记录审核详情 -->
+<select id="findByMonthlyRecordId" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT * FROM app_park_monthly_record_log
+    WHERE MONTHLY_RECORD_ID = #{id}
+</select>
+
+<!-- 批量受理 -->
+<update id="updateBatchMonthlyRecord" parameterType="java.util.ArrayList">
+	<foreach collection="list" item="item" index="index">
+		UPDATE app_park_monthly_record_log
+		SET VERIFY_STATUS = #{item.verifyStatus},ACCEPT_TIME = #{item.acceptTime},
+		ACCEPT_USER = #{item.acceptUser},UPDATED_BY = #{item.updatedBy},UPDATE_TIME = #{item.updateTime},
+		flag = #{item.flag}
+		WHERE id = #{item.id};
+	</foreach>
+</update>
+
+<!-- 将包月审核记录置为无效 -->
+<update id="deleteParkMonthlyRecordLog" parameterType="java.lang.String">
+	UPDATE  app_park_monthly_record_log 
+	SET FLAG = 'DELETE',UPDATED_BY='system',UPDATE_TIME=NOW() 
+	WHERE MONTHLY_RECORD_ID = #{_parameter}
+</update>
+
+<!-- 批量删除包月审核日志 -->
+<update id="deleteBatchMonthlyRecordLog" parameterType="java.util.ArrayList">
+	<foreach collection="list" item="item" index="index">
+		UPDATE app_park_monthly_record_log
+		SET FLAG = 'DELETE',UPDATED_BY = 'system',UPDATE_TIME = now()
+		WHERE MONTHLY_RECORD_ID = #{item.monthlyRecordId};
+	</foreach>
+</update>
+
+<!-- 根据订单编码查询包月审核日志 -->
+<select id="findMonthlyRecordLogByOrderNo" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	SELECT * FROM app_park_monthly_record_log t
+	LEFT JOIN app_park_monthly_record t1 ON t.MONTHLY_RECORD_ID = t1.id
+	LEFT JOIN app_order_park_monthly t2 ON t1.id = t2.MONTHLY_RECORD_ID
+	WHERE t.flag != 'DELETE' AND order_no = #{_parameter}
+	LIMIT 1
+</select>
+
+</mapper>   

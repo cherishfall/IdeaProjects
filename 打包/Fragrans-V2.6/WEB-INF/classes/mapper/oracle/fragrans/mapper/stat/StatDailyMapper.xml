@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.StatDailyDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.StatDailyEntity" >
+		<result column="id" property="id"/>
+		<result column="day_time" property="dayTime"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="all_tran_count" property="allTranCount"/>
+		<result column="payable_fee" property="payableFee"/>
+		<result column="tran_success_amount" property="tranSuccessAmount"/>
+		<result column="tran_success_count" property="tranSuccessCount"/>
+		<result column="discount_success_amount" property="discountSuccessAmount"/>
+		<result column="discount_success_count" property="discountSuccessCount"/>
+		<result column="subs_success_count" property="subsSuccessCount"/>
+		<result column="subs_success_amount" property="subsSuccessAmount"/>
+		<result column="refund_success_count" property="refundSuccessCount"/>
+		<result column="refund_success_amount" property="refundSuccessAmount"/>
+		<result column="alipay_success_count" property="alipaySuccessCount"/>
+		<result column="alipay_success_amount" property="alipaySuccessAmount"/>
+		<result column="wxpay_success_count" property="wxpaySuccessCount"/>
+		<result column="wxpay_success_amount" property="wxpaySuccessAmount"/>
+		<result column="create_time" property="createTime"/>
+		<result column="updated_time" property="updatedTime"/>
+		<result column="area_name" property="areaName"/>
+		<result column="city_name" property="cityName"/>
+		<result column="ticketpay_success_count" property="ticketpaySuccessCount"/>
+		<result column="ticket_allpay_success_count" property="ticketAllPaySuccessCount"/>
+		<result column="ticketpay_success_amount" property="ticketpaySuccessAmount"/>
+		<result column="pay_user_count" property="payUserCount"/>
+		<result column="pay_success_user_count" property="paySuccessUserCount"/>
+		<result column="ticket_success_user_count" property="ticketpaySuccessUserCount"/>
+		<result column="cmbpay_success_count" property="cmbpaySuccessCount"/>
+		<result column="cmbpay_success_amount" property="cmbpaySuccessAmount"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.day_time,
+		 t.city_code,
+		 t.area_code,
+		 t.all_tran_count,
+		 t.payable_fee,
+		 t.tran_success_amount,
+		 t.tran_success_count,
+		 t.discount_success_amount,
+		 t.discount_success_count,
+		 t.subs_success_count,
+		 t.subs_success_amount,
+		 t.refund_success_count,
+		 t.refund_success_amount,
+		 t.alipay_success_count,
+		 t.alipay_success_amount,
+		 t.wxpay_success_count,
+		 t.wxpay_success_amount,
+		 t.create_time,
+		 t.updated_time,
+		 t.ticketpay_success_count,
+		 t.ticket_allpay_success_count,
+		 t.ticketpay_success_amount,
+		 t.pay_user_count,
+		 t.pay_success_user_count,
+		 t.ticket_success_user_count,
+		 t.cmbpay_success_count,
+		 t.cmbpay_success_amount,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="dayTime != null " >
+    	and t.day_time = to_date('${dayTime}','yyyy-MM-dd')
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="allTranCount != null " >
+    	and t.all_tran_count =  #{allTranCount}
+	</if>
+	<if test="payableFee != null " >
+    	and t.payable_fee =  #{payableFee}
+	</if>
+	<if test="tranSuccessAmount != null " >
+    	and t.tran_success_amount =  #{tranSuccessAmount}
+	</if>
+	<if test="tranSuccessCount != null " >
+    	and t.tran_success_count =  #{tranSuccessCount}
+	</if>
+	<if test="discountSuccessAmount != null " >
+    	and t.discount_success_amount =  #{discountSuccessAmount}
+	</if>
+	<if test="discountSuccessCount != null " >
+    	and t.discount_success_count =  #{discountSuccessCount}
+	</if>
+	<if test="subsSuccessCount != null " >
+    	and t.subs_success_count =  #{subsSuccessCount}
+	</if>
+	<if test="subsSuccessAmount != null " >
+    	and t.subs_success_amount =  #{subsSuccessAmount}
+	</if>
+	<if test="refundSuccessCount != null " >
+    	and t.refund_success_count =  #{refundSuccessCount}
+	</if>
+	<if test="refundSuccessAmount != null " >
+    	and t.refund_success_amount =  #{refundSuccessAmount}
+	</if>
+	<if test="alipaySuccessCount != null " >
+    	and t.alipay_success_count =  #{alipaySuccessCount}
+	</if>
+	<if test="alipaySuccessAmount != null " >
+    	and t.alipay_success_amount =  #{alipaySuccessAmount}
+	</if>
+	<if test="wxpaySuccessCount != null " >
+    	and t.wxpay_success_count =  #{wxpaySuccessCount}
+	</if>
+	<if test="wxpaySuccessAmount != null " >
+    	and t.wxpay_success_amount =  #{wxpaySuccessAmount}
+	</if>
+	<if test="craeteTime != null " >
+    	and t.create_time =  #{craeteTime}
+	</if>
+	<if test="updatedTime != null " >
+    	and t.updated_time =  #{updatedTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT sys_guid() from dual
+	</selectKey>
+  
+	insert into app_stat_daily 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    create_time,
+	    updated_time,
+		<if test="id != null">
+				id,
+		</if>
+	 	<if test="dayTime != null " >
+		day_time,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="allTranCount != null " >
+		all_tran_count,
+		</if>
+    	<if test="payableFee != null " >
+		payable_fee,
+		</if>
+    	<if test="tranSuccessAmount != null " >
+		tran_success_amount,
+		</if>
+    	<if test="tranSuccessCount != null " >
+		tran_success_count,
+		</if>
+    	<if test="discountSuccessAmount != null " >
+		discount_success_amount,
+		</if>
+    	<if test="discountSuccessCount != null " >
+		discount_success_count,
+		</if>
+    	<if test="subsSuccessCount != null " >
+		subs_success_count,
+		</if>
+    	<if test="subsSuccessAmount != null " >
+		subs_success_amount,
+		</if>
+    	<if test="refundSuccessCount != null " >
+		refund_success_count,
+		</if>
+    	<if test="refundSuccessAmount != null " >
+		refund_success_amount,
+		</if>
+    	<if test="alipaySuccessCount != null " >
+		alipay_success_count,
+		</if>
+    	<if test="alipaySuccessAmount != null " >
+		alipay_success_amount,
+		</if>
+    	<if test="wxpaySuccessCount != null " >
+		wxpay_success_count,
+		</if>
+    	<if test="wxpaySuccessAmount != null " >
+		wxpay_success_amount,
+		</if>
+		<if test="ticketpaySuccessCount != null">
+		ticketpay_success_count,
+		</if>
+		<if test="ticketAllPaySuccessCount != null">
+		ticket_allpay_success_count,
+		</if>
+		<if test="ticketpaySuccessAmount != null">
+		ticketpay_success_amount,
+		</if>
+		<if test="payUserCount != null">
+		pay_user_count,
+		</if>
+		<if test="paySuccessUserCount != null">
+		pay_success_user_count,
+		</if>
+		<if test="ticketpaySuccessUserCount != null">
+		ticket_success_user_count,
+		</if>
+		<if test="cmbpaySuccessCount != null">
+		cmbpay_success_count,
+		</if>
+		<if test="cmbpaySuccessAmount != null">
+		cmbpay_success_amount,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	  sysdate,
+	 	  sysdate,
+		<if test="id != null">
+  		<![CDATA[  #{id}, ]]>
+		</if>
+	 	<if test="dayTime != null " >
+  		<![CDATA[  to_date(#{dayTime},'yyyy-MM-dd'), ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="allTranCount != null " >
+  		<![CDATA[  #{allTranCount}, ]]>
+    	</if>
+    	<if test="payableFee != null " >
+  		<![CDATA[  #{payableFee}, ]]>
+    	</if>
+    	<if test="tranSuccessAmount != null " >
+  		<![CDATA[  #{tranSuccessAmount}, ]]>
+    	</if>
+    	<if test="tranSuccessCount != null " >
+  		<![CDATA[  #{tranSuccessCount}, ]]>
+    	</if>
+    	<if test="discountSuccessAmount != null " >
+  		<![CDATA[  #{discountSuccessAmount}, ]]>
+    	</if>
+    	<if test="discountSuccessCount != null " >
+  		<![CDATA[  #{discountSuccessCount}, ]]>
+    	</if>
+    	<if test="subsSuccessCount != null " >
+  		<![CDATA[  #{subsSuccessCount}, ]]>
+    	</if>
+    	<if test="subsSuccessAmount != null " >
+  		<![CDATA[  #{subsSuccessAmount}, ]]>
+    	</if>
+    	<if test="refundSuccessCount != null " >
+  		<![CDATA[  #{refundSuccessCount}, ]]>
+    	</if>
+    	<if test="refundSuccessAmount != null " >
+  		<![CDATA[  #{refundSuccessAmount}, ]]>
+    	</if>
+    	<if test="alipaySuccessCount != null " >
+  		<![CDATA[  #{alipaySuccessCount}, ]]>
+    	</if>
+    	<if test="alipaySuccessAmount != null " >
+  		<![CDATA[  #{alipaySuccessAmount}, ]]>
+    	</if>
+    	<if test="wxpaySuccessCount != null " >
+  		<![CDATA[  #{wxpaySuccessCount}, ]]>
+    	</if>
+    	<if test="wxpaySuccessAmount != null " >
+  		<![CDATA[  #{wxpaySuccessAmount}, ]]>
+    	</if>
+    	<if test="ticketpaySuccessCount != null">
+		<![CDATA[  #{ticketpaySuccessCount}, ]]>
+		</if>
+		<if test="ticketAllPaySuccessCount != null">
+		<![CDATA[  #{ticketAllPaySuccessCount}, ]]>
+		</if>
+		<if test="ticketpaySuccessAmount != null">
+		<![CDATA[  #{ticketpaySuccessAmount}, ]]>
+		</if>
+		<if test="payUserCount != null">
+		<![CDATA[  #{payUserCount}, ]]>
+		</if>
+		<if test="paySuccessUserCount != null">
+		<![CDATA[  #{paySuccessUserCount}, ]]>
+		</if>
+		<if test="ticketpaySuccessUserCount != null">
+		<![CDATA[  #{ticketpaySuccessUserCount}, ]]>
+		</if>
+		<if test="cmbpaySuccessCount != null">
+		<![CDATA[  #{cmbpaySuccessCount}, ]]>
+		</if>
+		<if test="cmbpaySuccessAmount != null">
+		<![CDATA[  #{cmbpaySuccessAmount}, ]]>
+		</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_stat_daily t set 
+   <trim suffixOverrides="," >
+	<if test="dayTime != null " >
+  	<![CDATA[  t.day_time = to_date('${dayTime}','yyyy-MM-dd'), ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="allTranCount != null " >
+  	<![CDATA[  t.all_tran_count = #{allTranCount}, ]]>
+    </if>
+    <if test="payableFee != null " >
+  	<![CDATA[  t.payable_fee = #{payableFee}, ]]>
+    </if>
+    <if test="tranSuccessAmount != null " >
+  	<![CDATA[  t.tran_success_amount = #{tranSuccessAmount}, ]]>
+    </if>
+    <if test="tranSuccessCount != null " >
+  	<![CDATA[  t.tran_success_count = #{tranSuccessCount}, ]]>
+    </if>
+    <if test="discountSuccessAmount != null " >
+  	<![CDATA[  t.discount_success_amount = #{discountSuccessAmount}, ]]>
+    </if>
+    <if test="discountSuccessCount != null " >
+  	<![CDATA[  t.discount_success_count = #{discountSuccessCount}, ]]>
+    </if>
+    <if test="subsSuccessCount != null " >
+  	<![CDATA[  t.subs_success_count = #{subsSuccessCount}, ]]>
+    </if>
+    <if test="subsSuccessAmount != null " >
+  	<![CDATA[  t.subs_success_amount = #{subsSuccessAmount}, ]]>
+    </if>
+    <if test="refundSuccessCount != null " >
+  	<![CDATA[  t.refund_success_count = #{refundSuccessCount}, ]]>
+    </if>
+    <if test="refundSuccessAmount != null " >
+  	<![CDATA[  t.refund_success_amount = #{refundSuccessAmount}, ]]>
+    </if>
+    <if test="alipaySuccessCount != null " >
+  	<![CDATA[  t.alipay_success_count = #{alipaySuccessCount}, ]]>
+    </if>
+    <if test="alipaySuccessAmount != null " >
+  	<![CDATA[  t.alipay_success_amount = #{alipaySuccessAmount}, ]]>
+    </if>
+    <if test="wxpaySuccessCount != null " >
+  	<![CDATA[  t.wxpay_success_count = #{wxpaySuccessCount}, ]]>
+    </if>
+    <if test="wxpaySuccessAmount != null " >
+  	<![CDATA[  t.wxpay_success_amount = #{wxpaySuccessAmount}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{craeteTime}, ]]>
+    </if>
+    <if test="updatedTime != null " >
+  	<![CDATA[  t.updated_time = #{updatedTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_stat_daily  where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_stat_daily t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_stat_daily t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+    <if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	from app_stat_daily t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+
+<!-- *************************************运营统计报表****************************************************** -->
+<!-- 获取交易总笔数-->
+<select id="queryTranTotalCount" resultType="java.lang.String"  parameterType="Object">
+      SELECT SUM(A.tran_count) all_tran_count
+      FROM (SELECT COUNT(1) tran_count 
+           FROM app_order t 
+           WHERE to_char(t.create_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode} 
+           	</if>
+           GROUP BY t.parkrecord_id)A 
+</select>
+
+<!-- 获取应付总金额-->
+<select id="queryPayableFee" resultType="java.lang.String"  parameterType="Object">
+    SELECT SUM(CASE WHEN A.park_fee>0 THEN A.park_fee ELSE 0 END) payable_fee 
+     FROM (SELECT MAX(t1.park_fee) park_fee
+            FROM app_order t 
+            LEFT JOIN app_order_parkrecord t1 ON t.order_no=t1.order_no
+            WHERE t.order_status=200 AND t1.is_deleted=1 
+            AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}  
+           	</if>
+            GROUP BY t.parkrecord_id)A 
+</select>
+
+<!-- 获取实付总金额-->
+<select id="queryTranSuccessAmount" resultType="java.lang.String"  parameterType="Object">
+    SELECT SUM(A.price) tran_success_amount
+	FROM( SELECT SUM(CASE WHEN t.PRICE>0 THEN t.price ELSE 0 END) price
+        FROM app_order t
+        WHERE t.order_status=200 AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+        GROUP BY t.parkrecord_id)A 
+</select>
+
+<!-- 获取实际交易成功总笔数-->
+<select id="queryTranSuccessCount" resultType="java.lang.String"  parameterType="Object">
+    SELECT SUM(A.tran_count) tran_success_count
+	FROM ( SELECT COUNT(1) tran_count
+	  FROM app_order t
+	  WHERE t.order_status=200 AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate} 
+	   <trim>
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+        </trim> 
+	 GROUP BY t.parkrecord_id)A 
+</select>
+
+<!-- 获取折扣成功总费用 -->
+<select id="queryDiscountSuccessAmount" resultType="java.lang.String"  parameterType="Object">
+	SELECT SUM(A.discount_fee) discount_success_amount
+    FROM (SELECT SUM(CASE WHEN t1.discount_fee>0 THEN t1.discount_fee ELSE 0 END) discount_fee
+      FROM app_order t LEFT JOIN app_order_parkrecord t1 ON t.order_no=t1.order_no
+      WHERE t.order_status=200 AND t1.IS_DELETED=1
+        AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+      GROUP BY t.parkrecord_id)A 
+</select>
+
+<!-- 获取折扣成功总笔数 -->
+<select id="queryDiscountSuccessCount" resultType="java.lang.String"  parameterType="Object">
+	SELECT SUM(A.discount_sucess_count) discount_success_count
+    FROM ( SELECT SUM(CASE WHEN t1.discount_fee!=0 THEN 1 ELSE 0 END) discount_sucess_count
+      FROM app_order t LEFT JOIN app_order_parkrecord t1 ON t.order_no=t1.order_no
+      WHERE t.order_status=200 AND t1.IS_DELETED=1
+        AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+        GROUP BY t.parkrecord_id)A 
+</select>
+
+<!-- 获取预约成功笔数 -->
+<select id="querySubsSuccessCount" resultType="java.lang.String"  parameterType="Object">
+	   SELECT SUM( A.subs_success_count ) subs_success_count
+       FROM(SELECT COUNT(1) subs_success_count
+         FROM app_order t
+	   WHERE t.order_status = 200 AND t.order_no LIKE 'S%' 
+	     AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}  
+           	</if>
+	     GROUP BY t.parkrecord_id )A
+</select>
+
+<!-- 获取预约成功金额 -->
+<select id="querySubsSuccessAmount" resultType="java.lang.String"  parameterType="Object">
+       SELECT SUM( A.subs_success_amount ) subs_success_amount
+       FROM(SELECT SUM(CASE WHEN t.price>0 THEN t.price ELSE 0 END) subs_success_amount 
+         FROM app_order t
+		 WHERE t.order_status = 200 AND t.order_no LIKE 'S%' 
+	       AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+	       GROUP BY t.parkrecord_id )A
+</select>
+
+<!-- 获取退费总笔数 -->
+<select id="queryRefundSuccessCount" resultType="java.lang.String"  parameterType="Object">
+	SELECT SUM(A.refund_count) refund_success_count
+	FROM( SELECT COUNT(1) refund_count
+		FROM app_order_refund t 
+		LEFT JOIN app_order t1 ON t.order_no = t1.order_no 
+		WHERE t.is_complate = 200 AND t1.order_status = 200
+	 	  AND to_char(t.refund_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t1.area_code = #{areaCode}  
+           	</if>
+          GROUP BY t.parkrecord_id )A
+</select>
+
+<!-- 获取退费总金额 -->
+<select id="queryRefundSuccessAmount" resultType="java.lang.String"  parameterType="Object">
+	SELECT SUM(A.refund_fee) refund_success_amount
+	FROM( SELECT SUM(CASE WHEN t.refund_fee>0 THEN t.refund_fee ELSE 0 END) refund_fee
+		FROM app_order_refund t 
+		LEFT JOIN app_order t1 ON t.order_no = t1.order_no 
+		WHERE t.is_complate = 200 AND t1.order_status = 200
+	 	  AND to_char(t.refund_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t1.area_code = #{areaCode}   
+           	</if>
+          GROUP BY t.parkrecord_id )A
+</select>
+
+<!-- 获取支付宝支付成功笔数 -->
+<select id="queryAlipaySuccessCount" resultType="java.lang.String"  parameterType="Object">
+	 SELECT  SUM(alipay_sunccess_count) alipay_success_count
+       FROM( SELECT COUNT(1) alipay_sunccess_count
+         FROM app_order t 
+         WHERE t.order_status=200 AND t.pay_type=1
+           AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+           GROUP BY t.parkrecord_id)A
+</select>
+
+<!-- 获取支付宝支付成功金额 -->
+<select id="queryAlipaySuccessAmount" resultType="java.lang.String"  parameterType="Object">
+	   SELECT SUM(alipay_success_amount) alipay_success_amount
+       FROM( SELECT  SUM(CASE WHEN t.price>0 THEN t.price ELSE 0 END) alipay_success_amount
+         FROM app_order t 
+         WHERE t.order_status=200 AND t.pay_type=1
+           AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}  
+           	</if>
+           GROUP BY t.parkrecord_id)A
+</select>
+
+<!-- 微信支付成功总笔数 -->
+<select id="queryWxpaySuccessCount" resultType="java.lang.String"  parameterType="Object">
+	 SELECT SUM(wxpay_sunccess_count) wxpay_success_count
+       FROM( SELECT COUNT(1) wxpay_sunccess_count
+         FROM app_order t 
+         WHERE t.order_status=200 AND t.pay_type=2
+           AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}  
+           	</if>
+           GROUP BY t.parkrecord_id )A 
+</select>
+
+<!-- 微信支付成功总金额-->
+<select id="queryWxpaySuccessAmount" resultType="java.lang.String"  parameterType="Object">
+	  SELECT  SUM(wxpay_success_amount) wxpay_success_amount
+       FROM( SELECT SUM(CASE WHEN t.price>0 THEN t.price ELSE 0 END) wxpay_success_amount
+         FROM app_order t 
+         WHERE t.order_status=200 AND t.pay_type=2
+         AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+         GROUP BY t.parkrecord_id )A  
+</select>
+
+<!-- 获取指定日期所有下单区域 -->
+<select id="queryAllOrderAreaByDate" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	  SELECT t.area_code,t.city_code,t1.area_name area_name,t2.area_name city_name
+      FROM app_order t 
+      LEFT JOIN base_area t1 ON t.area_code=t1.area_code
+      left join base_area t2 on t.city_code=t2.area_code
+	  WHERE to_char(t.create_time,'yyyy-MM-dd') = #{startDate}
+           	<if test="areaCode != null and areaCode !='' ">
+           		 AND t.area_code = #{areaCode}   
+           	</if>
+	        GROUP BY t.area_code
+</select>
+
+<!-- 获取指定日期运营数据信息 -->
+<select id="queryStatDailyListByTime" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	  SELECT t.*,t1.area_name area_name,t2.area_name city_name
+	  FROM app_stat_daily t
+	  LEFT JOIN base_area t1 ON t.area_code=t1.area_code
+	  LEFT JOIN base_area t2 ON t.city_code=t2.area_code
+	  WHERE 1=1 
+	  <trim>
+	  <if test="endDate != null and endDate != '' ">
+	  	and t.day_time between to_date('${startDate}','yyyy-MM-dd') and to_date('${endDate}','yyyy-MM-dd')
+	  </if>
+	  <if test="areaCode != null and areaCode != '' ">
+	  	AND t.AREA_CODE like '${areaCode}%'
+	  </if>
+	  <if test="userCityCode != null and userCityCode != '' ">
+		and t.AREA_CODE LIKE '${userCityCode}%'
+	  </if>
+	  AND t1.flag!='DELETE'
+	  <if test="pager.orderCondition == ''">
+		order by t.day_time desc,t.area_code asc
+	  </if>
+	  <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+       ${pager.orderCondition}
+      </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+	  </trim>
+	  
+</select>
+
+<!-- 获取指定日期运营数据条数 -->
+<select id="quertStatDailyCountByDayTime" resultType="java.lang.Integer"  parameterType="Object">
+	  SELECT count(1)
+	  FROM app_stat_daily t
+	  LEFT JOIN base_area t1 ON t.area_code=t1.area_code
+	  LEFT JOIN base_area t2 ON t.city_code=t2.area_code
+	  WHERE 1=1 
+	  <trim>
+	  <if test="endDate != null and endDate != '' ">
+	  	and t.day_time between to_date('${startDate}','yyyy-MM-dd') and to_date('${endDate}','yyyy-MM-dd')
+	  </if>
+	  <if test="cityCode != null and cityCode != '' ">
+	  	AND t.city_code like '${cityCode}%' 
+	  </if>
+	  <if test="areaCode != null and areaCode != '' ">
+	  	AND t.AREA_CODE like '${areaCode}%'
+	  </if>
+	  <if test="userCityCode != null and userCityCode != '' ">
+		and t.AREA_CODE LIKE '${userCityCode}%'
+	  </if>
+	  AND t1.flag!='DELETE'
+	  </trim>
+</select>
+
+<!-- 获取指定日期运营数据条数 -->
+<select id="queryStatDailyByDayTime" resultMap="BaseResultMap"  parameterType="Object">
+	  SELECT * FROM app_stat_daily t
+	  WHERE  t.day_time = to_date('${dayTime}','yyyy-MM-dd')
+	  <trim>
+         <if test="areaCode != null and areaCode !='' ">
+           	AND t.area_code like '${areaCode}%' 
+         </if>
+     </trim> 
+</select>
+
+<!-- 查询导出日报表参数值 -->
+<select id="cvsStatDailyList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT t.day_time,t.ALL_TRAN_COUNT,ROUND(t.PAYABLE_FEE/100,2) PAYABLE_FEE,ROUND(t.TRAN_SUCCESS_AMOUNT/100,2) TRAN_SUCCESS_AMOUNT,
+	       t.TRAN_SUCCESS_COUNT,ROUND(t.DISCOUNT_SUCCESS_AMOUNT/100,2) DISCOUNT_SUCCESS_AMOUNT,t.DISCOUNT_SUCCESS_COUNT,
+	       t.SUBS_SUCCESS_COUNT,ROUND(t.SUBS_SUCCESS_AMOUNT/100,2) SUBS_SUCCESS_AMOUNT,t.REFUND_SUCCESS_COUNT,ROUND(t.REFUND_SUCCESS_AMOUNT/100,2) REFUND_SUCCESS_AMOUNT,
+	       t.ALIPAY_SUCCESS_COUNT,ROUND(t.ALIPAY_SUCCESS_AMOUNT/100,2) ALIPAY_SUCCESS_AMOUNT,t.WXPAY_SUCCESS_COUNT,ROUND(t.WXPAY_SUCCESS_AMOUNT/100,2) WXPAY_SUCCESS_AMOUNT,
+	       t1.area_name city_name,t2.area_name area_name
+ 	FROM app_stat_daily t 
+	     LEFT JOIN base_area t1 ON t.city_code=t1.area_code
+	     LEFT JOIN base_area t2 ON t.area_code=t2.area_code
+	WHERE 1=1 
+	<trim>
+	 <if test="startDate != null and startDate != '' and endDate != null
+	 	and endDate != '' ">
+	 	and t.day_time between to_date('${startDate}','yyyy-MM-dd') and to_date('${endDate}','yyyy-MM-dd')
+	 </if>
+	 <if test="cityCode != null and cityCode != '' ">
+	  	AND t.city_code = (SELECT t3.area_code FROM base_area t3 WHERE t3.id = #{cityCode})  
+	  </if>
+	  <if test="areaCode != null and areaCode != '' ">
+	  	AND t.area_code = (SELECT t4.area_code FROM base_area t4 WHERE t4.id = #{areaCode})
+	  </if>
+	</trim>
+	ORDER BY t.day_time desc
+</select>
+
+<!-- 停车券支付笔数 -->
+<select id="queryTicketpaySuccessCount" resultType="java.lang.String"  parameterType="Object">
+    SELECT COUNT(1) ticketpay_success_count FROM app_order_paylog 
+	WHERE is_activity = 1 AND activity_type = 1 AND activity_id IS NOT NULL 
+	  AND ticket_no IS NOT NULL AND is_paid = 200 AND flag != 'DELETE' 
+	  AND to_char(create_time,'yyyy-MM-dd') = #{startDate}
+         <if test="areaCode != null and areaCode !='' ">
+           	AND city_code = #{areaCode}  
+         </if>
+</select>
+
+<!-- 停车券全额支付笔数-->
+<select id="queryTicketAllPaySuccessCount" resultType="java.lang.String"  parameterType="Object">
+    SELECT COUNT(1) ticket_allpay_success_count FROM app_order_paylog
+	WHERE is_activity = 1 AND activity_type = 1 AND activity_id IS NOT NULL 
+	AND ticket_no IS NOT NULL  AND is_paid = 200 AND flag != 'DELETE'
+	AND to_char(create_time,'yyyy-MM-dd') = #{startDate}
+	AND payment = 10
+         <if test="areaCode != null and areaCode !='' ">
+           	AND city_code = #{areaCode}   
+         </if>
+</select>
+
+<!-- 停车券抵扣金额 -->
+<select id="queryTicketpaySuccessAmount" resultType="java.lang.String"  parameterType="Object">
+    SELECT SUM( CASE WHEN ticket_fee > 0 THEN ticket_fee ELSE 0 END) ticketpay_success_amount FROM app_order_paylog 
+	WHERE is_activity = 1 AND activity_type = 1 AND activity_id IS NOT NULL 
+	AND ticket_no IS NOT NULL AND is_paid = 200 AND flag != 'DELETE' 
+	AND to_char(create_time,'yyyy-MM-dd') = #{startDate}
+         <if test="areaCode != null and areaCode !='' ">
+           	AND city_code = #{areaCode}   
+         </if>
+</select>
+
+<!-- 支付用户数   -->
+<select id="queryPayUserCount" resultType="java.lang.String"  parameterType="Object">
+     SELECT COUNT(DISTINCT user_id) pay_user_count 
+     FROM app_order_paylog 
+     WHERE flag != 'DELETE' AND to_char(create_time,'yyyy-MM-dd') = #{startDate}
+         <if test="areaCode != null and areaCode !='' ">
+           	AND city_code = #{areaCode}   
+         </if>
+</select>
+
+<!-- 成功支付用户数  -->
+<select id="queryPaySuccessUserCount" resultType="java.lang.String"  parameterType="Object">
+     SELECT COUNT(DISTINCT user_id) pay_success_user_count 
+     FROM app_order_paylog WHERE is_paid = 200 AND flag != 'DELETE'
+      AND to_char(create_time,'yyyy-MM-dd') = #{startDate}
+         <if test="areaCode != null and areaCode !='' ">
+           	AND city_code = #{areaCode}  
+         </if>
+</select>
+
+<!-- 停车券支付用户数  -->
+<select id="queryTicketpaySuccessUserCount" resultType="java.lang.String"  parameterType="Object">
+    SELECT COUNT(DISTINCT user_id) ticket_success_user_count FROM app_order_paylog 
+    WHERE is_activity = 1 AND activity_type = 1 AND activity_id IS NOT NULL 
+	   AND ticket_no IS NOT NULL AND is_paid = 200 AND flag != 'DELETE' 
+	   AND to_char(create_time,'yyyy-MM-dd') = #{startDate}
+         <if test="areaCode != null and areaCode !='' ">
+           	AND city_code = #{areaCode}   
+         </if>
+</select>
+<select id="queryDataForLineBarPie" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	<foreach collection="dates" item="item" separator=" union all " index="index">
+		SELECT #{item} day_time,#{cityCode} area_code,NVL(SUM(t.pay_success_user_count),0) pay_success_user_count,
+		NVL(SUM(t.alipay_success_amount),0) alipay_success_amount,NVL(SUM(t.alipay_success_count),0) alipay_success_count,
+		NVL(SUM(t.wxpay_success_count),0) wxpay_success_count,NVL(SUM(t.wxpay_success_amount),0) wxpay_success_amount,
+		NVL(SUM(t.ticketpay_success_count),0) ticketpay_success_count,NVL(SUM(t.ticketpay_success_amount),0) ticketpay_success_amount,
+		NVL(SUM(t.cmbpay_success_count),0) cmbpay_success_count
+		FROM app_stat_daily t 
+		LEFT JOIN base_area b ON b.AREA_CODE = t.AREA_CODE
+		WHERE t.DAY_TIME = to_date('${item}','yyyy-MM-dd')
+		<if test="cityCode!=null and cityCode!=''">
+			AND t.AREA_CODE = #{cityCode}
+		</if>
+	</foreach>
+</select>
+
+<!-- 一网通支付成功总笔数 -->
+<select id="queryCmbpaySuccessCount" resultType="java.lang.String" parameterType="Object">
+	  SELECT COUNT(DISTINCT parkrecord_id) cmbpay_success_count
+      FROM app_order t 
+      WHERE t.order_status=200 AND t.pay_type=5
+        AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+       <if test="areaCode != null and areaCode !='' ">
+        	AND t.area_code = #{areaCode}   
+       </if>
+</select>
+
+<!-- 一网通支付成功总金额 -->
+<select id="queryCmbPaySuccessAmount" resultType="java.lang.String" parameterType="Object">
+	SELECT  SUM(cmbpay_success_amount) cmbpay_success_amount
+    FROM( SELECT SUM(CASE WHEN t.price>0 THEN t.price ELSE 0 END) cmbpay_success_amount
+      FROM app_order t 
+      WHERE t.order_status=200 AND t.pay_type=5
+      AND to_char(t.pay_time,'yyyy-MM-dd') = #{startDate}
+        	<if test="areaCode != null and areaCode !='' ">
+        		 AND t.area_code = #{areaCode}   
+        	</if>
+      GROUP BY t.parkrecord_id )A  
+</select>
+</mapper>   

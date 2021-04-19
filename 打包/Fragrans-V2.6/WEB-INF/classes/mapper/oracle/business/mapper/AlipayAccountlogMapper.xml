@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.business.dao.AlipayAccountlogDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.business.entity.AlipayAccountlog" >
+	<result column="id" property="id"/>
+		<result column="statdate" property="statdate"/>
+		<result column="balance" property="balance"/>
+		<result column="income" property="income"/>
+		<result column="outcome" property="outcome"/>
+		<result column="trans_date" property="transDate"/>
+		<result column="sub_trans_code_msg" property="subTransCodeMsg"/>
+		<result column="trans_code_msg" property="transCodeMsg"/>
+		<result column="merchant_out_order_no" property="merchantOutOrderNo"/>
+		<result column="trans_out_order_no" property="transOutOrderNo"/>
+		<result column="bank_name" property="bankName"/>
+		<result column="bank_account_no" property="bankAccountNo"/>
+		<result column="bank_account_name" property="bankAccountName"/>
+		<result column="memo" property="memo"/>
+		<result column="buyer_account" property="buyerAccount"/>
+		<result column="seller_account" property="sellerAccount"/>
+		<result column="seller_fullname" property="sellerFullname"/>
+		<result column="currency" property="currency"/>
+		<result column="deposit_bank_no" property="depositBankNo"/>
+		<result column="goods_title" property="goodsTitle"/>
+		<result column="iw_account_log_id" property="iwAccountLogId"/>
+		<result column="trans_account" property="transAccount"/>
+		<result column="other_account_email" property="otherAccountEmail"/>
+		<result column="other_account_fullname" property="otherAccountFullname"/>
+		<result column="other_user_id" property="otherUserId"/>
+		<result column="partner_id" property="partnerId"/>
+		<result column="service_fee" property="serviceFee"/>
+		<result column="service_fee_ratio" property="serviceFeeRatio"/>
+		<result column="total_fee" property="totalFee"/>
+		<result column="trade_no" property="tradeNo"/>
+		<result column="trade_refund_amount" property="tradeRefundAmount"/>
+		<result column="sign_product_name" property="signProductName"/>
+		<result column="rate" property="rate"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+
+	
+<resultMap id="AlipayCountResultMap" type="com.innotek.business.entity.AlipayCount" >
+	<result column="id" property="id"/>
+	<result column="statdate" property="statdate"/>
+	<result column="total_order_count" property="totalOrderCount"/>
+	<result column="total_income_count" property="totalIncomeCount"/>
+	<result column="total_outcome_count" property="totalOutcomeCount"/>
+	<result column="total_service_fee" property="totalServiceFee"/>
+	<result column="create_time" property="createTime"/>
+</resultMap> 
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.statdate,
+		 t.balance,
+		 t.income,
+		 t.outcome,
+		 t.trans_date,
+		 t.sub_trans_code_msg,
+		 t.trans_code_msg,
+		 t.merchant_out_order_no,
+		 t.trans_out_order_no,
+		 t.bank_name,
+		 t.bank_account_no,
+		 t.bank_account_name,
+		 t.memo,
+		 t.buyer_account,
+		 t.seller_account,
+		 t.seller_fullname,
+		 t.currency,
+		 t.deposit_bank_no,
+		 t.goods_title,
+		 t.iw_account_log_id,
+		 t.trans_account,
+		 t.other_account_email,
+		 t.other_account_fullname,
+		 t.other_user_id,
+		 t.partner_id,
+		 t.service_fee,
+		 t.service_fee_ratio,
+		 t.total_fee,
+		 t.trade_no,
+		 t.trade_refund_amount,
+		 t.sign_product_name,
+		 t.rate,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="statdate != null " >
+    	and t.statdate =  #{statdate}
+	</if>
+	<if test="balance != null " >
+    	and t.balance =  #{balance}
+	</if>
+	<if test="income != null " >
+    	and t.income =  #{income}
+	</if>
+	<if test="outcome != null " >
+    	and t.outcome =  #{outcome}
+	</if>
+	<if test="transDate != null " >
+    	and t.trans_date =  #{transDate}
+	</if>
+	<if test="subTransCodeMsg != null and subTransCodeMsg != '' " >
+    	and t.sub_trans_code_msg =  #{subTransCodeMsg}
+	</if>
+	<if test="transCodeMsg != null and transCodeMsg != '' " >
+    	and t.trans_code_msg =  #{transCodeMsg}
+	</if>
+	<if test="merchantOutOrderNo != null and merchantOutOrderNo != '' " >
+    	and t.merchant_out_order_no =  #{merchantOutOrderNo}
+	</if>
+	<if test="transOutOrderNo != null and transOutOrderNo != '' " >
+    	and t.trans_out_order_no =  #{transOutOrderNo}
+	</if>
+	<if test="bankName != null and bankName != '' " >
+    	and t.bank_name =  #{bankName}
+	</if>
+	<if test="bankAccountNo != null and bankAccountNo != '' " >
+    	and t.bank_account_no =  #{bankAccountNo}
+	</if>
+	<if test="bankAccountName != null and bankAccountName != '' " >
+    	and t.bank_account_name =  #{bankAccountName}
+	</if>
+	<if test="memo != null and memo != '' " >
+    	and t.memo =  #{memo}
+	</if>
+	<if test="buyerAccount != null and buyerAccount != '' " >
+    	and t.buyer_account =  #{buyerAccount}
+	</if>
+	<if test="sellerAccount != null and sellerAccount != '' " >
+    	and t.seller_account =  #{sellerAccount}
+	</if>
+	<if test="sellerFullname != null and sellerFullname != '' " >
+    	and t.seller_fullname =  #{sellerFullname}
+	</if>
+	<if test="currency != null and currency != '' " >
+    	and t.currency =  #{currency}
+	</if>
+	<if test="depositBankNo != null and depositBankNo != '' " >
+    	and t.deposit_bank_no =  #{depositBankNo}
+	</if>
+	<if test="goodsTitle != null and goodsTitle != '' " >
+    	and t.goods_title =  #{goodsTitle}
+	</if>
+	<if test="iwAccountLogId != null and iwAccountLogId != '' " >
+    	and t.iw_account_log_id =  #{iwAccountLogId}
+	</if>
+	<if test="transAccount != null and transAccount != '' " >
+    	and t.trans_account =  #{transAccount}
+	</if>
+	<if test="otherAccountEmail != null and otherAccountEmail != '' " >
+    	and t.other_account_email =  #{otherAccountEmail}
+	</if>
+	<if test="otherAccountFullname != null and otherAccountFullname != '' " >
+    	and t.other_account_fullname =  #{otherAccountFullname}
+	</if>
+	<if test="otherUserId != null and otherUserId != '' " >
+    	and t.other_user_id =  #{otherUserId}
+	</if>
+	<if test="partnerId != null and partnerId != '' " >
+    	and t.partner_id =  #{partnerId}
+	</if>
+	<if test="serviceFee != null and serviceFee != '' " >
+    	and t.service_fee =  #{serviceFee}
+	</if>
+	<if test="serviceFeeRatio != null and serviceFeeRatio != '' " >
+    	and t.service_fee_ratio =  #{serviceFeeRatio}
+	</if>
+	<if test="totalFee != null and totalFee != '' " >
+    	and t.total_fee =  #{totalFee}
+	</if>
+	<if test="tradeNo != null and tradeNo != '' " >
+    	and t.trade_no =  #{tradeNo}
+	</if>
+	<if test="tradeRefundAmount != null and tradeRefundAmount != '' " >
+    	and t.trade_refund_amount =  #{tradeRefundAmount}
+	</if>
+	<if test="signProductName != null and signProductName != '' " >
+    	and t.sign_product_name =  #{signProductName}
+	</if>
+	<if test="rate != null and rate != '' " >
+    	and t.rate =  #{rate}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="endDate != null and endDate != '' ">
+	  	and t.statdate between to_date('${startDate}','yyyy-MM-dd') and to_date('${endDate}','yyyy-MM-dd')
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into rca_alipay_accountlog 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="statdate != null " >
+		statdate,
+		</if>
+    	<if test="balance != null " >
+		balance,
+		</if>
+    	<if test="income != null " >
+		income,
+		</if>
+    	<if test="outcome != null " >
+		outcome,
+		</if>
+    	<if test="transDate != null " >
+		trans_date,
+		</if>
+    	<if test="subTransCodeMsg != null and subTransCodeMsg != '' " >
+		 sub_trans_code_msg,
+		</if>
+    	<if test="transCodeMsg != null and transCodeMsg != '' " >
+		 trans_code_msg,
+		</if>
+    	<if test="merchantOutOrderNo != null and merchantOutOrderNo != '' " >
+		 merchant_out_order_no,
+		</if>
+    	<if test="transOutOrderNo != null and transOutOrderNo != '' " >
+		 trans_out_order_no,
+		</if>
+    	<if test="bankName != null and bankName != '' " >
+		 bank_name,
+		</if>
+    	<if test="bankAccountNo != null and bankAccountNo != '' " >
+		 bank_account_no,
+		</if>
+    	<if test="bankAccountName != null and bankAccountName != '' " >
+		 bank_account_name,
+		</if>
+    	<if test="memo != null and memo != '' " >
+		 memo,
+		</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+		 buyer_account,
+		</if>
+    	<if test="sellerAccount != null and sellerAccount != '' " >
+		 seller_account,
+		</if>
+    	<if test="sellerFullname != null and sellerFullname != '' " >
+		 seller_fullname,
+		</if>
+    	<if test="currency != null and currency != '' " >
+		 currency,
+		</if>
+    	<if test="depositBankNo != null and depositBankNo != '' " >
+		 deposit_bank_no,
+		</if>
+    	<if test="goodsTitle != null and goodsTitle != '' " >
+		 goods_title,
+		</if>
+    	<if test="iwAccountLogId != null and iwAccountLogId != '' " >
+		 iw_account_log_id,
+		</if>
+    	<if test="transAccount != null and transAccount != '' " >
+		 trans_account,
+		</if>
+    	<if test="otherAccountEmail != null and otherAccountEmail != '' " >
+		 other_account_email,
+		</if>
+    	<if test="otherAccountFullname != null and otherAccountFullname != '' " >
+		 other_account_fullname,
+		</if>
+    	<if test="otherUserId != null and otherUserId != '' " >
+		 other_user_id,
+		</if>
+    	<if test="partnerId != null and partnerId != '' " >
+		 partner_id,
+		</if>
+    	<if test="serviceFee != null and serviceFee != '' " >
+		 service_fee,
+		</if>
+    	<if test="serviceFeeRatio != null and serviceFeeRatio != '' " >
+		 service_fee_ratio,
+		</if>
+    	<if test="totalFee != null and totalFee != '' " >
+		 total_fee,
+		</if>
+    	<if test="tradeNo != null and tradeNo != '' " >
+		 trade_no,
+		</if>
+    	<if test="tradeRefundAmount != null and tradeRefundAmount != '' " >
+		 trade_refund_amount,
+		</if>
+    	<if test="signProductName != null and signProductName != '' " >
+		 sign_product_name,
+		</if>
+    	<if test="rate != null and rate != '' " >
+		 rate,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="statdate != null " >
+  		<![CDATA[  #{statdate}, ]]>
+    	</if>
+    	<if test="balance != null " >
+  		<![CDATA[  #{balance}, ]]>
+    	</if>
+    	<if test="income != null " >
+  		<![CDATA[  #{income}, ]]>
+    	</if>
+    	<if test="outcome != null " >
+  		<![CDATA[  #{outcome}, ]]>
+    	</if>
+    	<if test="transDate != null " >
+  		<![CDATA[  #{transDate}, ]]>
+    	</if>
+    	<if test="subTransCodeMsg != null and subTransCodeMsg != '' " >
+  		<![CDATA[  #{subTransCodeMsg}, ]]>
+    	</if>
+    	<if test="transCodeMsg != null and transCodeMsg != '' " >
+  		<![CDATA[  #{transCodeMsg}, ]]>
+    	</if>
+    	<if test="merchantOutOrderNo != null and merchantOutOrderNo != '' " >
+  		<![CDATA[  #{merchantOutOrderNo}, ]]>
+    	</if>
+    	<if test="transOutOrderNo != null and transOutOrderNo != '' " >
+  		<![CDATA[  #{transOutOrderNo}, ]]>
+    	</if>
+    	<if test="bankName != null and bankName != '' " >
+  		<![CDATA[  #{bankName}, ]]>
+    	</if>
+    	<if test="bankAccountNo != null and bankAccountNo != '' " >
+  		<![CDATA[  #{bankAccountNo}, ]]>
+    	</if>
+    	<if test="bankAccountName != null and bankAccountName != '' " >
+  		<![CDATA[  #{bankAccountName}, ]]>
+    	</if>
+    	<if test="memo != null and memo != '' " >
+  		<![CDATA[  #{memo}, ]]>
+    	</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+  		<![CDATA[  #{buyerAccount}, ]]>
+    	</if>
+    	<if test="sellerAccount != null and sellerAccount != '' " >
+  		<![CDATA[  #{sellerAccount}, ]]>
+    	</if>
+    	<if test="sellerFullname != null and sellerFullname != '' " >
+  		<![CDATA[  #{sellerFullname}, ]]>
+    	</if>
+    	<if test="currency != null and currency != '' " >
+  		<![CDATA[  #{currency}, ]]>
+    	</if>
+    	<if test="depositBankNo != null and depositBankNo != '' " >
+  		<![CDATA[  #{depositBankNo}, ]]>
+    	</if>
+    	<if test="goodsTitle != null and goodsTitle != '' " >
+  		<![CDATA[  #{goodsTitle}, ]]>
+    	</if>
+    	<if test="iwAccountLogId != null and iwAccountLogId != '' " >
+  		<![CDATA[  #{iwAccountLogId}, ]]>
+    	</if>
+    	<if test="transAccount != null and transAccount != '' " >
+  		<![CDATA[  #{transAccount}, ]]>
+    	</if>
+    	<if test="otherAccountEmail != null and otherAccountEmail != '' " >
+  		<![CDATA[  #{otherAccountEmail}, ]]>
+    	</if>
+    	<if test="otherAccountFullname != null and otherAccountFullname != '' " >
+  		<![CDATA[  #{otherAccountFullname}, ]]>
+    	</if>
+    	<if test="otherUserId != null and otherUserId != '' " >
+  		<![CDATA[  #{otherUserId}, ]]>
+    	</if>
+    	<if test="partnerId != null and partnerId != '' " >
+  		<![CDATA[  #{partnerId}, ]]>
+    	</if>
+    	<if test="serviceFee != null and serviceFee != '' " >
+  		<![CDATA[  #{serviceFee}, ]]>
+    	</if>
+    	<if test="serviceFeeRatio != null and serviceFeeRatio != '' " >
+  		<![CDATA[  #{serviceFeeRatio}, ]]>
+    	</if>
+    	<if test="totalFee != null and totalFee != '' " >
+  		<![CDATA[  #{totalFee}, ]]>
+    	</if>
+    	<if test="tradeNo != null and tradeNo != '' " >
+  		<![CDATA[  #{tradeNo}, ]]>
+    	</if>
+    	<if test="tradeRefundAmount != null and tradeRefundAmount != '' " >
+  		<![CDATA[  #{tradeRefundAmount}, ]]>
+    	</if>
+    	<if test="signProductName != null and signProductName != '' " >
+  		<![CDATA[  #{signProductName}, ]]>
+    	</if>
+    	<if test="rate != null and rate != '' " >
+  		<![CDATA[  #{rate}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update rca_alipay_accountlog t set 
+   <trim suffixOverrides="," >
+	<if test="statdate != null " >
+  	<![CDATA[  t.statdate = #{statdate}, ]]>
+    </if>
+    <if test="balance != null " >
+  	<![CDATA[  t.balance = #{balance}, ]]>
+    </if>
+    <if test="income != null " >
+  	<![CDATA[  t.income = #{income}, ]]>
+    </if>
+    <if test="outcome != null " >
+  	<![CDATA[  t.outcome = #{outcome}, ]]>
+    </if>
+    <if test="transDate != null " >
+  	<![CDATA[  t.trans_date = #{transDate}, ]]>
+    </if>
+    <if test="subTransCodeMsg != null and subTransCodeMsg != '' " >
+  	<![CDATA[  t.sub_trans_code_msg = #{subTransCodeMsg}, ]]>
+    </if>
+    <if test="transCodeMsg != null and transCodeMsg != '' " >
+  	<![CDATA[  t.trans_code_msg = #{transCodeMsg}, ]]>
+    </if>
+    <if test="merchantOutOrderNo != null and merchantOutOrderNo != '' " >
+  	<![CDATA[  t.merchant_out_order_no = #{merchantOutOrderNo}, ]]>
+    </if>
+    <if test="transOutOrderNo != null and transOutOrderNo != '' " >
+  	<![CDATA[  t.trans_out_order_no = #{transOutOrderNo}, ]]>
+    </if>
+    <if test="bankName != null and bankName != '' " >
+  	<![CDATA[  t.bank_name = #{bankName}, ]]>
+    </if>
+    <if test="bankAccountNo != null and bankAccountNo != '' " >
+  	<![CDATA[  t.bank_account_no = #{bankAccountNo}, ]]>
+    </if>
+    <if test="bankAccountName != null and bankAccountName != '' " >
+  	<![CDATA[  t.bank_account_name = #{bankAccountName}, ]]>
+    </if>
+    <if test="memo != null and memo != '' " >
+  	<![CDATA[  t.memo = #{memo}, ]]>
+    </if>
+    <if test="buyerAccount != null and buyerAccount != '' " >
+  	<![CDATA[  t.buyer_account = #{buyerAccount}, ]]>
+    </if>
+    <if test="sellerAccount != null and sellerAccount != '' " >
+  	<![CDATA[  t.seller_account = #{sellerAccount}, ]]>
+    </if>
+    <if test="sellerFullname != null and sellerFullname != '' " >
+  	<![CDATA[  t.seller_fullname = #{sellerFullname}, ]]>
+    </if>
+    <if test="currency != null and currency != '' " >
+  	<![CDATA[  t.currency = #{currency}, ]]>
+    </if>
+    <if test="depositBankNo != null and depositBankNo != '' " >
+  	<![CDATA[  t.deposit_bank_no = #{depositBankNo}, ]]>
+    </if>
+    <if test="goodsTitle != null and goodsTitle != '' " >
+  	<![CDATA[  t.goods_title = #{goodsTitle}, ]]>
+    </if>
+    <if test="iwAccountLogId != null and iwAccountLogId != '' " >
+  	<![CDATA[  t.iw_account_log_id = #{iwAccountLogId}, ]]>
+    </if>
+    <if test="transAccount != null and transAccount != '' " >
+  	<![CDATA[  t.trans_account = #{transAccount}, ]]>
+    </if>
+    <if test="otherAccountEmail != null and otherAccountEmail != '' " >
+  	<![CDATA[  t.other_account_email = #{otherAccountEmail}, ]]>
+    </if>
+    <if test="otherAccountFullname != null and otherAccountFullname != '' " >
+  	<![CDATA[  t.other_account_fullname = #{otherAccountFullname}, ]]>
+    </if>
+    <if test="otherUserId != null and otherUserId != '' " >
+  	<![CDATA[  t.other_user_id = #{otherUserId}, ]]>
+    </if>
+    <if test="partnerId != null and partnerId != '' " >
+  	<![CDATA[  t.partner_id = #{partnerId}, ]]>
+    </if>
+    <if test="serviceFee != null and serviceFee != '' " >
+  	<![CDATA[  t.service_fee = #{serviceFee}, ]]>
+    </if>
+    <if test="serviceFeeRatio != null and serviceFeeRatio != '' " >
+  	<![CDATA[  t.service_fee_ratio = #{serviceFeeRatio}, ]]>
+    </if>
+    <if test="totalFee != null and totalFee != '' " >
+  	<![CDATA[  t.total_fee = #{totalFee}, ]]>
+    </if>
+    <if test="tradeNo != null and tradeNo != '' " >
+  	<![CDATA[  t.trade_no = #{tradeNo}, ]]>
+    </if>
+    <if test="tradeRefundAmount != null and tradeRefundAmount != '' " >
+  	<![CDATA[  t.trade_refund_amount = #{tradeRefundAmount}, ]]>
+    </if>
+    <if test="signProductName != null and signProductName != '' " >
+  	<![CDATA[  t.sign_product_name = #{signProductName}, ]]>
+    </if>
+    <if test="rate != null and rate != '' " >
+  	<![CDATA[  t.rate = #{rate}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from rca_alipay_accountlog where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from rca_alipay_accountlog t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from rca_alipay_accountlog t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	from rca_alipay_accountlog t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 批量删除 -->
+<delete id="batchDeleteOrder" parameterType="Object">
+	delete from rca_alipay_accountlog where statdate = to_date(#{statdate}, 'yyyy-MM-dd')
+</delete>
+<!-- 批量插入 -->
+<insert id="batchSaveOrder" parameterType="java.util.Map">
+	insert all 
+	<foreach collection="list" item="item" index="index" separator=" ">
+	into rca_alipay_accountlog (
+		id,
+		statdate,
+		balance,
+		income,
+		outcome,
+		trans_date,
+		sub_trans_code_msg,
+		trans_code_msg,
+		merchant_out_order_no,
+		trans_out_order_no,
+		bank_name,
+		bank_account_no,
+		bank_account_name,
+		memo,
+		buyer_account,
+		seller_account,
+		seller_fullname,
+		currency,
+		deposit_bank_no,
+		goods_title,
+		iw_account_log_id,
+		trans_account,
+		other_account_email,
+		other_account_fullname,
+		other_user_id,
+		partner_id,
+		service_fee,
+		service_fee_ratio,
+		total_fee,
+		trade_no,
+		trade_refund_amount,
+		sign_product_name,
+		rate,
+		create_time)
+	values
+	 (
+	 	#{item.id},
+  		#{item.statdate},
+  		#{item.balance,jdbcType=NUMERIC},
+  		#{item.income,jdbcType=NUMERIC},
+  		#{item.outcome,jdbcType=NUMERIC},
+  		#{item.transDate,jdbcType=DATE},
+  		#{item.subTransCodeMsg,jdbcType=VARCHAR},
+  		#{item.transCodeMsg,jdbcType=VARCHAR},
+  		#{item.merchantOutOrderNo,jdbcType=VARCHAR},
+  		#{item.transOutOrderNo,jdbcType=VARCHAR},
+  		#{item.bankName,jdbcType=VARCHAR},
+  		#{item.bankAccountNo,jdbcType=VARCHAR},
+    	#{item.bankAccountName,jdbcType=VARCHAR},
+    	#{item.memo,jdbcType=VARCHAR},
+    	#{item.buyerAccount,jdbcType=VARCHAR},
+    	#{item.sellerAccount,jdbcType=VARCHAR},
+    	#{item.sellerFullname,jdbcType=VARCHAR},
+    	#{item.currency,jdbcType=VARCHAR},
+    	#{item.depositBankNo,jdbcType=VARCHAR},
+    	#{item.goodsTitle,jdbcType=VARCHAR},
+    	#{item.iwAccountLogId,jdbcType=VARCHAR},
+    	#{item.transAccount,jdbcType=VARCHAR},
+    	#{item.otherAccountEmail,jdbcType=VARCHAR},
+    	#{item.otherAccountFullname,jdbcType=VARCHAR},
+    	#{item.otherUserId,jdbcType=VARCHAR},
+    	#{item.partnerId,jdbcType=VARCHAR},
+    	#{item.serviceFee,jdbcType=VARCHAR},
+    	#{item.serviceFeeRatio,jdbcType=VARCHAR},
+    	#{item.totalFee,jdbcType=VARCHAR},
+    	#{item.tradeNo,jdbcType=VARCHAR},
+    	#{item.tradeRefundAmount,jdbcType=VARCHAR},
+    	#{item.signProductName,jdbcType=VARCHAR},
+    	#{item.rate,jdbcType=VARCHAR},
+    	#{item.createTime,jdbcType=DATE}
+    )
+    </foreach>
+    select 1 from dual
+</insert>
+<select id="countAlipayAccountlog" parameterType="Object" resultMap="AlipayCountResultMap">
+	SELECT t.statdate,COUNT(id) total_order_count,SUM(t.income) total_income_count,SUM(t.outcome) total_outcome_count,round(SUM(t.total_fee * t.rate),2) total_service_fee
+		FROM rca_alipay_accountLog t WHERE t.statdate = to_date(#{statdate}, 'yyyy-MM-dd') group by t.statdate
+</select>
+
+<select id="getAlipayAccountlogByOrderNo" resultMap="BaseResultMap"  parameterType="Object">
+	select <include refid="Base_Column_List"/> from rca_alipay_accountLog t
+	where t.merchant_out_order_no = #{orderNo} and (sub_trans_code_msg = '收费' or sub_trans_code_msg = '快速支付,支付给个人，支付宝帐户全额')
+</select>
+
+<!-- 根据账单日期获取支付宝订单 -->
+<select id="queryByStatdate" resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List"/>
+	from rca_alipay_accountLog t where t.statdate = #{statdate}
+</select>
+
+<select id="getAlipayAccountlogByMerchantOutOrderNoAndCodeMsg" parameterType="Object" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List"/>
+	from rca_alipay_accountLog t where t.sub_trans_code_msg =  #{subTransCodeMsg} and t.trans_code_msg =  #{transCodeMsg}
+		and t.merchant_out_order_no =  #{merchantOutOrderNo}
+</select>
+
+<!-- 查询导出记录参数值-->
+<select id="cvsAlipayList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT *
+ 	from rca_alipay_accountLog t
+	WHERE 1=1 
+	<trim>
+	 <if test="startDate != null and startDate != '' and endDate != null
+	 	and endDate != '' ">
+	 	and t.statdate between to_date('${startDate}','yyyy-MM-dd') and to_date('${endDate}','yyyy-MM-dd')
+	 </if>
+	</trim>
+	ORDER BY t.create_time desc
+</select>
+</mapper>   

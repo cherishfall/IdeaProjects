@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.IntfVersionDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.IntfVersion" >
+	<result column="id" property="id"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="intf_type" property="intfType"/>
+		<result column="intf_service_name" property="intfServiceName"/>
+		<result column="intf_version" property="intfVersion"/>
+		<result column="intf_version_name" property="intfVersionName"/>
+		<result column="remark" property="remark"/>
+		<result column="create_by" property="createBy"/>
+		<result column="update_by" property="updateBy"/>
+		<result column="flag" property="flag"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.area_code,
+		 t.intf_type,
+		 t.intf_service_name,
+		 t.intf_version,
+		 t.intf_version_name,
+		 t.remark,
+		 t.create_by,
+		 t.update_by,
+		 t.flag,
+		 t.update_time,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="areaCode != null and areaCode != '' " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="intfType != null " >
+    	and t.intf_type =  #{intfType}
+	</if>
+	<if test="intfServiceName != null and intfServiceName != '' " >
+    	and t.intf_service_name =  #{intfServiceName}
+	</if>
+	<if test="intfVersion != null and intfVersion != '' " >
+    	and t.intf_version =  #{intfVersion}
+	</if>
+	<if test="intfVersionName != null and intfVersionName != '' " >
+    	and t.intf_version_name =  #{intfVersionName}
+	</if>
+	<if test="remark != null and remark != '' " >
+    	and t.remark =  #{remark}
+	</if>
+	<if test="createBy != null and createBy != '' " >
+    	and t.create_by =  #{createBy}
+	</if>
+	<if test="updateBy != null and updateBy != '' " >
+    	and t.update_by =  #{updateBy}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT sys_guid() from dual 
+	</selectKey>
+  
+	insert into app_intf_version 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="areaCode != null and areaCode != '' " >
+		 area_code,
+		</if>
+    	<if test="intfType != null " >
+		intf_type,
+		</if>
+    	<if test="intfServiceName != null and intfServiceName != '' " >
+		 intf_service_name,
+		</if>
+    	<if test="intfVersion != null and intfVersion != '' " >
+		 intf_version,
+		</if>
+    	<if test="intfVersionName != null and intfVersionName != '' " >
+		 intf_version_name,
+		</if>
+    	<if test="remark != null and remark != '' " >
+		 remark,
+		</if>
+    	<if test="createBy != null and createBy != '' " >
+		 create_by,
+		</if>
+    	<if test="updateBy != null and updateBy != '' " >
+		 update_by,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="areaCode != null and areaCode != '' " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="intfType != null " >
+  		<![CDATA[  #{intfType}, ]]>
+    	</if>
+    	<if test="intfServiceName != null and intfServiceName != '' " >
+  		<![CDATA[  #{intfServiceName}, ]]>
+    	</if>
+    	<if test="intfVersion != null and intfVersion != '' " >
+  		<![CDATA[  #{intfVersion}, ]]>
+    	</if>
+    	<if test="intfVersionName != null and intfVersionName != '' " >
+  		<![CDATA[  #{intfVersionName}, ]]>
+    	</if>
+    	<if test="remark != null and remark != '' " >
+  		<![CDATA[  #{remark}, ]]>
+    	</if>
+    	<if test="createBy != null and createBy != '' " >
+  		<![CDATA[  #{createBy}, ]]>
+    	</if>
+    	<if test="updateBy != null and updateBy != '' " >
+  		<![CDATA[  #{updateBy}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_intf_version t set 
+   <trim suffixOverrides="," >
+	<if test="areaCode != null and areaCode != '' " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="intfType != null " >
+  	<![CDATA[  t.intf_type = #{intfType}, ]]>
+    </if>
+    <if test="intfServiceName != null and intfServiceName != '' " >
+  	<![CDATA[  t.intf_service_name = #{intfServiceName}, ]]>
+    </if>
+    <if test="intfVersion != null and intfVersion != '' " >
+  	<![CDATA[  t.intf_version = #{intfVersion}, ]]>
+    </if>
+    <if test="intfVersionName != null and intfVersionName != '' " >
+  	<![CDATA[  t.intf_version_name = #{intfVersionName}, ]]>
+    </if>
+    <if test="remark != null and remark != '' " >
+  	<![CDATA[  t.remark = #{remark}, ]]>
+    </if>
+    <if test="createBy != null and createBy != '' " >
+  	<![CDATA[  t.create_by = #{createBy}, ]]>
+    </if>
+    <if test="updateBy != null and updateBy != '' " >
+  	<![CDATA[  t.update_by = #{updateBy}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_intf_version where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_intf_version t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_intf_version t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	from app_intf_version t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+
+
+<!-- 根据网关地址和服务名称查到app版本号    -->
+<select id="getVersionByServiceNameAndGatewayUrl" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT t.* FROM app_intf_version t 
+		LEFT JOIN base_area b ON b.AREA_CODE=t.AREA_CODE
+		WHERE t.flag!='DELETE' AND t.intf_type=2 AND 
+		t.intf_service_name=#{intfServiceName} AND b.GATEWAY_URL=#{gateWayUrl} and rownum = 1 
+</select>
+
+
+</mapper>   

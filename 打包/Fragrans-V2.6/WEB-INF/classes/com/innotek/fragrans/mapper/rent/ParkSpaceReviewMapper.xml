@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.rent.ParkSpaceReviewDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.rent.ParkSpaceReview" >
+	<result column="id" property="id"/>
+		<result column="berth_id" property="berthId"/>
+		<result column="user_id" property="userId"/>
+		<result column="reviewer" property="reviewer"/>
+		<result column="review_time" property="reviewTime"/>
+		<result column="review_result" property="reviewResult"/>
+		<result column="flag" property="flag"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.berth_id,
+		 t.user_id,
+		 t.reviewer,
+		 t.review_time,
+		 t.review_result,
+		 t.flag,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="berthId != null and berthId != '' " >
+    	and t.berth_id =  #{berthId}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="reviewer != null and reviewer != '' " >
+    	and t.reviewer =  #{reviewer}
+	</if>
+	<if test="reviewTime != null " >
+    	and t.review_time =  #{reviewTime}
+	</if>
+	<if test="reviewResult != null and reviewResult != '' " >
+    	and t.review_result =  #{reviewResult}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into rent_park_space_review 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="berthId != null and berthId != '' " >
+		 berth_id,
+		</if>
+    	<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+    	<if test="reviewer != null and reviewer != '' " >
+		 reviewer,
+		</if>
+    	<if test="reviewTime != null " >
+		review_time,
+		</if>
+    	<if test="reviewResult != null and reviewResult != '' " >
+		 review_result,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="berthId != null and berthId != '' " >
+  		<![CDATA[  #{berthId}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+    	<if test="reviewer != null and reviewer != '' " >
+  		<![CDATA[  #{reviewer}, ]]>
+    	</if>
+    	<if test="reviewTime != null " >
+  		<![CDATA[  #{reviewTime}, ]]>
+    	</if>
+    	<if test="reviewResult != null and reviewResult != '' " >
+  		<![CDATA[  #{reviewResult}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update rent_park_space_review t set 
+   <trim suffixOverrides="," >
+	<if test="berthId != null and berthId != '' " >
+  	<![CDATA[  t.berth_id = #{berthId}, ]]>
+    </if>
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="reviewer != null and reviewer != '' " >
+  	<![CDATA[  t.reviewer = #{reviewer}, ]]>
+    </if>
+    <if test="reviewTime != null " >
+  	<![CDATA[  t.review_time = #{reviewTime}, ]]>
+    </if>
+    <if test="reviewResult != null and reviewResult != '' " >
+  	<![CDATA[  t.review_result = #{reviewResult}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from rent_park_space_review where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from rent_park_space_review t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from rent_park_space_review t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from rent_park_space_review t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<!-- 根据BerthId查询 -->
+	<select id="queryByBerthId"  resultMap="BaseResultMap" parameterType="Object">
+		select <include refid="Base_Column_List" /> 
+		from rent_park_space_review t where t.berth_id = #{berthId}
+		limit 1;
+	</select>
+</mapper>   

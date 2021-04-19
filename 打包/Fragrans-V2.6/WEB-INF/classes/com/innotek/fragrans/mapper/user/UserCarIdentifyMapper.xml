@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserCarIdentifyDao" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.user.UserCarIdentify" >
+	<result column="id" property="id"/>
+		<result column="car_id" property="carId"/>
+		<result column="identify_user_id" property="identifyUserId"/>
+		<result column="identify_car_id" property="identifyCarId"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="user_account" property="userAccount"/>
+		<result column="user_id" property="userId"/>
+		<result column="plate_no" property="plateNo"/>
+		<result column="plate_color" property="plateColor"/>
+		<result column="is_identify" property="isIdentify"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.car_id,
+		 t.identify_user_id,
+		 t.identify_car_id,
+		 t.flag,
+		 t.created_by,
+		 t.create_time,
+		 t.updated_by,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="carId != null and carId != '' " >
+    	and t.car_id =  #{carId}
+	</if>
+	<if test="identifyUserId != null and identifyUserId != '' " >
+    	and t.identify_user_id =  #{identifyUserId}
+	</if>
+	<if test="identifyCarId != null and identifyCarId != '' " >
+    	and t.identify_car_id =  #{identifyCarId}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_user_car_identify 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="carId != null and carId != '' " >
+		 car_id,
+		</if>
+    	<if test="identifyUserId != null and identifyUserId != '' " >
+		 identify_user_id,
+		</if>
+    	<if test="identifyCarId != null and identifyCarId != '' " >
+		 identify_car_id,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="carId != null and carId != '' " >
+  		<![CDATA[  #{carId}, ]]>
+    	</if>
+    	<if test="identifyUserId != null and identifyUserId != '' " >
+  		<![CDATA[  #{identifyUserId}, ]]>
+    	</if>
+    	<if test="identifyCarId != null and identifyCarId != '' " >
+  		<![CDATA[  #{identifyCarId}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_car_identify t set 
+   <trim suffixOverrides="," >
+	<if test="carId != null and carId != '' " >
+  	<![CDATA[  t.car_id = #{carId}, ]]>
+    </if>
+    <if test="identifyUserId != null and identifyUserId != '' " >
+  	<![CDATA[  t.identify_user_id = #{identifyUserId}, ]]>
+    </if>
+    <if test="identifyCarId != null and identifyCarId != '' " >
+  	<![CDATA[  t.identify_car_id = #{identifyCarId}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_car_identify where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_car_identify t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_car_identify t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_car_identify t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<!-- 根据carId和identifyUserId查询亲情号 -->
+	<select id="getUserCarIdentify" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM app_user_car_identify t
+		WHERE t.car_id = #{carId} and t.identify_user_id = #{identifyUserId}
+	</select>
+
+	<!-- 根据carId查询亲情号列表 -->
+	<select id="queryFamilyUserList" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List"/>
+		,u.user_account
+		FROM app_user_car_identify t
+		LEFT JOIN app_user u on t.identify_user_id = u.id
+		WHERE t.car_id = #{carId}
+	</select>
+
+	<!-- 根据identityCarId查询亲情号关联信息 -->
+	<select id="queryByIdentityCarId" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List"/>
+		,car.user_id
+		FROM app_user_car_identify t
+		LEFT JOIN app_user_car car ON t.car_id = car.id
+		WHERE t.identify_car_id = #{identityCarId}
+	</select>
+
+	<!-- 根据carId查询亲情号和车牌列表 -->
+	<select id="queryFamilyUserAndPlateList" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List"/>
+		,u.user_account,car.plate_no,car.plate_color,car.is_identify
+		FROM app_user_car_identify t
+		LEFT JOIN app_user u ON t.identify_user_id = u.id
+		LEFT JOIN app_user_car car ON t.identify_car_id = car.id
+		WHERE t.car_id = #{carId}
+	</select>
+</mapper>   

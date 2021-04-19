@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.guidance.ParkAggregationDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.guidance.ParkAggregationEntity" >
+	<result column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_name" property="cityName"/>
+		<result column="zoom_level" property="zoomLevel"/>
+		<result column="longitude_gaode" property="longitudeGaode"/>
+		<result column="latitude_gaode" property="latitudeGaode"/>
+		<result column="longitude_baidu" property="longitudeBaidu"/>
+		<result column="latitude_baidu" property="latitudeBaidu"/>
+		<result column="extend_center_longitude_gaode" property="extendCenterLongitudeGaode"/>
+		<result column="extend_center_latitude_gaode" property="extendCenterLatitudeGaode"/>
+		<result column="extend_center_longitude_baidu" property="extendCenterLongitudeBaidu"/>
+		<result column="extend_center_latitude_baidu" property="extendCenterLatitudeBaidu"/>
+		<result column="park_count" property="parkCount"/>
+		<result column="flag" property="flag"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="park_id" property="parkId"/>
+		<result column="park_type" property="parkType"/>
+		
+		<result column="total_berth_num" property="totalBerthNum"/>
+	    <result column="available_berth_num" property="availableBerthNum"/>
+		<result column="bookable_num" property="bookableNum"/>
+		<result column="MIN_RATE" property="lowestParkFee"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.city_code,
+		 t.zoom_level,
+		 t.longitude_gaode,
+		 t.latitude_gaode,
+		 t.longitude_baidu,
+		 t.latitude_baidu,
+		 t.extend_center_longitude_gaode,
+		 t.extend_center_latitude_gaode,
+		 t.extend_center_longitude_baidu,
+		 t.extend_center_latitude_baidu,
+		 t.park_count,
+		 t.flag,
+		 t.create_time,
+		 t.update_time,
+		 t.park_id,
+		 t.park_type,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="zoomLevel != null " >
+    	and t.zoom_level =  #{zoomLevel}
+	</if>
+	<if test="longitudeGaode != null " >
+    	and t.longitude_gaode =  #{longitudeGaode}
+	</if>
+	<if test="latitudeGaode != null " >
+    	and t.latitude_gaode =  #{latitudeGaode}
+	</if>
+	<if test="longitudeBaidu != null " >
+    	and t.longitude_baidu =  #{longitudeBaidu}
+	</if>
+	<if test="latitudeBaidu != null " >
+    	and t.latitude_baidu =  #{latitudeBaidu}
+	</if>
+	<if test="extendCenterLongitudeGaode != null " >
+    	and t.extend_center_longitude_gaode =  #{extendCenterLongitudeGaode}
+	</if>
+	<if test="extendCenterLatitudeGaode != null " >
+    	and t.extend_center_latitude_gaode =  #{extendCenterLatitudeGaode}
+	</if>
+	<if test="extendCenterLongitudeBaidu != null " >
+    	and t.extend_center_longitude_baidu =  #{extendCenterLongitudeBaidu}
+	</if>
+	<if test="extendCenterLatitudeBaidu != null " >
+    	and t.extend_center_latitude_baidu =  #{extendCenterLatitudeBaidu}
+	</if>
+	<if test="parkCount != null " >
+    	and t.park_count =  #{parkCount}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 查询条件 -->
+<sql id="City_Park_Num_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+    <if test="scale != null and scale != '' " >
+    	and t.ZOOM_LEVEL =  #{scale}
+	</if>
+	<if test="mapType != null and mapType == 1 " > 
+    	and t.longitude_baidu  &gt;=  #{minLongitude} and t.longitude_baidu &lt;= #{maxLongitude}
+    	and t.latitude_baidu  &gt;=  #{minLatitude} and t.latitude_baidu &lt;= #{maxLatitude} 
+	</if>
+	<if test="mapType != null and mapType == 2 " > 
+    	and t.longitude_gaode  &gt;=  #{minLongitude} and t.longitude_gaode &lt;= #{maxLongitude}
+    	and t.latitude_gaode  &gt;=  #{minLatitude} and t.latitude_gaode &lt;= #{maxLatitude} 
+	</if>
+	and t.flag !=  'DELETE'
+</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() as ID 
+	</selectKey>
+  
+	insert into APP_PARK_AGGREGATION 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="cityCode != null and cityCode != '' " >
+		 city_code,
+		</if>
+    	<if test="zoomLevel != null " >
+		zoom_level,
+		</if>
+    	<if test="longitudeGaode != null " >
+		longitude_gaode,
+		</if>
+    	<if test="latitudeGaode != null " >
+		latitude_gaode,
+		</if>
+    	<if test="longitudeBaidu != null " >
+		longitude_baidu,
+		</if>
+    	<if test="latitudeBaidu != null " >
+		latitude_baidu,
+		</if>
+    	<if test="extendCenterLongitudeGaode != null " >
+		extend_center_longitude_gaode,
+		</if>
+    	<if test="extendCenterLatitudeGaode != null " >
+		extend_center_latitude_gaode,
+		</if>
+    	<if test="extendCenterLongitudeBaidu != null " >
+		extend_center_longitude_baidu,
+		</if>
+    	<if test="extendCenterLatitudeBaidu != null " >
+		extend_center_latitude_baidu,
+		</if>
+    	<if test="parkCount != null " >
+		park_count,
+		</if>
+    	<if test="flag != null and flag != '' " >
+		 flag,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="updateTime != null " >
+		update_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="cityCode != null and cityCode != '' " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="zoomLevel != null " >
+  		<![CDATA[  #{zoomLevel}, ]]>
+    	</if>
+    	<if test="longitudeGaode != null " >
+  		<![CDATA[  #{longitudeGaode}, ]]>
+    	</if>
+    	<if test="latitudeGaode != null " >
+  		<![CDATA[  #{latitudeGaode}, ]]>
+    	</if>
+    	<if test="longitudeBaidu != null " >
+  		<![CDATA[  #{longitudeBaidu}, ]]>
+    	</if>
+    	<if test="latitudeBaidu != null " >
+  		<![CDATA[  #{latitudeBaidu}, ]]>
+    	</if>
+    	<if test="extendCenterLongitudeGaode != null " >
+  		<![CDATA[  #{extendCenterLongitudeGaode}, ]]>
+    	</if>
+    	<if test="extendCenterLatitudeGaode != null " >
+  		<![CDATA[  #{extendCenterLatitudeGaode}, ]]>
+    	</if>
+    	<if test="extendCenterLongitudeBaidu != null " >
+  		<![CDATA[  #{extendCenterLongitudeBaidu}, ]]>
+    	</if>
+    	<if test="extendCenterLatitudeBaidu != null " >
+  		<![CDATA[  #{extendCenterLatitudeBaidu}, ]]>
+    	</if>
+    	<if test="parkCount != null " >
+  		<![CDATA[  #{parkCount}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="updateTime != null " >
+  		<![CDATA[  #{updateTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update APP_PARK_AGGREGATION t set 
+   <trim suffixOverrides="," >
+	<if test="cityCode != null and cityCode != '' " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="zoomLevel != null " >
+  	<![CDATA[  t.zoom_level = #{zoomLevel}, ]]>
+    </if>
+    <if test="longitudeGaode != null " >
+  	<![CDATA[  t.longitude_gaode = #{longitudeGaode}, ]]>
+    </if>
+    <if test="latitudeGaode != null " >
+  	<![CDATA[  t.latitude_gaode = #{latitudeGaode}, ]]>
+    </if>
+    <if test="longitudeBaidu != null " >
+  	<![CDATA[  t.longitude_baidu = #{longitudeBaidu}, ]]>
+    </if>
+    <if test="latitudeBaidu != null " >
+  	<![CDATA[  t.latitude_baidu = #{latitudeBaidu}, ]]>
+    </if>
+    <if test="extendCenterLongitudeGaode != null " >
+  	<![CDATA[  t.extend_center_longitude_gaode = #{extendCenterLongitudeGaode}, ]]>
+    </if>
+    <if test="extendCenterLatitudeGaode != null " >
+  	<![CDATA[  t.extend_center_latitude_gaode = #{extendCenterLatitudeGaode}, ]]>
+    </if>
+    <if test="extendCenterLongitudeBaidu != null " >
+  	<![CDATA[  t.extend_center_longitude_baidu = #{extendCenterLongitudeBaidu}, ]]>
+    </if>
+    <if test="extendCenterLatitudeBaidu != null " >
+  	<![CDATA[  t.extend_center_latitude_baidu = #{extendCenterLatitudeBaidu}, ]]>
+    </if>
+    <if test="parkCount != null " >
+  	<![CDATA[  t.park_count = #{parkCount}, ]]>
+    </if>
+    <if test="flag != null and flag != '' " >
+  	<![CDATA[  t.flag = #{flag}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="updateTime != null " >
+  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from APP_PARK_AGGREGATION where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from APP_PARK_AGGREGATION t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from APP_PARK_AGGREGATION t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+	select 
+	<include refid="Base_Column_List"/>
+	from APP_PARK_AGGREGATION t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != '' and pager.orderCondition!=cityName" >
+      ${pager.orderCondition}
+    </if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+
+<select id="queryCityParkNumList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	     t.city_code,
+		 t.zoom_level,
+		 t.longitude_gaode,
+		 t.latitude_gaode,
+		 t.longitude_baidu,
+		 t.latitude_baidu,
+		 t.extend_center_longitude_gaode,
+		 t.extend_center_latitude_gaode,
+		 t.extend_center_longitude_baidu,
+		 t.extend_center_latitude_baidu,
+		 t.park_count,
+		 t.flag,
+		 t.create_time,
+		 t.update_time,
+		 t.park_id,
+		 t.park_type,
+		 
+	     NVL(t.total_berth_num,0) total_berth_num,
+		 NVL(fl.available_berth_num,-1) available_berth_num,
+         NVL(fl.bookable_num,0) bookable_num,
+         NVL(t.MIN_RATE,-1) MIN_RATE,
+         t.id
+	from APP_PARK_AGGREGATION t left join  APP_PARK_FLOW fl on fl.PARK_ID=t.park_id and fl.FLAG!='DELETE'
+	<include refid="City_Park_Num_Where_Clause"/>
+</select>
+
+	<!-- app_park_aggregation左关联app_park all fields -->
+	<sql id="Park_And_ParkAgg" >
+		 ba.area_name,
+		 t.city_code,
+		 t.zoom_level,
+		 t.longitude_gaode,
+		 t.latitude_gaode,
+		 t.longitude_baidu,
+		 t.latitude_baidu,
+		 t.extend_center_longitude_gaode,
+		 t.extend_center_latitude_gaode,
+		 t.extend_center_longitude_baidu,
+		 t.extend_center_latitude_baidu,
+		 t.park_count,
+		 t.flag,
+		 t.create_time,
+		 t.update_time,
+		 t.park_id,
+		 t.park_type,
+	     t.id
+	</sql>
+
+	<!-- app_park_aggregation左关联app_park查询条件 -->
+	<sql id="Park_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+		<if test="id != null" >
+	    and t.id = #{id}
+		</if>
+		<if test="cityCode != null " >
+		   	and t.city_code =  #{cityCode}
+		</if>
+		<if test="zoomLevel != null " >
+		   	and t.zoom_level =  #{zoomLevel}
+		</if>
+		<if test="longitudeGaode != null " >
+		   	and t.longitude_gaode =  #{longitudeGaode}
+		</if>
+		<if test="latitudeGaode != null " >
+		   	and t.latitude_gaode =  #{latitudeGaode}
+		</if>
+		<if test="longitudeBaidu != null " >
+		   	and t.longitude_baidu =  #{longitudeBaidu}
+		</if>
+		<if test="latitudeBaidu != null " >
+		   	and t.latitude_baidu =  #{latitudeBaidu}
+		</if>
+		<if test="extendCenterLongitudeGaode != null " >
+		   	and t.extend_center_longitude_gaode =  #{extendCenterLongitudeGaode}
+		</if>
+		<if test="extendCenterLatitudeGaode != null " >
+		   	and t.extend_center_latitude_gaode =  #{extendCenterLatitudeGaode}
+		</if>
+		<if test="extendCenterLongitudeBaidu != null " >
+		   	and t.extend_center_longitude_baidu =  #{extendCenterLongitudeBaidu}
+		</if>
+		<if test="extendCenterLatitudeBaidu != null " >
+		   	and t.extend_center_latitude_baidu =  #{extendCenterLatitudeBaidu}
+		</if>
+		<if test="parkCount != null " >
+		   	and t.park_count =  #{parkCount}
+		</if>
+		<if test="flag != null and flag != '' " >
+		   	and t.flag =  #{flag}
+		</if>
+		<if test="createTime != null " >
+		   	and t.create_time =  #{createTime}
+		</if>
+		<if test="updateTime != null " >
+		   	and t.update_time =  #{updateTime}
+		</if>
+		</trim>
+	</sql>
+	
+	<!-- app_park_aggregation左关联app_park列表总数-->
+	<select id="getParkAndParkAggByCount" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(1) FROM APP_PARK_AGGREGATION t
+		LEFT JOIN BASE_AREA ba ON t.city_code = ba.area_code
+		<include refid="Park_Where_Clause"/>
+	</select>
+	
+	<!-- app_park_aggregation左关联app_park -->
+	<select id="getParkAndParkAgg" resultMap="BaseResultMap">
+		<if test="pager.oracleQueryConditionStart != null and pager.oracleQueryConditionStart != ''">
+		${pager.oracleQueryConditionStart}
+	</if>
+		SELECT 
+		<include refid="Park_And_ParkAgg"/>
+		FROM APP_PARK_AGGREGATION t
+		LEFT JOIN BASE_AREA ba ON t.city_code = ba.area_code
+		<include refid="Park_Where_Clause"/>
+		<if test="pager.orderCondition == ''">
+			order by t.create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+	<if test="pager.oracleQueryConditionEnd != null and pager.oracleQueryConditionEnd != ''">
+		${pager.oracleQueryConditionEnd}
+	</if>
+
+	</select>
+	
+	<select id="findParkAndParkAggById" parameterType="String" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Park_And_ParkAgg" />
+		FROM APP_PARK_AGGREGATION t
+		LEFT JOIN BASE_AREA ba ON t.city_code = ba.area_code
+		where 1=1
+		and t.id = #{id}
+	</select>
+	
+	<select id="aggregateParkData" statementType="CALLABLE">
+        CALL p_aggregate_park_data()
+    </select>
+</mapper>   

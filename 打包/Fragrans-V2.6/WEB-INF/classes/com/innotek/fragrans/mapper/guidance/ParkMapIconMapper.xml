@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.guidance.ParkMapIconDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.guidance.ParkMapIconEntity" >
+		 <result column="id" property="id"/>
+	<result column="zoom_min" property="zoomMin"/>
+	<result column="zoom_max" property="zoomMax"/>
+	<result column="count_min" property="countMin"/>
+	<result column="count_max" property="countMax"/>
+	<result column="park_point_icon" property="parkPointIcon"/>
+	<result column="park_lot_icon" property="parkLotIcon"/>
+	<result column="subs_park_lot_icon" property="subsParkLotIcon"/>
+	<result column="busy_park_point_icon" property="busyParkPointIcon"/>
+	<result column="busy_park_lot_icon" property="busyParkLotIcon"/>
+	<result column="busy_subs_park_lot_icon" property="busySubsParkLotIcon"/>
+	<result column="static_park_lot_icon" property="staticParkLotIcon"/>
+	<result column="create_time" property="createTime"/>
+	</resultMap>  
+	
+	<!-- 查询全部的配置类型 -->
+	<select id="queryParkIcon" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+			zoom_min,
+			zoom_max,
+			count_min,
+			count_max,
+			park_point_icon,
+			park_lot_icon,
+			subs_park_lot_icon,
+			busy_park_point_icon,
+			busy_park_lot_icon,busy_subs_park_lot_icon,static_park_lot_icon FROM app_park_mapicon WHERE 1=1
+			and zoom_min&lt;#{mapZoom} and zoom_max&gt;=#{mapZoom} 
+			<if test="parkCount == 1">
+				and count_min &lt; 2
+			</if>
+			<if test="parkCount != 1">
+				and count_min &lt; #{parkCount}
+			</if>
+			 and count_max &gt;= #{parkCount} 
+	</select>
+	
+	<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.zoom_min,
+		 t.zoom_max,
+		 t.count_min,
+		 t.count_max,
+		 t.park_point_icon,
+		 t.park_lot_icon,
+		 t.subs_park_lot_icon,
+		 t.busy_park_point_icon,
+		 t.busy_park_lot_icon,
+		 t.busy_subs_park_lot_icon,
+		 t.static_park_lot_icon,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="zoomMin != null " >
+    	and t.zoom_min =  #{zoomMin}
+	</if>
+	<if test="zoomMax != null " >
+    	and t.zoom_max =  #{zoomMax}
+	</if>
+	<if test="countMin != null " >
+    	and t.count_min =  #{countMin}
+	</if>
+	<if test="countMax != null " >
+    	and t.count_max =  #{countMax}
+	</if>
+	<if test="parkPointIcon != null and parkPointIcon != '' " >
+    	and t.park_point_icon =  #{parkPointIcon}
+	</if>
+	<if test="parkLotIcon != null and parkLotIcon != '' " >
+    	and t.park_lot_icon =  #{parkLotIcon}
+	</if>
+	<if test="subsParkLotIcon != null and subsParkLotIcon != '' " >
+    	and t.subs_park_lot_icon =  #{subsParkLotIcon}
+	</if>
+	<if test="busyParkPointIcon != null and busyParkPointIcon != '' " >
+    	and t.busy_park_point_icon =  #{busyParkPointIcon}
+	</if>
+	<if test="busyParkLotIcon != null and busyParkLotIcon != '' " >
+    	and t.busy_park_lot_icon =  #{busyParkLotIcon}
+	</if>
+	<if test="busySubsParkLotIcon != null and busySubsParkLotIcon != '' " >
+    	and t.busy_subs_park_lot_icon =  #{busySubsParkLotIcon}
+	</if>
+	<if test="staticParkLotIcon != null and staticParkLotIcon != '' " >
+    	and t.static_park_lot_icon =  #{staticParkLotIcon}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_park_mapicon 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	  	create_time,
+	  	<if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="zoomMin != null " >
+		zoom_min,
+		</if>
+    	<if test="zoomMax != null " >
+		zoom_max,
+		</if>
+    	<if test="countMin != null " >
+		count_min,
+		</if>
+    	<if test="countMax != null " >
+		count_max,
+		</if>
+    	<if test="parkPointIcon != null and parkPointIcon != '' " >
+		 park_point_icon,
+		</if>
+    	<if test="parkLotIcon != null and parkLotIcon != '' " >
+		 park_lot_icon,
+		</if>
+    	<if test="subsParkLotIcon != null and subsParkLotIcon != '' " >
+		 subs_park_lot_icon,
+		</if>
+    	<if test="busyParkPointIcon != null and busyParkPointIcon != '' " >
+		 busy_park_point_icon,
+		</if>
+    	<if test="busyParkLotIcon != null and busyParkLotIcon != '' " >
+		 busy_park_lot_icon,
+		</if>
+    	<if test="busySubsParkLotIcon != null and busySubsParkLotIcon != '' " >
+		 busy_subs_park_lot_icon,
+		</if>
+    	<if test="staticParkLotIcon != null and staticParkLotIcon != '' " >
+		 static_park_lot_icon,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	now(),
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="zoomMin != null " >
+  		<![CDATA[  #{zoomMin}, ]]>
+    	</if>
+    	<if test="zoomMax != null " >
+  		<![CDATA[  #{zoomMax}, ]]>
+    	</if>
+    	<if test="countMin != null " >
+  		<![CDATA[  #{countMin}, ]]>
+    	</if>
+    	<if test="countMax != null " >
+  		<![CDATA[  #{countMax}, ]]>
+    	</if>
+    	<if test="parkPointIcon != null and parkPointIcon != '' " >
+  		<![CDATA[  #{parkPointIcon}, ]]>
+    	</if>
+    	<if test="parkLotIcon != null and parkLotIcon != '' " >
+  		<![CDATA[  #{parkLotIcon}, ]]>
+    	</if>
+    	<if test="subsParkLotIcon != null and subsParkLotIcon != '' " >
+  		<![CDATA[  #{subsParkLotIcon}, ]]>
+    	</if>
+    	<if test="busyParkPointIcon != null and busyParkPointIcon != '' " >
+  		<![CDATA[  #{busyParkPointIcon}, ]]>
+    	</if>
+    	<if test="busyParkLotIcon != null and busyParkLotIcon != '' " >
+  		<![CDATA[  #{busyParkLotIcon}, ]]>
+    	</if>
+    	<if test="busySubsParkLotIcon != null and busySubsParkLotIcon != '' " >
+  		<![CDATA[  #{busySubsParkLotIcon}, ]]>
+    	</if>
+    	<if test="staticParkLotIcon != null and staticParkLotIcon != '' " >
+  		<![CDATA[  #{staticParkLotIcon}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_park_mapicon t set 
+   <trim suffixOverrides="," >
+	<if test="zoomMin != null " >
+  	<![CDATA[  t.zoom_min = #{zoomMin}, ]]>
+    </if>
+    <if test="zoomMax != null " >
+  	<![CDATA[  t.zoom_max = #{zoomMax}, ]]>
+    </if>
+    <if test="countMin != null " >
+  	<![CDATA[  t.count_min = #{countMin}, ]]>
+    </if>
+    <if test="countMax != null " >
+  	<![CDATA[  t.count_max = #{countMax}, ]]>
+    </if>
+    <if test="parkPointIcon != null and parkPointIcon != '' " >
+  	<![CDATA[  t.park_point_icon = #{parkPointIcon}, ]]>
+    </if>
+    <if test="parkLotIcon != null and parkLotIcon != '' " >
+  	<![CDATA[  t.park_lot_icon = #{parkLotIcon}, ]]>
+    </if>
+    <if test="subsParkLotIcon != null and subsParkLotIcon != '' " >
+  	<![CDATA[  t.subs_park_lot_icon = #{subsParkLotIcon}, ]]>
+    </if>
+    <if test="busyParkPointIcon != null and busyParkPointIcon != '' " >
+  	<![CDATA[  t.busy_park_point_icon = #{busyParkPointIcon}, ]]>
+    </if>
+    <if test="busyParkLotIcon != null and busyParkLotIcon != '' " >
+  	<![CDATA[  t.busy_park_lot_icon = #{busyParkLotIcon}, ]]>
+    </if>
+    <if test="busySubsParkLotIcon != null and busySubsParkLotIcon != '' " >
+  	<![CDATA[  t.busy_subs_park_lot_icon = #{busySubsParkLotIcon}, ]]>
+    </if>
+    <if test="staticParkLotIcon != null and staticParkLotIcon != '' " >
+  	<![CDATA[  t.static_park_lot_icon = #{staticParkLotIcon}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_park_mapicon where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_park_mapicon t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_park_mapicon t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_park_mapicon t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+</mapper>   

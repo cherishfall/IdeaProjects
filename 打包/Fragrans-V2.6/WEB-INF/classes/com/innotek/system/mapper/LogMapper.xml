@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.system.dao.LogDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="com.innotek.system.entity.Log">
+		<result column="id" property="id" />
+		<result column="level" property="level" />
+		<result column="op_desc" property="opDesc" />
+		<result column="account" property="account" />
+		<result column="ip_address" property="ipAddress" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<!-- log table all fields -->
+	<sql id="Base_Column_List">
+		id,level,op_desc,account,ip_address,create_time
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="level != null and level != ''">
+				and level = #{level}
+			</if>
+			<if test="opDesc != null and opDesc != ''">
+				and op_desc = #{opDesc}
+			</if>
+			<if test="account != null and account != ''">
+				and account = #{account}
+			</if>
+			<if test="ipAddress != null and ipAddress != ''">
+				and ip_address = #{ipAddress}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="timeFrom != null and timeFrom != ''">
+				and create_time <![CDATA[>=]]>
+				#{timeFrom}
+			</if>
+			<if test="timeTo != null and timeTo != ''">
+				and create_time <![CDATA[<=]]>
+				#{timeTo}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+		insert into BASE_LOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			create_time,
+			<if test="id != null ">
+				id,
+			</if>
+			<if test="level != null and level != ''">
+				level,
+			</if>
+			<if test="opDesc != null and opDesc != ''">
+				op_desc,
+			</if>
+
+			<if test="account != null and account != ''">
+				account,
+			</if>
+
+			<if test="ipAddress != null and ipAddress != ''">
+				ip_address,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			now(),
+			<if test="id != null ">
+            <![CDATA[  #{id}, ]]>
+			</if>
+			<if test="level != null and level != ''">
+				#{level},
+			</if>
+			<if test="opDesc != null and opDesc != ''">
+				#{opDesc},
+			</if>
+
+			<if test="account != null and account != ''">
+				#{account},
+			</if>
+
+			<if test="ipAddress != null and ipAddress != ''">
+				#{ipAddress},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update BASE_LOG set
+		<trim suffixOverrides=",">
+			<if test="level != null">
+				level = #{level},
+			</if>
+			<if test="opDesc != null">
+				op_desc = #{opDesc},
+			</if>
+
+			<if test="account != null">
+				account = #{account},
+			</if>
+
+			<if test="ipAddress != null">
+				ip_address = #{ipAddress},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from BASE_LOG where id
+		= #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from BASE_LOG where id = #{id}
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from BASE_LOG
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"
+		parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from BASE_LOG
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition == '' ">
+			order by create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	<!-- *************************************自定义接口****************************************************** -->
+
+</mapper>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.UserUsePathDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.UserUsePath" >
+	<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="process_id" property="processId"/>
+		<result column="handle_id" property="handleId"/>
+		<result column="arrive_time" property="arriveTime"/>
+		<result column="departure_time" property="departureTime"/>
+		<result column="stay_time" property="stayTime"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="app_version" property="appVersion"/>
+		<result column="city_code" property="cityCode"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.user_id,
+		 t.process_id,
+		 t.handle_id,
+		 t.arrive_time,
+		 t.departure_time,
+		 t.stay_time,
+		 t.created_by,
+		 t.create_time,
+		 t.app_version,
+		 t.city_code,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="userId != null and userId != '' " >
+    	and t.user_id =  #{userId}
+	</if>
+	<if test="processId != null and processId != '' " >
+    	and t.process_id =  #{processId}
+	</if>
+	<if test="handleId != null and handleId != '' " >
+    	and t.handle_id =  #{handleId}
+	</if>
+	<if test="arriveTime != null " >
+    	and t.arrive_time =  #{arriveTime}
+	</if>
+	<if test="departureTime != null " >
+    	and t.departure_time =  #{departureTime}
+	</if>
+	<if test="stayTime != null " >
+    	and t.stay_time =  #{stayTime}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="appVersion != null and appVersion != '' " >
+    	and t.app_version =  #{appVersion}
+	</if>
+	<if test="cityCode != null and cityCode != '' " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_user_use_path 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+		<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+	 	<if test="processId != null and processId != '' " >
+		 process_id,
+		</if>
+    	<if test="handleId != null and handleId != '' " >
+		 handle_id,
+		</if>
+    	<if test="arriveTime != null " >
+		arrive_time,
+		</if>
+    	<if test="departureTime != null " >
+		departure_time,
+		</if>
+    	<if test="stayTime != null " >
+		stay_time,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="appVersion != null and appVersion != '' " >
+		app_version,
+		</if>
+    	<if test="cityCode != null and cityCode != '' " >
+		city_code,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+    	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+	 	<if test="processId != null and processId != '' " >
+  		<![CDATA[  #{processId}, ]]>
+    	</if>
+    	<if test="handleId != null and handleId != '' " >
+  		<![CDATA[  #{handleId}, ]]>
+    	</if>
+    	<if test="arriveTime != null " >
+  		<![CDATA[  #{arriveTime}, ]]>
+    	</if>
+    	<if test="departureTime != null " >
+  		<![CDATA[  #{departureTime}, ]]>
+    	</if>
+    	<if test="stayTime != null " >
+  		<![CDATA[  #{stayTime}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="appVersion != null and appVersion != '' " >
+  		<![CDATA[  #{appVersion}, ]]>
+    	</if>
+    	<if test="cityCode != null and cityCode != '' " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_user_use_path t set 
+   <trim suffixOverrides="," >
+    <if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+	<if test="processId != null and processId != '' " >
+  	<![CDATA[  t.process_id = #{processId}, ]]>
+    </if>
+    <if test="handleId != null and handleId != '' " >
+  	<![CDATA[  t.handle_id = #{handleId}, ]]>
+    </if>
+    <if test="arriveTime != null " >
+  	<![CDATA[  t.arrive_time = #{arriveTime}, ]]>
+    </if>
+    <if test="departureTime != null " >
+  	<![CDATA[  t.departure_time = #{departureTime}, ]]>
+    </if>
+    <if test="stayTime != null " >
+  	<![CDATA[  t.stay_time = #{stayTime}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="appVersion != null and appVersion != '' " >
+  	<![CDATA[  t.app_version = #{appVersion}, ]]>
+    </if>
+    <if test="cityCode != null and cityCode != '' " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_user_use_path where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_user_use_path t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_user_use_path t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_user_use_path t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<!-- 根据城市编码获取最近30天的活跃用户数 -->
+	<select id="getMonthActiveUsersByCityCode" resultType="java.lang.Integer" parameterType="java.util.Map">
+	SELECT COUNT(DISTINCT t.user_id) FROM app_user_use_path t 			 
+		WHERE t.city_code LIKE '${cityCode}%' 
+		AND t.create_time BETWEEN STR_TO_DATE(#{startTime},'%Y-%m-%d') AND NOW()		
+	</select>
+</mapper>   

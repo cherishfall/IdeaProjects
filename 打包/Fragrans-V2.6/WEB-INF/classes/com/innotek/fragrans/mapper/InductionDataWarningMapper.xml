@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.fragrans.dao.InductionDataWarningDao">
+	<!-- Result Map -->
+	<resultMap id="FlowDataWarninMap"
+		type="com.innotek.fragrans.entity.FlowDataWarningEntity">
+		<result column="id" property="id" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="city_name" property="cityName" />
+		<result column="area_name" property="areaName" />
+		<result column="park_Code" property="parkCode" />
+		<result column="name" property="name" />
+		<result column="park_Type" property="parkType" />
+		<result column="address" property="address" />
+		<result column="longitude_Gaode" property="longitudeGaode" />
+		<result column="latitude_Gaode" property="latitudeGaode" />
+		<result column="longitude_Baidu" property="longitudeBaidu" />
+		<result column="latitude_Baidu" property="latitudeBaidu" />
+		<result column="total_Berth_Num" property="totalBerthNum" />
+		<result column="day_Rate" property="dayRate" />
+		<result column="filing_Berth_Num" property="filingBerthNum" />
+		<result column="night_Rate" property="nightRate" />
+		<result column="contacts" property="contacts" />
+		<result column="phone" property="phone" />
+		<result column="map_Url" property="mapUrl" />
+		<result column="is_Dynamic" property="isDynamic" />
+		<result column="is_Open" property="isOpen" />
+		<result column="remark" property="remark" />
+		<result column="flag" property="flag" />
+		<result column="created_By" property="createdBy" />
+		<result column="updated_By" property="updatedBy" />
+		<result column="min_Rate" property="minRate" />
+		<result column="is_InDoor_Park" property="isInDoorPark" />
+	</resultMap>
+
+	<resultMap id="FlowDelayWarningMap"
+		type="com.innotek.fragrans.entity.FlowDelayWarningEntity">
+		<result column="id" property="id" />
+		<result column="park_id" property="parkId" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="park_code" property="parkCode" />
+		<result column="name" property="name" />
+		<result column="park_Type" property="parkType" />
+		<result column="city_name" property="cityName" />
+		<result column="area_name" property="areaName" />
+		<result column="available_berth_num" property="availableBerthNum" />
+		<result column="bookable_num" property="bookableNum" />
+		<result column="remain_bookable_num" property="remainBookableNum" />
+		<result column="flag" property="flag" />
+		<result column="created_by" property="createdBy" />
+		<result column="updated_by" property="updatedBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="duration" property="duration" />
+	</resultMap>
+
+	<resultMap id="InductionSyncWarningMap" type="com.innotek.fragrans.entity.InductionDataSync">
+		<result column="id" property="id" />
+		<result column="area_code" property="areaCode" />
+		<result column="area_name" property="areaName" />
+		<result column="app_id" property="appId" />
+		<result column="APP_KEY" property="appKey" />
+		<result column="app_name" property="appName" />
+		<result column="expired_day" property="expiredTime" />
+		<result column="app_status" property="appStatus" />
+		<result column="app_desc" property="appDesc" />
+		<result column="auth_ip" property="authIp" />
+		<result column="flag" property="flag" />
+		<result column="sync_last_update_time" property="syncLastUpdateTime" />
+		<result column="created_by" property="createdBy" />
+		<result column="updated_by" property="updatedBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="duration" property="duration" />
+	</resultMap>
+	
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object" >
+	  
+		<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+			SELECT UUID() as ID 
+		</selectKey>
+	  
+		insert into trans_app_sync_key 
+		  <trim prefix="(" suffix=")" suffixOverrides="," >
+		    <if test="id != null and id != '' " >
+			 id,
+			</if>
+		 	<if test="areaCode != null and areaCode != '' " >
+			 area_code,
+			</if>
+	    	<if test="areaName != null and areaName != '' " >
+			 area_name,
+			</if>
+	    	<if test="appId != null and appId != '' " >
+			 app_id,
+			</if>
+	    	<if test="appKey != null and appKey != '' " >
+			 app_key,
+			</if>
+	    	<if test="appName != null and appName != '' " >
+			 app_name,
+			</if>
+	    	<if test="expiredTime != null " >
+			expired_day,
+			</if>
+	    	<if test="appStatus != null and appStatus != '' " >
+			 app_status,
+			</if>
+	    	<if test="appDesc != null and appDesc != '' " >
+			 app_desc,
+			</if>
+	    	<if test="authIp != null and authIp != '' " >
+			 auth_ip,
+			</if>
+	    	<if test="syncLastUpdateTime != null " >
+			sync_last_update_time,
+			</if>
+	    	<if test="flag != null and flag != '' " >
+			 flag,
+			</if>
+	    	<if test="createdBy != null and createdBy != '' " >
+			 created_by,
+			</if>
+	    	<if test="updatedBy != null and updatedBy != '' " >
+			 updated_by,
+			</if>
+	    	<if test="createTime != null " >
+			create_time,
+			</if>
+	    	<if test="updateTime != null " >
+			update_time,
+			</if>
+	    	 </trim>
+		values
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+		    <if test="id != null and id != '' " >
+	  			<![CDATA[  #{id}, ]]>
+	    	</if>
+		 	<if test="areaCode != null and areaCode != '' " >
+	  		<![CDATA[  #{areaCode}, ]]>
+	    	</if>
+	    	<if test="areaName != null and areaName != '' " >
+	  		<![CDATA[  #{areaName}, ]]>
+	    	</if>
+	    	<if test="appId != null and appId != '' " >
+	  		<![CDATA[  #{appId}, ]]>
+	    	</if>
+	    	<if test="appKey != null and appKey != '' " >
+	  		<![CDATA[  #{appKey}, ]]>
+	    	</if>
+	    	<if test="appName != null and appName != '' " >
+	  		<![CDATA[  #{appName}, ]]>
+	    	</if>
+	    	<if test="expiredTime != null " >
+	  		<![CDATA[  #{expiredTime}, ]]>
+	    	</if>
+	    	<if test="appStatus != null and appStatus != '' " >
+	  		<![CDATA[  #{appStatus}, ]]>
+	    	</if>
+	    	<if test="appDesc != null and appDesc != '' " >
+	  		<![CDATA[  #{appDesc}, ]]>
+	    	</if>
+	    	<if test="authIp != null and authIp != '' " >
+	  		<![CDATA[  #{authIp}, ]]>
+	    	</if>
+	    	<if test="syncLastUpdateTime != null " >
+	  		<![CDATA[  #{syncLastUpdateTime}, ]]>
+	    	</if>
+	    	<if test="flag != null and flag != '' " >
+	  		<![CDATA[  #{flag}, ]]>
+	    	</if>
+	    	<if test="createdBy != null and createdBy != '' " >
+	  		<![CDATA[  #{createdBy}, ]]>
+	    	</if>
+	    	<if test="updatedBy != null and updatedBy != '' " >
+	  		<![CDATA[  #{updatedBy}, ]]>
+	    	</if>
+	    	<if test="createTime != null " >
+	  		<![CDATA[  #{createTime}, ]]>
+	    	</if>
+	    	<if test="updateTime != null " >
+	  		<![CDATA[  #{updateTime}, ]]>
+	    	</if>
+	    	 </trim>
+	</insert>
+	
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="Object" >
+		update trans_app_sync_key t set 
+	   <trim suffixOverrides="," >
+		<if test="areaCode != null and areaCode != '' " >
+	  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+	    </if>
+	    <if test="areaName != null and areaName != '' " >
+	  	<![CDATA[  t.area_name = #{areaName}, ]]>
+	    </if>
+	    <if test="appId != null and appId != '' " >
+	  	<![CDATA[  t.app_id = #{appId}, ]]>
+	    </if>
+	    <if test="appKey != null and appKey != '' " >
+	  	<![CDATA[  t.app_key = #{appKey}, ]]>
+	    </if>
+	    <if test="appName != null and appName != '' " >
+	  	<![CDATA[  t.app_name = #{appName}, ]]>
+	    </if>
+	    <if test="expiredTime != null " >
+	  	<![CDATA[  t.expired_day = #{expiredTime}, ]]>
+	    </if>
+	    <if test="appStatus != null and appStatus != '' " >
+	  	<![CDATA[  t.app_status = #{appStatus}, ]]>
+	    </if>
+	    <if test="appDesc != null and appDesc != '' " >
+	  	<![CDATA[  t.app_desc = #{appDesc}, ]]>
+	    </if>
+	    <if test="authIp != null and authIp != '' " >
+	  	<![CDATA[  t.auth_ip = #{authIp}, ]]>
+	    </if>
+	    <if test="syncLastUpdateTime != null " >
+	  	<![CDATA[  t.sync_last_update_time = #{syncLastUpdateTime}, ]]>
+	    </if>
+	    <if test="flag != null and flag != '' " >
+	  	<![CDATA[  t.flag = #{flag}, ]]>
+	    </if>
+	    <if test="createdBy != null and createdBy != '' " >
+	  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+	    </if>
+	    <if test="updatedBy != null and updatedBy != '' " >
+	  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+	    </if>
+	    <if test="createTime != null " >
+	  	<![CDATA[  t.create_time = #{createTime}, ]]>
+	    </if>
+	    <if test="updateTime != null " >
+	  	<![CDATA[  t.update_time = #{updateTime}, ]]>
+	    </if>
+	     </trim> where t.id= #{id}
+	 </update>
+	
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from trans_app_sync_key where id = #{id}
+	</delete>
+
+	<select id="queryFlowDataWarning" parameterType="Object"
+		resultMap="FlowDataWarninMap">
+		SELECT
+		ap.id,ap.city_code,ap.area_code,
+		ba.AREA_NAME city_name,
+		a.AREA_NAME area_name,
+		park_Code,
+		NAME,
+		park_Type,
+		address,
+		ap.longitude_Gaode,
+		ap.latitude_Gaode,
+		ap.longitude_Baidu,
+		ap.latitude_Baidu,
+		total_Berth_Num,
+		day_Rate,
+		filing_Berth_Num,
+		night_Rate,
+		contacts,
+		phone,
+		map_Url,
+		is_Dynamic,
+		is_Open,
+		ap.remark,
+		ap.FLAG,
+		ap.created_By,
+		ap.updated_By,
+		min_Rate,
+		is_InDoor_Park
+		FROM
+		app_park ap
+		LEFT JOIN base_area ba ON ap.CITY_CODE = ba.AREA_CODE
+		LEFT JOIN base_area a ON ap.AREA_CODE = a.AREA_CODE
+		WHERE ap.flag != 'DELETE' and ap.is_dynamic = 1
+		<trim>
+			<if test="areaCode != null and areaCode != '' ">
+				AND ap.area_code =#{areaCode}
+			</if>
+			<if test="name != null and name != '' ">
+				AND ap.name like '%${name}%'
+			</if>
+			<if test="parkType != null and parkType != '' ">
+				AND ap.park_type =#{parkType}
+			</if>
+		</trim>
+		AND ap.id NOT IN(
+		SELECT park_id 
+		FROM app_park_flow
+		WHERE flag !='DELETE')
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+
+	<select id="queryFlowDataWarningCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1)
+		FROM app_park
+		WHERE flag != 'DELETE' and is_dynamic = 1
+		<trim>
+			<if test="areaCode != null and areaCode != '' ">
+				AND area_code =#{areaCode}
+			</if>
+			<if test="name != null and name != '' ">
+				AND name like '%${name}%'
+			</if>
+			<if test="parkType != null and parkType != '' ">
+				AND park_type =#{parkType}
+			</if>
+		</trim>
+		AND id NOT IN(
+		SELECT park_id
+		FROM app_park_flow
+		where flag !='DELETE'
+		)
+	</select>
+
+	<select id="queryFlowDelayWarning" parameterType="Object"
+		resultMap="FlowDelayWarningMap">
+		SELECT
+		p.id,
+		ap.park_code,
+		ap.NAME,
+		ap.park_Type,
+		p.city_code,
+		ap.area_code,
+		ba.area_name city_name,
+		a.area_name area_name,
+		available_berth_num,
+		bookable_num,
+		remain_bookable_num,
+		p.flag,
+		p.created_by,
+		p.updated_by,
+		p.create_time,
+		p.update_time,
+		CONCAT(IF(TIMESTAMPDIFF(DAY,p.UPDATE_TIME,NOW())>1,TIMESTAMPDIFF(DAY,p.UPDATE_TIME,NOW()),''),IF(TIMESTAMPDIFF(DAY,p.UPDATE_TIME,NOW())>=1,'天',''),TIMESTAMPDIFF(HOUR,p.UPDATE_TIME,NOW())-TIMESTAMPDIFF(DAY,p.UPDATE_TIME,NOW())*24,'小时',TIMESTAMPDIFF(MINUTE,p.UPDATE_TIME,NOW())-(TIMESTAMPDIFF(HOUR,p.UPDATE_TIME,NOW())-TIMESTAMPDIFF(DAY,p.UPDATE_TIME,NOW())*24)*60-TIMESTAMPDIFF(DAY,p.UPDATE_TIME,NOW())*24*60,'分钟')
+		duration
+		FROM
+		app_park_flow p 
+		LEFT JOIN app_park ap ON p.park_id=ap.id
+		LEFT JOIN base_area ba ON p.city_code=ba.area_code
+		LEFT JOIN base_area a ON ap.AREA_CODE = a.AREA_CODE
+		WHERE
+		p.flag != "delete"
+		and ap.flag != 'DELETE' and ap.is_dynamic = 1
+		<trim>
+			<if test="areaCode != null and areaCode != '' ">
+				AND ap.area_code =#{areaCode}
+			</if>
+			<if test="name != null and name != '' ">
+				AND ap.name like '%${name}%'
+			</if>
+			<if test="parkType != null and parkType != '' ">
+				AND ap.park_type =#{parkType}
+			</if>
+		</trim>
+		AND
+		TIMESTAMPDIFF(HOUR,p.UPDATE_TIME,NOW()) >= 8
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+
+	<select id="queryFlowDelayWarningCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		SELECT
+		COUNT(1)
+		FROM app_park_flow p
+		LEFT JOIN app_park ap ON p.park_id=ap.id
+		WHERE p.flag != "delete"
+		and ap.flag != 'DELETE' and ap.is_dynamic = 1
+
+		<trim>
+			<if test="areaCode != null and areaCode != '' ">
+				AND area_code =#{areaCode}
+			</if>
+			<if test="name != null and name != '' ">
+				AND name like '%${name}%'
+			</if>
+			<if test="parkType != null and parkType != '' ">
+				AND park_type =#{parkType}
+			</if>
+		</trim>
+		AND TIMESTAMPDIFF(HOUR,p.UPDATE_TIME,NOW())>= 8
+	</select>
+
+	<select id="queryInductionSyncWarning" parameterType="Object"
+		resultMap="InductionSyncWarningMap">
+	SELECT
+	id,
+	area_code,
+	area_name,
+	app_id,
+	APP_KEY,
+	app_name,
+	expired_day,
+	app_status,
+	app_desc,
+	auth_ip,
+	flag,
+	sync_last_update_time,
+	created_by,
+	updated_by,
+	create_time,
+	update_time,
+	CONCAT(IF(TIMESTAMPDIFF(DAY,sync_last_update_time,NOW())>1,TIMESTAMPDIFF(DAY,sync_last_update_time,NOW()),''),IF(TIMESTAMPDIFF(DAY,sync_last_update_time,NOW())>=1,'天',''),TIMESTAMPDIFF(HOUR,sync_last_update_time,NOW())-TIMESTAMPDIFF(DAY,sync_last_update_time,NOW())*24,'小时',TIMESTAMPDIFF(MINUTE,sync_last_update_time,NOW())-(TIMESTAMPDIFF(HOUR,sync_last_update_time,NOW())-TIMESTAMPDIFF(DAY,sync_last_update_time,NOW())*24)*60-TIMESTAMPDIFF(DAY,sync_last_update_time,NOW())*24*60,'分钟')
+	AS
+	duration
+	FROM
+	trans_app_sync_key
+	WHERE flag != 'DELETE'
+		AND TIMESTAMPDIFF(HOUR,sync_last_update_time,NOW())>=1
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	<select id="queryInductionSyncWarningCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from trans_app_sync_key
+		WHERE flag != 'DELETE' 
+		AND TIMESTAMPDIFF(HOUR,sync_last_update_time,NOW())>=1
+	</select>
+	
+	<select id="queryInductionSync" parameterType="Object" resultMap="InductionSyncWarningMap">
+		SELECT
+		id,
+		area_code,
+		area_name,
+		app_id,
+		APP_KEY,
+		app_name,
+		expired_day,
+		app_status,
+		app_desc,
+		auth_ip,
+		flag,
+		sync_last_update_time,
+		created_by,
+		updated_by,
+		create_time,
+		update_time
+		FROM trans_app_sync_key
+		WHERE flag != 'DELETE'
+		<if test="pager.orderCondition == ''">
+			order by create_time desc,id desc
+		</if>
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	<select id="queryInductionSyncCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from trans_app_sync_key
+		WHERE flag != 'DELETE'
+	</select>
+	
+	<!-- 根据id查询 -->
+	<select id="queryInductionSyncById"  resultMap="InductionSyncWarningMap" parameterType="Object">
+		select *
+		from trans_app_sync_key t where t.id = #{id}
+	</select>
+
+</mapper>

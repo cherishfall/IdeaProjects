@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.user.UserLoginRecordDao" > 
+<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.AppUserLoginRecordEntity" >
+		<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_account" property="userAccount" />
+		<result column="device_no" property="deviceNo"/>
+		<result column="client_version" property="clientVersion"/>
+		<result column="device_model" property="deviceModel"/>
+		<result column="device_os_version" property="deviceOsVersion"/>
+		<result column="login_key" property="loginKey"/>
+		<result column="type" property="type"/>
+		<result column="status" property="status"/>
+		<result column="description" property="description"/>
+		<result column="create_time" property="createTime"/>
+		<result column="longitude_gd" property="longitudeGD"/>
+		<result column="latitude_gd" property="latitudeGD"/>
+	</resultMap>
+       
+	<!-- table all fields -->
+	<sql id="Base_Column_List" >
+		 t.id,
+		 t.user_id,
+		 t.device_no,
+		 t.client_version,
+		 t.device_model,
+		 t.device_os_version,
+		 t.login_key,
+		 t.type,
+		 t.status,
+		 t.description,
+		 t.create_time,
+		 t.longitude_gd,
+		 t.latitude_gd	     
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+			<if test="id != null" >
+			    and t.id = #{id}
+			</if>
+			<if test="userId != null and userId != '' " >
+		    	and t.user_id =  #{userId}
+			</if>
+			<if test="deviceNo != null and deviceNo != '' " >
+		    	and t.device_no =  #{deviceNo}
+			</if>
+			<if test="clientVersion != null and clientVersion != '' " >
+		    	and t.client_version =  #{clientVersion}
+			</if>
+			<if test="deviceModel != null and deviceModel != '' " >
+		    	and t.device_model =  #{deviceModel}
+			</if>
+			<if test="deviceOsVersion != null and deviceOsVersion != '' " >
+		    	and t.device_os_version =  #{deviceOsVersion}
+			</if>
+			<if test="loginKey != null and loginKey != '' " >
+		    	and t.login_key =  #{loginKey}
+			</if>
+			<if test="type != null " >
+		    	and t.type =  #{type}
+			</if>
+			<if test="status != null and status != '' " >
+		    	and t.status =  #{status}
+			</if>
+			<if test="description != null and description != '' " >
+		    	and t.description =  #{description}
+			</if>
+			<if test="createTime != null " >
+		    	and t.create_time =  #{createTime}
+			</if>
+			<if test="userAccount != null and userAccount != '' " >
+		    	and u.user_account =  #{userAccount}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object" >
+		<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+			SELECT UUID() as ID 
+		</selectKey>
+	  
+		insert into APP_USER_LOGIN_RECORD 
+		  <trim prefix="(" suffix=")" suffixOverrides="," >
+		  		create_time,
+		  	<if test="id != null" >
+			 id,
+			</if>
+		 	<if test="userId != null and userId != '' " >
+			 user_id,
+			</if>
+	    	<if test="deviceNo != null and deviceNo != '' " >
+			 device_no,
+			</if>
+	    	<if test="clientVersion != null and clientVersion != '' " >
+			 client_version,
+			</if>
+	    	<if test="deviceModel != null and deviceModel != '' " >
+			 device_model,
+			</if>
+	    	<if test="deviceOsVersion != null and deviceOsVersion != '' " >
+			 device_os_version,
+			</if>
+	    	<if test="loginKey != null and loginKey != '' " >
+			 login_key,
+			</if>
+	    	<if test="type != null " >
+			type,
+			</if>
+	    	<if test="status != null and status != '' " >
+			 status,
+			</if>
+	    	<if test="description != null and description != '' " >
+			 description,
+			</if>
+	    	 </trim>
+		values
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+		 		now(),
+		 	<if test="id != null" >
+	  		<![CDATA[  #{id}, ]]>
+	    	</if>
+		 	<if test="userId != null and userId != '' " >
+	  		<![CDATA[  #{userId}, ]]>
+	    	</if>
+	    	<if test="deviceNo != null and deviceNo != '' " >
+	  		<![CDATA[  #{deviceNo}, ]]>
+	    	</if>
+	    	<if test="clientVersion != null and clientVersion != '' " >
+	  		<![CDATA[  #{clientVersion}, ]]>
+	    	</if>
+	    	<if test="deviceModel != null and deviceModel != '' " >
+	  		<![CDATA[  #{deviceModel}, ]]>
+	    	</if>
+	    	<if test="deviceOsVersion != null and deviceOsVersion != '' " >
+	  		<![CDATA[  #{deviceOsVersion}, ]]>
+	    	</if>
+	    	<if test="loginKey != null and loginKey != '' " >
+	  		<![CDATA[  #{loginKey}, ]]>
+	    	</if>
+	    	<if test="type != null " >
+	  		<![CDATA[  #{type}, ]]>
+	    	</if>
+	    	<if test="status != null and status != '' " >
+	  		<![CDATA[  #{status}, ]]>
+	    	</if>
+	    	<if test="description != null and description != '' " >
+	  		<![CDATA[  #{description}, ]]>
+	    	</if>
+	    	 </trim>
+	</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update APP_USER_LOGIN_RECORD t set 
+   <trim suffixOverrides="," >
+	<if test="userId != null and userId != '' " >
+  	<![CDATA[  t.user_id = #{userId}, ]]>
+    </if>
+    <if test="deviceNo != null and deviceNo != '' " >
+  	<![CDATA[  t.device_no = #{deviceNo}, ]]>
+    </if>
+    <if test="clientVersion != null and clientVersion != '' " >
+  	<![CDATA[  t.client_version = #{clientVersion}, ]]>
+    </if>
+    <if test="deviceModel != null and deviceModel != '' " >
+  	<![CDATA[  t.device_model = #{deviceModel}, ]]>
+    </if>
+    <if test="deviceOsVersion != null and deviceOsVersion != '' " >
+  	<![CDATA[  t.device_os_version = #{deviceOsVersion}, ]]>
+    </if>
+    <if test="loginKey != null and loginKey != '' " >
+  	<![CDATA[  t.login_key = #{loginKey}, ]]>
+    </if>
+    <if test="type != null " >
+  	<![CDATA[  t.type = #{type}, ]]>
+    </if>
+    <if test="status != null and status != '' " >
+  	<![CDATA[  t.status = #{status}, ]]>
+    </if>
+    <if test="description != null and description != '' " >
+  	<![CDATA[  t.description = #{description}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from APP_USER_LOGIN_RECORD where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from APP_USER_LOGIN_RECORD t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from APP_USER_LOGIN_RECORD t 
+	left join app_user u on t.user_id=u.id
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,u.user_account
+	from APP_USER_LOGIN_RECORD t 
+	left join app_user u on t.user_id=u.id
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+<!-- 接口 创建用户登录成功记录 -->
+<insert id="saveUserLoginRecordAboutWeix" parameterType="Object" >
+		<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+			SELECT UUID() as ID 
+		</selectKey>
+	  
+		insert into APP_USER_LOGIN_RECORD 
+		  <trim prefix="(" suffix=")" suffixOverrides="," >
+		  		create_time,
+		  	<if test="id != null" >
+			 id,
+			</if>
+		 	<if test="userId != null and userId != '' " >
+			 user_id,
+			</if>
+	    	<if test="deviceNo != null and deviceNo != '' " >
+			 device_no,
+			</if>
+	    	<if test="clientVersion != null and clientVersion != '' " >
+			 client_version,
+			</if>
+	    	<if test="deviceModel != null and deviceModel != '' " >
+			 device_model,
+			</if>
+	    	<if test="deviceOsVersion != null and deviceOsVersion != '' " >
+			 device_os_version,
+			</if>
+	    	<if test="loginKey != null and loginKey != '' " >
+			 login_key,
+			</if>
+	    	<if test="type != null " >
+			type,
+			</if>
+	    	<if test="status != null and status != '' " >
+			 status,
+			</if>
+	    	<if test="description != null and description != '' " >
+			 description,
+			</if>
+	    	 </trim>
+		values
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+		 		now(),
+		 	<if test="id != null" >
+	  		<![CDATA[  #{id}, ]]>
+	    	</if>
+		 	<if test="userId != null and userId != '' " >
+	  		<![CDATA[  #{userId}, ]]>
+	    	</if>
+	    	<if test="deviceNo != null and deviceNo != '' " >
+	  		<![CDATA[  #{deviceNo}, ]]>
+	    	</if>
+	    	<if test="clientVersion != null and clientVersion != '' " >
+	  		<![CDATA[  #{clientVersion}, ]]>
+	    	</if>
+	    	<if test="deviceModel != null and deviceModel != '' " >
+	  		<![CDATA[  #{deviceModel}, ]]>
+	    	</if>
+	    	<if test="deviceOsVersion != null and deviceOsVersion != '' " >
+	  		<![CDATA[  #{deviceOsVersion}, ]]>
+	    	</if>
+	    	<if test="loginKey != null and loginKey != '' " >
+	  		<![CDATA[  #{loginKey}, ]]>
+	    	</if>
+	    	<if test="type != null " >
+	  		<![CDATA[  #{type}, ]]>
+	    	</if>
+	    	<if test="status != null and status != '' " >
+	  		<![CDATA[  #{status}, ]]>
+	    	</if>
+	    	<if test="description != null and description != '' " >
+	  		<![CDATA[  #{description}, ]]>
+	    	</if>
+	    	 </trim>
+	</insert>
+	<!-- 根据用户ID查询用户登录记录 -->
+	<select id="queryUserLoginRecordByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from APP_USER_LOGIN_RECORD t 
+		where t.user_id = #{_parameter}
+		order by create_time desc
+	 	limit 1
+	</select>
+	
+	<!-- 根据用户ID查询用户登录记录 -->
+	<select id="queryRecordByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from APP_USER_LOGIN_RECORD t 
+		where t.user_id = #{_parameter}
+		AND t.longitude_gd IS NOT NULL AND t.latitude_gd IS NOT NULL 
+		AND t.longitude_gd NOT LIKE '0.%' AND t.latitude_gd NOT LIKE '0.%'
+		order by create_time desc
+	 	limit 1
+	</select>
+</mapper>   

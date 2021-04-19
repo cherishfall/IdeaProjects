@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.system.dao.appIntfVersionDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="com.innotek.system.entity.appIntfVersion">
+		<result column="id" property="id" />
+		<result column="area_code" property="areaCode" />
+		<result column="area_name" property="areaName" />
+		<result column="intf_type" property="intfType" />
+		<!-- <result column="name" property="name" /> -->
+		<result column="intf_service_name" property="intfServiceName" />
+		<result column="intf_version" property="intfVersion" />
+		<result column="intf_version_name" property="intfVersionName" />
+		<result column="remark" property="remark" />
+		<result column="create_by" property="createBy" />
+		<result column="update_by" property="updateBy" />
+		<result column="flag" property="flag" />
+		<result column="update_time" property="updateTime" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+	
+	<!-- app_intf_version table all fields -->
+	<sql id="Base_Column_List">
+	id,area_code,intf_type,intf_service_name,intf_version,intf_version_name,remark,
+	create_by,update_by,flag,update_time,create_time
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1 = 1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				and area_code = #{areaCode}
+			</if>
+			<if test="intfType != null and intfType != ''">
+				and intf_type = #{intfType}
+			</if>
+			<if test="intfServiceName != null and intfServiceName != '' ">
+			and intf_service_name LIKE '%${intfServiceName}%'
+			</if>
+			<if test="intfVersion != null and intfVersion != ''">
+				and intf_version =#{intfVersion}
+			</if>
+			<if test="intfVersionName != null and intfVersionName != ''">
+				and intf_version_name =#{intfVersionName}
+			</if>
+			<if test="remark != null">
+				and remark = #{remark}
+			</if>
+			<if test="createBy != null and createBy != ''">
+				and create_by like CONCAT('%',#{createBy},'%')
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				and update_by like CONCAT('%',#{updateBy},'%')
+			</if>
+			<if test="flag != null and flag != ''">
+				and flag =#{flag}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time like CONCAT('%',#{updateTime},'%')
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time like CONCAT('%',#{createTime},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+		insert into APP_INTF_VERSION
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			create_time,
+			<if test="id != null ">
+				id,
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				area_code,
+			</if>
+			<if test="intfType != null and intfType != ''">
+				intf_type,
+			</if>
+			<if test="intfServiceName != null and intfServiceName != ''">
+				intf_service_name,
+			</if>
+			<if test="intfVersion != null">
+				intf_version,
+			</if>
+			<if test="intfVersionName != null">
+				intf_version_name,
+			</if>
+			<if test="createBy != null and createBy != ''">
+				create_by,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			now(),
+			<if test="id != null ">
+            <![CDATA[  #{id}, ]]>
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				#{areaCode},
+			</if>
+			<if test="intfType != null and intfType != ''">
+				#{intfType},
+			</if>
+			<if test="intfServiceName != null and intfServiceName != ''">
+				#{intfServiceName},
+			</if>
+			<if test="intfVersion != null">
+				#{intfVersion},
+			</if>
+			<if test="intfVersionName != null">
+				#{intfVersionName},
+			</if>
+			<if test="createBy != null and createBy != ''">
+				#{createBy},
+			</if>
+			<if test="flag != null">
+				#{flag},
+			</if>
+			<if test="remark != null and remark != ''">
+				#{remark}
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update APP_INTF_VERSION set
+		<trim suffixOverrides=",">
+			update_time=now(),
+			<if test="areaCode != null">
+				area_code =#{areaCode},
+			</if>
+			<if test="intfType != null">
+				intf_type =#{intfType},
+			</if>
+			<if test="intfServiceName != null">
+				intf_service_name=#{intfServiceName},
+			</if>
+			<if test="intfVersion != null">
+				intf_version=#{intfVersion},
+			</if>
+			<if test="intfVersionName != null">
+				intf_version_name=#{intfVersionName},
+			</if>
+			<if test="remark != null">
+				flag=#{flag},
+			</if>
+			<if test="createBy != null">
+				create_by=#{createBy},
+			</if>
+			<if test="updateBy != null">
+				update_by=#{updateBy},
+			</if>
+			<if test="flag != null">
+				flag=#{flag},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark=#{remark}
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from APP_INTF_VERSION
+		where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+		select
+		ba.area_name,aiv.*<!-- ,apps.name -->
+		FROM (app_intf_version aiv LEFT JOIN base_area ba
+		ON aiv.area_code=ba.area_code)
+		<!-- LEFT JOIN app_service apps
+		ON aiv.intf_service_name=apps.service -->
+		where aiv.id = #{id}
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from APP_INTF_VERSION
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="queryByList" resultMap="BaseResultMap"
+		parameterType="Object">
+		select distinct ba.area_name,aiv.*<!-- ,apps.name -->
+		FROM (app_intf_version aiv LEFT JOIN base_area ba
+		ON aiv.area_code=ba.area_code)
+		<!-- LEFT JOIN app_service apps ON aiv.intf_service_name=apps.service -->
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition == ''">
+			order by intf_type desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	<!-- *************************************自定义接口****************************************************** -->
+
+	<!-- 根据接口版本查询 -->
+	<select id="getByIntfVersion" resultMap="BaseResultMap"
+		parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from APP_INTF_VERSION where intf_version = #{intf_version}
+	</select>
+	
+	<!-- 根据接口类型查询 -->
+	<select id="getByIntfType" resultMap="BaseResultMap"
+		parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from APP_INTF_VERSION where intf_type = #{intf_type}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="getAllVersion" resultMap="BaseResultMap" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from APP_INTF_VERSION
+	</select>
+	
+	
+</mapper>   
+   

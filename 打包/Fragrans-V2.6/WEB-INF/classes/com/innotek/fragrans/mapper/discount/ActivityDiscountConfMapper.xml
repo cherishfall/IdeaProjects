@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.discount.ActivityDiscountConfDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.discount.ActivityDiscountConf" >
+	<result column="id" property="id"/>
+		<result column="activity_id" property="activityId"/>
+		<result column="activity_name" property="activityName"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="discount_name" property="discountName"/>
+		<result column="payment" property="payment"/>
+		<result column="fulluse" property="fulluse"/>
+		<result column="discount" property="discount"/>
+		<result column="maxdiscount_fee" property="maxdiscountFee"/>
+		<result column="is_overly" property="isOverly"/>
+		<result column="discount_start_time" property="discountStartTime"/>
+		<result column="discount_end_time" property="discountEndTime"/>
+		<result column="discount_desc" property="discountDesc"/>
+		<result column="user_day_count" property="userDayCount"/>
+		<result column="day_count" property="dayCount"/>
+		<result column="all_count" property="allCount"/>
+		<result column="flag" property="flag"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.activity_id,
+		 t.city_code,
+		 t.discount_name,
+		 t.payment,
+		 t.fulluse,
+		 t.discount,
+		 t.maxdiscount_fee,
+		 t.is_overly,
+		 t.discount_start_time,
+		 t.discount_end_time,
+		 t.discount_desc,
+		 t.user_day_count,
+		 t.day_count,
+		 t.all_count,
+		 t.flag,
+		 t.created_by,
+		 t.updated_by,
+		 t.create_time,
+		 t.update_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="activityId != null and activityId != '' " >
+    	and t.activity_id =  #{activityId}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="activityName != null and activityName != '' " >
+    	and t.activity_name =  #{activityName}
+	</if>
+	<if test="areaName != null and areaName != '' " >
+    	and t.area_name =  #{areaName}
+	</if>
+	<if test="discountName != null and discountName != '' " >
+    	and t.discount_name =  #{discountName}
+	</if>
+	<if test="payment != null " >
+    	and t.payment =  #{payment}
+	</if>
+	<if test="fulluse != null " >
+    	and t.fulluse =  #{fulluse}
+	</if>
+	<if test="discount != null " >
+    	and t.discount =  #{discount}
+	</if>
+	<if test="maxdiscountFee != null " >
+    	and t.maxdiscount_fee =  #{maxdiscountFee}
+	</if>
+	<if test="isOverly != null " >
+    	and t.is_overly =  #{isOverly}
+	</if>
+	<if test="discountStartTime != null " >
+    	and t.discount_start_time =  #{discountStartTime}
+	</if>
+	<if test="discountEndTime != null " >
+    	and t.discount_end_time =  #{discountEndTime}
+	</if>
+	<if test="discountDesc != null and discountDesc != '' " >
+    	and t.discount_desc =  #{discountDesc}
+	</if>
+	<if test="userDayCount != null " >
+    	and t.user_day_count =  #{userDayCount}
+	</if>
+	<if test="dayCount != null " >
+    	and t.day_count =  #{dayCount}
+	</if>
+	<if test="allCount != null " >
+    	and t.all_count =  #{allCount}
+	</if>
+	<if test="flag != null and flag != '' " >
+    	and t.flag =  #{flag}
+	</if>
+	<if test="createdBy != null and createdBy != '' " >
+    	and t.created_by =  #{createdBy}
+	</if>
+	<if test="updatedBy != null and updatedBy != '' " >
+    	and t.updated_by =  #{updatedBy}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="updateTime != null " >
+    	and t.update_time =  #{updateTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+	insert into app_activity_discount_conf 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	   	 create_time,
+		 update_time,
+		 flag,
+		<if test="id != null">
+		 id,
+		</if>
+	 	<if test="activityId != null and activityId != '' " >
+		 activity_id,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="discountName != null and discountName != '' " >
+		 discount_name,
+		</if>
+    	<if test="payment != null " >
+		payment,
+		</if>
+    	<if test="fulluse != null " >
+		fulluse,
+		</if>
+    	<if test="discount != null " >
+		discount,
+		</if>
+    	<if test="maxdiscountFee != null " >
+		maxdiscount_fee,
+		</if>
+    	<if test="isOverly != null " >
+		is_overly,
+		</if>
+    	<if test="discountStartTime != null " >
+		discount_start_time,
+		</if>
+    	<if test="discountEndTime != null " >
+		discount_end_time,
+		</if>
+    	<if test="discountDesc != null and discountDesc != '' " >
+		 discount_desc,
+		</if>
+    	<if test="userDayCount != null " >
+		user_day_count,
+		</if>
+    	<if test="dayCount != null " >
+		day_count,
+		</if>
+    	<if test="allCount != null " >
+		all_count,
+		</if>
+    	<if test="createdBy != null and createdBy != '' " >
+		 created_by,
+		</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+		 updated_by,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	      now(),
+		  now(),
+		  'ADD',
+		<if test="id != null">
+  		<![CDATA[  #{id}, ]]>
+		</if>
+	 	<if test="activityId != null and activityId != '' " >
+  		<![CDATA[  #{activityId}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="discountName != null and discountName != '' " >
+  		<![CDATA[  #{discountName}, ]]>
+    	</if>
+    	<if test="payment != null " >
+  		<![CDATA[  #{payment}, ]]>
+    	</if>
+    	<if test="fulluse != null " >
+  		<![CDATA[  #{fulluse}, ]]>
+    	</if>
+    	<if test="discount != null " >
+  		<![CDATA[  #{discount}, ]]>
+    	</if>
+    	<if test="maxdiscountFee != null " >
+  		<![CDATA[  #{maxdiscountFee}, ]]>
+    	</if>
+    	<if test="isOverly != null " >
+  		<![CDATA[  #{isOverly}, ]]>
+    	</if>
+    	<if test="discountStartTime != null " >
+  		<![CDATA[  #{discountStartTime}, ]]>
+    	</if>
+    	<if test="discountEndTime != null " >
+  		<![CDATA[  #{discountEndTime}, ]]>
+    	</if>
+    	<if test="discountDesc != null and discountDesc != '' " >
+  		<![CDATA[  #{discountDesc}, ]]>
+    	</if>
+    	<if test="userDayCount != null " >
+  		<![CDATA[  #{userDayCount}, ]]>
+    	</if>
+    	<if test="dayCount != null " >
+  		<![CDATA[  #{dayCount}, ]]>
+    	</if>
+    	<if test="allCount != null " >
+  		<![CDATA[  #{allCount}, ]]>
+    	</if>
+    	<if test="flag != null and flag != '' " >
+  		<![CDATA[  #{flag}, ]]>
+    	</if>
+    	<if test="createdBy != null and createdBy != '' " >
+  		<![CDATA[  #{createdBy}, ]]>
+    	</if>
+    	<if test="updatedBy != null and updatedBy != '' " >
+  		<![CDATA[  #{updatedBy}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_activity_discount_conf t set 
+   <trim suffixOverrides="," >
+	<if test="activityId != null and activityId != '' " >
+  	<![CDATA[  t.activity_id = #{activityId}, ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="discountName != null and discountName != '' " >
+  	<![CDATA[  t.discount_name = #{discountName}, ]]>
+    </if>
+    <if test="payment != null " >
+  	<![CDATA[  t.payment = #{payment}, ]]>
+    </if>
+    <if test="fulluse != null " >
+  	<![CDATA[  t.fulluse = #{fulluse}, ]]>
+    </if>
+    <if test="discount != null " >
+  	<![CDATA[  t.discount = #{discount}, ]]>
+    </if>
+    <if test="maxdiscountFee != null " >
+  	<![CDATA[  t.maxdiscount_fee = #{maxdiscountFee}, ]]>
+    </if>
+    <if test="isOverly != null " >
+  	<![CDATA[  t.is_overly = #{isOverly}, ]]>
+    </if>
+    <if test="discountStartTime != null " >
+  	<![CDATA[  t.discount_start_time = #{discountStartTime}, ]]>
+    </if>
+    <if test="discountEndTime != null " >
+  	<![CDATA[  t.discount_end_time = #{discountEndTime}, ]]>
+    </if>
+    <if test="discountDesc != null and discountDesc != '' " >
+  	<![CDATA[  t.discount_desc = #{discountDesc}, ]]>
+    </if>
+    <if test="userDayCount != null " >
+  	<![CDATA[  t.user_day_count = #{userDayCount}, ]]>
+    </if>
+    <if test="dayCount != null " >
+  	<![CDATA[  t.day_count = #{dayCount}, ]]>
+    </if>
+    <if test="allCount != null " >
+  	<![CDATA[  t.all_count = #{allCount}, ]]>
+    </if>
+    <if test="createdBy != null and createdBy != '' " >
+  	<![CDATA[  t.created_by = #{createdBy}, ]]>
+    </if>
+    <if test="updatedBy != null and updatedBy != '' " >
+  	<![CDATA[  t.updated_by = #{updatedBy}, ]]>
+    </if>
+    <![CDATA[ update_time = now(),]]>
+    <![CDATA[ flag = 'UPDATE',]]>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_activity_discount_conf where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+<!-- 	select <include refid="Base_Column_List" />  -->
+<!-- 	 from app_activity_discount_conf t where t.id = #{id} -->
+ 	SELECT t.activity_id, t.city_code, t.discount_name, t.payment, t.fulluse, t.discount, t.maxdiscount_fee, t.is_overly, t.discount_start_time,
+ 		   t.discount_end_time, t.discount_desc, t.user_day_count, t.day_count, t.all_count, t.flag, t.created_by, t.updated_by, t.create_time, t.update_time, 
+           t.id,t1.id,t1.activity_name
+	FROM app_activity_discount_conf t
+	     LEFT JOIN app_activity t1 ON t.activity_id=t1.id
+  	WHERE t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+<!-- 	select count(1) from app_activity_discount_conf t  -->
+<!-- 	<include refid="Example_Where_Clause"/> -->
+	    SELECT COUNT(1) FROM app_activity_discount_conf t 
+		LEFT JOIN app_activity t1 ON t.activity_id=t1.id
+		where 1=1
+		<if test="activityName != null and activityName != '' ">
+			and t1.activity_name  LIKE '%${activityName}%'
+		</if>
+		<if test="payment != null and payment != '' and payment != 100">
+			and t.payment = #{payment}
+		</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+ 	SELECT t.activity_id, t.city_code, t.discount_name, t.payment, t.fulluse, t.discount, t.maxdiscount_fee, t.is_overly, 
+ 		   t.discount_start_time, t.discount_end_time, t.discount_desc, t.user_day_count, t.day_count, t.all_count, t.flag, t.created_by,
+           t.updated_by, t.create_time, t.update_time, t.id ,t1.activity_name
+    FROM app_activity_discount_conf t
+    LEFT JOIN app_activity t1 ON t.activity_id=t1.id
+	where 1=1
+	<if test="activityName != null and activityName != '' ">
+		and t1.activity_name  LIKE '%${activityName}%'
+	</if>
+	<if test="payment != null and payment != '' and payment != 100">
+		and t.payment = #{payment}
+	</if>
+<!-- 	<if test="discountStartTime != null and discountStartTime != '' and discountEndTime != null -->
+<!-- 			and discountEndTime != '' "> -->
+<!-- 		and t.DISCOUNT_START_TIME &lt; #{discountStartTime} AND t.DISCOUNT_END_TIME &gt; #{discountEndTime} -->
+<!-- 	</if> -->
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- *************************************自定义接口****************************************************** -->
+<select id="queryActivityDiscountConfByMap" resultMap="BaseResultMap"  parameterType="Object">
+	SELECT 
+	<include refid="Base_Column_List"/> 
+	FROM app_activity_discount_conf t  
+	WHERE t.activity_id = #{activityId} 
+	AND t.city_code = #{cityCode}
+	AND (t.payment = #{payment} or t.payment = 100)
+	AND NOW() BETWEEN DATE_FORMAT(t.DISCOUNT_START_TIME,'%Y-%m-%d %h-%i-%s') 
+ 	AND DATE_FORMAT(t.DISCOUNT_END_TIME,'%Y-%m-%d %h-%i-%s')
+	AND t.flag != 'DELETE'
+</select>
+
+<!-- 查询默认商户指定方式的折扣信息 -->
+<select id="getDefaultProviderPaymentDiscountConf" resultMap="BaseResultMap"  parameterType="java.util.Map">
+   SELECT t.* FROM app_activity_discount_conf t 
+	       LEFT JOIN app_activity t1 ON t.ACTIVITY_ID = t1.id
+	       LEFT JOIN app_activity_area_conf t2 ON t.id = t2.obj_id 
+ 	WHERE t.flag!='DELETE' AND t1.flag!='DELETE' AND t1.status=1 
+ 	   AND NOW() BETWEEN DATE_FORMAT(t.DISCOUNT_START_TIME,'%Y-%m-%d %h-%i-%s') 
+ 	  AND DATE_FORMAT(t.DISCOUNT_END_TIME,'%Y-%m-%d %h-%i-%s') AND t.payment = #{payment} 
+ 	  AND t2.flag!='DELETE' and t2.OBJ_TYPE = 4 AND t2.area_code = #{cityCode}
+ 	  AND t1.park_id IS NULL
+   LIMIT 1 
+</select>
+
+<!-- 根据ParkId查询商户指定支付方式折扣信息 -->
+<select id="getProviderPaymentDiscountConfByParkId" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	SELECT t.* FROM app_activity_discount_conf t 
+	       LEFT JOIN app_activity t1 ON t.ACTIVITY_ID=t1.id
+	       LEFT JOIN app_activity_area_conf t2 ON t.id = t2.obj_id 
+	WHERE  t.flag!='DELETE' AND t1.flag!='DELETE' AND t1.status=1
+	   AND NOW() BETWEEN DATE_FORMAT(t.DISCOUNT_START_TIME,'%Y-%m-%d %h-%i-%s') 
+ 	   AND DATE_FORMAT(t.DISCOUNT_END_TIME,'%Y-%m-%d %h-%i-%s')
+	   AND t.payment = #{payment} and t.city_code = #{cityCode} and t1.park_id = #{parkId}
+	   AND t2.flag!='DELETE' and t2.OBJ_TYPE = 4 AND t2.area_code = #{cityCode}
+	   limit 1
+</select>
+</mapper>   

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.appsystem.UploadFileDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.appsystem.UploadFile" >
+	<result column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="user_id" property="userId"/>
+		<result column="file_name" property="fileName"/>
+		<result column="nick_name" property="nickName"/>
+		<result column="busi_id" property="busiId"/>
+		<result column="file_type" property="fileType"/>
+		<result column="file_size" property="fileSize"/>
+		<result column="width" property="width"/>
+		<result column="height" property="height"/>
+		<result column="down_url" property="downUrl"/>
+		<result column="remark" property="remark"/>
+		<result column="create_time" property="createTime"/>
+		<result column="deleted" property="deleted"/>
+		<result column="ecs_down_url" property="ecsDownUrl"/>
+	</resultMap>
+	
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.file_name,
+		 t.nick_name,
+		 t.busi_id,
+		 t.file_type,
+		 t.file_size,
+		 t.width,
+		 t.height,
+		 t.down_url,
+		 t.remark,
+		 t.create_time,
+		 t.deleted,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="fileName != null and fileName != '' " >
+    	and t.file_name =  #{fileName}
+	</if>
+	<if test="nickName != null and nickName != '' " >
+    	and t.nick_name =  #{nickName}
+	</if>
+	<if test="busiId != null " >
+    	and t.busi_id =  #{busiId}
+	</if>
+	<if test="fileType != null and fileType != '' " >
+    	and t.file_type =  #{fileType}
+	</if>
+	<if test="fileSize != null and fileSize != '' " >
+    	and t.file_size =  #{fileSize}
+	</if>
+	<if test="width != null and width != '' " >
+    	and t.width =  #{width}
+	</if>
+	<if test="height != null and height != '' " >
+    	and t.height =  #{height}
+	</if>
+	<if test="downUrl != null and downUrl != '' " >
+    	and t.down_url =  #{downUrl}
+	</if>
+	<if test="remark != null and remark != '' " >
+    	and t.remark =  #{remark}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	<if test="deleted != null " >
+    	and t.deleted =  #{deleted}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+	insert into app_upload_file 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+		<if test="cityCode != null and cityCode != '' " >
+		 city_code,
+		</if>
+		<if test="userId != null and userId != '' " >
+		 user_id,
+		</if>
+	 	<if test="fileName != null and fileName != '' " >
+		 file_name,
+		</if>
+    	<if test="nickName != null and nickName != '' " >
+		 nick_name,
+		</if>
+    	<if test="busiId != null " >
+		busi_id,
+		</if>
+    	<if test="fileType != null and fileType != '' " >
+		 file_type,
+		</if>
+    	<if test="fileSize != null and fileSize != '' " >
+		 file_size,
+		</if>
+    	<if test="width != null and width != '' " >
+		 width,
+		</if>
+    	<if test="height != null and height != '' " >
+		 height,
+		</if>
+    	<if test="downUrl != null and downUrl != '' " >
+		 down_url,
+		</if>
+    	<if test="remark != null and remark != '' " >
+		 remark,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	<if test="deleted != null " >
+		deleted,
+		</if>
+    	<if test="ecsDownUrl != null  and ecsDownUrl != '' " >
+		ecs_down_url,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	 	<if test="id != null and id != '' " >
+  		<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="cityCode != null and cityCode != '' " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+	 	<if test="userId != null and userId != '' " >
+  		<![CDATA[  #{userId}, ]]>
+    	</if>
+	 	<if test="fileName != null and fileName != '' " >
+  		<![CDATA[  #{fileName}, ]]>
+    	</if>
+    	<if test="nickName != null and nickName != '' " >
+  		<![CDATA[  #{nickName}, ]]>
+    	</if>
+    	<if test="busiId != null " >
+  		<![CDATA[  #{busiId}, ]]>
+    	</if>
+    	<if test="fileType != null and fileType != '' " >
+  		<![CDATA[  #{fileType}, ]]>
+    	</if>
+    	<if test="fileSize != null and fileSize != '' " >
+  		<![CDATA[  #{fileSize}, ]]>
+    	</if>
+    	<if test="width != null and width != '' " >
+  		<![CDATA[  #{width}, ]]>
+    	</if>
+    	<if test="height != null and height != '' " >
+  		<![CDATA[  #{height}, ]]>
+    	</if>
+    	<if test="downUrl != null and downUrl != '' " >
+  		<![CDATA[  #{downUrl}, ]]>
+    	</if>
+    	<if test="remark != null and remark != '' " >
+  		<![CDATA[  #{remark}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	<if test="deleted != null " >
+  		<![CDATA[  #{deleted}, ]]>
+    	</if>
+    	<if test="ecsDownUrl != null and ecsDownUrl != '' " >
+		<![CDATA[  #{ecsDownUrl}, ]]>
+		</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_upload_file t set 
+   <trim suffixOverrides="," >
+	<if test="fileName != null and fileName != '' " >
+  	<![CDATA[  t.file_name = #{fileName}, ]]>
+    </if>
+    <if test="nickName != null and nickName != '' " >
+  	<![CDATA[  t.nick_name = #{nickName}, ]]>
+    </if>
+    <if test="busiId != null " >
+  	<![CDATA[  t.busi_id = #{busiId}, ]]>
+    </if>
+    <if test="fileType != null and fileType != '' " >
+  	<![CDATA[  t.file_type = #{fileType}, ]]>
+    </if>
+    <if test="fileSize != null and fileSize != '' " >
+  	<![CDATA[  t.file_size = #{fileSize}, ]]>
+    </if>
+    <if test="width != null and width != '' " >
+  	<![CDATA[  t.width = #{width}, ]]>
+    </if>
+    <if test="height != null and height != '' " >
+  	<![CDATA[  t.height = #{height}, ]]>
+    </if>
+    <if test="downUrl != null and downUrl != '' " >
+  	<![CDATA[  t.down_url = #{downUrl}, ]]>
+    </if>
+    <if test="remark != null and remark != '' " >
+  	<![CDATA[  t.remark = #{remark}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+    <if test="deleted != null " >
+  	<![CDATA[  t.deleted = #{deleted}, ]]>
+    </if>
+    <if test="ecsDownUrl != null  and ecsDownUrl != '' " >
+	<![CDATA[  t.ecs_down_url = #{ecsDownUrl}, ]]>
+	</if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_upload_file t where t.id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_upload_file t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_upload_file t 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from app_upload_file t 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition == ''">
+		order by t.id desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+</mapper>   

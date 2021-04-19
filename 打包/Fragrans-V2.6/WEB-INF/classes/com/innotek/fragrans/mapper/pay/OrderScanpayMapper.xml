@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.pay.OrderScanpayDao" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.pay.OrderScanpay" >
+	<result column="id" property="id"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="park_name" property="parkName"/>
+		<result column="park_id" property="parkId"/>
+		<result column="collector_account" property="collectorAccount"/>
+		<result column="palte_no" property="palteNo"/>
+		<result column="parkrecord_id" property="parkrecordId"/>
+		<result column="trans_order_no" property="transOrderNo"/>
+		<result column="order_no" property="orderNo"/>
+		<result column="pay_type" property="payType"/>
+		<result column="price" property="price"/>
+		<result column="subject" property="subject"/>
+		<result column="order_body" property="orderBody"/>
+		<result column="order_status" property="orderStatus"/>
+		<result column="order_time" property="orderTime"/>
+		<result column="pay_time" property="payTime"/>
+		<result column="buyer_account" property="buyerAccount"/>
+		<result column="source" property="source"/>
+		<result column="remark" property="remark"/>
+		<result column="create_time" property="createTime"/>
+		<result column="area_name" property="areaName"/>
+		<result column="suc_refund" property="sucRefund" />
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.area_code,
+		 t.park_name,
+		 t.park_id,
+		 t.collector_account,
+		 t.palte_no,
+		 t.parkrecord_id,
+		 t.trans_order_no,
+		 t.order_no,
+		 t.pay_type,
+		 t.price,
+		 t.subject,
+		 t.order_body,
+		 t.order_status,
+		 t.order_time,
+		 t.pay_time,
+		 t.buyer_account,
+		 t.source,
+		 t.remark,
+		 t.create_time,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="parkName != null and parkName != '' " >
+    	and t.park_name =  #{parkName}
+	</if>
+	<if test="collectorAccount != null and collectorAccount != '' " >
+    	and t.collector_account =  #{collectorAccount}
+	</if>
+	<if test="palteNo != null and palteNo != '' " >
+    	and t.palte_no =  #{palteNo}
+	</if>
+	<if test="parkrecordId != null and parkrecordId != '' " >
+    	and t.parkrecord_id =  #{parkrecordId}
+	</if>
+	<if test="transOrderNo != null and transOrderNo != '' " >
+    	and t.trans_order_no =  #{transOrderNo}
+	</if>
+	<if test="orderNo != null and orderNo != '' " >
+    	and t.order_no =  #{orderNo}
+	</if>
+	<if test="payType != null and payType != '' " >
+    	and t.pay_type =  #{payType}
+	</if>
+	<if test="price != null " >
+    	and t.price =  #{price}
+	</if>
+	<if test="subject != null and subject != '' " >
+    	and t.subject =  #{subject}
+	</if>
+	<if test="orderBody != null and orderBody != '' " >
+    	and t.order_body =  #{orderBody}
+	</if>
+	<if test="orderStatus != null and orderStatus != '' " >
+    	and t.order_status =  #{orderStatus}
+	</if>
+	<if test="orderTime != null " >
+    	and t.order_time =  #{orderTime}
+	</if>
+	<if test="payTime != null " >
+    	and t.pay_time =  #{payTime}
+	</if>
+	<if test="buyerAccount != null and buyerAccount != '' " >
+    	and t.buyer_account =  #{buyerAccount}
+	</if>
+	<if test="source != null " >
+		and t.source =  #{source}
+	</if>
+	<if test="remark != null and remark != '' " >
+    	and t.remark =  #{remark}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_order_scanpay 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="parkName != null and parkName != '' " >
+		 park_name,
+		</if>
+		<if test="parkId != null and parkId != '' " >
+		 park_id,
+		</if>
+    	<if test="collectorAccount != null and collectorAccount != '' " >
+		 collector_account,
+		</if>
+    	<if test="palteNo != null and palteNo != '' " >
+		 palte_no,
+		</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+		 parkrecord_id,
+		</if>
+    	<if test="transOrderNo != null and transOrderNo != '' " >
+		 trans_order_no,
+		</if>
+    	<if test="orderNo != null and orderNo != '' " >
+		 order_no,
+		</if>
+    	<if test="payType != null and payType != '' " >
+		 pay_type,
+		</if>
+    	<if test="price != null " >
+		price,
+		</if>
+    	<if test="subject != null and subject != '' " >
+		 subject,
+		</if>
+    	<if test="orderBody != null and orderBody != '' " >
+		 order_body,
+		</if>
+    	<if test="orderStatus != null and orderStatus != '' " >
+		 order_status,
+		</if>
+    	<if test="orderTime != null " >
+		order_time,
+		</if>
+    	<if test="payTime != null " >
+		pay_time,
+		</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+		 buyer_account,
+		</if>
+		<if test="source != null " >
+		source,
+		</if>
+    	<if test="remark != null and remark != '' " >
+		 remark,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="parkName != null and parkName != '' " >
+  		<![CDATA[  #{parkName}, ]]>
+    	</if>
+		<if test="parkId != null and parkId != '' " >
+		<![CDATA[  #{parkId}, ]]>
+		</if>
+    	<if test="collectorAccount != null and collectorAccount != '' " >
+  		<![CDATA[  #{collectorAccount}, ]]>
+    	</if>
+    	<if test="palteNo != null and palteNo != '' " >
+  		<![CDATA[  #{palteNo}, ]]>
+    	</if>
+    	<if test="parkrecordId != null and parkrecordId != '' " >
+  		<![CDATA[  #{parkrecordId}, ]]>
+    	</if>
+    	<if test="transOrderNo != null and transOrderNo != '' " >
+  		<![CDATA[  #{transOrderNo}, ]]>
+    	</if>
+    	<if test="orderNo != null and orderNo != '' " >
+  		<![CDATA[  #{orderNo}, ]]>
+    	</if>
+    	<if test="payType != null and payType != '' " >
+  		<![CDATA[  #{payType}, ]]>
+    	</if>
+    	<if test="price != null " >
+  		<![CDATA[  #{price}, ]]>
+    	</if>
+    	<if test="subject != null and subject != '' " >
+  		<![CDATA[  #{subject}, ]]>
+    	</if>
+    	<if test="orderBody != null and orderBody != '' " >
+  		<![CDATA[  #{orderBody}, ]]>
+    	</if>
+    	<if test="orderStatus != null and orderStatus != '' " >
+  		<![CDATA[  #{orderStatus}, ]]>
+    	</if>
+    	<if test="orderTime != null " >
+  		<![CDATA[  #{orderTime}, ]]>
+    	</if>
+    	<if test="payTime != null " >
+  		<![CDATA[  #{payTime}, ]]>
+    	</if>
+    	<if test="buyerAccount != null and buyerAccount != '' " >
+  		<![CDATA[  #{buyerAccount}, ]]>
+    	</if>
+		<if test="source != null " >
+		<![CDATA[  #{source}, ]]>
+		</if>
+    	<if test="remark != null and remark != '' " >
+  		<![CDATA[  #{remark}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_order_scanpay t set 
+   <trim suffixOverrides="," >
+	<if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="parkName != null and parkName != '' " >
+  	<![CDATA[  t.park_name = #{parkName}, ]]>
+    </if>
+    <if test="parkId != null and parkId != '' " >
+	<![CDATA[  t.park_id = #{parkId}, ]]>
+    </if>
+    <if test="collectorAccount != null and collectorAccount != '' " >
+  	<![CDATA[  t.collector_account = #{collectorAccount}, ]]>
+    </if>
+    <if test="palteNo != null and palteNo != '' " >
+  	<![CDATA[  t.palte_no = #{palteNo}, ]]>
+    </if>
+    <if test="parkrecordId != null and parkrecordId != '' " >
+  	<![CDATA[  t.parkrecord_id = #{parkrecordId}, ]]>
+    </if>
+    <if test="transOrderNo != null and transOrderNo != '' " >
+  	<![CDATA[  t.trans_order_no = #{transOrderNo}, ]]>
+    </if>
+    <if test="orderNo != null and orderNo != '' " >
+  	<![CDATA[  t.order_no = #{orderNo}, ]]>
+    </if>
+    <if test="payType != null and payType != '' " >
+  	<![CDATA[  t.pay_type = #{payType}, ]]>
+    </if>
+    <if test="price != null " >
+  	<![CDATA[  t.price = #{price}, ]]>
+    </if>
+    <if test="subject != null and subject != '' " >
+  	<![CDATA[  t.subject = #{subject}, ]]>
+    </if>
+    <if test="orderBody != null and orderBody != '' " >
+  	<![CDATA[  t.order_body = #{orderBody}, ]]>
+    </if>
+    <if test="orderStatus != null and orderStatus != '' " >
+  	<![CDATA[  t.order_status = #{orderStatus}, ]]>
+    </if>
+    <if test="orderTime != null " >
+  	<![CDATA[  t.order_time = #{orderTime}, ]]>
+    </if>
+    <if test="payTime != null " >
+  	<![CDATA[  t.pay_time = #{payTime}, ]]>
+    </if>
+    <if test="buyerAccount != null and buyerAccount != '' " >
+  	<![CDATA[  t.buyer_account = #{buyerAccount}, ]]>
+    </if>
+	<if test="source != null " >
+	<![CDATA[  t.source = #{source}, ]]>
+	</if>
+    <if test="remark != null and remark != '' " >
+  	<![CDATA[  t.remark = #{remark}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_order_scanpay where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_order_scanpay t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_order_scanpay t 
+	<include refid="Example_Where_Clause"/>
+	<if test="startDate != '' and endDate != ''" >
+		and t.create_time BETWEEN STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+	</if>
+	<if test="startDate != '' and endDate == ''" >
+		and t.create_time BETWEEN STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND now()
+	</if>
+	<if test="startDate == '' and endDate != ''" >
+		and t.create_time &lt;= STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and t.area_code LIKE '${userCityCode}%'
+	</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,ba.area_name,
+	(SELECT IFNULL(SUM(r.refund_pay_fee),0) FROM app_order_refund r WHERE r.is_complate = 200 AND r.order_no = t.ORDER_NO) suc_refund
+	from app_order_scanpay t
+	left join base_area ba on t.area_code = ba.area_code
+	<include refid="Example_Where_Clause"/>
+	<if test="startDate != '' and endDate != ''" >
+		and t.create_time BETWEEN STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+	</if>
+	<if test="startDate != '' and endDate == ''" >
+		and t.create_time BETWEEN STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND now()
+	</if>
+	<if test="startDate == '' and endDate != ''" >
+		and t.create_time &lt;= STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+	</if>
+	<if test="userCityCode != null and userCityCode != '' ">
+		and t.area_code LIKE '${userCityCode}%'
+	</if>
+	<if test="pager.orderCondition == ''">
+		order by t.create_time desc
+	</if>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<!-- 根据orderNo查询 -->
+	<select id="queryOrderScanpayInfo"  resultMap="BaseResultMap" parameterType="Object">
+		select <include refid="Base_Column_List" />
+		from app_order_scanpay t where t.order_no = #{orderNo}
+	</select>
+
+	<!-- 根据orderNo，修改记录-->
+	<update id="updateByOrderNo" parameterType="Object" >
+		update app_order_scanpay t set
+		<trim suffixOverrides="," >
+			<if test="orderStatus != null and orderStatus != '' " >
+				<![CDATA[  t.order_status = #{orderStatus}, ]]>
+			</if>
+			<if test="payTime != null " >
+				<![CDATA[  t.pay_time = #{payTime}, ]]>
+			</if>
+			<if test="buyerAccount != null and buyerAccount != '' " >
+				<![CDATA[  t.buyer_account = #{buyerAccount}, ]]>
+			</if>
+		</trim> where t.order_no= #{orderNo}
+	</update>
+
+	<select id="queryUnpaidScanOrder" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM app_order_scanpay t WHERE t.TRANS_ORDER_NO = #{tradeNo}
+		and t.order_status = 100
+	</select>
+
+	<select id="queryCollectorOrderList" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM app_order_scanpay t WHERE t.collector_account = #{userAccount}
+		<if test="selectDate != null and selectDate != ''" >
+			and t.create_time BETWEEN STR_TO_DATE('${selectDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+		</if>
+		AND t.source = #{source}
+		order by t.create_time desc
+		limit #{startIndex},#{pageLength}
+	</select>
+
+	<select id="queryTotalSuccessPayInfo" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		COUNT(1) totalPayCount,SUM(t.price) totalPayPrice
+		FROM app_order_scanpay t WHERE t.collector_account = #{userAccount} and t.order_status = 200
+		<if test="selectDate != null and selectDate != ''" >
+			and t.pay_time BETWEEN STR_TO_DATE('${selectDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+		</if>
+		AND t.source = #{source}
+	</select>
+
+	<select id="queryOrderScanpayList" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		<include refid="Base_Column_List" />
+		,ba.area_name
+		FROM app_order_scanpay t
+		left join base_area ba on t.area_code = ba.area_code
+		WHERE t.order_status = 200
+		and t.create_time BETWEEN STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+		<if test="collectorAccount != null and collectorAccount != ''" >
+			and t.collector_account = #{collectorAccount}
+		</if>
+		<if test="source != null and source != ''" >
+			and t.source = #{source}
+		</if>
+		<if test="areaCode != ''" >
+			and t.area_code like '${areaCode}%'
+		</if>
+		<if test="areaCode == '' and userCityCode != null" >
+			and t.area_code like '${userCityCode}%'
+		</if>
+		<if test="parkName != null and parkName != ''" >
+			and t.park_name like '${parkName}%'
+		</if>
+	</select>
+
+	<select id="queryAllScanpayRefundFee" resultMap="BaseResultMap" parameterType="Object">
+		select
+		t.pay_time,t.pay_type,t.order_no,t.price,
+		SUM(CASE refund.is_complate WHEN 200 THEN (refund.refund_pay_fee) ELSE 0 END) suc_refund
+		from app_order_scanpay t
+		LEFT JOIN app_order_paylog t1 ON t1.order_no = t.order_no
+		LEFT JOIN app_order_refund refund ON refund.order_no = t.order_no
+		where t.order_no = #{orderNo}
+		GROUP BY refund.order_no
+		limit 1
+	</select>
+
+	<!-- 批量写入订单 -->
+	<insert id="batchAddOrderScanpay" parameterType="java.util.ArrayList">
+		INSERT INTO app_order_scanpay
+		(ID,AREA_CODE,PARK_NAME,COLLECTOR_ACCOUNT,PALTE_NO,PARKRECORD_ID,TRANS_ORDER_NO,
+		ORDER_NO,PAY_TYPE,PRICE,SUBJECT,ORDER_BODY,ORDER_STATUS,ORDER_TIME,SOURCE,CREATE_TIME)
+		VALUES
+		<foreach collection="list" index="index" separator="," item="item">
+			(#{item.id},#{item.areaCode},#{item.parkName},#{item.collectorAccount},
+			#{item.palteNo},#{item.parkrecordId},#{item.transOrderNo},#{item.orderNo},
+			#{item.payType},#{item.price},#{item.subject},#{item.orderBody},
+			#{item.orderStatus},#{item.orderTime},#{item.source},#{item.createTime})
+		</foreach>
+	</insert>
+
+	<!-- 查询批量缴费总金额等信息 -->
+	<select id="queryBatchpayInfo" resultMap="BaseResultMap"  parameterType="Object">
+		SELECT IFNULL(SUM(o.price),0) price,o.pay_time,o.order_status FROM app_order_batchpay_rel t
+		LEFT JOIN app_order o on t.order_no = o.order_no
+		WHERE t.batchpay_no = #{batchpayNo}
+		GROUP BY t.batchpay_no
+	</select>
+
+	<!-- 根据orderNo，修改记录-->
+	<update id="updateBatchOrderScanpay" parameterType="Object" >
+		<foreach collection="list" item="item" index="index">
+			UPDATE app_order_scanpay
+			SET buyer_account = #{item.buyerAccount},order_status = #{item.orderStatus},
+			pay_time = #{item.payTime}
+			WHERE order_no = #{item.orderNo};
+		</foreach>
+	</update>
+
+	<select id="queryAchievementList" resultMap="BaseResultMap" parameterType="Object">
+		SELECT
+		c.area_name,c.collector_account,SUM(c.price) totalPayPrice,COUNT(1) totalPayCount,SUM(c.ct) totalRecordCount
+		FROM (
+		SELECT ba.area_name,t.collector_account,t.price,COUNT(1) ct
+		FROM app_order_scanpay t
+		LEFT JOIN (SELECT BATCHPAY_NO FROM app_order_batchpay_rel WHERE CREATE_TIME BETWEEN STR_TO_DATE(
+		'${startDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')) b ON
+		t.order_no = b.BATCHPAY_NO
+		left join base_area ba on t.area_code = ba.area_code
+		WHERE t.order_status = 200
+		and t.create_time BETWEEN STR_TO_DATE('${startDate} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(
+		'${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+		<if test="areaCode == '' and userCityCode != null" >
+			and t.area_code like '${userCityCode}%'
+		</if>
+		<if test="areaCode != ''" >
+			and t.area_code like '${areaCode}%'
+		</if>
+		GROUP BY t.order_no
+		) c
+		<if test="areaCode == '' and userCityCode == null" >
+			group by c.area_name
+		</if>
+		<if test="areaCode == '' and userCityCode != null" >
+			group by c.area_name
+		</if>
+		<if test="areaCode != ''" >
+			group by c.collector_account
+		</if>
+	</select>
+
+	<select id="queryCountByTransOrderNo" resultType="java.lang.Integer" parameterType="Object">
+		SELECT
+		count(1)
+		FROM app_order_scanpay t WHERE t.TRANS_ORDER_NO = #{tradeNo}
+		and t.order_status = 200
+	</select>
+
+</mapper>   

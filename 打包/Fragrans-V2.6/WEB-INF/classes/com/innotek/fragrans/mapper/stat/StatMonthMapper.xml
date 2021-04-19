@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.innotek.fragrans.dao.stat.StatMonthDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="com.innotek.fragrans.entity.stat.StatMonth" >
+	<result column="id" property="id"/>
+		<result column="day_time" property="dayTime"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="tran_amount" property="tranAmount"/>
+		<result column="tran_count" property="tranCount"/>
+		<result column="counter_amount" property="counterAmount"/>
+		<result column="refund_counter_amount" property="refundCounterAmount"/>
+		<result column="total_tran_amount" property="totalTranAmount"/>
+		<result column="alipay_count" property="alipayCount"/>
+		<result column="alipay_amount" property="alipayAmount"/>
+		<result column="alipay_counter_amount" property="alipayCounterAmount"/>
+		<result column="wxpay_count" property="wxpayCount"/>
+		<result column="wxpay_amount" property="wxpayAmount"/>
+		<result column="wxpay_counter_amount" property="wxpayCounterAmount"/>
+		<result column="cmbpay_count" property="cmbpayCount"/>
+		<result column="cmbpay_amount" property="cmbpayAmount"/>
+		<result column="cmbpay_counter_amount" property="cmbpayCounterAmount"/>
+		<result column="mcpay_success_count" property="mcpaySuccessCount"/>
+		<result column="mcpay_success_amount" property="mcpaySuccessAmount"/>
+		<result column="monthly_success_count" property="monthlySuccessCount"/>
+		<result column="monthly_success_amount" property="monthlySuccessAmount"/>
+		<result column="innopay_success_count" property="innopaySuccessCount"/>
+		<result column="innopay_success_amount" property="innopaySuccessAmount"/>
+		<result column="balancepay_count" property="balancepayCount"/>
+		<result column="balancepay_amount" property="balancepayAmount"/>
+		<result column="ticketpay_count" property="ticketpayCount"/>
+		<result column="ticketpay_amount" property="ticketpayAmount"/>
+		<result column="refund_count" property="refundCount"/>
+		<result column="refund_amount" property="refundAmount"/>
+		<result column="create_time" property="createTime"/>
+		<result column="city_name" property="cityName"/>
+		<result column="area_name" property="areaName"/>
+		<result column="alipay_refund_suc_count" property="alipayRefundSucCount"/>
+		<result column="alipay_refund_suc_amount" property="alipayRefundSucAmount"/>
+		<result column="wxpay_refund_suc_count" property="wxpayRefundSucCount"/>
+		<result column="wxpay_refund_suc_amount" property="wxpayRefundSucAmount"/>
+		<result column="cmbpay_refund_suc_count" property="cmbpayRefundSucCount"/>
+		<result column="cmbpay_refund_suc_amount" property="cmbpayRefundSucAmount"/>
+		<result column="mcpay_refund_suc_count" property="mcpayRefundSucCount"/>
+		<result column="mcpay_refund_suc_amount" property="mcpayRefundSucAmount"/>
+	</resultMap>
+       
+<!-- table all fields -->
+<sql id="Base_Column_List" >
+		 t.day_time,
+		 t.city_code,
+		 t.area_code,
+		 t.tran_amount,
+		 t.tran_count,
+		 t.counter_amount,
+		 t.refund_counter_amount,
+		 t.total_tran_amount,
+		 t.alipay_count,
+		 t.alipay_amount,
+		 t.alipay_counter_amount,
+		 t.wxpay_count,
+		 t.wxpay_amount,
+		 t.wxpay_counter_amount,
+		 t.cmbpay_count,
+		 t.cmbpay_amount,
+		 t.cmbpay_counter_amount,
+		 t.mcpay_success_count,
+		 t.mcpay_success_amount,
+		 t.monthly_success_count,
+		 t.monthly_success_amount,
+		 t.innopay_success_count,
+		 t.innopay_success_amount,
+		 t.balancepay_count,
+		 t.balancepay_amount,
+		 t.ticketpay_count,
+		 t.ticketpay_amount,
+		 t.refund_count,
+		 t.refund_amount,
+		 t.create_time,
+		 t.alipay_refund_suc_count,
+		 t.alipay_refund_suc_amount,
+		 t.wxpay_refund_suc_count,
+		 t.wxpay_refund_suc_amount,
+		 t.cmbpay_refund_suc_count,
+		 t.cmbpay_refund_suc_amount,
+		 t.mcpay_refund_suc_count,
+		 t.mcpay_refund_suc_amount,
+	     t.id
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and t.id = #{id}
+	</if>
+	<if test="dayTime != null and dayTime != ''" >
+    	and t.day_time =  #{dayTime}
+	</if>
+	<if test="cityCode != null " >
+    	and t.city_code =  #{cityCode}
+	</if>
+	<if test="areaCode != null " >
+    	and t.area_code =  #{areaCode}
+	</if>
+	<if test="tranAmount != null " >
+    	and t.tran_amount =  #{tranAmount}
+	</if>
+	<if test="tranCount != null " >
+    	and t.tran_count =  #{tranCount}
+	</if>
+	<if test="counterAmount != null " >
+    	and t.counter_amount =  #{counterAmount}
+	</if>
+	<if test="totalTranAmount != null " >
+    	and t.total_tran_amount =  #{totalTranAmount}
+	</if>
+	<if test="alipayCount != null " >
+    	and t.alipay_count =  #{alipayCount}
+	</if>
+	<if test="alipayAmount != null " >
+    	and t.alipay_amount =  #{alipayAmount}
+	</if>
+	<if test="alipayCounterAmount != null " >
+    	and t.alipay_counter_amount =  #{alipayCounterAmount}
+	</if>
+	<if test="wxpayCount != null " >
+    	and t.wxpay_count =  #{wxpayCount}
+	</if>
+	<if test="wxpayAmount != null " >
+    	and t.wxpay_amount =  #{wxpayAmount}
+	</if>
+	<if test="wxpayCounterAmount != null " >
+    	and t.wxpay_counter_amount =  #{wxpayCounterAmount}
+	</if>
+	<if test="cmbpayCount != null " >
+    	and t.cmbpay_count =  #{cmbpayCount}
+	</if>
+	<if test="cmbpayAmount != null " >
+    	and t.cmbpay_amount =  #{cmbpayAmount}
+	</if>
+	<if test="cmbpayCounterAmount != null " >
+    	and t.cmbpay_counter_amount =  #{cmbpayCounterAmount}
+	</if>
+	<if test="balancepayCount != null " >
+    	and t.balancepay_count =  #{balancepayCount}
+	</if>
+	<if test="balancepayAmount != null " >
+    	and t.balancepay_amount =  #{balancepayAmount}
+	</if>
+	<if test="ticketpayCount != null " >
+    	and t.ticketpay_count =  #{ticketpayCount}
+	</if>
+	<if test="ticketpayAmount != null " >
+    	and t.ticketpay_amount =  #{ticketpayAmount}
+	</if>
+	<if test="refundCount != null " >
+    	and t.refund_count =  #{refundCount}
+	</if>
+	<if test="refundAmount != null " >
+    	and t.refund_amount =  #{refundAmount}
+	</if>
+	<if test="createTime != null " >
+    	and t.create_time =  #{createTime}
+	</if>
+	</trim>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+  
+	<selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+		SELECT UUID() as ID 
+	</selectKey>
+  
+	insert into app_stat_month 
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+		 id,
+		</if>
+	 	<if test="dayTime != null " >
+		day_time,
+		</if>
+    	<if test="cityCode != null " >
+		city_code,
+		</if>
+    	<if test="areaCode != null " >
+		area_code,
+		</if>
+    	<if test="tranAmount != null " >
+		tran_amount,
+		</if>
+    	<if test="tranCount != null " >
+		tran_count,
+		</if>
+    	<if test="counterAmount != null " >
+		counter_amount,
+		</if>
+		<if test="refundCounterAmount != null " >
+		refund_counter_amount,
+		</if>
+    	<if test="totalTranAmount != null " >
+		total_tran_amount,
+		</if>
+    	<if test="alipayCount != null " >
+		alipay_count,
+		</if>
+    	<if test="alipayAmount != null " >
+		alipay_amount,
+		</if>
+    	<if test="alipayCounterAmount != null " >
+		alipay_counter_amount,
+		</if>
+    	<if test="wxpayCount != null " >
+		wxpay_count,
+		</if>
+    	<if test="wxpayAmount != null " >
+		wxpay_amount,
+		</if>
+    	<if test="wxpayCounterAmount != null " >
+		wxpay_counter_amount,
+		</if>
+    	<if test="cmbpayCount != null " >
+		cmbpay_count,
+		</if>
+    	<if test="cmbpayAmount != null " >
+		cmbpay_amount,
+		</if>
+    	<if test="cmbpayCounterAmount != null " >
+		cmbpay_counter_amount,
+		</if>
+    	<if test="balancepayCount != null " >
+		balancepay_count,
+		</if>
+    	<if test="balancepayAmount != null " >
+		balancepay_amount,
+		</if>
+    	<if test="ticketpayCount != null " >
+		ticketpay_count,
+		</if>
+    	<if test="ticketpayAmount != null " >
+		ticketpay_amount,
+		</if>
+    	<if test="refundCount != null " >
+		refund_count,
+		</if>
+    	<if test="refundAmount != null " >
+		refund_amount,
+		</if>
+    	<if test="createTime != null " >
+		create_time,
+		</if>
+    	 </trim>
+	values
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null and id != '' " >
+  			<![CDATA[  #{id}, ]]>
+    	</if>
+	 	<if test="dayTime != null " >
+  		<![CDATA[  #{dayTime}, ]]>
+    	</if>
+    	<if test="cityCode != null " >
+  		<![CDATA[  #{cityCode}, ]]>
+    	</if>
+    	<if test="areaCode != null " >
+  		<![CDATA[  #{areaCode}, ]]>
+    	</if>
+    	<if test="tranAmount != null " >
+  		<![CDATA[  #{tranAmount}, ]]>
+    	</if>
+    	<if test="tranCount != null " >
+  		<![CDATA[  #{tranCount}, ]]>
+    	</if>
+    	<if test="counterAmount != null " >
+  		<![CDATA[  #{counterAmount}, ]]>
+    	</if>
+		<if test="refundCounterAmount != null " >
+		<![CDATA[  #{refundCounterAmount}, ]]>
+		</if>
+    	<if test="totalTranAmount != null " >
+  		<![CDATA[  #{totalTranAmount}, ]]>
+    	</if>
+    	<if test="alipayCount != null " >
+  		<![CDATA[  #{alipayCount}, ]]>
+    	</if>
+    	<if test="alipayAmount != null " >
+  		<![CDATA[  #{alipayAmount}, ]]>
+    	</if>
+    	<if test="alipayCounterAmount != null " >
+  		<![CDATA[  #{alipayCounterAmount}, ]]>
+    	</if>
+    	<if test="wxpayCount != null " >
+  		<![CDATA[  #{wxpayCount}, ]]>
+    	</if>
+    	<if test="wxpayAmount != null " >
+  		<![CDATA[  #{wxpayAmount}, ]]>
+    	</if>
+    	<if test="wxpayCounterAmount != null " >
+  		<![CDATA[  #{wxpayCounterAmount}, ]]>
+    	</if>
+    	<if test="cmbpayCount != null " >
+  		<![CDATA[  #{cmbpayCount}, ]]>
+    	</if>
+    	<if test="cmbpayAmount != null " >
+  		<![CDATA[  #{cmbpayAmount}, ]]>
+    	</if>
+    	<if test="cmbpayCounterAmount != null " >
+  		<![CDATA[  #{cmbpayCounterAmount}, ]]>
+    	</if>
+    	<if test="balancepayCount != null " >
+  		<![CDATA[  #{balancepayCount}, ]]>
+    	</if>
+    	<if test="balancepayAmount != null " >
+  		<![CDATA[  #{balancepayAmount}, ]]>
+    	</if>
+    	<if test="ticketpayCount != null " >
+  		<![CDATA[  #{ticketpayCount}, ]]>
+    	</if>
+    	<if test="ticketpayAmount != null " >
+  		<![CDATA[  #{ticketpayAmount}, ]]>
+    	</if>
+    	<if test="refundCount != null " >
+  		<![CDATA[  #{refundCount}, ]]>
+    	</if>
+    	<if test="refundAmount != null " >
+  		<![CDATA[  #{refundAmount}, ]]>
+    	</if>
+    	<if test="createTime != null " >
+  		<![CDATA[  #{createTime}, ]]>
+    	</if>
+    	 </trim>
+</insert>
+
+<!-- 根据id，修改记录-->  
+<update id="update" parameterType="Object" >
+	update app_stat_month t set 
+   <trim suffixOverrides="," >
+	<if test="dayTime != null " >
+  	<![CDATA[  t.day_time = #{dayTime}, ]]>
+    </if>
+    <if test="cityCode != null " >
+  	<![CDATA[  t.city_code = #{cityCode}, ]]>
+    </if>
+    <if test="areaCode != null " >
+  	<![CDATA[  t.area_code = #{areaCode}, ]]>
+    </if>
+    <if test="tranAmount != null " >
+  	<![CDATA[  t.tran_amount = #{tranAmount}, ]]>
+    </if>
+    <if test="tranCount != null " >
+  	<![CDATA[  t.tran_count = #{tranCount}, ]]>
+    </if>
+    <if test="counterAmount != null " >
+  	<![CDATA[  t.counter_amount = #{counterAmount}, ]]>
+    </if>
+    <if test="totalTranAmount != null " >
+  	<![CDATA[  t.total_tran_amount = #{totalTranAmount}, ]]>
+    </if>
+    <if test="alipayCount != null " >
+  	<![CDATA[  t.alipay_count = #{alipayCount}, ]]>
+    </if>
+    <if test="alipayAmount != null " >
+  	<![CDATA[  t.alipay_amount = #{alipayAmount}, ]]>
+    </if>
+    <if test="alipayCounterAmount != null " >
+  	<![CDATA[  t.alipay_counter_amount = #{alipayCounterAmount}, ]]>
+    </if>
+    <if test="wxpayCount != null " >
+  	<![CDATA[  t.wxpay_count = #{wxpayCount}, ]]>
+    </if>
+    <if test="wxpayAmount != null " >
+  	<![CDATA[  t.wxpay_amount = #{wxpayAmount}, ]]>
+    </if>
+    <if test="wxpayCounterAmount != null " >
+  	<![CDATA[  t.wxpay_counter_amount = #{wxpayCounterAmount}, ]]>
+    </if>
+    <if test="cmbpayCount != null " >
+  	<![CDATA[  t.cmbpay_count = #{cmbpayCount}, ]]>
+    </if>
+    <if test="cmbpayAmount != null " >
+  	<![CDATA[  t.cmbpay_amount = #{cmbpayAmount}, ]]>
+    </if>
+    <if test="cmbpayCounterAmount != null " >
+  	<![CDATA[  t.cmbpay_counter_amount = #{cmbpayCounterAmount}, ]]>
+    </if>
+    <if test="balancepayCount != null " >
+  	<![CDATA[  t.balancepay_count = #{balancepayCount}, ]]>
+    </if>
+    <if test="balancepayAmount != null " >
+  	<![CDATA[  t.balancepay_amount = #{balancepayAmount}, ]]>
+    </if>
+    <if test="ticketpayCount != null " >
+  	<![CDATA[  t.ticketpay_count = #{ticketpayCount}, ]]>
+    </if>
+    <if test="ticketpayAmount != null " >
+  	<![CDATA[  t.ticketpay_amount = #{ticketpayAmount}, ]]>
+    </if>
+    <if test="refundCount != null " >
+  	<![CDATA[  t.refund_count = #{refundCount}, ]]>
+    </if>
+    <if test="refundAmount != null " >
+  	<![CDATA[  t.refund_amount = #{refundAmount}, ]]>
+    </if>
+    <if test="createTime != null " >
+  	<![CDATA[  t.create_time = #{createTime}, ]]>
+    </if>
+     </trim> where t.id= #{id}
+ </update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete from app_stat_month where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from app_stat_month t where t.id = #{id}
+</select>
+
+<!-- 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from app_stat_month t 
+	WHERE 1=1 
+		<if test="dayTime != null and dayTime != ''" >
+    		and t.day_time =  #{dayTime}
+		</if>
+		<if test="areaCode != null and areaCode != '' ">
+	  		AND t.AREA_CODE like '${areaCode}%'
+		</if>
+		<if test="userCityCode != null and userCityCode != '' ">
+			and t.AREA_CODE LIKE '${userCityCode}%'
+		</if>
+</select>
+  	
+<!-- 查询列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	,t1.area_name city_name,t2.area_name area_name
+	from app_stat_month t 
+	LEFT JOIN base_area t1 ON t.city_code=t1.area_code
+	LEFT JOIN base_area t2 ON t.area_code=t2.area_code
+	WHERE 1=1 
+		<if test="dayTime != null and dayTime != ''" >
+    		and t.day_time =  #{dayTime}
+		</if>
+		<if test="areaCode != null and areaCode != '' ">
+	  		AND t.AREA_CODE like '${areaCode}%'
+		</if>
+		<if test="userCityCode != null and userCityCode != '' ">
+			and t.AREA_CODE LIKE '${userCityCode}%'
+		</if>
+		<if test="pager.orderCondition == ''">
+			order by t.day_time desc,t.area_code asc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+	      ${pager.orderCondition}
+	    </if>
+	     <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+	       ${pager.mysqlQueryCondition}
+	    </if>
+</select>
+<!-- *************************************自定义接口****************************************************** -->
+	<!-- 根据条件查询 -->
+	<select id="queryStatMonth"  resultType="java.lang.String" parameterType="Object">
+		select id
+		from app_stat_month t 
+		where t.day_time = #{dayTime}
+	    <if test="areaCode != null and areaCode != ''" >
+	  		AND t.area_code = #{areaCode}
+	    </if>
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="queryStatMonthEntity"  resultMap="BaseResultMap" parameterType="Object">
+		SELECT t.CITY_CODE,t.AREA_CODE,
+		SUM(t.TRAN_SUCCESS_AMOUNT) TRAN_AMOUNT,
+		SUM(t.TRAN_SUCCESS_COUNT) TRAN_COUNT,
+		SUM(t.COUNTER_AMOUNT) COUNTER_AMOUNT,
+		SUM(t.REFUND_COUNTER_AMOUNT) REFUND_COUNTER_AMOUNT,
+		SUM(t.TRAN_SUCCESS_AMOUNT)-SUM(t.COUNTER_AMOUNT)-SUM(t.REFUND_SUCCESS_AMOUNT)+SUM(t.REFUND_COUNTER_AMOUNT) TOTAL_TRAN_AMOUNT,
+		SUM(t.ALIPAY_SUCCESS_COUNT) ALIPAY_COUNT,
+		SUM(t.ALIPAY_SUCCESS_AMOUNT) ALIPAY_AMOUNT,
+		SUM(t.ALIPAY_COUNTER_AMOUNT) ALIPAY_COUNTER_AMOUNT,
+		SUM(t.WXPAY_SUCCESS_COUNT) WXPAY_COUNT,
+		SUM(t.WXPAY_SUCCESS_AMOUNT) WXPAY_AMOUNT,
+		SUM(t.WXPAY_COUNTER_AMOUNT) WXPAY_COUNTER_AMOUNT,
+		SUM(t.CMBPAY_SUCCESS_COUNT) CMBPAY_COUNT,
+		SUM(t.CMBPAY_SUCCESS_AMOUNT) CMBPAY_AMOUNT,
+		SUM(t.CMBPAY_COUNTER_AMOUNT) CMBPAY_COUNTER_AMOUNT,
+		SUM(t.MCPAY_SUCCESS_COUNT) MCPAY_SUCCESS_COUNT,
+		SUM(t.MCPAY_SUCCESS_AMOUNT) MCPAY_SUCCESS_AMOUNT,
+		SUM(t.MONTHLY_SUCCESS_COUNT) MONTHLY_SUCCESS_COUNT,
+		SUM(t.MONTHLY_SUCCESS_AMOUNT) MONTHLY_SUCCESS_AMOUNT,
+		SUM(t.INNOPAY_SUCCESS_COUNT) INNOPAY_SUCCESS_COUNT,
+		SUM(t.INNOPAY_SUCCESS_AMOUNT) INNOPAY_SUCCESS_AMOUNT,
+		SUM(t.BALANCE_SUCCESS_COUNT) BALANCEPAY_COUNT,
+		SUM(t.BALANCE_SUCCESS_AMOUNT) BALANCEPAY_AMOUNT,
+		SUM(t.TICKETPAY_SUCCESS_COUNT) TICKETPAY_COUNT,
+		SUM(t.TICKETPAY_SUCCESS_AMOUNT) TICKETPAY_AMOUNT,
+		SUM(t.REFUND_SUCCESS_COUNT) REFUND_COUNT,
+		SUM(t.REFUND_SUCCESS_AMOUNT) REFUND_AMOUNT,
+		SUM(t.ALIPAY_REFUND_SUC_COUNT) alipayRefundSucCount,
+		SUM(t.ALIPAY_REFUND_SUC_AMOUNT) alipayRefundSucAmount,
+		SUM(t.WXPAY_REFUND_SUC_COUNT) wxpayRefundSucCount,
+		SUM(t.WXPAY_REFUND_SUC_AMOUNT) wxpayRefundSucAmount,
+		SUM(t.CMBPAY_REFUND_SUC_COUNT) cmbpayRefundSucCount,
+		SUM(t.CMBPAY_REFUND_SUC_AMOUNT) cmbpayRefundSucAmount,
+		SUM(t.MCPAY_REFUND_SUC_COUNT) mcpayRefundSucCount,
+		SUM(t.MCPAY_REFUND_SUC_AMOUNT) mcpayRefundSucAmount
+		FROM app_stat_daily t
+		WHERE STR_TO_DATE(t.day_time,'%Y-%m') = STR_TO_DATE(#{dayTime},'%Y-%m')
+		AND t.area_code = #{areaCode} 
+		GROUP BY STR_TO_DATE(t.day_time,'%Y-%m'),t.CITY_CODE,t.AREA_CODE
+		limit 1
+	</select>
+
+	<!-- 批量插入记录 -->
+	<insert id="batchAddData" parameterType="java.util.Map">
+		insert into app_stat_month (
+			id,
+			day_time,
+			city_code,
+			area_code,
+			tran_amount,
+			tran_count,
+			counter_amount,
+			refund_counter_amount,
+			total_tran_amount,
+			alipay_count,
+			alipay_amount,
+			alipay_counter_amount,
+			wxpay_count,
+			wxpay_amount,
+			wxpay_counter_amount,
+			cmbpay_count,
+			cmbpay_amount,
+			cmbpay_counter_amount,
+			mcpay_success_count,
+			mcpay_success_amount,
+			monthly_success_count,
+			monthly_success_amount,
+			innopay_success_count,
+			innopay_success_amount,
+			balancepay_count,
+			balancepay_amount,
+			ticketpay_count,
+			ticketpay_amount,
+			refund_count,
+			refund_amount,
+			create_time,
+			alipay_refund_suc_count,
+			alipay_refund_suc_amount,
+			wxpay_refund_suc_count,
+			wxpay_refund_suc_amount,
+			cmbpay_refund_suc_count,
+			cmbpay_refund_suc_amount,
+			mcpay_refund_suc_count,
+			mcpay_refund_suc_amount
+		) values
+	<foreach collection="list" item="item" index="index" separator="," >  
+        (	 
+			#{item.id},
+			#{item.dayTime},
+			#{item.cityCode},
+			#{item.areaCode},
+			#{item.tranAmount},
+			#{item.tranCount},
+			#{item.counterAmount},
+			#{item.refundCounterAmount},
+			#{item.totalTranAmount},
+			#{item.alipayCount},
+			#{item.alipayAmount},
+			#{item.alipayCounterAmount},
+			#{item.wxpayCount},
+			#{item.wxpayAmount},
+			#{item.wxpayCounterAmount},
+			#{item.cmbpayCount},
+			#{item.cmbpayAmount},
+			#{item.cmbpayCounterAmount},
+			#{item.mcpaySuccessCount},
+			#{item.mcpaySuccessAmount},
+			#{item.monthlySuccessCount},
+			#{item.monthlySuccessAmount},
+			#{item.innopaySuccessCount},
+			#{item.innopaySuccessAmount},
+			#{item.balancepayCount},
+			#{item.balancepayAmount},
+			#{item.ticketpayCount},
+			#{item.ticketpayAmount},
+			#{item.refundCount},
+			#{item.refundAmount},
+			#{item.createTime},
+			#{item.alipayRefundSucCount},
+			#{item.alipayRefundSucAmount},
+			#{item.wxpayRefundSucCount},
+			#{item.wxpayRefundSucAmount},
+			#{item.cmbpayRefundSucCount},
+			#{item.cmbpayRefundSucAmount},
+			#{item.mcpayRefundSucCount},
+			#{item.mcpayRefundSucAmount}
+		 )
+	</foreach> 
+	</insert>
+	
+	<!-- 查询月报表 -->
+	<select id="cvsStatMonthList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT 
+			t.day_time,tran_amount,tran_count,counter_amount,refund_counter_amount,total_tran_amount,alipay_count,alipay_amount,
+			alipay_counter_amount,wxpay_count,wxpay_amount,wxpay_counter_amount,cmbpay_count,cmbpay_amount,
+			cmbpay_counter_amount,balancepay_count,balancepay_amount,ticketpay_count,ticketpay_amount,
+			refund_count,refund_amount,mcpay_success_count,mcpay_success_amount,
+			monthly_success_count,monthly_success_amount,innopay_success_count,innopay_success_amount,
+			t1.area_name city_name,t2.area_name area_name
+			FROM app_stat_month t 
+			LEFT JOIN base_area t1 ON t.city_code=t1.area_code
+			LEFT JOIN base_area t2 ON t.area_code=t2.area_code
+		WHERE 1=1 
+		<trim>
+			<if test="dayTime != null and dayTime != '' ">
+				AND t.day_time = #{dayTime}
+			</if>
+			<if test="areaCode != null and areaCode != '' ">
+				AND t.area_code like '${areaCode}%'
+			</if>
+		</trim>
+		ORDER BY t.day_time asc
+	</select>
+	
+	<!-- 查询该月该区域日报天数 -->
+	<select id="queryDayCount"  resultType="java.lang.Integer" parameterType="Object">
+		SELECT count(1)
+		FROM app_stat_daily t 
+		WHERE STR_TO_DATE(t.day_time,'%Y-%m') = STR_TO_DATE(#{dayTime},'%Y-%m')
+		AND t.area_code = #{areaCode} 
+		GROUP BY STR_TO_DATE(t.day_time,'%Y-%m'),t.CITY_CODE,t.AREA_CODE
+		limit 1
+	</select>
+	
+</mapper>   

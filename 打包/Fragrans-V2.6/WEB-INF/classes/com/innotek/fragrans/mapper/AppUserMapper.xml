@@ -1,0 +1,1726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.innotek.fragrans.dao.AppUserDao">
+	<resultMap type="com.innotek.fragrans.entity.AppUserCaptchaEntity"
+		id="appUserCaptchaData">
+		<result column="id" property="id" />
+		<result column="accout" property="accout" />
+		<result column="captcha" property="captcha" />
+		<result column="reason" property="reason" />
+		<result column="expired_time" property="expiredTime" />
+		<result column="flag" property="flag" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="LAST_VALID_TIME" property="lastValidTime" />
+		<result column="COUNT" property="count" />
+	</resultMap>
+	<resultMap type="com.innotek.fragrans.entity.AppUserEntity"
+		id="appUserData">
+		<result column="id" property="id" />
+		<result column="user_account" property="userAccount" />
+		<result column="nick_name" property="nickName" />
+		<result column="status" property="status" />
+		<result column="password" property="password" />
+		<result column="mobile" property="mobile" />
+		<!-- <result column="is_locked" property="isLocked"/> -->
+		<result column="lock_time" property="lockTime" />
+		<result column="flag" property="flag" />
+		<result column="created_by" property="createdBy" />
+		<result column="create_time" property="createTime" />
+		<result column="updated_by" property="updatedBy" />
+		<result column="update_time" property="updateTime" />
+		<result column="is_email_activated" property="isEmailActivated" />
+		<result column="parent_code" property="parentCode" />
+		<result column="reger_code" property="regerCode" />
+		<result column="reger_count" property="regerCount" />
+		<result column="city_code" property="cityCode" />
+	</resultMap>
+	<resultMap type="com.innotek.fragrans.entity.AppUserExtEntity"
+		id="appUserExtData">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="nick_name" property="nickName" />
+		<result column="city_code" property="cityCode" />
+		<result column="email" property="email" />
+		<result column="is_email_activated" property="isEmailActivated" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="address" property="address" />
+		<result column="remark" property="remark" />
+		<result column="flag" property="flag" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="attribute1" property="attribute1" />
+		<result column="attribute2" property="attribute2" />
+		<result column="attribute3" property="attribute3" />
+		<result column="attribute4" property="attribute4" />
+		<result column="attribute5" property="attribute5" />
+		<result column="AREA_CODE_GAODE" property="araeCodeGaode" />
+	</resultMap>
+	<resultMap type="com.innotek.fragrans.entity.AppUserLoginEntity"
+		id="appUserLoginData">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="device_no" property="deviceNo" />
+		<result column="client_version" property="clientVersion" />
+		<result column="status" property="status" />
+		<result column="login_key" property="loginKey" />
+		<result column="login_count" property="loginCount" />
+		<result column="last_login_time" property="lastLoginTime" />
+		<result column="err_count" property="errCount" />
+		<result column="last_err_time" property="lastErrTime" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="weixpn_login_count" property="weixpnLoginCount" />
+
+	</resultMap>
+	<resultMap type="com.innotek.fragrans.entity.AppUserCarEntity"
+		id="appUserCarData">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="plate_no" property="plateNo" />
+		<result column="plate_color" property="plateColor" />
+		<result column="safe_code" property="safeCode" />
+		<result column="is_default" property="isDefault" />
+		<result column="note" property="note" />
+		<result column="flag" property="flag" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="is_identify" property="isIdentify" />
+	</resultMap>
+	<resultMap type="com.innotek.fragrans.entity.AppUserInfoEntity"
+		id="appUserInfoData">
+		<result column="user_account" property="userAccount" />
+		<result column="mobile" property="mobile" />
+		<result column="nick_name" property="nickName" />
+		<result column="photo_url" property="portrait" />
+		<result column="plate_no" property="plateNo" />
+		<result column="city_code" property="cityCode" />
+		<result column="is_exist_pay_password" property="isExistPayPassWord" />
+	</resultMap>
+	<resultMap type="com.innotek.fragrans.entity.AppUserEntity"
+		id="appUserAndUserExtData">
+		<result column="user_id" property="userId" />
+		<result column="user_account" property="userAccount" />
+		<result column="nick_name" property="nickName" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_name" property="areaName" />
+		<result column="mobile" property="mobile" />
+		<result column="status" property="status" />
+		<result column="lock_time" property="lockTime" />
+		<result column="email" property="email" />
+		<result column="is_email_activated" property="isEmailActivated" />
+		<result column="password" property="password" />
+		<result column="create_time" property="createTime" />
+		<result column="plate_no" property="plateNo" />
+		<result column="reger_code" property="regerCode" />
+		<result column="reger_count" property="regerCount" />
+		<result column="pay_user_count" property="payUserCount" />
+		<result column="user_pay_order_count" property="userPayOrderCount" />
+		<result column="order_total_fee" property="orderTotalFee" />
+	</resultMap>
+	<select id="getBindPlateNoByUserId" parameterType="String"
+		resultMap="appUserCarData">
+		select * from APP_USER_CAR WHERE
+		user_id = #{userId}
+		AND flag !='DELETE' order by IS_DEFAULT desc
+	</select>
+	<select id="getCaptcha" parameterType="Object" resultMap="appUserCaptchaData">
+		select
+		*
+		from APP_USER_CAPTCHA
+		where 1=1
+		and account = #{account}
+		and reason = #{reason}
+		and flag != #{flag}
+	</select>
+	<insert id="saveCaptcha" parameterType="Object">
+		insert into APP_USER_CAPTCHA
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="account != null and account != '' ">
+				account,
+			</if>
+			<if test="captcha != null and captcha != '' ">
+				captcha,
+			</if>
+			<if test="reason != null ">
+				reason,
+			</if>
+			<if test="expiredTime != null and expiredTime != '' ">
+				expired_time,
+			</if>
+			<if test="flag != null and flag != '' ">
+				flag,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+				update_time,
+			</if>
+			<if test="lastValidTime != null and lastValidTime != '' ">
+				LAST_VALID_TIME,
+			</if>
+			<if test="count != null and count != '' ">
+				COUNT,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="account != null and account != '' ">
+  		<![CDATA[  #{account}, ]]>
+			</if>
+			<if test="captcha != null and captcha != '' ">
+  		<![CDATA[  #{captcha}, ]]>
+			</if>
+			<if test="reason != null ">
+  		<![CDATA[  #{reason}, ]]>
+			</if>
+			<if test="expiredTime != null and expiredTime != '' ">
+  		<![CDATA[  #{expiredTime}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  		<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  		<![CDATA[  #{updateTime}, ]]>
+			</if>
+			<if test="lastValidTime != null and lastValidTime != '' ">
+  	    <![CDATA[  #{lastValidTime}, ]]>
+			</if>
+			<if test="count != null and count != '' ">
+  	   <![CDATA[  #{count}, ]]>
+			</if>
+		</trim>
+	</insert>
+	<update id="updateCaptcha" parameterType="Object">
+		update APP_USER_CAPTCHA set
+		<trim suffixOverrides=",">
+			<if test="account != null and account != '' ">
+  	<![CDATA[  account = #{account}, ]]>
+			</if>
+			<if test="captcha != null and captcha != '' ">
+  	<![CDATA[  captcha = #{captcha}, ]]>
+			</if>
+			<if test="reason != null ">
+  	<![CDATA[  reason = #{reason}, ]]>
+			</if>
+			<if test="expiredTime != null and expiredTime != '' ">
+  	<![CDATA[  expired_time = #{expiredTime}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  	<![CDATA[  flag = #{flag}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  	<![CDATA[  create_time = #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  	    <![CDATA[  update_time = #{updateTime}, ]]>
+			</if>
+			<if test="lastValidTime != null and lastValidTime != '' ">
+  	    <![CDATA[  LAST_VALID_TIME = #{lastValidTime}, ]]>
+			</if>
+			<if test="count != null and count != '' ">
+  	    <![CDATA[  COUNT = #{count}, ]]>
+			</if>
+		</trim>
+		where id= #{id}
+	</update>
+	<select id="findUserByAccount" parameterType="String" resultMap="appUserData">
+		select *
+		from APP_USER
+		where user_account = #{userAccount}
+		and flag != 'DELETE'
+	</select>
+	<select id="findUserByMobileOrEmail" parameterType="String"
+		resultMap="appUserData">
+		SELECT t.* FROM APP_USER  t 
+			LEFT JOIN app_user_ext e ON t.id=e.USER_ID
+			WHERE t.mobile = #{userAccount} AND t.flag != 'DELETE'
+	</select>
+	<select id="findUserById" parameterType="String" resultMap="appUserData">
+		select * from APP_USER 
+		where id = #{userId}
+		and flag != 'DELETE' 
+	</select>
+
+	<select id="checkUserLogin" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select 1
+		from APP_USER_LOGIN
+		where 1=1
+		and user_id = #{userId}
+		and login_key = #{loginKey}
+		and status = 0
+	</select>
+	<select id="getAppUserLogin" parameterType="String" resultMap="appUserLoginData">
+		select * from APP_USER_LOGIN where 1=1
+		and user_id = #{userId}
+	</select>
+	<select id="isMobileOrEmailExist" parameterType="String"
+		resultMap="appUserData">
+		select * from APP_USER where 1=1
+		and mobile = #{mobile}
+		and flag != 'DELETE'
+	</select>
+	<select id="getAppUserExtByUserId" parameterType="String"
+		resultMap="appUserExtData">
+		select * from APP_USER_EXT where 1=1
+		and user_id = #{userId}
+		and flag != 'DELETE'
+	</select>
+	<select id="getUserInfoByUserId" parameterType="String"
+		resultMap="appUserInfoData">
+		SELECT a.user_account,c.city_code, a.MOBILE,c.NICK_NAME,c.PHOTO_URL,case when c.pay_password is null then 0 else 1 end is_exist_pay_password
+		FROM APP_USER a
+		LEFT JOIN APP_USER_EXT c ON a.ID = c.USER_ID
+		WHERE a.STATUS=0
+		AND a.id=#{userId}
+	</select>
+	<delete id="deletePlateNo" parameterType="Object">
+		delete from APP_USER_CAR where user_id = #{userId}
+		and plate_no not in ${plateNo}
+	</delete>
+	
+	
+	<update id="updateAppUserExt" parameterType="Object">
+		update APP_USER_EXT set
+		<trim suffixOverrides=",">
+			<if test="nickName != null and nickName != '' ">
+  	<![CDATA[  nick_name = #{nickName}, ]]>
+			</if>
+			<if test="cityCode != null and cityCode != '' ">
+  	<![CDATA[  city_code = #{cityCode}, ]]>
+			</if>
+			<if test="email != null and email != '' ">
+  	<![CDATA[  email = #{email}, ]]>
+			</if>
+			<if test="isEmailActivated != null ">
+  	<![CDATA[  is_email_activated = #{isEmailActivated}, ]]>
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+  	<![CDATA[  photo_url = #{photoUrl}, ]]>
+			</if>
+			<if test="address != null and address != '' ">
+  	<![CDATA[  address = #{address}, ]]>
+			</if>
+			<if test="remark != null and remark != '' ">
+  	<![CDATA[  remark = #{remark}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  	<![CDATA[  flag = #{flag}, ]]>
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+  	<![CDATA[  updated_by = #{updatedBy}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  	<![CDATA[  update_time = now(), ]]>
+			</if>
+		</trim>
+		where id= #{id}
+	</update>
+	<insert id="saveAppUserExt" parameterType="Object">
+		insert into APP_USER_EXT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="nickName != null and nickName != '' ">
+				nick_name,
+			</if>
+			<if test="cityCode != null">
+				city_code,
+			</if>
+			<if test="email != null and email != '' ">
+				email,
+			</if>
+			<if test="isEmailActivated != null ">
+				is_email_activated,
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+				photo_url,
+			</if>
+			<if test="address != null and address != '' ">
+				address,
+			</if>
+			<if test="remark != null and remark != '' ">
+				remark,
+			</if>
+			<if test="flag != null and flag != '' ">
+				flag,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+				update_time,
+			</if>
+			<if test="attribute1 != null and attribute1 != '' ">
+				attribute1,
+			</if>
+			<if test="attribute2 != null and attribute2 != '' ">
+				attribute2,
+			</if>
+			<if test="attribute3 != null and attribute3 != '' ">
+				attribute3,
+			</if>
+			<if test="attribute4 != null">
+				attribute4,
+			</if>
+			<if test="attribute5 != null">
+				attribute5,
+			</if>
+			<if test="deviceType != null">
+				device_type,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="nickName != null and nickName != '' ">
+  		<![CDATA[  #{nickName}, ]]>
+			</if>
+			<if test="cityCode != null">
+  		<![CDATA[  #{cityCode}, ]]>
+			</if>
+			<if test="email != null and email != '' ">
+  		<![CDATA[  #{email}, ]]>
+			</if>
+			<if test="isEmailActivated != null ">
+  		<![CDATA[  #{isEmailActivated}, ]]>
+			</if>
+			<if test="photoUrl != null and photoUrl != '' ">
+  		<![CDATA[  #{photoUrl}, ]]>
+			</if>
+			<if test="address != null and address != '' ">
+  		<![CDATA[  #{address}, ]]>
+			</if>
+			<if test="remark != null and remark != '' ">
+  		<![CDATA[  #{remark}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  		<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  		<![CDATA[  #{updateTime}, ]]>
+			</if>
+			<if test="attribute1 != null and attribute1 != '' ">
+  		<![CDATA[  #{attribute1}, ]]>
+			</if>
+			<if test="attribute2 != null and attribute2 != '' ">
+  		<![CDATA[  #{attribute2}, ]]>
+			</if>
+			<if test="attribute3 != null and attribute3 != '' ">
+  		<![CDATA[  #{attribute3}, ]]>
+			</if>
+			<if test="attribute4 != null">
+  		<![CDATA[  #{attribute4}, ]]>
+			</if>
+			<if test="attribute5 != null">
+  		<![CDATA[  #{attribute5}, ]]>
+			</if>
+			<if test="deviceType != null">
+  		<![CDATA[  #{deviceType}, ]]>
+			</if>
+		</trim>
+	</insert>
+	<insert id="saveAppUserLogin" parameterType="Object">
+		insert into APP_USER_LOGIN
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="deviceNo != null and deviceNo != '' ">
+				device_no,
+			</if>
+			<if test="clientVersion != null and clientVersion != '' ">
+				client_version,
+			</if>
+			<if test="status != null ">
+				status,
+			</if>
+			<if test="loginKey != null and loginKey != '' ">
+				login_key,
+			</if>
+			<if test="loginCount != null ">
+				login_count,
+			</if>
+			<if test="errCount != null ">
+				err_count,
+			</if>
+			<if test="lastErrTime != null and lastErrTime != '' ">
+				last_err_time,
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != '' ">
+				last_login_time,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+				update_time,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="deviceNo != null and deviceNo != '' ">
+  		<![CDATA[  #{deviceNo}, ]]>
+			</if>
+			<if test="clientVersion != null and clientVersion != '' ">
+  		<![CDATA[  #{clientVersion}, ]]>
+			</if>
+			<if test="status != null ">
+  		<![CDATA[  #{status}, ]]>
+			</if>
+			<if test="loginKey != null and loginKey != '' ">
+  		<![CDATA[  #{loginKey}, ]]>
+			</if>
+			<if test="loginCount != null ">
+  		<![CDATA[  #{loginCount}, ]]>
+			</if>
+			<if test="errCount != null ">
+  		<![CDATA[  #{errCount}, ]]>
+			</if>
+			<if test="lastErrTime != null and lastErrTime != '' ">
+  		<![CDATA[  #{lastErrTime}, ]]>
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != '' ">
+  		<![CDATA[  #{lastLoginTime}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  		<![CDATA[  #{updateTime}, ]]>
+			</if>
+		</trim>
+	</insert>
+	<insert id="saveAppUserLoginRecord" parameterType="Object">
+		insert into APP_USER_LOGIN_RECORD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="deviceNo != null and deviceNo != '' ">
+				device_no,
+			</if>
+			<if test="clientVersion != null and clientVersion != '' ">
+				client_version,
+			</if>
+			<if test="deviceModel != null and deviceModel != '' ">
+				device_model,
+			</if>
+			<if test="deviceOsVersion != null and deviceOsVersion != '' ">
+				device_os_version,
+			</if>
+			<if test="loginKey != null and loginKey != '' ">
+				login_key,
+			</if>
+			<if test="type != null ">
+				type,
+			</if>
+			<if test="status != null and status != '' ">
+				status,
+			</if>
+			<if test="description != null and description != '' ">
+				description,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="longitudeGD != null">
+				longitude_gd,
+			</if>
+			<if test="latitudeGD != null">
+				latitude_gd,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="deviceNo != null and deviceNo != '' ">
+  		<![CDATA[  #{deviceNo}, ]]>
+			</if>
+			<if test="clientVersion != null and clientVersion != '' ">
+  		<![CDATA[  #{clientVersion}, ]]>
+			</if>
+			<if test="deviceModel != null and deviceModel != '' ">
+  		<![CDATA[  #{deviceModel}, ]]>
+			</if>
+			<if test="deviceOsVersion != null and deviceOsVersion != '' ">
+  		<![CDATA[  #{deviceOsVersion}, ]]>
+			</if>
+			<if test="loginKey != null and loginKey != '' ">
+  		<![CDATA[  #{loginKey}, ]]>
+			</if>
+			<if test="type != null ">
+  		<![CDATA[  #{type}, ]]>
+			</if>
+			<if test="status != null and status != '' ">
+  		<![CDATA[  #{status}, ]]>
+			</if>
+			<if test="description != null and description != '' ">
+  		<![CDATA[  #{description}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="longitudeGD != null">
+		<![CDATA[  #{longitudeGD}, ]]>
+			</if>
+			<if test="latitudeGD != null">
+		<![CDATA[  #{latitudeGD}, ]]>
+			</if>
+		</trim>
+	</insert>
+	<insert id="bindLicensePlate" parameterType="Object">
+		insert into APP_USER_CAR
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+				plate_no,
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' ">
+				plate_security_code,
+			</if>
+			<if test="isDefault != null ">
+				is_default,
+			</if>
+			<if test="note != null and note != '' ">
+				note,
+			</if>
+			<if test="flag != null and flag != '' ">
+				flag,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+				update_time,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+  		<![CDATA[  #{plateNo}, ]]>
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' ">
+  		<![CDATA[  #{plateSecurityCode}, ]]>
+			</if>
+			<if test="isDefault != null ">
+  		<![CDATA[  #{isDefault}, ]]>
+			</if>
+			<if test="note != null and note != '' ">
+  		<![CDATA[  #{note}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  		<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  		<![CDATA[  #{updateTime}, ]]>
+			</if>
+		</trim>
+	</insert>
+	<select id="getPlateInfo" parameterType="Object" resultMap="appUserCarData">
+		select * from APP_USER_CAR where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != '' ">
+				and id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				and user_id = #{userId}
+			</if>
+			<if test="isDefault != null ">
+				and is_default = #{isDefault}
+			</if>
+			and flag != #{flag}
+			<if test="plateNo != null and plateNo != '' ">
+				and plate_no = #{plateNo}
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' ">
+				and plate_security_code = #{ plateSecurityCode}
+			</if>
+		</trim>
+	</select>
+	<update id="updatePlateNo" parameterType="Object">
+		update APP_USER_CAR set
+		<trim suffixOverrides=",">
+			<if test="plateNo != null and plateNo != '' ">
+  	<![CDATA[  plate_no = #{plateNo}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  	<![CDATA[  flag = #{flag}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  	<![CDATA[  update_time = #{updateTime}, ]]>
+			</if>
+			<if test="plateSecurityCode != null ">
+  	<![CDATA[  plate_security_code = #{plateSecurityCode}, ]]>
+			</if>
+			<if test="isDefault != null ">
+  	<![CDATA[  is_default = #{isDefault}, ]]>
+			</if>
+		</trim>
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="userId != null and userId != '' ">
+				and user_id = #{userId}
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+				and plate_no = #{plateNo}
+			</if>
+		</trim>
+	</update>
+	<update id="updateUserLogin" parameterType="Object">
+		update APP_USER_LOGIN set
+		<trim suffixOverrides=",">
+			<if test="deviceNo != null and deviceNo != '' ">
+  	<![CDATA[  device_no = #{deviceNo}, ]]>
+			</if>
+			<if test="clientVersion != null and clientVersion != '' ">
+  	<![CDATA[  client_version = #{clientVersion}, ]]>
+			</if>
+			<if test="status != null ">
+  	<![CDATA[  status = #{status}, ]]>
+			</if>
+			<if test="loginKey != null and loginKey != '' ">
+  	<![CDATA[  login_key = #{loginKey}, ]]>
+			</if>
+			<if test="errCount != null ">
+  	<![CDATA[  err_count = #{errCount}, ]]>
+			</if>
+			<if test="lastLoginTime != null and lastLoginTime != '' ">
+  	<![CDATA[  last_login_time = #{lastLoginTime}, ]]>
+			</if>
+			<if test="loginCount != null ">
+  	<![CDATA[  login_count = #{loginCount}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  	<![CDATA[  create_time = #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  	<![CDATA[  update_time = #{updateTime}, ]]>
+			</if>
+			<if test="lastErrTime != null and lastErrTime != '' ">
+	<![CDATA[  last_err_time = #{lastErrTime}, ]]>
+			</if>
+		</trim>
+		where user_id= #{userId}
+	</update>
+
+	<!-- 页面用户查询Sql -->
+
+	<sql id="Base_Column_List">
+		t.user_account,
+		t.status,
+		t.password,
+		t.mobile,
+		t.lock_time,
+		t.flag,
+		t.created_by,
+		t.updated_by,
+		t.create_time,
+		t.update_time,
+		t.id
+	</sql>
+	
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from APP_USER t
+		<include refid="Example_Where_Clause" />
+	</select>
+	
+	<!-- 查询列表 -->
+	<select id="queryByList" resultMap="appUserData" parameterType="Object">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER t
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition == ''">
+			order by t.create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if
+			test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and t.id = #{id}
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+				and t.user_account = #{userAccount}
+			</if>
+			<if test="status != null ">
+				and t.status = #{status}
+			</if>
+			<if test="password != null and password != '' ">
+				and t.password = #{password}
+			</if>
+			<if test="mobile != null and mobile != '' ">
+				and t.mobile = #{mobile}
+			</if>
+			<!-- <if test="isLocked != null " > and t.is_locked = #{isLocked} </if> -->
+			<if test="lockTime != null ">
+				and t.lock_time = #{lockTime}
+			</if>
+			<if test="createdBy != null and createdBy != '' ">
+				and t.created_by = #{createdBy}
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+				and t.updated_by = #{updatedBy}
+			</if>
+			<if test="createTime != null ">
+				and t.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null ">
+				and t.update_time = #{updateTime}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 插入用户数据 -->
+	<insert id="saveAppUser" parameterType="Object">
+	insert into APP_USER
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+				user_account,
+			</if>
+			<if test="status != null  ">
+				status,
+			</if>
+			<if test="password != null and password != '' ">
+				password,
+			</if>
+			<if test="mobile != null and mobile != '' ">
+				mobile,
+			</if>
+			<if test="lockTime != null and lockTime != '' ">
+				lock_time,
+			</if>
+			<if test="flag != null and flag != '' ">
+				flag,
+			</if>
+			<if test="createdBy != null and createdBy != '' ">
+				created_by,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+				updated_by,
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+				update_time,
+			</if>
+			<if test="parentCode != null ">
+				parent_code,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+  		<![CDATA[  #{userAccount}, ]]>
+			</if>
+			<if test="status != null ">
+  		<![CDATA[  #{status}, ]]>
+			</if>
+			<if test="password != null and password != '' ">
+  		<![CDATA[  #{password}, ]]>
+			</if>
+			<if test="mobile != null and mobile != '' ">
+  		<![CDATA[  #{mobile}, ]]>
+			</if>
+			<if test="lockTime != null and lockTime != '' ">
+  		<![CDATA[  #{lockTime}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  		<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createdBy != null and createdBy != '' ">
+  		<![CDATA[  #{createdBy}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+  		<![CDATA[  #{updatedBy}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  		<![CDATA[  #{updateTime}, ]]>
+			</if>
+			<if test="parentCode != null ">
+		<![CDATA[  #{parentCode}, ]]>
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateAppUser" parameterType="Object">
+		update APP_USER set
+		<trim suffixOverrides=",">
+		<if test="userAccount != null and userAccount != ''">
+  	<![CDATA[  user_account = #{userAccount}, ]]>
+			</if>
+			<if test="status != null ">
+  	<![CDATA[  status = #{status}, ]]>
+			</if>
+			<if test="password != null and password != '' ">
+  	<![CDATA[  password = #{password}, ]]>
+			</if>
+			<if test="mobile != null and mobile != '' ">
+  	<![CDATA[  mobile = #{mobile}, ]]>
+			</if>
+			<!-- <if test="isLocked != null and isLocked != '' "> <![CDATA[ is_locked 
+				= #{isLocked}, ]]> </if> -->
+  	<![CDATA[  lock_time = #{lockTime}, ]]>
+  	<![CDATA[  flag = 'UPDATE', ]]>
+			<if test="updatedBy != null and updatedBy != '' ">
+  	<![CDATA[  updated_by = #{updatedBy}, ]]>
+			</if>
+	<![CDATA[  update_time = now(), ]]>
+		</trim>
+		where id= #{id}
+	</update>
+
+	<sql id="User_Column_List">
+		ba.area_name,
+		au.user_account,
+		au.status,
+		au.password,
+		au.mobile,
+		au.lock_time,
+		aue.user_id,
+		aue.nick_name,
+		aue.city_code,
+		aue.email,
+		aue.is_email_activated,
+		aue.address,
+		aue.remark,
+		au.id
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="User_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				and au.id = #{id}
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+				and au.user_account like '${userAccount}%'
+			</if>
+			<if test="cityCode != null and cityCode != '' ">
+				and aue.city_code = #{cityCode}
+			</if>
+			<if test="status != null ">
+				and au.status = #{status}
+			</if>
+			<if test="password != null and password != '' ">
+				and au.password = #{password}
+			</if>
+			<if test="mobile != null and mobile != '' ">
+				and au.mobile like '${mobile}%'
+			</if>
+			<if test="isEmailActivated != null">
+				and aue.is_email_activated = #{isEmailActivated}
+			</if>
+			<!-- <if test="isLocked != null " > and t.is_locked = #{isLocked} </if> -->
+			<if test="lockTime != null ">
+				and au.lock_time = #{lockTime}
+			</if>
+			<if test="createdBy != null and createdBy != '' ">
+				and au.created_by = #{createdBy}
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+				and au.updated_by = #{updatedBy}
+			</if>
+			<if test="createTime != null ">
+				and au.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null ">
+				and au.update_time = #{updateTime}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 列表总数 -->
+	<select id="getUserAndUserExtByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from APP_USER au 
+		LEFT JOIN APP_USER_EXT aue ON au.id = aue.user_id
+		LEFT JOIN BASE_AREA ba ON aue.city_code = ba.area_code
+		<include refid="User_Where_Clause" />
+	</select>
+	
+	<!-- 根据userId左关联app_user表和app_user_ext表 -->
+	<select id="getUserAndUserExt"  parameterType="Object" resultMap="appUserAndUserExtData">
+		SELECT
+			ba.area_name,
+			au.user_account,
+			au.status,
+			au.password,
+			au.mobile,
+			aue.user_id,
+			aue.nick_name,
+			aue.photo_url,
+			aue.city_code,
+			aue.address,
+			aue.remark,
+			au.create_time,
+			car.plate_no,
+			au.id
+		FROM APP_USER au
+		LEFT JOIN APP_USER_EXT aue ON au.id = aue.user_id
+		LEFT JOIN BASE_AREA ba ON aue.city_code = ba.area_code
+		LEFT JOIN app_user_car car	ON au.id=car.user_id and car.IS_DEFAULT=1 and car.flag!='DELETE'
+		<include refid="User_Where_Clause"/>
+		<if test="pager.orderCondition == ''">
+			order by au.STATUS ASC , au.create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+
+	<!-- 删除记录 -->
+	<update id="delete" parameterType="Object">
+		update APP_USER set flag = 'DELETE' where id= #{id}
+	</update>
+	
+	<!-- 假删除记录 -->
+	<update id="deleted" parameterType="Object" >
+		update APP_USER t set 
+	   <trim suffixOverrides="," >
+	   <![CDATA[  t.status = 3, ]]>
+	  	<![CDATA[  t.flag = 'DELETE', ]]>
+	     </trim> where t.id= #{id}
+	</update>
+
+	<select id="queryIsExist" parameterType="Object" resultMap="appUserAndUserExtData">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER t
+		where user_account=#{userAccount}
+	</select>
+	
+	<!-- 查询收费员中是否存在该账号 -->
+	<select id="queryIsExistCollector" parameterType="Object" resultMap="appUserAndUserExtData">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER t
+		where user_account=#{userAccount}
+		and LENGTH(reger_code) &lt; 6
+	</select>
+	
+	<!-- 查询普通用户中是否存在该账号 -->
+	<select id="queryIsExistRegularUser" parameterType="Object" resultMap="appUserAndUserExtData">
+		select
+		<include refid="Base_Column_List" />
+		from APP_USER t
+		where user_account=#{userAccount}
+		and LENGTH(reger_code) &gt;= 6
+	</select>
+	
+	<select id="findUserAndUserExtById" parameterType="String" resultMap="appUserAndUserExtData">
+		SELECT
+		<include refid="User_Column_List" />
+		FROM APP_USER au
+		LEFT JOIN APP_USER_EXT aue ON au.id = aue.user_id 
+		LEFT JOIN BASE_AREA ba ON aue.city_code = ba.area_code
+		where au.id = #{id}
+	</select>
+
+<!-- 页面插入用户数据 -->
+	<insert id="addAppUser" parameterType="Object">
+		<selectKey resultType="java.lang.String" order="BEFORE"
+			keyProperty="id">
+			SELECT UUID() as ID
+		</selectKey>
+	insert into APP_USER
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+			create_time,
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+				user_account,
+			</if>
+			<if test="status != null  ">
+				status,
+			</if>
+			<if test="password != null and password != '' ">
+				password,
+			</if>
+			<if test="mobile != null and mobile != '' ">
+				mobile,
+			</if>
+			<if test="lockTime != null and lockTime != '' ">
+				lock_time,
+			</if>
+			<if test="flag != null and flag != '' ">
+				flag,
+			</if>
+			<if test="createdBy != null and createdBy != '' ">
+				created_by,
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+				updated_by,
+			</if>
+			<if test="regerCode != null">
+				reger_code,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			now(),
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userAccount != null and userAccount != '' ">
+  		<![CDATA[  #{userAccount}, ]]>
+			</if>
+			<if test="status != null ">
+  		<![CDATA[  #{status}, ]]>
+			</if>
+			<if test="password != null and password != '' ">
+  		<![CDATA[  #{password}, ]]>
+			</if>
+			<if test="mobile != null and mobile != '' ">
+  		<![CDATA[  #{mobile}, ]]>
+			</if>
+			<if test="lockTime != null and lockTime != '' ">
+  		<![CDATA[  #{lockTime}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  		<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createdBy != null and createdBy != '' ">
+  		<![CDATA[  #{createdBy}, ]]>
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+  		<![CDATA[  #{updatedBy}, ]]>
+			</if>
+			<if test="regerCode != null">
+  		<![CDATA[  #{regerCode}, ]]>
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 根据userId更新attribute1和update_time，其中attribute1为openId -->
+	<update id="updateUserExtByUserId" parameterType="Object">
+		update APP_USER_EXT set
+		<trim suffixOverrides=",">
+		<if test="attribute1 != null and attribute1 != ''">
+  		<![CDATA[ attribute1  = #{attribute1}, ]]>
+		</if>
+		<![CDATA[  update_time = now(), ]]>
+		</trim>
+		where user_id = #{userId}
+	</update>
+	
+	<!-- 根据openId查询接口返回参数-->
+	<select id="findByOpenId" resultMap="appUserAndUserExtData" parameterType="Object">
+		SELECT ext.user_id,ext.nick_name,u.user_account 
+		FROM app_user_ext ext LEFT JOIN app_user u ON ext.user_id=u.id 
+		WHERE ext.attribute1=#{attribute1}
+		LIMIT 1
+	</select>
+	
+	<!-- 查询该车主除当前绑定车牌外所有车牌-->
+	<select id="getPlateInfoExceptionCurrentBind" parameterType="Object" resultMap="appUserCarData">
+		SELECT * FROM APP_USER_CAR 
+		WHERE 1=1 AND flag != #{flag}
+		 AND user_id = #{userId} AND plate_no != #{plateNo}
+	</select>
+	
+	<!-- 查询该车牌是否已被绑定-->
+	<select id="getPlateInfoExceptUserId" parameterType="Object" resultMap="appUserCarData">
+		SELECT * FROM app_user_car 
+		WHERE flag!= #{flag} 
+		  AND plate_no = #{plateNo}
+		  AND palte_color = #{plateColor}
+		  AND user_id != #{userId}
+	</select>
+	
+	<!-- 删除当前车牌-->
+	<select id="deleteCurrentPlateNo" parameterType="Object" >
+		DELETE FROM APP_USER_CAR 
+		WHERE flag != #{flag}
+		  and user_id = #{userId} 
+		  AND id = #{id}
+	</select>
+	
+	<!-- 绑定车牌（V22带颜色） -->
+	<insert id="bindLicensePlateV22" parameterType="Object">
+		insert into APP_USER_CAR
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null and userId != '' ">
+				user_id,
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+				plate_no,
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' ">
+				plate_security_code,
+			</if>
+			<if test="isDefault != null ">
+				is_default,
+			</if>
+			<if test="note != null and note != '' ">
+				note,
+			</if>
+			<if test="flag != null and flag != '' ">
+				flag,
+			</if>
+			<if test="createTime != null and createTime != '' ">
+				create_time,
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+				update_time,
+			</if>
+			<if test="plateColor != null">
+				plate_color,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="userId != null and userId != '' ">
+  		<![CDATA[  #{userId}, ]]>
+			</if>
+			<if test="plateNo != null and plateNo != '' ">
+  		<![CDATA[  #{plateNo}, ]]>
+			</if>
+			<if test="plateSecurityCode != null and plateSecurityCode != '' ">
+  		<![CDATA[  #{plateSecurityCode}, ]]>
+			</if>
+			<if test="isDefault != null ">
+  		<![CDATA[  #{isDefault}, ]]>
+			</if>
+			<if test="note != null and note != '' ">
+  		<![CDATA[  #{note}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  		<![CDATA[  #{flag}, ]]>
+			</if>
+			<if test="createTime != null and createTime != '' ">
+  		<![CDATA[  #{createTime}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  		<![CDATA[  #{updateTime}, ]]>
+			</if>
+			<if test="plateColor != null">
+  		<![CDATA[  #{plateColor}, ]]>
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 更新绑定车牌（V22带颜色） -->
+	<update id="updatePlateNoV22" parameterType="Object">
+		update APP_USER_CAR set
+		<trim suffixOverrides=",">
+			<if test="plateNo != null and plateNo != '' ">
+  				<![CDATA[  plate_no = #{plateNo}, ]]>
+			</if>
+			<if test="plateColor != null">
+  				<![CDATA[  plate_color = #{plateColor}, ]]>
+			</if>
+			<if test="flag != null and flag != '' ">
+  				<![CDATA[  flag = #{flag}, ]]>
+			</if>
+			<if test="updateTime != null and updateTime != '' ">
+  				<![CDATA[  update_time = #{updateTime}, ]]>
+			</if>
+			<if test="plateSecurityCode != null ">
+  				<![CDATA[  plate_security_code = #{plateSecurityCode}, ]]>
+			</if>
+			<if test="isDefault != null ">
+  				<![CDATA[  is_default = #{isDefault}, ]]>
+			</if>
+			<if test="isIdentify != null ">
+  				<![CDATA[  is_identify = #{isIdentify}, ]]>
+			</if>
+			<if test="isCardAutopay != null " >
+				<![CDATA[  is_card_autopay = #{isCardAutopay}, ]]>
+			</if>
+		</trim>
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != '' ">
+				and id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				and user_id = #{userId}
+			</if>
+		</trim>
+	</update>
+	
+	<!-- 更新扩展表中cityCode -->
+	<select id="updateCityCode" parameterType="java.util.Map">
+		UPDATE app_user_ext SET
+		<trim suffixOverrides=",">
+		<if test="cityCode != null and cityCode != '' ">
+  		<![CDATA[ city_code  = #{cityCode}, ]]>
+  		</if>
+		<![CDATA[  update_time = now(), ]]>
+		</trim>
+		WHERE flag != 'DELETE' AND user_id = #{userId}
+	</select>
+	
+	<!-- 更新扩展表中用户区域编码 -->
+	<select id="updateUserCityCode" parameterType="java.util.Map">
+		UPDATE app_user_ext SET city_code  = #{cityCode},update_time = now()
+		WHERE flag != 'DELETE' AND user_id = #{userId}
+	</select>
+	
+	<!-- 更新扩展表中用户头像url -->
+	<select id="updatePhotoUrl" parameterType="java.util.Map">
+		UPDATE app_user_ext SET PHOTO_URL = #{photoUrl} 
+		WHERE flag != 'DELETE' AND user_id = #{userId}
+	</select>
+	
+	<!-- 获取车牌信息V22 -->
+	<select id="getPlateInfoV22" parameterType="Object" resultMap="appUserCarData">
+		select * from APP_USER_CAR where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != '' ">
+				and id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				and user_id = #{userId}
+			</if>
+			<if test="isDefault != null ">
+				and is_default = #{isDefault}
+			</if>
+			<if test="plateColor != null ">
+				and plate_color = #{plateColor}
+			</if>
+			and flag != #{flag}
+			<if test="plateNo != null and plateNo != '' ">
+				and plate_no = #{plateNo}
+			</if>
+		</trim>
+	</select>
+
+<!-- 根据区域编码查询所有app用户对象 -->	
+<select id="findByAreaCode" parameterType="java.lang.String" resultMap="appUserData">
+	SELECT t.* FROM app_user t
+	LEFT JOIN app_user_ext t1 ON t.id = t1.user_id
+	WHERE t.flag!= 'DELETE' AND t1.flag != 'DELETE'
+  	  AND t1.city_code LIKE '${_parameter}%'
+  	  and t1.attribute3 is not null 
+</select>
+
+<!-- 根据城市时间统计注册用户数 -->
+<select id="getRegisterUserCountByCityCodeAndCreateTime" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(t.ID) count FROM app_user t
+  	LEFT JOIN app_user_ext e ON e.user_id = t.id
+	WHERE t.CREATE_TIME BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s')
+    <if test="cityCode != null and cityCode == 0">
+      	 AND e.city_code is null
+    </if>
+    <if test="cityCode != null and cityCode != 0">
+    	 AND e.city_code like '${cityCode}%'
+    </if>
+</select>	
+
+<!-- 根据城市时间统计注册有缴费用户数 -->
+<select id="getRegisterUserPayCountByCityCodeAndCreateTime" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(user_account) count FROM
+	(SELECT o.user_account FROM app_user t
+  	LEFT JOIN app_user_ext e ON e.user_id = t.id
+  	JOIN app_order o ON o.USER_ACCOUNT=t.USER_ACCOUNT
+	WHERE t.CREATE_TIME BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s')
+    AND o.CREATE_TIME BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s')
+    <if test="cityCode != null and cityCode != 0">
+	    AND e.city_code like '${cityCode}%'
+    </if>
+    <if test="cityCode != null and cityCode == 0 ">
+      	AND e.city_code is null
+    </if>
+    AND o.order_status = #{orderStatus} GROUP BY o.user_account) m
+</select>	
+
+<!-- 统计一天城市活跃用户数 -->
+<select id="getActiveUserCountByCityCodeAndTime" parameterType="java.util.Map" resultType="java.lang.Integer">
+	 SELECT COUNT(DISTINCT t.user_id) 
+	 FROM app_user_use_path t
+	 WHERE t.create_time BETWEEN STR_TO_DATE('${date} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s') 
+	 <if test="cityCode != null and cityCode != 0">
+	    AND t.CITY_CODE like '${cityCode}%'
+    </if>
+    <if test="cityCode != null and cityCode == 0 ">
+      	AND t.CITY_CODE not in (select area_code from base_area where is_online = 1)
+    </if>
+</select>
+<!-- 统计月内注册用户数 -->
+<select id="getRegisterUserCountByCityCodeInMonth" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(t.ID) count FROM app_user t
+  	LEFT JOIN app_user_ext e ON e.user_id = t.id
+	WHERE t.CREATE_TIME BETWEEN STR_TO_DATE('${firstDay} 00:00:00','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('${date} 23:59:59','%Y-%m-%d %H:%i:%s')
+    <if test="cityCode != null and cityCode != 0">
+	    AND e.city_code like '${cityCode}%'
+    </if>
+    <if test="cityCode != null and cityCode == 0 ">
+      	AND e.CITY_CODE IS NULL
+    </if>
+</select>
+
+<!-- 获取用户个人信息 -->
+<select id="getUserInfoByUserIdV2" parameterType="java.lang.String" resultMap="appUserInfoData">
+	select a.user_account, a.mobile,c.nick_name,c.photo_url,d.plate_no,case when c.pay_password is null then 0 else 1 end is_exist_pay_password
+	from app_user a
+	left join app_user_ext c on a.id = c.user_id
+	left join app_user_car d on a.id = d.user_id
+	where 1=1 and a.flag != 'delete' and d.flag != 'delete'  and c.flag != 'delete' 
+	  and a.status=0 and d.is_default = 1 
+	  and a.id = #{userid}
+</select>
+
+<!-- 根据车牌编号查询绑定用户信息 -->
+<select id="findByPlateNo" parameterType="java.lang.String" resultMap="appUserCarData">
+	SELECT t1.* FROM app_user t
+	LEFT JOIN app_user_car t1 ON t.id = t1.user_id
+	WHERE t1.flag != 'DELETE' AND t.flag != 'DELETE' AND t1.PLATE_NO = #{_parameter}
+</select>
+
+<!-- 根据id查询 -->
+<select id="queryById" resultMap="appUserData" parameterType="Object">
+	SELECT * FROM app_user where id = #{id}
+</select>
+
+<!-- 根据用户账号查询用户绑定车牌信息 -->
+<select id="getDefaultPlateByUserAccount" parameterType="java.lang.String" resultMap="appUserCarData">
+	SELECT t.* FROM app_user_car t
+	LEFT JOIN app_user t1 ON t.user_id = t1.id
+	WHERE  t1.flag != 'DELETE' AND t.is_default = 1 
+	   AND t1.status = 0 AND t1.flag != 'DELETE'  
+	   AND t1.user_account = #{_parameter}
+	   limit 1
+</select>
+
+<!-- 更新登录记录表高德经纬度 -->
+<update id="updateUserLoginRecord" parameterType="Object">
+		update APP_USER_LOGIN_RECORD set
+		<trim suffixOverrides=",">
+		<if test="longitudeGD != null">
+  		<![CDATA[ LONGITUDE_GD  = #{longitudeGD}, ]]>
+		</if>
+		<if test="latitudeGD != null">
+  		<![CDATA[ LATITUDE_GD  = #{latitudeGD}, ]]>
+		</if>
+		<![CDATA[  update_time = now(), ]]>
+		</trim>
+		where id = #{id}
+	</update>
+	
+<!-- 根据用户ID更新区域编码 -->	
+<update id="updateAppUserExtById" parameterType="Object">
+		update APP_USER_EXT set
+		<trim suffixOverrides=",">
+		<if test="araeCodeGaode != null">
+  		<![CDATA[ AREA_CODE_GAODE  = #{araeCodeGaode}, ]]>
+		</if>
+		<if test="cityCode != null">
+  		<![CDATA[ city_code  = #{cityCode}, ]]>
+		</if>
+		<if test="flag != null and flag != '' ">
+  		<![CDATA[ flag  = #{flag}, ]]>
+		</if>
+		<if test="remark != null and remark != '' ">
+  		<![CDATA[ remark  = #{remark}, ]]>
+		</if>
+		<if test="attribute4 != null">
+  		<![CDATA[ attribute4  = #{attribute4}, ]]>
+		</if>
+		<if test="attribute5 != null">
+  		<![CDATA[ attribute5  = #{attribute5}, ]]>
+		</if>
+		<![CDATA[  update_time = now(), ]]>
+		</trim>
+		where id = #{id}
+</update>
+
+<!-- 根据用户邀请码查询邀请用户数 -->
+<select id="findRegerNumByRegerCode" parameterType="Object" resultType="java.lang.Integer">
+	SELECT COUNT(1) FROM app_user
+	WHERE PARENT_CODE = #{regerCode}
+</select>
+
+<!-- 查询当前收费员最大邀请码 -->
+<select id="getMaxParentCode" resultType="java.lang.Long">
+	SELECT MAX(reger_code) FROM app_user 
+	WHERE LENGTH(reger_code) &lt; 6
+</select>
+
+<!-- 查询当前最大邀请码 -->
+<select id="getMaxRegerCode" resultType="java.lang.Long">
+	SELECT MAX(reger_code) FROM app_user
+</select>
+
+<!-- 根据ID查询该用户邀请人信息 -->
+<select id="findRegersById" parameterType="Object" resultMap="appUserData">
+	SELECT t.user_account,t.create_time,t1.remark 
+	FROM app_user t
+	LEFT JOIN app_user_ext t1 ON t.id = t1.user_id
+	WHERE t.parent_code = 
+		(SELECT reger_code FROM app_user WHERE id = #{id})
+</select>
+
+<!-- 根据ID查询该用户邀请人信息 -->
+<select id="findRegersByIdAndTime" parameterType="Object" resultMap="appUserData">
+	SELECT t.user_account,t.create_time,t1.remark 
+	FROM app_user t
+	LEFT JOIN app_user_ext t1 ON t.id = t1.user_id
+	WHERE t.parent_code = 
+		(SELECT reger_code FROM app_user WHERE id = #{id})
+	<if test="startTime != '' and endTime != ''">
+	 	and t.create_time BETWEEN str_to_date(#{startTime},'%Y-%m-%d') AND str_to_date('${endTime} 23:59:59','%Y-%m-%d %H:%i:%s')
+	 </if>
+	<if test="startTime != '' and endTime == ''">
+	 	and t.create_time BETWEEN str_to_date(#{startTime},'%Y-%m-%d') AND now()
+	 </if>
+	 <if test="startTime == '' and endTime != ''">
+	 	and t.create_time &lt; str_to_date('${endTime} 23:59:59','%Y-%m-%d %H:%i:%s')
+	 </if>
+</select>
+
+<!-- 查询用户邀请信息 -->
+<select id="getRegerInfo" parameterType="Object" resultMap="appUserData">
+	SELECT t.reger_code,t2.user_account,COUNT(t1.reger_code) reger_count 
+	FROM app_user t
+	LEFT JOIN app_user t1 ON t.reger_code = t1.parent_code
+	LEFT JOIN app_user t2 ON t.parent_code = t2.reger_code
+	WHERE t.id = #{id}
+</select>
+
+<!-- 查询用户邀请信息 -->
+<select id="getRegerInfoByTime" parameterType="Object" resultMap="appUserData">
+	SELECT t.reger_code,t2.user_account,COUNT(t1.reger_code) reger_count 
+	FROM app_user t
+	LEFT JOIN app_user t1 ON t.reger_code = t1.parent_code
+	LEFT JOIN app_user t2 ON t.parent_code = t2.reger_code
+	WHERE t.id = #{id}
+	<if test="startTime != '' and endTime != ''">
+	 	and t1.create_time BETWEEN str_to_date(#{startTime},'%Y-%m-%d') AND str_to_date('${endTime} 23:59:59','%Y-%m-%d %H:%i:%s')
+	 </if>
+	<if test="startTime != '' and endTime == ''">
+	 	and t1.create_time BETWEEN str_to_date(#{startTime},'%Y-%m-%d') AND now()
+	 </if>
+	 <if test="startTime == '' and endTime != ''">
+	 	and t1.create_time &lt; str_to_date('${endTime} 23:59:59','%Y-%m-%d %H:%i:%s')
+	 </if>
+</select>
+
+
+	<!-- 查询收费员用户列表总数 -->
+	<select id="queryUserCollectorCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) FROM APP_USER au
+		LEFT JOIN APP_USER_EXT aue ON au.id = aue.user_id
+		LEFT JOIN BASE_AREA ba ON aue.city_code = ba.area_code
+		<include refid="User_Where_Clause" />
+		and LENGTH(au.reger_code) &lt; 6
+	</select>
+	
+	<!-- 查询收费员用户列表 
+	地区，收费员姓名，账号，邀请码，推广注册用户数，推广缴费用户数，推广缴费用户订单数-->
+	<select id="queryUserCollectorList"  parameterType="Object" resultMap="appUserAndUserExtData">
+		SELECT
+			aue.city_code,
+			ba.area_name,
+			aue.nick_name,
+			au.user_account,
+			au.mobile,
+			au.status,
+			au.reger_code,
+			COUNT(t1.reger_code) reger_count,
+			au.create_time,
+			au.id
+		FROM APP_USER au
+		LEFT JOIN APP_USER_EXT aue ON au.id = aue.user_id
+		LEFT JOIN app_user t1 ON t1.parent_code = au.reger_code 
+		LEFT JOIN BASE_AREA ba ON aue.city_code = ba.area_code
+		<include refid="User_Where_Clause"/>
+		and LENGTH(au.reger_code) &lt; 6
+		GROUP BY au.REGER_CODE
+		<if test="pager.orderCondition == ''">
+			order by au.STATUS ASC,au.create_time desc
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+			${pager.mysqlQueryCondition}
+		</if>
+	</select>
+	
+	<!-- 查询推广用户缴费情况 -->
+	<select id="getRegerPayInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT 
+		(SELECT COUNT(DISTINCT(C.user_account)) FROM app_order C WHERE  C.order_status=200  AND  EXISTS (SELECT D.user_account FROM app_user D WHERE D.parent_code=A.REGER_CODE AND D.USER_ACCOUNT=C.USER_ACCOUNT)) payUserCount,
+		(SELECT COUNT(1) FROM app_order E WHERE E.order_status=200  AND EXISTS (SELECT F.user_account FROM app_user F WHERE F.parent_code=A.REGER_CODE AND F.USER_ACCOUNT=E.USER_ACCOUNT)) userPayOrderCount
+		FROM app_user A WHERE A.id = #{userId}
+	</select>
+	
+	<!-- 查询收费员推广业绩 -->
+	<select id="cvsRegerResult" resultMap="appUserAndUserExtData"  parameterType="java.lang.String">
+		SELECT M.REGER_CODE,M.USER_ACCOUNT,M.RegUserCount reger_count,M.nick_name,
+		COUNT(N.user_account) pay_user_count,IFNULL(SUM(N.orderCount),0) user_pay_order_count,
+		IFNULL(ROUND(SUM(N.orderTotalFee)/100,2),0) order_total_fee 
+		FROM (
+			SELECT
+		        A.user_account,
+		        B.NICK_NAME,
+		        A.REGER_CODE,
+		        (SELECT
+		           COUNT(1)
+		         FROM app_user B
+		         WHERE B.create_time BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d')
+		             AND STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+		             AND B.PARENT_CODE = A.REGER_CODE)    RegUserCount
+		      FROM app_user A
+		        LEFT JOIN app_user_ext B
+		          ON A.id = B.user_id
+		      WHERE LENGTH(A.reger_code) &lt; 6
+		          AND B.city_code = #{cityCode} ) M 
+		LEFT JOIN (
+		SELECT P.user_account,P.parent_code,COUNT(1) orderCount,SUM(P.price) orderTotalFee FROM (
+			SELECT B.user_account,B.price,U.parent_code FROM (
+				SELECT B.user_account,
+				       B.price
+				     FROM app_order B            
+				     WHERE B.order_status = 200
+					 AND B.area_code = #{cityCode}
+					 AND B.pay_time BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d')
+					 AND STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s')
+			) B   LEFT JOIN (SELECT user_account,parent_code FROM app_user WHERE create_time BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d')
+					 AND STR_TO_DATE('${endDate} 23:59:59','%Y-%m-%d %H:%i:%s') AND parent_code IS NOT NULL
+			) U ON B.USER_ACCOUNT=U.USER_ACCOUNT  WHERE U.parent_code IS NOT NULL
+		) P GROUP BY P.user_account,P.parent_code ) N ON M.REGER_CODE = N.parent_code
+		GROUP BY M.REGER_CODE,M.USER_ACCOUNT,M.nick_name,M.RegUserCount
+	</select>
+	
+	<!-- 根据邀请码查询用户 -->
+	<select id="queryByRegerCode"  resultMap="appUserData" parameterType="java.lang.String">
+		 SELECT * FROM app_user WHERE reger_code = #{_parameter}
+	</select>
+	
+	<!-- 根据账号查询用户 -->
+	<select id="queryByUserAccount"  resultMap="appUserData" parameterType="java.lang.String">
+		 SELECT * FROM app_user WHERE user_account = #{userAccount}
+	</select>
+	
+	<update id="updateRegerCode" parameterType="Object">
+		update APP_USER set
+		<trim suffixOverrides=",">
+		<if test="regerCode != null and regerCode != ''">
+  	<![CDATA[  reger_code = #{regerCode}, ]]>
+		</if>
+	<![CDATA[  update_time = now(), ]]>
+		</trim>
+		where id= #{id}
+	</update>
+	
+	<!-- 根据用户ID查询绑定车牌 -->
+	<select id="getUserBindPlateNo" resultMap="appUserCarData" parameterType="java.util.Map">
+		SELECT t.ID,t.PLATE_NO,t.PLATE_COLOR,t.IS_DEFAULT,t.is_identify
+		FROM APP_USER_CAR t 
+		WHERE 1=1
+		<if test="userId != null and userId != ''">
+		  and t.user_id = #{userId}
+		</if> 
+		<if test="plateNo != null and plateNo != ''">
+		  and t.plate_no = #{plateNo}
+		</if> 
+		<if test="plateColor != null">
+		  and t.plate_color = #{plateColor}
+		</if>
+		  AND t.flag !='DELETE' 
+		ORDER BY t.IS_DEFAULT DESC 
+	</select>
+	
+	<!-- 根据id查询 -->
+	<select id="queryUserAndExtById" resultMap="appUserData" parameterType="Object">
+		SELECT u.*,e.city_code FROM app_user u
+		LEFT JOIN app_user_ext e ON u.id = e.user_id
+		where u.id = #{id}
+		limit 1
+	</select>
+</mapper>
